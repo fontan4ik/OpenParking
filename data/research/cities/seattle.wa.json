@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-06-10T10:54:33.442Z",
+  "source_inventory": "data\\research\\phase6-source-inventory-20260610.json",
+  "city": "Seattle",
+  "state": "WA",
+  "sources": [
+    {
+      "source_name": "Seattle Paid Parking Occupancy Last 30 Days",
+      "source_type": "city_open_data",
+      "portal_type": "socrata",
+      "source_url": "https://data.seattle.gov/Transportation/Paid-Parking-Occupancy-Last-30-Days-/rke9-rsvs",
+      "metadata_url": "https://data.seattle.gov/api/views/rke9-rsvs",
+      "api_url": "https://data.seattle.gov/resource/rke9-rsvs.json",
+      "last_observed_update": "2026-06-10",
+      "parking_layers": [
+        "occupancy",
+        "blockface_reference",
+        "rates"
+      ],
+      "recommended_connector": "socrata",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.9,
+      "city": "Seattle",
+      "state": "WA",
+      "evidence": [
+        {
+          "url": "https://data.seattle.gov/Transportation/Paid-Parking-Occupancy-Last-30-Days-/rke9-rsvs",
+          "claim": "Source landing page discovered in Phase 6 research."
+        },
+        {
+          "url": "https://data.seattle.gov/api/views/rke9-rsvs",
+          "claim": "Machine-readable metadata endpoint."
+        },
+        {
+          "url": "https://data.seattle.gov/resource/rke9-rsvs.json",
+          "claim": "Machine-readable API/query endpoint."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": false,
+      "ingestion_status": "ready_for_inspection"
+    },
+    {
+      "source_name": "Seattle Blockface FeatureServer",
+      "source_type": "city_gis",
+      "portal_type": "arcgis_rest",
+      "source_url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer",
+      "metadata_url": "https://data-seattlecitygis.opendata.arcgis.com/datasets/b35fb25c8c93425980705474b5e82815_1/about",
+      "api_url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer/1/query?where=1%3D1&outFields=*&f=json",
+      "last_observed_update": "verify_arcgis_metadata",
+      "parking_layers": [
+        "curb_geometry",
+        "blockface"
+      ],
+      "recommended_connector": "arcgis_rest",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.82,
+      "city": "Seattle",
+      "state": "WA",
+      "evidence": [
+        {
+          "url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer",
+          "claim": "Source landing page discovered in Phase 6 research."
+        },
+        {
+          "url": "https://data-seattlecitygis.opendata.arcgis.com/datasets/b35fb25c8c93425980705474b5e82815_1/about",
+          "claim": "Machine-readable metadata endpoint."
+        },
+        {
+          "url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer/1/query?where=1%3D1&outFields=*&f=json",
+          "claim": "Machine-readable API/query endpoint."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": false,
+      "ingestion_status": "research_only"
+    }
+  ],
+  "gaps": [],
+  "acceptance": {
+    "direct_source_urls_required": true,
+    "api_sources_require_api_url": true,
+    "parser_sources_require_parser_spec_before_ingestion": true,
+    "non_official_sources_require_legal_risk": true
+  }
+}

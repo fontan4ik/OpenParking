@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-06-10T10:54:34.455Z",
+  "workflows": [
+    {
+      "city": "Chicago",
+      "state": "IL",
+      "workflow": [
+        "Compare current city manifest against OSM/osm2pgsql parking objects for the city boundary.",
+        "Compare against official city portal searches for parking, meter, curb, valet, garage, lot, airport, event, and monthly terms.",
+        "Compare against operator/public pages and record parser specs for lawful public sources.",
+        "Create browser-agent recipes for dynamic pages and date/time pricing only after static fetch is insufficient.",
+        "Queue partner/outreach for risky or unstable sources.",
+        "Queue AI call/manual review for high-value stale, missing, conflicting, valet, monthly, event, airport, or venue facts."
+      ]
+    },
+    {
+      "city": "Los Angeles",
+      "state": "CA",
+      "workflow": [
+        "Compare current city manifest against OSM/osm2pgsql parking objects for the city boundary.",
+        "Compare against official city portal searches for parking, meter, curb, valet, garage, lot, airport, event, and monthly terms.",
+        "Compare against operator/public pages and record parser specs for lawful public sources.",
+        "Create browser-agent recipes for dynamic pages and date/time pricing only after static fetch is insufficient.",
+        "Queue partner/outreach for risky or unstable sources.",
+        "Queue AI call/manual review for high-value stale, missing, conflicting, valet, monthly, event, airport, or venue facts."
+      ]
+    },
+    {
+      "city": "New York City",
+      "state": "NY",
+      "workflow": [
+        "Compare current city manifest against OSM/osm2pgsql parking objects for the city boundary.",
+        "Compare against official city portal searches for parking, meter, curb, valet, garage, lot, airport, event, and monthly terms.",
+        "Compare against operator/public pages and record parser specs for lawful public sources.",
+        "Create browser-agent recipes for dynamic pages and date/time pricing only after static fetch is insufficient.",
+        "Queue partner/outreach for risky or unstable sources.",
+        "Queue AI call/manual review for high-value stale, missing, conflicting, valet, monthly, event, airport, or venue facts."
+      ]
+    },
+    {
+      "city": "San Francisco",
+      "state": "CA",
+      "workflow": [
+        "Compare current city manifest against OSM/osm2pgsql parking objects for the city boundary.",
+        "Compare against official city portal searches for parking, meter, curb, valet, garage, lot, airport, event, and monthly terms.",
+        "Compare against operator/public pages and record parser specs for lawful public sources.",
+        "Create browser-agent recipes for dynamic pages and date/time pricing only after static fetch is insufficient.",
+        "Queue partner/outreach for risky or unstable sources.",
+        "Queue AI call/manual review for high-value stale, missing, conflicting, valet, monthly, event, airport, or venue facts."
+      ]
+    },
+    {
+      "city": "Seattle",
+      "state": "WA",
+      "workflow": [
+        "Compare current city manifest against OSM/osm2pgsql parking objects for the city boundary.",
+        "Compare against official city portal searches for parking, meter, curb, valet, garage, lot, airport, event, and monthly terms.",
+        "Compare against operator/public pages and record parser specs for lawful public sources.",
+        "Create browser-agent recipes for dynamic pages and date/time pricing only after static fetch is insufficient.",
+        "Queue partner/outreach for risky or unstable sources.",
+        "Queue AI call/manual review for high-value stale, missing, conflicting, valet, monthly, event, airport, or venue facts."
+      ]
+    }
+  ]
+}

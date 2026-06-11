@@ -1,0 +1,122 @@
+{
+  "inspected_at": "2026-06-10T10:39:10.822Z",
+  "portal_type": "ckan",
+  "portal": "https://demo.ckan.org",
+  "query": "parking",
+  "search_url": "https://demo.ckan.org/api/3/action/package_search?q=parking&rows=1",
+  "result_count": 1,
+  "sources": [
+    {
+      "source_name": "Parking Penalty Charge Notices (PCNs)",
+      "source_type": "open_data_catalog_record",
+      "portal_type": "ckan",
+      "source_url": "https://demo.ckan.org/dataset/my-org--pcns",
+      "api_url": "https://demo.ckan.org/api/3/action/package_show?id=my-org--pcns",
+      "organization": "DEMO ORGANIZATION",
+      "license": "Open Government Licence 2.0 (United Kingdom)",
+      "tags": [
+        "cpe",
+        "fine",
+        "highways",
+        "parking",
+        "transparency",
+        "transport"
+      ],
+      "resources": [
+        {
+          "name": "Virtual Tour",
+          "format": "MP4",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/0ef0b463-756c-4324-b32c-19050931019d/download/virtual-tour.mp4"
+        },
+        {
+          "name": "PCNs Interactive Map",
+          "format": "HTML",
+          "url": "https://lincolnshire.ckan.io/pages/pcns"
+        },
+        {
+          "name": "PCNs Interactive Map 2024/25",
+          "format": "HTML",
+          "url": "https://app.powerbi.com/view?r=eyJrIjoiMjI3Y2VjNGYtOTJkMS00MGJiLTkzN2YtMzFmMmVmOTM5Yjk1IiwidCI6ImI0ZTA1YjkyLWY4Y2UtNDZiNS05YjI0LTk5YmE1YzExZTVlOSJ9"
+        },
+        {
+          "name": "  PCNs Interactive Map 2023/24",
+          "format": "HTML",
+          "url": "https://lincolnshire.ckan.io/pages/pcn2023-24"
+        },
+        {
+          "name": "PCNs Interactive Map 2022/23",
+          "format": "HTML",
+          "url": "https://lincolnshire.ckan.io/pages/pcn2022-23"
+        },
+        {
+          "name": "PCNs Interactive Map 2021/22",
+          "format": "HTML",
+          "url": "https://lincolnshire.ckan.io/pages/pcn2021-22"
+        },
+        {
+          "name": "PCNs Interactive Map 2020/21",
+          "format": "HTML",
+          "url": "https://lincolnshire.ckan.io/pages/pcn2020-21"
+        },
+        {
+          "name": "PCNs Interactive Map 2019/20",
+          "format": "HTML",
+          "url": "https://lincolnshire.ckan.io/pages/pcn2019-20"
+        },
+        {
+          "name": "PCNs Interactive Map 2018/19",
+          "format": "HTML",
+          "url": "https://lincolnshire.ckan.io/pages/pcn2018-19"
+        },
+        {
+          "name": "Parking Penalty Charge Notices (PCNs) Current Financial Year",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/eaf67011-e051-4bff-82ca-8f18b5fe169a/download/penaltychargenotices.csv"
+        },
+        {
+          "name": "Parking Penalty Charge Notices (PCNs) 2024/25",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/776bf5c6-f71e-4608-a787-78f557b53ae3/download/penaltychargenoticesold.csv"
+        },
+        {
+          "name": "Parking Penalty Charge Notices (PCNs) 2023/24",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/5b4cca9c-a0c7-45f3-8925-772843473e23/download/penaltychargenotices.csv"
+        },
+        {
+          "name": "Parking Penalty Charge Notices (PCNs) 2022/23",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/ccf5ff95-6741-4f3c-bed8-a9e0926f32a0/download/penaltychargenotices.csv"
+        },
+        {
+          "name": "Parking Penalty Charge Notices (PCNs) 2021/22",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/681c698a-eeab-42b2-98e3-9722f2ca4838/download/penaltychargenotices.csv"
+        },
+        {
+          "name": "Parking Penalty Charge Notices (PCNs) 2020/21",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/f422a069-accd-4cf8-9e27-26167f92c763/download/penaltychargenotices.csv"
+        },
+        {
+          "name": "Parking Penalty Charge Notices (PCNs) 2019/20",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/e216085d-ac02-47f2-acfc-a8f7a3312dea/download/penaltychargenotices.csv"
+        },
+        {
+          "name": "Parking Penalty Charge Notices (PCNs) 2018/19",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/6079210f-a5b2-4f0d-ae13-e76a5d3ec834/download/penaltychargenotices.csv"
+        },
+        {
+          "name": "Metadata",
+          "format": "CSV",
+          "url": "https://lincolnshire.ckan.io/dataset/44202da3-749e-480f-8fb7-b47c2b3ab59a/resource/e0c5cace-2930-472f-9212-d8f9a375f33e/download/metadata_penaltychargenotices.csv"
+        }
+      ],
+      "recommended_connector": "ckan_dataset_inspector",
+      "legal_risk": "verify_dataset_license",
+      "confidence": 0.6
+    }
+  ]
+}

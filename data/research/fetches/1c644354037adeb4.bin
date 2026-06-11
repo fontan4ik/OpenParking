@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://use.typekit.net/jql6fse.css">
+        <link rel="preload" as="style" href="https://parkchicago.com/build/assets/site-da7709b8.css" /><link rel="modulepreload" href="https://parkchicago.com/build/assets/site-f5af9b69.js" /><link rel="stylesheet" href="https://parkchicago.com/build/assets/site-da7709b8.css" /><script type="module" src="https://parkchicago.com/build/assets/site-f5af9b69.js"></script>
+        <!-- /snippets/_seo.antlers.html -->
+    
+    <title>
+        
+        Rates & Hours
+        |
+        
+        ParkChicago
+    </title>
+
+    
+    
+    <meta name="description" content="
+    
+        Download the App · Manage Employee Parking · Eliminate Expense Reports · Track and Monitor Employee Parking · Link to ParkChicago Map. Links to ParkChicago® Map
+    
+
+">
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    <link rel="alternate" hreflang="en_US" href="https://parkchicago.com/rates-hours">
+    
+    
+    
+
+    
+    
+    
+    <link rel="canonical" href="https://parkchicago.com/rates-hours">
+    
+    
+
+    
+    
+
+    
+    
+
+    
+
+
+    
+    
+
+    
+    <meta property="og:site_name" content="ParkChicago">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="og:title" content="Rates & Hours">
+    
+    
+    <meta property="og:description" content="
+    
+        Download the App · Manage Employee Parking · Eliminate Expense Reports · Track and Monitor Employee Parking · Link to ParkChicago Map. Links to ParkChicago® Map
+    
+
+">
+    
+    
+    <meta property="og:image" content="https://parkchicago.com/img/asset/YXNzZXRzL3BjLXNvY2lhbC5qcGc=/pc-social.jpg?w=1200&h=630&fit=crop&s=cf6b9b6e4c14e74540416fcb29fb0fa7">
+    
+
+    
+    
+
+        
+        <link rel="icon" href="https://parkchicago.com/build/assets/favicon-96b16a9b.ico" type="image/x-icon">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCM9PKFQBZ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-DCM9PKFQBZ');
+        </script>
+    </head>
+    <body class="max-w-screen overflow-x-hidden" x-data="highContrast()" x-bind:class="highContrastMode ? 'highContrast' :''">
+        
+        <div class="">
+            <div x-data="zoneHopVideo()" class="relative mt-[60px] lg:mt-[117px]" role="main">
+
+    <nav id="nav" role="navigation" class="w-full fixed top-0 left-0 right-0 z-[10000]">
+    
+    <div class="hidden w-full lg:block">
+        
+        <div class="w-full py-2 px-4 flex flex-row justify-between items-center h-[41px]" 
+        :style="highContrastMode ? '' : 'background-image:url(https://parkchicago.com/build/assets/line-bg-e4c8d3e2.svg)'"
+        x-bind:class="highContrastMode ? 'bg-lightGrey text-black' : 'bg-white text-midGrey'">
+
+            <div class="flex flex-row items-center">
+                
+                    <img src="/assets/nav/chicago-flag.svg" alt="" class="h-[15px]">
+                
+                <div class="text-[12px] leading-[12px] pl-4 font-normal">Chicago Parking Meters is the official operator of the City of Chicago’s 36,000 on‐street parking spaces.</div>
+            </div>
+
+            <div class="flex flex-row items-center">
+                
+                <a href="https://www.instagram.com/parkchicago_official/" target="_blank">
+                    
+                    <img src="/assets/4a922220-37d0-4e11-9682-145bcbbd634e.svg" alt="" class="w-[18px] mr-[14px]">
+                    
+                </a>
+                
+                <a href="https://www.facebook.com/parkchicagoofficial" target="_blank">
+                    
+                    <img src="/assets/552ce078-10ae-4d1a-a268-c32ffba1d2ce.svg" alt="" class="w-[18px] mr-[14px]">
+                    
+                </a>
+                
+                
+                <a href="/faq">
+                    <div class="px-[20px] font-semibold text-[14px] leading-[12px]">FAQ</div>
+                </a>
+                
+                <a href="/about">
+                    <div class="px-[20px] font-semibold text-[14px] leading-[12px]">About</div>
+                </a>
+                
+                <a href="/news">
+                    <div class="px-[20px] font-semibold text-[14px] leading-[12px]">News</div>
+                </a>
+                
+                <button @click="toggleHighContrastMode()" role="button"
+                    class="px-2 bg-white rounded-[4px] text-black border border-black text-[13px] font-medium max-w-max">
+                    High Contrast : <span x-text="highContrastMode ? 'On' :'Off'"></span>
+                </button>
+            </div>
+
+        </div>
+
+        
+        <div class="w-full bg-white flex flex-row justify-between items-center px-4 py-2 h-[72px]">   
+            <div class="py-[5px] px-2">
+                <a href="/">
+                    
+                    <img src="/assets/nav/park-chicago-logo.svg" alt="" class="w-[160px]">
+                    
+                </a>
+            </div>
+
+            <div class="flex flex-row px-[10px]">
+                
+                    
+                    <a href="/faq">
+                        <div class="font-medium text-dark uppercase px-4">FAQ</div>
+                    </a>
+                    
+                
+                    
+                    <div class="relative group">
+                        <a href="" class="pointer-events-none">
+                            <div class="font-medium text-dark uppercase px-4">Ways To Park</div>
+                        </a>
+
+                        <div class="absolute top-full left-0 flex flex-col bg-white px-[32px] pt-[18px] rounded-[8px] overflow-hidden max-h-0 group-hover:max-h-[800px]">
+                            
+                            <div class="w-full min-w-max py-[24px] border-b border-mediumGrey last-of-type:border-0">
+                                <a href="/park-chicago">
+                                    <div class="flex flex-row items-center">
+                                        <div class="w-[46px]">
+                                            <img class="w-full" src="/assets/pc-app-1729799965.png" alt="">
+                                        </div>
+
+                                        <div class="ml-4">
+                                            <div class="text-dark text-[18px] font-medium">ParkChicago®</div>
+                                            <div class="text-[12px] leading-[12px] text-mediumGrey uppercase">Mobile Pay</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="w-full min-w-max py-[24px] border-b border-mediumGrey last-of-type:border-0">
+                                <a href="/park-chicago-paybox">
+                                    <div class="flex flex-row items-center">
+                                        <div class="w-[46px]">
+                                            <img class="w-full" src="/assets/nav/menu-icon-pay-box.png" alt="">
+                                        </div>
+
+                                        <div class="ml-4">
+                                            <div class="text-dark text-[18px] font-medium">ParkChicago® Pay Box</div>
+                                            <div class="text-[12px] leading-[12px] text-mediumGrey uppercase">Street Pay</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="w-full min-w-max py-[24px] border-b border-mediumGrey last-of-type:border-0">
+                                <a href="/park-chicago-fleet">
+                                    <div class="flex flex-row items-center">
+                                        <div class="w-[46px]">
+                                            <img class="w-full" src="/assets/nav/fleet-app-icon.png" alt="">
+                                        </div>
+
+                                        <div class="ml-4">
+                                            <div class="text-dark text-[18px] font-medium">ParkChicago® Fleet</div>
+                                            <div class="text-[12px] leading-[12px] text-mediumGrey uppercase">Business Pay</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                
+                    
+                    <a href="/find-parking">
+                        <div class="font-medium text-dark uppercase px-4">Find Parking</div>
+                    </a>
+                    
+                
+                    
+                    <a href="/rates-hours">
+                        <div class="font-medium text-dark uppercase px-4">Rates & Hours</div>
+                    </a>
+                    
+                
+                    
+                    <a href="/refund-request">
+                        <div class="font-medium text-dark uppercase px-4">Refund Request</div>
+                    </a>
+                    
+                
+                    
+                    <a href="/contact-us">
+                        <div class="font-medium text-dark uppercase px-4">Contact Us</div>
+                    </a>
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="relative z-[90] bg-white h-[60px] flex flex-row items-center justify-between px-4 lg:hidden">
+        <a href="/">
+            
+            <img src="/assets/nav/park-chicago-logo.svg" alt="" class="w-[140px]">
+            
+        </a>
+
+        <div class="flex flex-row items-center">
+            <div class="md:hidden">
+                
+                <a href="/esg" class="">
+                    <div class="text-center flex items-center rounded-lg justify-center border border-green uppercase text-green font-bold text-[10px] leading-[12px] bg-white p-2">
+                        <div class="w-full max-w-[94px]">
+                            ParkChicago's ESG Efforts
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+
+            <button @click="toggleNavMenu()" class="ml-[30px]">
+               <div class="relative w-[20px] h-[20px]">
+                    <div
+                    x-bind:class="[
+                        highContrastMode ? 'bg-darkGreen' : 'bg-green',
+                        navMenuOpen ? 'rotate-45 top-0 bottom-0 my-auto' : 'rotate-0 top-0'
+                    ]"
+                    class="w-full h-1 left-0 absolute transition-all duration-3000"></div>
+                    <div x-bind:class="[
+                        highContrastMode ? 'bg-darkGreen' : 'bg-green',
+                        navMenuOpen ? 'h-0' : 'h-1'
+                    ]" class="w-full top-0 bottom-0 my-auto left-0 absolute transition-all duration-200"></div>
+                    <div x-bind:class="[
+                        highContrastMode ? 'bg-darkGreen' : 'bg-green',
+                        navMenuOpen ? '-rotate-45 top-0 bottom-0 my-auto' : 'rotate-0 bottom-0'
+                    ]"
+                    class="w-full h-1 left-0 absolute transition-all duration-300"></div>
+               </div>
+            </button>
+        </div>
+    </div>
+
+
+    <div x-cloak x-bind:class="navMenuOpen ? ' translate-x-0' : 'translate-x-[100%]'"
+    class="bg-white absolute z-[80] top-0 bottom-0 h-screen right-0 w-full mt-[60px]  max-w-[280px] px-5 py-10 overflow-y-scroll transition-all duration-200">
+    <div class="max-h-screen overflow-y-scroll pb-[200px] no-scrollbar">
+        
+        <div class="flex flex-col">
+            
+            
+                <a href="/faq">
+                    <div class="flex flex-row items-center px-3 py-[16px]">
+                        
+                        <div class="font-medium uppercase tracking-[0.2px] text-[18px] leading-[24px]">FAQ</div>
+                    </div>
+                </a>
+            
+            
+            
+            <div class="flex flex-row items-center px-3 py-[16px]">
+                
+                <div class="mr-6 w-[28px] h-[28px] relative">
+                    <img src="/assets/waytopark-1710518117.svg" alt="" class="w-full max-h-full">
+                </div>
+                
+                <div class="font-medium uppercase tracking-[0.2px] text-[18px] leading-[24px]">Ways To Park</div>
+            </div>
+
+            <div class="max-w-max ml-auto">
+                
+                    <div class="w-full min-w-max py-[14px] border-b border-mediumGrey last-of-type:border-0">
+                        <a href="/park-chicago">
+                            <div class="flex flex-row items-center">
+                                <div class="w-[35px]">
+                                    <img class="w-full" src="/assets/pc-app-1729799965.png" alt="">
+                                </div>
+                    
+                                <div class="ml-4">
+                                    <div class="text-dark text-[14px] font-medium">ParkChicago®</div>
+                                    <div class="text-[10px] leading-[14px] text-mediumGrey uppercase">Mobile Pay</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                
+                    <div class="w-full min-w-max py-[14px] border-b border-mediumGrey last-of-type:border-0">
+                        <a href="/park-chicago-paybox">
+                            <div class="flex flex-row items-center">
+                                <div class="w-[35px]">
+                                    <img class="w-full" src="/assets/nav/menu-icon-pay-box.png" alt="">
+                                </div>
+                    
+                                <div class="ml-4">
+                                    <div class="text-dark text-[14px] font-medium">ParkChicago® Pay Box</div>
+                                    <div class="text-[10px] leading-[14px] text-mediumGrey uppercase">Street Pay</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                
+                    <div class="w-full min-w-max py-[14px] border-b border-mediumGrey last-of-type:border-0">
+                        <a href="/park-chicago-fleet">
+                            <div class="flex flex-row items-center">
+                                <div class="w-[35px]">
+                                    <img class="w-full" src="/assets/nav/fleet-app-icon.png" alt="">
+                                </div>
+                    
+                                <div class="ml-4">
+                                    <div class="text-dark text-[14px] font-medium">ParkChicago® Fleet</div>
+                                    <div class="text-[10px] leading-[14px] text-mediumGrey uppercase">Business Pay</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                
+            </div>
+    
+            
+            
+            
+                <a href="/find-parking">
+                    <div class="flex flex-row items-center px-3 py-[16px]">
+                        
+                        <div class="mr-6 w-[28px] h-[28px] relative">
+                            <img src="/assets/findparking.svg" alt="" class="w-full max-h-full">
+                        </div>
+                        
+                        <div class="font-medium uppercase tracking-[0.2px] text-[18px] leading-[24px]">Find Parking</div>
+                    </div>
+                </a>
+            
+            
+            
+                <a href="/rates-hours">
+                    <div class="flex flex-row items-center px-3 py-[16px]">
+                        
+                        <div class="mr-6 w-[28px] h-[28px] relative">
+                            <img src="/assets/rates.svg" alt="" class="w-full max-h-full">
+                        </div>
+                        
+                        <div class="font-medium uppercase tracking-[0.2px] text-[18px] leading-[24px]">Rates & Hours</div>
+                    </div>
+                </a>
+            
+            
+            
+                <a href="/refund-request">
+                    <div class="flex flex-row items-center px-3 py-[16px]">
+                        
+                        <div class="mr-6 w-[28px] h-[28px] relative">
+                            <img src="/assets/refund.svg" alt="" class="w-full max-h-full">
+                        </div>
+                        
+                        <div class="font-medium uppercase tracking-[0.2px] text-[18px] leading-[24px]">Refund Request</div>
+                    </div>
+                </a>
+            
+            
+            
+                <a href="/contact-us">
+                    <div class="flex flex-row items-center px-3 py-[16px]">
+                        
+                        <div class="mr-6 w-[28px] h-[28px] relative">
+                            <img src="/assets/refund-1710518147.svg" alt="" class="w-full max-h-full">
+                        </div>
+                        
+                        <div class="font-medium uppercase tracking-[0.2px] text-[18px] leading-[24px]">Contact Us</div>
+                    </div>
+                </a>
+            
+            
+        </div>
+
+        <div class="mt-4 ml-[68px]">
+            
+            <div class=" border-y-2 border-green flex flex-col">
+                
+                <a href="/faq" class=" border-b last-of-type:border-b-0 border-mediumGrey">
+                    <div class="py-[14px] text-[14px] tracking-[0.2px] font-light">FAQ</div>
+                </a>
+                
+                <a href="/about" class=" border-b last-of-type:border-b-0 border-mediumGrey">
+                    <div class="py-[14px] text-[14px] tracking-[0.2px] font-light">About</div>
+                </a>
+                
+                <a href="/news" class=" border-b last-of-type:border-b-0 border-mediumGrey">
+                    <div class="py-[14px] text-[14px] tracking-[0.2px] font-light">News</div>
+                </a>
+                
+            </div>
+
+            <div class="mt-4">
+                <button @click="toggleHighContrastMode()" role="button"
+                    class="px-2 bg-white rounded-[4px] text-black border border-black text-[13px] font-medium max-w-max">
+                    High Contrast : <span x-text="highContrastMode ? 'On' :'Off'"></span>
+                </button>
+
+                <div class="mt-[10px] flex flex-row">
+                    
+                        <a href="https://www.instagram.com/parkchicago_official/" target="_blank">
+                            
+                            <img src="/assets/4a922220-37d0-4e11-9682-145bcbbd634e.svg" alt="" class="w-[18px] mr-[14px]">
+                            
+                        </a>
+                    
+                        <a href="https://www.facebook.com/parkchicagoofficial" target="_blank">
+                            
+                            <img src="/assets/552ce078-10ae-4d1a-a268-c32ffba1d2ce.svg" alt="" class="w-[18px] mr-[14px]">
+                            
+                        </a>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+</nav>
+
+    
+    <div class="relative py-[80px] flex flex-col items-center md:py-[120px]  bg-darkGreen">
+    <img x-show="!highContrastMode" class="absolute w-full h-full top-0 left-0 object-cover  " src="https://parkchicago.com/build/assets/headerBG-6c129895.gif" alt="">
+    <div class="relative z-10 flex flex-col items-center justify-center px-[30px]">
+        <div class="h1 text-center font-extrabold    text-white mx-auto max-w-[510px] lg:max-w-[960px]">
+            Parking Rates
+        </div>
+        
+    </div>
+</div>
+
+
+    
+
+    
+    <div class="relative">
+    <div class="relative px-[20px] md:px-[30px]">
+        <div class="absolute top-0 left-0 bg-offWhite w-[33vw] h-[80px] lg:h-[120px]"></div>
+        <div class="relative z-10 screen-container flex flex-col md:flex-row md:justify-between md:items-center">
+            <div class="relative grow  w-full flex flex-row justify-between items-center h-[80px] bg-offWhite lg:h-[120px]">
+                <div class="relative h-full max-h-[32px] max-w-[200px] lg:max-h-[51px] lg:max-w-[320px]">
+                    <img src="/assets/park-chicago-rate-map.svg" alt="" class="object-contain w-full h-full">
+                </div>
+                <div class="whiteTriangle"></div>
+            </div>
+
+            <div class="pt-12 flex justify-center max-w-max mx-auto flex-row gap-x-2 md:pt-0 md:pl-[15px] md:mr-0 md:min-w-[33%]">
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="px-[20px] py-[72px] md:px-[30px]">
+        <div class="screen-container flex flex-col gap-y-[48px] md:flex-row md:gap-x-[30px] lg:gap-x-[80px]">
+            
+            <div class="w-full grow">
+                <img class="h-[60px] mb-6" src="/assets/rates-vary-green.svg" alt="">
+                <div class="h5 uppercase font-semibold mb-2">RATES VARY</div>
+                <p>Depending on where and when you park in Chicago, the cost and hours of operation vary. We operate 365 days/year, unless otherwise posted. Please see the rate map below for more information.</p>
+            </div>
+            
+            <div class="w-full grow">
+                <img class="h-[60px] mb-6" src="/assets/price-range-green.svg" alt="">
+                <div class="h5 uppercase font-semibold mb-2">PRICE RANGE</div>
+                <p>Whether you use ParkChicago® or the pay boxes on the street, hourly parking rates range from $2.50 (outside the Loop and Central Business District) to $4.75 (Central Business District), to $4.75 (West Loop) and $7.00 (Loop).</p>
+            </div>
+            
+            <div class="w-full grow">
+                <img class="h-[60px] mb-6" src="/assets/parkchicago-rates-signage.svg" alt="">
+                <div class="h5 uppercase font-semibold mb-2">CHECK SIGNAGE</div>
+                <p>Always remember to check the on-street pay boxes, ParkChicago®, or ParkChicago® Map for specific rates and times for where you parked, along with checking on-street signage posted by the City. The pay boxes and ParkChicago® will not accept payment if a parking fee is not required.</p>
+            </div>
+            
+        </div>
+
+        
+    </div>
+
+</div>
+
+    
+
+    
+    <iframe src="https://map.parkchicago.com/" width="100%" height="800" frameborder="0"
+    style="border: 0px;" allowfullscreen="" alt="ParkChicago Rate Map"></iframe>
+
+    
+
+    
+    <div class="relative bg-white py-12 px-[30px]">
+    
+
+    <div class="screen-container">
+        <div class="relative z-10 w-full mx-auto max-w-[480px] md:max-w-[690px] prose py-12  marker:text-dark lg:max-w-[800px] xl:max-w-[950px]">
+            
+            
+                <ul><li><p>In Chicago neighborhoods (area outside the downtown area bounded by Roosevelt Avenue to the south, North Avenue to the north and Halsted Street to the west), most rates are $2.50 per hour from 8:00 a.m. to 10:00 p.m. On Sundays, motorists can park for free in some spaces in this area.<br></p></li><li><p>In the Central Business District outside the Loop (area bounded by Lake Michigan to the east, North Avenue to the north, Halsted to the west, and Roosevelt Road to the south), rates are $4.75 per hour from 8:00 a.m. to midnight.<br></p></li><li><p>In the West Loop (area is bounded by Grand Avenue to the north, the I-290 Expressway to the south, Ashland Avenue to the west and Halsted Street to the east), rates are $4.75 per hour.<br></p></li><li><p>In the Loop (area bounded by Lake Michigan to the east, Wacker Drive to the north and west, and Congress Parkway to the south), rates are $7.00 per hour from 8:00 a.m. to 9:00 p.m. and $3.50 per hour from 9:00 p.m. to 8:00 a.m.</p></li></ul><h5 style="text-align: center;"><strong>PARKING LOT TAX STRUCTURE *</strong></h5>
+            
+
+
+            
+            
+            
+<div class="">
+    <table class="rounded-[18px] overflow-hidden shadow-lg">
+        
+        
+        <thead class="text-white" x-bind:class="highContrastMode ? 'bg-darkGreen' : 'bg-green'">
+            <tr>
+                
+                <th class="text-white text-center font-medium border-l border-white"></th>
+                
+                <th class="text-white text-center font-medium border-l border-white"><p>STATE TAX</p>
+</th>
+                
+                <th class="text-white text-center font-medium border-l border-white"><p>CITY TAX</p>
+</th>
+                
+                <th class="text-white text-center font-medium border-l border-white"><p>COUNTY TAX</p>
+</th>
+                
+            </tr>
+        </thead>
+        <tbody class="bg-white">
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>ALL PURCHASES</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>6%</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"></td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"></td>
+            
+        </tr>
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>DAILY &gt; $2.00</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"></td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>23.25%</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>6%</p>
+</td>
+            
+        </tr>
+        
+        </tbody>
+        
+        
+        
+    </table>
+</div>
+            
+
+
+            
+            
+                <p style="text-align: center;"></p><p>*Taxes apply to rate and convenience fee.</p><p><strong>Pro Tip:</strong> <strong>ZoneHop...Move Your Time</strong> Your purchased time can be moved and good until expiration at most meters OF THE SAME TYPE OF SPACE AND WITH THE SAME OR LOWER HOURLY RATE. However, purchased time cannot be moved between on-street meters and off-street metered lots, OR BETWEEN COMMERCIAL LOADING ZONES AND OTHER TYPES OF ON-STREET METERED PARKING SPACES. If you do move your vehicle to a space where moving time is permitted, please be sure to abide by all zone signage regarding restrictions and rules, including all signage of which may be posted on the SAME SIDE OF THE STREET ON THE BLOCK you parked your vehicle. For example, you can move your vehicle from a $4.75 zone to another $4.75 zone or $2.50 zone. If the rate at the new location is higher, you must create a new parking session or pay at the pay box. Make sure to check for rates, parking restrictions on the pay box and permanent or temporary signage to avoid a ticket.</p>
+            
+
+
+            
+        </div>
+    </div>
+
+</div>
+
+    
+
+    
+    <div class="relative py-[80px] flex flex-col items-center md:py-[120px]  bg-darkGreen">
+    <img x-show="!highContrastMode" class="absolute w-full h-full top-0 left-0 object-cover  " src="https://parkchicago.com/build/assets/headerBG-6c129895.gif" alt="">
+    <div class="relative z-10 flex flex-col items-center justify-center px-[30px]">
+        <div class="h1 text-center font-extrabold    text-white mx-auto max-w-[510px] lg:max-w-[960px]">
+            Monthly Parking
+        </div>
+        
+    </div>
+</div>
+
+
+    
+
+    
+    <div class="relative bg-white py-12 px-[30px]">
+    
+    
+            <div class="absolute w-full h-full top-0 left-0 object-cover"
+                style="background-image:url(https://parkchicago.com/build/assets/bg-2-1708b6b0.gif)" alt=""></div>
+    
+
+    <div class="screen-container">
+        <div class="relative z-10 w-full mx-auto max-w-[480px] md:max-w-[690px] prose py-12  marker:text-dark lg:max-w-[800px] xl:max-w-[950px]">
+            
+            
+                <p>We offer one month parking permits for use at various parking lots throughout the City. Monthly parking permits are ideal for local residents, business owners and employees who are frequent parkers.</p><p>Below is a list of parking lot locations that offer one month permits. To purchase a monthly parking pass please visit <a target="_blank" href="https://www.cpmpermits.com/"><u>www.cpmpermits.com</u></a>. The permit is only valid for the parking lot you selected at time of purchase.</p>
+            
+
+
+            
+            
+            
+<div class="">
+    <table class="rounded-[18px] overflow-hidden shadow-lg">
+        
+        
+        <thead class="text-white" x-bind:class="highContrastMode ? 'bg-darkGreen' : 'bg-green'">
+            <tr>
+                
+                <th class="text-white text-center font-medium border-l border-white"><p>LOT LOCATION</p>
+</th>
+                
+                <th class="text-white text-center font-medium border-l border-white"><p>WARD</p>
+</th>
+                
+                <th class="text-white text-center font-medium border-l border-white"><p>PRICE *</p>
+</th>
+                
+            </tr>
+        </thead>
+        <tbody class="bg-white">
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>3120 N Greenview</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>32</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>$120.06</p>
+</td>
+            
+        </tr>
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>1530 W Barry</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>32</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>$120.06</p>
+</td>
+            
+        </tr>
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>1635 W Melrose</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>32</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>$120.06</p>
+</td>
+            
+        </tr>
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>4050 N Laporte</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>45</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>$43.60</p>
+</td>
+            
+        </tr>
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>1752 W 95th St.</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>19</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>$43.60</p>
+</td>
+            
+        </tr>
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>1938 W Monterey</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>19</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>$43.60</p>
+</td>
+            
+        </tr>
+        
+        
+        
+        
+        
+        <tr class="border-dark">
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>1835 W 95th St.</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>19</p>
+</td>
+            
+            <td class="text-center border-r border-dark last-of-type:border-r-0"><p>$43.60</p>
+</td>
+            
+        </tr>
+        
+        </tbody>
+        
+        
+        
+    </table>
+</div>
+            
+
+
+            
+            
+                <p></p><p>* Price is inclusive of all taxes (City, County and State)</p><p>Beginning January 1, 2025 per city ordinance, the city tax for parking in a parking lot for a 24-hour period or less, with a purchase amount of more than $2.00 has increased to 23.25%, daily.</p><p>Beginning on January 1, 2020, a tax is imposed on the privilege of using in this State a parking space in a parking area or garage for the use of parking one or more motor vehicles, recreational vehicles, or other self-propelled vehicles, at the rate of:</p><ul><li><p>6% of the purchase price for a parking space paid for on an hourly, daily, or weekly basis.</p></li><li><p>9% of the purchase price for a parking space paid for on a monthly or annual basis.</p></li></ul>
+            
+
+
+            
+        </div>
+    </div>
+
+</div>
+
+    
+
+    
+    <div class="relative py-[80px] flex flex-col items-center md:py-[120px]  bg-darkGreen">
+    <img x-show="!highContrastMode" class="absolute w-full h-full top-0 left-0 object-cover  " src="https://parkchicago.com/build/assets/headerBG-6c129895.gif" alt="">
+    <div class="relative z-10 flex flex-col items-center justify-center px-[30px]">
+        <div class="h1 text-center font-extrabold font-proximaCondensed   text-white mx-auto max-w-[510px] lg:max-w-[960px]">
+            STILL HAVE QUESTIONS?
+        </div>
+        
+        <div class="flex flex-row gap-x-6 mt-12">
+        
+
+        
+        <a href="/faq" target="">
+            <div 
+            x-bind:class="highContrastMode ? ' bg-white border-darkGreen text-green ' : ' bg-white border-darkGreen text-green '"
+            class="py-[14px] px-[32px] rounded-xl font-bold border-2 leading-[16px] text-[16px] uppercase">View FAQ</div>
+        </a>
+        
+
+        
+        
+
+        
+        </div>
+        
+    </div>
+</div>
+
+
+    
+
+    
+
+    <footer role="contentinfo" class="bg-grey w-full pt-[32px] pb-6">
+    <div class="mx-auto w-full screen-container px-[15px] md:px-[76px] lg:px-[58px]">
+        <div class="flex flex-col md:flex-row lg:flex-col">
+            <div class="w-full grow  flex flex-col lg:flex-row justify-start  lg:justify-center md:border-b md:border-b-mediumGrey">
+                
+                <a href="/find-parking" class="border-b border-mediumGrey last-of-type:border-b-0 lg:border-b-0">
+                    <div class="py-6 uppercase text-white font-bold text-[16px] leading-[16px] lg:px-4 lg:text-[14px] lg:leading-[14px] xl:text-[16px] xl:leading-[16px]">
+                        Find Parking
+                    </div>
+                </a>
+                
+                <a href="/rates-hours" class="border-b border-mediumGrey last-of-type:border-b-0 lg:border-b-0">
+                    <div class="py-6 uppercase text-white font-bold text-[16px] leading-[16px] lg:px-4 lg:text-[14px] lg:leading-[14px] xl:text-[16px] xl:leading-[16px]">
+                        Rates & Hours
+                    </div>
+                </a>
+                
+                <a href="/refund-request" class="border-b border-mediumGrey last-of-type:border-b-0 lg:border-b-0">
+                    <div class="py-6 uppercase text-white font-bold text-[16px] leading-[16px] lg:px-4 lg:text-[14px] lg:leading-[14px] xl:text-[16px] xl:leading-[16px]">
+                        Refund Request
+                    </div>
+                </a>
+                
+                <a href="/contact-us" class="border-b border-mediumGrey last-of-type:border-b-0 lg:border-b-0">
+                    <div class="py-6 uppercase text-white font-bold text-[16px] leading-[16px] lg:px-4 lg:text-[14px] lg:leading-[14px] xl:text-[16px] xl:leading-[16px]">
+                        Contact Us
+                    </div>
+                </a>
+                
+                <a href="/faq" class="border-b border-mediumGrey last-of-type:border-b-0 lg:border-b-0">
+                    <div class="py-6 uppercase text-white font-bold text-[16px] leading-[16px] lg:px-4 lg:text-[14px] lg:leading-[14px] xl:text-[16px] xl:leading-[16px]">
+                        FAQ
+                    </div>
+                </a>
+                
+                <a href="/about" class="border-b border-mediumGrey last-of-type:border-b-0 lg:border-b-0">
+                    <div class="py-6 uppercase text-white font-bold text-[16px] leading-[16px] lg:px-4 lg:text-[14px] lg:leading-[14px] xl:text-[16px] xl:leading-[16px]">
+                        About
+                    </div>
+                </a>
+                
+                <a href="/news" class="border-b border-mediumGrey last-of-type:border-b-0 lg:border-b-0">
+                    <div class="py-6 uppercase text-white font-bold text-[16px] leading-[16px] lg:px-4 lg:text-[14px] lg:leading-[14px] xl:text-[16px] xl:leading-[16px]">
+                        News
+                    </div>
+                </a>
+                
+                <a href="/esg" class="border-b border-mediumGrey last-of-type:border-b-0 lg:border-b-0">
+                    <div class="py-6 uppercase text-white font-bold text-[16px] leading-[16px] lg:px-4 lg:text-[14px] lg:leading-[14px] xl:text-[16px] xl:leading-[16px]">
+                        ESG
+                    </div>
+                </a>
+                
+            </div>
+
+            <div class="w-full grow py-10 border-b border-mediumGrey flex flex-row justify-between gap-x-[30px] md:flex-col md:mx-auto md:gap-y-10 lg:flex-row lg:justify-center">
+                <div class="flex flex-col w-full max-w-[146px] md:flex-row md:max-w-[216px] md:mx-auto lg:mx-auto">
+                    
+                        <img src="/assets/nav/pc-app.png" alt="" class="w-full mb-5 rounded-[14px] md:mb-0 md:w-[80px] md:h-[80px]">
+                    
+                    <div class="md:ml-2">
+                        <a href="https://itunes.apple.com/us/app/parkchicago/id686658594?ls=1&mt=8" target="_blank">
+                            <img class="w-full mb-2 rounded-[8px] border border-white" alt="" src="https://parkchicago.com/build/assets/app-store-badge-0cf0ba39.jpg">
+                        </a>
+
+                        <a href="https://play.google.com/store/apps/details?id=com.passportparking.mobile.parkchicago" target="_blank">
+                            <img class="w-full rounded-[8px] border border-white" alt="" src="https://parkchicago.com/build/assets/google-play-badge-8e2a5ee6.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full max-w-[146px] md:flex-row md:max-w-[216px] md:mx-auto lg:mx-auto">
+                    
+                        <img src="/assets/nav/map-app-icon.jpg" alt="" class="w-full mb-5 rounded-[20px] md:mb-0 md:w-[80px] md:h-[80px]">
+                    
+                    <div class="md:ml-2">
+                        <a href="https://itunes.apple.com/us/app/parkchicagomap/id1298072690?ls=1&mt=8" target="_blank">
+                            <img class="w-full mb-2 rounded-[8px] border border-white" alt="" src="https://parkchicago.com/build/assets/app-store-badge-0cf0ba39.jpg">
+                        </a>
+
+                        <a href="https://play.google.com/store/apps/details?id=com.passportparking.mobile.parkchicagoavailability" target="_blank">
+                            <img class="w-full rounded-[8px] border border-white" alt="" src="https://parkchicago.com/build/assets/google-play-badge-8e2a5ee6.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full max-w-[146px] md:flex-row md:max-w-[216px] md:mx-auto lg:mx-auto">
+                    
+                        <img src="/assets/nav/fleet-app-icon.png" alt="" class="w-full mb-5 rounded-[14px] md:mb-0 md:w-[80px] md:h-[80px]">
+                    
+                    <div class="md:ml-2">
+                        <a href="https://apps.apple.com/us/app/parkchicagofleet/id1455227700" target="_blank">
+                            <img class="w-full mb-2 rounded-[8px] border border-white" alt="" src="https://parkchicago.com/build/assets/app-store-badge-0cf0ba39.jpg">
+                        </a>
+
+                        <a href="https://play.google.com/store/apps/details?id=com.passportparking.mobile.parkchicagofleet&hl=en_US" target="_blank">
+                            <img class="w-full rounded-[8px] border border-white" alt="" src="https://parkchicago.com/build/assets/google-play-badge-8e2a5ee6.jpg">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row lg:items-center lg:gap-x-[30px]">
+            <div class="text-white py-6 px-3 border-b border-b-mediumGrey text-[14px] leading-[18px] font-light text-center lg:text-left lg:border-b-0">
+                @ 2026 Chicago Parking Meters, LLC. ParkChicago®, the ParkChicago® logo, and other trademarks on this site are trademarks of Chicago Parking Meters, LLC and may not be used without permission. This website has implemented reCAPTCHA v3 and your use of reCAPTCHA v3 is subject to the <a href="https://www.google.com/policies/privacy/" target="_blank">Google Privacy Policy</a> and <a href="https://www.google.com/policies/terms/" target="_blank">Terms of Use</a>.
+            </div>
+            <div class="flex flex-row py-4 border-b border-mediumGrey justify-center gap-x-[40px] lg:border-b-0">
+                
+                <a href="/privacy-policy">
+                    <div class="text-white uppercase font-light hover:underline min-w-max">Privacy Policy</div>
+                </a>
+                
+                <a href="/terms-of-use">
+                    <div class="text-white uppercase font-light hover:underline min-w-max">Terms of Use</div>
+                </a>
+                
+            </div>
+            <div class="flex flex-row py-6 justify-between lg:gap-x-[30px]">
+                <div class="flex flex-row items-center gap-x-[14px]">
+                    
+                    <a href="https://www.instagram.com/parkchicago_official/" target="_blank">
+                         <img src="/assets/icons8-instagram-120.png" alt="" class="size-[30px] min-w-[30px] md:size-[24px] md:min-w-[24px]">
+                    </a>
+                    
+                    <a href="https://www.facebook.com/parkchicagoofficial" target="_blank">
+                         <img src="/assets/icons8-facebook-120.png" alt="" class="size-[30px] min-w-[30px] md:size-[24px] md:min-w-[24px]">
+                    </a>
+                    
+                </div>
+                
+                <img src="/assets/passport-logo.png" alt="" class="w-[100px] min-w-[100px]">
+                
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+        </div>
+    </body>
+</html>

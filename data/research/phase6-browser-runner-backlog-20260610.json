@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-06-10T00:00:00Z",
+  "purpose": "Backlog for scaling browser execution beyond the first completed ParkChicago browser pass.",
+  "completed_browser_passes": [
+    {
+      "source_name": "ParkChicago Rates and Hours",
+      "url": "https://parkchicago.com/rates-hours",
+      "artifacts": [
+        "data/research/browser-parkchicago-rates.snapshot.txt",
+        "data/research/browser-parkchicago-rates.png",
+        "data/research/browser-parkchicago-rates.parser-hints.json"
+      ],
+      "observed_fields": [
+        "official operator statement",
+        "36,000 on-street spaces",
+        "rate bands",
+        "hours by area",
+        "monthly parking content",
+        "rate map iframe"
+      ]
+    }
+  ],
+  "next_browser_passes": [
+    {
+      "source_name": "Parking.com/SP+",
+      "target_flow": "city page -> facility cards -> facility detail -> date/time price scenario",
+      "priority_layers": ["garages_lots", "monthly", "event", "rates", "booking_url"]
+    },
+    {
+      "source_name": "ABM Parking",
+      "target_flow": "home/search -> city page -> facility detail",
+      "priority_layers": ["garages_lots", "monthly", "rates", "amenities", "possible_valet"]
+    },
+    {
+      "source_name": "AirportParking.com",
+      "target_flow": "airport search -> lot cards -> lot detail/booking scenario",
+      "priority_layers": ["airport_event", "off_airport_lots", "rates", "shuttle_frequency"]
+    },
+    {
+      "source_name": "Valet and venue pages",
+      "target_flow": "city/operator/institution search -> valet/event page -> phone/site evidence",
+      "priority_layers": ["valet", "event", "hours", "phone", "price_or_unknown"]
+    }
+  ],
+  "runner_requirements": [
+    "Open page in Browser/Playwright",
+    "Capture DOM snapshot",
+    "Capture screenshot",
+    "Extract links, forms, scripts, visible text sample, and network/API candidates where available",
+    "Update parser logic spec with selectors/endpoints after inspection",
+    "Record legal/ToS risk and fallback path"
+  ]
+}

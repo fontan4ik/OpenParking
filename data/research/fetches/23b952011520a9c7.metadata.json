@@ -1,0 +1,10 @@
+{
+  "fetched_at": "2026-06-10T10:36:44.525Z",
+  "url": "https://www.chicago.gov/city/en/depts/fin/supp_info/revenue/parking_meters.html",
+  "status": 403,
+  "status_text": "Forbidden",
+  "content_type": "text/html",
+  "byte_length": 458,
+  "sha256": "23b952011520a9c71b2928aca28a1901fe8f40c98f4ba9f89604523f26b86ad5",
+  "body_path": "data\\research\\fetches\\23b952011520a9c7.bin"
+}

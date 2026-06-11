@@ -1,0 +1,189 @@
+{
+  "inspected_at": "2026-06-10T10:54:51.454Z",
+  "source_name": "NYC Parking Meters Locations and Status",
+  "city": "New York City",
+  "state": "NY",
+  "dataset_id": "693u-uax6",
+  "portal_type": "socrata",
+  "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Meters-Locations-and-Status/693u-uax6",
+  "metadata_url": "https://data.cityofnewyork.us/api/views/693u-uax6",
+  "api_url": "https://data.cityofnewyork.us/resource/693u-uax6.json",
+  "sample_url": "https://data.cityofnewyork.us/resource/693u-uax6.json?%24limit=1",
+  "title": "Parking Meters Locations and Status",
+  "description": "Multiple space muni-meters located along streets and municipal parking facilities where metered parking are available. For any parking meter complaint, please visit the <a href=\"https://portal.311.nyc.gov/article/?kanumber=KA-01239\">311 website</a>.",
+  "attribution": "Department of Transportation (DOT)",
+  "license": "unknown",
+  "rows_updated_at_unix": 1780920956,
+  "metadata_updated_at_unix": null,
+  "created_at_unix": 1676469539,
+  "columns": [
+    {
+      "name": "ObjectID",
+      "fieldName": "objectid",
+      "dataTypeName": "text",
+      "position": 1
+    },
+    {
+      "name": "Meter Number",
+      "fieldName": "meter_number",
+      "dataTypeName": "text",
+      "position": 2
+    },
+    {
+      "name": "Status",
+      "fieldName": "status",
+      "dataTypeName": "text",
+      "position": 3
+    },
+    {
+      "name": "Pay By Cell Number",
+      "fieldName": "pay_by_cell_number",
+      "dataTypeName": "text",
+      "position": 4
+    },
+    {
+      "name": "Meter_Hours",
+      "fieldName": "meter_hours",
+      "dataTypeName": "text",
+      "position": 5
+    },
+    {
+      "name": "Parking_Facility_Name",
+      "fieldName": "parking_facility_name",
+      "dataTypeName": "text",
+      "position": 6
+    },
+    {
+      "name": "Facility",
+      "fieldName": "facility",
+      "dataTypeName": "text",
+      "position": 7
+    },
+    {
+      "name": "Borough",
+      "fieldName": "borough",
+      "dataTypeName": "text",
+      "position": 8
+    },
+    {
+      "name": "On_Street",
+      "fieldName": "on_street",
+      "dataTypeName": "text",
+      "position": 9
+    },
+    {
+      "name": "Side_of_Street",
+      "fieldName": "side_of_street",
+      "dataTypeName": "text",
+      "position": 10
+    },
+    {
+      "name": "From_Street",
+      "fieldName": "from_street",
+      "dataTypeName": "text",
+      "position": 11
+    },
+    {
+      "name": "To_Street",
+      "fieldName": "to_street",
+      "dataTypeName": "text",
+      "position": 12
+    },
+    {
+      "name": "Latitude",
+      "fieldName": "lat",
+      "dataTypeName": "number",
+      "position": 13
+    },
+    {
+      "name": "Longitude",
+      "fieldName": "long",
+      "dataTypeName": "number",
+      "position": 14
+    },
+    {
+      "name": "X",
+      "fieldName": "x",
+      "dataTypeName": "number",
+      "position": 15
+    },
+    {
+      "name": "Y",
+      "fieldName": "y",
+      "dataTypeName": "number",
+      "position": 16
+    },
+    {
+      "name": "Location",
+      "fieldName": "location",
+      "dataTypeName": "point",
+      "position": 17
+    },
+    {
+      "name": "Zip Codes",
+      "fieldName": ":@computed_region_efsh_h5xi",
+      "dataTypeName": "number",
+      "position": 18
+    },
+    {
+      "name": "Community Districts",
+      "fieldName": ":@computed_region_f5dn_yrer",
+      "dataTypeName": "number",
+      "position": 19
+    },
+    {
+      "name": "Borough Boundaries",
+      "fieldName": ":@computed_region_yeji_bk3q",
+      "dataTypeName": "number",
+      "position": 20
+    },
+    {
+      "name": "City Council Districts",
+      "fieldName": ":@computed_region_92fq_4b7q",
+      "dataTypeName": "number",
+      "position": 21
+    },
+    {
+      "name": "Police Precincts",
+      "fieldName": ":@computed_region_sbqj_enih",
+      "dataTypeName": "number",
+      "position": 22
+    }
+  ],
+  "sample_row": {
+    "objectid": "1719",
+    "meter_number": "4353032",
+    "status": "Active",
+    "pay_by_cell_number": "463199",
+    "meter_hours": "2HR Pas Mon-Sat 0830-1900",
+    "facility": "On Street",
+    "borough": "Queens",
+    "on_street": "GRAND AVENUE",
+    "side_of_street": "S",
+    "from_street": "73 PLACE",
+    "to_street": "74 STREET",
+    "lat": "40.7298625118347",
+    "long": "-73.8887365392758",
+    "x": "1015087.39697455",
+    "y": "205204.745808229",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -73.8887365392758,
+        40.7298625118347
+      ]
+    },
+    ":@computed_region_efsh_h5xi": "14788",
+    ":@computed_region_f5dn_yrer": "54",
+    ":@computed_region_yeji_bk3q": "3",
+    ":@computed_region_92fq_4b7q": "34",
+    ":@computed_region_sbqj_enih": "62"
+  },
+  "parking_layers": [
+    "street_meters",
+    "meter_status"
+  ],
+  "recommended_connector": "socrata",
+  "legal_risk": "low_verify_license",
+  "confidence": 0.99
+}

@@ -1,0 +1,118 @@
+{
+  "source": "data\\sf_parking_zones_osm.geojson",
+  "output": "data\\street_parking_normalized.json",
+  "records_seen": 403,
+  "records_with_parking_lane_tags": 5,
+  "normalized_tag_count": 0,
+  "manual_review_count": 5,
+  "records": [
+    {
+      "source_id": "osm:way:112595008",
+      "confidence": 0,
+      "normalized_tags": [],
+      "manual_tags": [
+        "fixme=parking:orientation=perpendicular"
+      ],
+      "manual_tags_count": 1,
+      "ignored_tags": [
+        "access=customers",
+        "amenity=parking",
+        "parking=surface",
+        "source_id=osm:way:112595008",
+        "name=Parking area",
+        "facility_type=surface",
+        "fee=unknown",
+        "confidence=0.35",
+        "last_verified_source=OpenStreetMap via Overpass",
+        "raw_tags=[object Object]",
+        "geometry_note=Approximate display polygon generated from point/center. Production should use parcel, building, lot footprint, or authoritative GIS polygon."
+      ]
+    },
+    {
+      "source_id": "osm:way:1102764108",
+      "confidence": 0,
+      "normalized_tags": [],
+      "manual_tags": [
+        "fixme=parking:orientation=parallel"
+      ],
+      "manual_tags_count": 1,
+      "ignored_tags": [
+        "amenity=parking",
+        "parking=street_side",
+        "surface=asphalt",
+        "source_id=osm:way:1102764108",
+        "name=Parking area",
+        "facility_type=street_side",
+        "fee=unknown",
+        "confidence=0.35",
+        "last_verified_source=OpenStreetMap via Overpass",
+        "raw_tags=[object Object]",
+        "geometry_note=Approximate display polygon generated from point/center. Production should use parcel, building, lot footprint, or authoritative GIS polygon."
+      ]
+    },
+    {
+      "source_id": "osm:way:1116735875",
+      "confidence": 0,
+      "normalized_tags": [],
+      "manual_tags": [
+        "fixme=parking:orientation=perpendicular"
+      ],
+      "manual_tags_count": 1,
+      "ignored_tags": [
+        "amenity=parking",
+        "parking=street_side",
+        "surface=asphalt",
+        "source_id=osm:way:1116735875",
+        "name=Parking area",
+        "facility_type=street_side",
+        "fee=unknown",
+        "confidence=0.35",
+        "last_verified_source=OpenStreetMap via Overpass",
+        "raw_tags=[object Object]",
+        "geometry_note=Approximate display polygon generated from point/center. Production should use parcel, building, lot footprint, or authoritative GIS polygon."
+      ]
+    },
+    {
+      "source_id": "osm:way:1120467676",
+      "confidence": 0,
+      "normalized_tags": [],
+      "manual_tags": [
+        "fixme=parking:orientation=perpendicular"
+      ],
+      "manual_tags_count": 1,
+      "ignored_tags": [
+        "amenity=parking",
+        "parking=street_side",
+        "source_id=osm:way:1120467676",
+        "name=Parking area",
+        "facility_type=street_side",
+        "fee=unknown",
+        "confidence=0.35",
+        "last_verified_source=OpenStreetMap via Overpass",
+        "raw_tags=[object Object]",
+        "geometry_note=Approximate display polygon generated from point/center. Production should use parcel, building, lot footprint, or authoritative GIS polygon."
+      ]
+    },
+    {
+      "source_id": "osm:way:1125790878",
+      "confidence": 0,
+      "normalized_tags": [],
+      "manual_tags": [
+        "fixme=parking:orientation=perpendicular"
+      ],
+      "manual_tags_count": 1,
+      "ignored_tags": [
+        "amenity=parking",
+        "parking=street_side",
+        "source_id=osm:way:1125790878",
+        "name=Parking area",
+        "facility_type=street_side",
+        "fee=unknown",
+        "confidence=0.35",
+        "last_verified_source=OpenStreetMap via Overpass",
+        "raw_tags=[object Object]",
+        "geometry_note=Approximate display polygon generated from point/center. Production should use parcel, building, lot footprint, or authoritative GIS polygon."
+      ]
+    }
+  ]
+}

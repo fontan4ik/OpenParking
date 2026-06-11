@@ -1,0 +1,196 @@
+{
+  "generated_at": "2026-06-10T00:00:00Z",
+  "scope": "ROADMAP.md Phase 6 benchmark source inventory",
+  "cities": [
+    {
+      "city": "San Francisco",
+      "state": "CA",
+      "sources": [
+        {
+          "source_name": "DataSF Parking Meters",
+          "source_type": "city_open_data",
+          "portal_type": "socrata",
+          "source_url": "https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9",
+          "metadata_url": "https://data.sfgov.org/api/views/8vzz-qzz9",
+          "api_url": "https://data.sfgov.org/resource/8vzz-qzz9.json",
+          "last_observed_update": "2026-06-06",
+          "parking_layers": ["street_meters"],
+          "recommended_connector": "socrata",
+          "legal_risk": "low_verify_license",
+          "confidence": 0.95
+        },
+        {
+          "source_name": "DataSF Meter Policies",
+          "source_type": "city_open_data",
+          "portal_type": "socrata",
+          "source_url": "https://data.sfgov.org/Transportation/Meter-Policies/qq7v-hds4",
+          "metadata_url": "https://data.sfgov.org/api/views/qq7v-hds4",
+          "api_url": "https://data.sfgov.org/resource/qq7v-hds4.json",
+          "last_observed_update": "2026-06-10",
+          "parking_layers": ["street_meter_rules", "rates"],
+          "recommended_connector": "socrata",
+          "legal_risk": "low_verify_license",
+          "confidence": 0.95
+        }
+      ]
+    },
+    {
+      "city": "New York City",
+      "state": "NY",
+      "sources": [
+        {
+          "source_name": "NYC Parking Meters Locations and Status",
+          "source_type": "city_open_data",
+          "portal_type": "socrata",
+          "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Meters-Locations-and-Status/693u-uax6",
+          "metadata_url": "https://data.cityofnewyork.us/api/views/693u-uax6",
+          "api_url": "https://data.cityofnewyork.us/resource/693u-uax6.json",
+          "last_observed_update": "2026-06-08",
+          "parking_layers": ["street_meters", "meter_status"],
+          "recommended_connector": "socrata",
+          "legal_risk": "low_verify_license",
+          "confidence": 0.95
+        },
+        {
+          "source_name": "NYC Parking Regulation Locations and Signs",
+          "source_type": "city_open_data",
+          "portal_type": "socrata",
+          "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Regulation-Locations-and-Signs/nfid-uabd",
+          "metadata_url": "https://data.cityofnewyork.us/api/views/nfid-uabd",
+          "api_url": "https://data.cityofnewyork.us/resource/nfid-uabd.json",
+          "last_observed_update": "2026-06-08",
+          "parking_layers": ["curb_rules", "signs"],
+          "recommended_connector": "socrata_plus_rule_parser",
+          "legal_risk": "low_verify_license",
+          "confidence": 0.95
+        }
+      ]
+    },
+    {
+      "city": "Seattle",
+      "state": "WA",
+      "sources": [
+        {
+          "source_name": "Seattle Paid Parking Occupancy Last 30 Days",
+          "source_type": "city_open_data",
+          "portal_type": "socrata",
+          "source_url": "https://data.seattle.gov/Transportation/Paid-Parking-Occupancy-Last-30-Days-/rke9-rsvs",
+          "metadata_url": "https://data.seattle.gov/api/views/rke9-rsvs",
+          "api_url": "https://data.seattle.gov/resource/rke9-rsvs.json",
+          "last_observed_update": "2026-06-10",
+          "parking_layers": ["occupancy", "blockface_reference", "rates"],
+          "recommended_connector": "socrata",
+          "legal_risk": "low_verify_license",
+          "confidence": 0.9
+        },
+        {
+          "source_name": "Seattle Blockface FeatureServer",
+          "source_type": "city_gis",
+          "portal_type": "arcgis_rest",
+          "source_url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer",
+          "metadata_url": "https://data-seattlecitygis.opendata.arcgis.com/datasets/b35fb25c8c93425980705474b5e82815_1/about",
+          "api_url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer/1/query?where=1%3D1&outFields=*&f=json",
+          "last_observed_update": "verify_arcgis_metadata",
+          "parking_layers": ["curb_geometry", "blockface"],
+          "recommended_connector": "arcgis_rest",
+          "legal_risk": "low_verify_license",
+          "confidence": 0.82
+        }
+      ]
+    },
+    {
+      "city": "Los Angeles",
+      "state": "CA",
+      "sources": [
+        {
+          "source_name": "LADOT Parking Meter Occupancy",
+          "source_type": "city_open_data",
+          "portal_type": "socrata",
+          "source_url": "https://data.lacity.org/Transportation/LADOT-Parking-Meter-Occupancy/e7h6-4a3e",
+          "metadata_url": "https://data.lacity.org/api/views/e7h6-4a3e",
+          "api_url": "https://data.lacity.org/resource/e7h6-4a3e.json",
+          "last_observed_update": "2026-06-10",
+          "parking_layers": ["occupancy"],
+          "recommended_connector": "socrata",
+          "legal_risk": "low_verify_license",
+          "confidence": 0.92
+        },
+        {
+          "source_name": "LADOT Metered Parking Inventory and Policies",
+          "source_type": "city_open_data",
+          "portal_type": "socrata",
+          "source_url": "https://data.lacity.org/A-Livable-and-Sustainable-City/Parking-Meter-Inventory/s49e-q6j2",
+          "metadata_url": "https://data.lacity.org/api/views/s49e-q6j2",
+          "api_url": "https://data.lacity.org/resource/s49e-q6j2.json",
+          "last_observed_update": "2026-06-09",
+          "parking_layers": ["street_meters", "street_meter_rules", "rates"],
+          "recommended_connector": "socrata",
+          "legal_risk": "low_verify_license",
+          "confidence": 0.92
+        }
+      ]
+    },
+    {
+      "city": "Chicago",
+      "state": "IL",
+      "sources": [
+        {
+          "source_name": "ParkChicago Rates and Hours",
+          "source_type": "official_operator_page",
+          "portal_type": "html",
+          "source_url": "https://parkchicago.com/rates-hours",
+          "metadata_url": null,
+          "api_url": null,
+          "last_observed_update": "2026-06-10_browser_checked",
+          "parking_layers": ["rates", "street_meter_context"],
+          "recommended_connector": "url_fetcher_plus_browser_research",
+          "legal_risk": "medium_terms_review",
+          "confidence": 0.78
+        },
+        {
+          "source_name": "City of Chicago About Parking Meters",
+          "source_type": "official_city_page",
+          "portal_type": "html",
+          "source_url": "https://www.chicago.gov/city/en/depts/fin/supp_info/revenue/parking_meters.html",
+          "metadata_url": null,
+          "api_url": null,
+          "last_observed_update": "2026-06-10_extracted",
+          "parking_layers": ["street_meter_context", "official_links"],
+          "recommended_connector": "url_fetcher",
+          "legal_risk": "low_medium_terms_review",
+          "confidence": 0.82
+        }
+      ]
+    }
+  ],
+  "operator_sources": [
+    {
+      "source_name": "ABM Parking",
+      "source_type": "operator_public_site",
+      "source_url": "https://abmparking.com/",
+      "known_paths": [
+        "https://abmparking.com/facilities",
+        "https://abmparking.com/search",
+        "https://abmparking.com/locations/chicago-parking",
+        "https://abmparking.com/locations/san-francisco-parking",
+        "https://abmparking.com/locations/seattle"
+      ],
+      "sample_facility_url": "https://abmparking.com/facilities/33-w-ontario-st-parking",
+      "parking_layers": ["garages_lots", "monthly", "valet", "amenities", "height_restriction"],
+      "recommended_connector": "public_web_parser_or_partner",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.82
+    }
+  ],
+  "supplemental_benchmarks": [
+    {
+      "source_name": "Off-street Parking in 15 US Cities",
+      "source_url": "https://findingspress.org/article/145256-off-street-parking-in-15-us-cities",
+      "source_type": "research_dataset",
+      "parking_layers": ["off_street_surface_parking_benchmark"],
+      "recommended_connector": "benchmark_only_until_license_review",
+      "legal_risk": "medium_license_review",
+      "confidence": 0.75
+    }
+  ]
+}

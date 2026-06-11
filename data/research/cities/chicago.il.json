@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-06-10T10:54:33.446Z",
+  "source_inventory": "data\\research\\phase6-source-inventory-20260610.json",
+  "city": "Chicago",
+  "state": "IL",
+  "sources": [
+    {
+      "source_name": "ParkChicago Rates and Hours",
+      "source_type": "official_operator_page",
+      "portal_type": "html",
+      "source_url": "https://parkchicago.com/rates-hours",
+      "metadata_url": null,
+      "api_url": null,
+      "last_observed_update": "2026-06-10_browser_checked",
+      "parking_layers": [
+        "rates",
+        "street_meter_context"
+      ],
+      "recommended_connector": "url_fetcher_plus_browser_research",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.78,
+      "city": "Chicago",
+      "state": "IL",
+      "evidence": [
+        {
+          "url": "https://parkchicago.com/rates-hours",
+          "claim": "Source landing page discovered in Phase 6 research."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": true,
+      "ingestion_status": "research_only"
+    },
+    {
+      "source_name": "City of Chicago About Parking Meters",
+      "source_type": "official_city_page",
+      "portal_type": "html",
+      "source_url": "https://www.chicago.gov/city/en/depts/fin/supp_info/revenue/parking_meters.html",
+      "metadata_url": null,
+      "api_url": null,
+      "last_observed_update": "2026-06-10_extracted",
+      "parking_layers": [
+        "street_meter_context",
+        "official_links"
+      ],
+      "recommended_connector": "url_fetcher",
+      "legal_risk": "low_medium_terms_review",
+      "confidence": 0.82,
+      "city": "Chicago",
+      "state": "IL",
+      "evidence": [
+        {
+          "url": "https://www.chicago.gov/city/en/depts/fin/supp_info/revenue/parking_meters.html",
+          "claim": "Source landing page discovered in Phase 6 research."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": true,
+      "ingestion_status": "research_only"
+    }
+  ],
+  "gaps": [],
+  "acceptance": {
+    "direct_source_urls_required": true,
+    "api_sources_require_api_url": true,
+    "parser_sources_require_parser_spec_before_ingestion": true,
+    "non_official_sources_require_legal_risk": true
+  }
+}

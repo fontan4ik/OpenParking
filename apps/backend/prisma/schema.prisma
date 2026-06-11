@@ -1,0 +1,234 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model DataSource {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  type         String
+  homepageUrl  String?
+  license      String?
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  facilities   ParkingFacility[]
+  curbSegments CurbSegment[]
+  zones        ParkingZone[]
+  observations SourceObservation[]
+}
+
+model ParkingFacility {
+  id                 String   @id @default(cuid())
+  sourceName         String
+  sourceId           String
+  name               String?
+  facilityType       String
+  geometryType       String
+  geojson            Json
+  lat                Float?
+  lng                Float?
+  city               String   @default("San Francisco")
+  state              String   @default("CA")
+  operator           String?
+  access             String?
+  capacity           String?
+  fee                String?
+  charge             String?
+  baseHourlyRate     Float?
+  openingHours       String?
+  street             String?
+  blockfaceId        String?
+  neighborhood       String?
+  meterType          String?
+  capColor           String?
+  rawProperties      Json
+  confidence         Float    @default(0.5)
+  lastVerifiedAt     DateTime?
+  dataAsOf           DateTime?
+  geometryQuality    String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  dataSource         DataSource @relation(fields: [sourceName], references: [name], onDelete: Cascade)
+
+  @@unique([sourceName, sourceId])
+  @@index([facilityType])
+  @@index([city, state])
+  @@index([blockfaceId])
+  @@index([sourceName])
+}
+
+model CurbSegment {
+  id                String   @id @default(cuid())
+  sourceName        String
+  sourceId          String
+  blockfaceId       String?
+  meterCount        Int?
+  streetSample      String?
+  neighborhood      String?
+  baseHourlyRateMin Float?
+  baseHourlyRateMax Float?
+  charge            String?
+  geojson           Json
+  rawProperties     Json
+  confidence        Float    @default(0.5)
+  lastVerifiedAt    DateTime?
+  dataAsOf          DateTime?
+  geometryQuality   String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  dataSource        DataSource @relation(fields: [sourceName], references: [name], onDelete: Cascade)
+
+  @@unique([sourceName, sourceId])
+  @@index([blockfaceId])
+  @@index([sourceName])
+}
+
+model ParkingZone {
+  id              String   @id @default(cuid())
+  sourceName      String
+  sourceId        String
+  name            String?
+  facilityType    String?
+  operator        String?
+  access          String?
+  fee             String?
+  charge          String?
+  capacity        String?
+  openingHours    String?
+  website         String?
+  geojson         Json
+  rawProperties   Json
+  confidence      Float    @default(0.5)
+  lastVerifiedAt  DateTime?
+  dataAsOf        DateTime?
+  geometryQuality String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  dataSource      DataSource @relation(fields: [sourceName], references: [name], onDelete: Cascade)
+
+  @@unique([sourceName, sourceId])
+  @@index([facilityType])
+  @@index([sourceName])
+}
+
+model SourceObservation {
+  id              String   @id @default(cuid())
+  sourceName      String
+  sourceId        String
+  entityType      String
+  entitySourceId  String?
+  observedAt      DateTime @default(now())
+  rawProperties   Json
+  confidence      Float    @default(0.5)
+  notes           String?
+  createdAt       DateTime @default(now())
+
+  dataSource      DataSource @relation(fields: [sourceName], references: [name], onDelete: Cascade)
+
+  @@unique([sourceName, sourceId, entityType])
+  @@index([sourceName, sourceId])
+  @@index([entityType, entitySourceId])
+}
+
+model ResearchTask {
+  id            String   @id @default(cuid())
+  taskType      String
+  city          String?
+  state         String?
+  targetLayers  String[]
+  status        String   @default("pending")
+  toolStack     Json?
+  input         Json
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  findings      ResearchFinding[]
+
+  @@index([taskType])
+  @@index([city, state])
+  @@index([status])
+}
+
+model ResearchFinding {
+  id                   String   @id @default(cuid())
+  taskId               String?
+  sourceName           String
+  sourceType           String
+  portalType           String?
+  sourceUrl            String
+  metadataUrl          String?
+  apiUrl               String?
+  parkingLayers        String[]
+  recommendedConnector String
+  acquisitionPath      String?
+  legalRisk            String
+  parserSpecRequired   Boolean  @default(false)
+  parserSpec           Json?
+  evidence             Json
+  confidence           Float    @default(0.5)
+  freshnessNote        String?
+  rawProperties        Json
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  task                 ResearchTask? @relation(fields: [taskId], references: [id], onDelete: SetNull)
+
+  @@unique([sourceName, sourceUrl])
+  @@index([taskId])
+  @@index([sourceType])
+  @@index([portalType])
+  @@index([recommendedConnector])
+}
+
+model OccupancyEvent {
+  id             String   @id @default(cuid())
+  sourceName     String
+  sourceId       String
+  facilitySource String?
+  curbSource     String?
+  observedAt     DateTime
+  occupancy      Int?
+  capacity       Int?
+  available      Int?
+  sensors        String?
+  rawProperties  Json
+  confidence     Float    @default(0.5)
+  createdAt      DateTime @default(now())
+
+  @@index([sourceName, sourceId])
+  @@index([facilitySource])
+  @@index([curbSource])
+  @@index([observedAt])
+}
+
+model Prediction {
+  id             String   @id @default(cuid())
+  sourceName     String
+  sourceId       String
+  facilitySource String?
+  curbSource     String?
+  predictedFor   DateTime
+  value          Float
+  probability    Float    @default(1.0)
+  minOccupancy   Int?
+  maxOccupancy   Int?
+  rawProperties  Json
+  confidence     Float    @default(0.5)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([sourceName, sourceId])
+  @@index([facilitySource])
+  @@index([curbSource])
+  @@index([predictedFor])
+}

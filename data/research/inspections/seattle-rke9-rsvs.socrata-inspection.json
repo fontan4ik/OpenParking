@@ -1,0 +1,120 @@
+{
+  "inspected_at": "2026-06-10T10:54:54.991Z",
+  "source_name": "Seattle Paid Parking Occupancy Last 30 Days",
+  "city": "Seattle",
+  "state": "WA",
+  "dataset_id": "rke9-rsvs",
+  "portal_type": "socrata",
+  "source_url": "https://data.seattle.gov/Transportation/Paid-Parking-Occupancy-Last-30-Days-/rke9-rsvs",
+  "metadata_url": "https://data.seattle.gov/api/views/rke9-rsvs",
+  "api_url": "https://data.seattle.gov/resource/rke9-rsvs.json",
+  "sample_url": "https://data.seattle.gov/resource/rke9-rsvs.json?%24limit=1",
+  "title": "Paid Parking Occupancy (Last 30 Days)",
+  "description": "The City of Seattle has created an on-street paid parking occupancy data set and is providing access to this data set for public use for research and entrepreneurial purposes under the City’s Open Data Program. This data set contains the last 30 days of paid occupancy records (after the seven day data delay).",
+  "attribution": "Seattle Department of Transportation",
+  "license": "Public Domain",
+  "rows_updated_at_unix": 1781088893,
+  "metadata_updated_at_unix": null,
+  "created_at_unix": 1537554302,
+  "columns": [
+    {
+      "name": "OccupancyDateTime",
+      "fieldName": "occupancydatetime",
+      "dataTypeName": "calendar_date",
+      "position": 1
+    },
+    {
+      "name": "PaidOccupancy",
+      "fieldName": "paidoccupancy",
+      "dataTypeName": "number",
+      "position": 2
+    },
+    {
+      "name": "BlockfaceName",
+      "fieldName": "blockfacename",
+      "dataTypeName": "text",
+      "position": 3
+    },
+    {
+      "name": "SideOfStreet",
+      "fieldName": "sideofstreet",
+      "dataTypeName": "text",
+      "position": 4
+    },
+    {
+      "name": "SourceElementKey",
+      "fieldName": "sourceelementkey",
+      "dataTypeName": "number",
+      "position": 5
+    },
+    {
+      "name": "ParkingTimeLimitCategory",
+      "fieldName": "parkingtimelimitcategory",
+      "dataTypeName": "number",
+      "position": 6
+    },
+    {
+      "name": "ParkingSpaceCount",
+      "fieldName": "parkingspacecount",
+      "dataTypeName": "number",
+      "position": 7
+    },
+    {
+      "name": "PaidParkingArea",
+      "fieldName": "paidparkingarea",
+      "dataTypeName": "text",
+      "position": 8
+    },
+    {
+      "name": "PaidParkingSubArea",
+      "fieldName": "paidparkingsubarea",
+      "dataTypeName": "text",
+      "position": 9
+    },
+    {
+      "name": "PaidParkingRate",
+      "fieldName": "paidparkingrate",
+      "dataTypeName": "text",
+      "position": 10
+    },
+    {
+      "name": "ParkingCategory",
+      "fieldName": "parkingcategory",
+      "dataTypeName": "text",
+      "position": 11
+    },
+    {
+      "name": "Location",
+      "fieldName": "location",
+      "dataTypeName": "point",
+      "position": 14
+    }
+  ],
+  "sample_row": {
+    "occupancydatetime": "2026-05-29T08:55:00.000",
+    "paidoccupancy": "0",
+    "blockfacename": "E OLIVE WAY BETWEEN HARVARD AVE E AND BROADWAY E",
+    "sideofstreet": "N",
+    "sourceelementkey": "59945",
+    "parkingtimelimitcategory": "120",
+    "parkingspacecount": "1",
+    "paidparkingarea": "Capitol Hill",
+    "paidparkingsubarea": "South",
+    "parkingcategory": "Paid Parking",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.32158697,
+        47.61997118
+      ]
+    }
+  },
+  "parking_layers": [
+    "occupancy",
+    "blockface_reference",
+    "rates"
+  ],
+  "recommended_connector": "socrata",
+  "legal_risk": "low_verify_license",
+  "confidence": 0.99
+}

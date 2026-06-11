@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: parkingusa-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-parkingusa}
+      POSTGRES_USER: ${POSTGRES_USER:-parking}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-parking}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-parking} -d ${POSTGRES_DB:-parkingusa}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  martin:
+    image: ghcr.io/maplibre/martin:latest
+    container_name: parkingusa-martin
+    profiles:
+      - tiles
+    depends_on:
+      db:
+        condition: service_healthy
+    command:
+      - postgresql://${POSTGRES_USER:-parking}:${POSTGRES_PASSWORD:-parking}@db:5432/${POSTGRES_DB:-parkingusa}
+      - --listen-addresses
+      - 0.0.0.0:3000
+    ports:
+      - "3003:3000"
+
+volumes:
+  pgdata:

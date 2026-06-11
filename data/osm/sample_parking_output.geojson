@@ -1,0 +1,80 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "source": "OpenStreetMap via osmtogeojson",
+    "input": "data\\osm\\sample_parking_overpass.json",
+    "count": 1,
+    "tainted_count": 0
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "way/2001",
+      "properties": {
+        "source_id": "osm:way:2001",
+        "name": "ParkingUSA Fixture Lot",
+        "facility_type": "surface",
+        "operator": "",
+        "access": "",
+        "fee": "yes",
+        "charge": "",
+        "capacity": "18",
+        "opening_hours": "",
+        "website": "",
+        "confidence": 0.65,
+        "last_verified_source": "OpenStreetMap via osmtogeojson",
+        "osm_type": "way",
+        "osm_id": 2001,
+        "relations": [],
+        "tainted": false,
+        "raw_tags": {
+          "amenity": "parking",
+          "parking": "surface",
+          "capacity": "18",
+          "fee": "yes",
+          "name": "ParkingUSA Fixture Lot"
+        },
+        "raw_properties": {
+          "type": "way",
+          "id": 2001,
+          "tags": {
+            "amenity": "parking",
+            "parking": "surface",
+            "capacity": "18",
+            "fee": "yes",
+            "name": "ParkingUSA Fixture Lot"
+          },
+          "relations": [],
+          "meta": {}
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -122.41,
+              37.78
+            ],
+            [
+              -122.41,
+              37.7796
+            ],
+            [
+              -122.4095,
+              37.7796
+            ],
+            [
+              -122.4095,
+              37.78
+            ],
+            [
+              -122.41,
+              37.78
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

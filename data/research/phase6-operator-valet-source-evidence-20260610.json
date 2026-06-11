@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-06-10T00:00:00Z",
+  "tool": "tavily_search",
+  "purpose": "Evidence baseline for Phase 6 operator, valet, monthly, event, and airport parser/source discovery before partnerships.",
+  "sources": [
+    {
+      "source_name": "ABM Parking",
+      "source_url": "https://abmparking.com",
+      "parking_layers": ["garages_lots", "monthly", "operator_inventory", "rates", "booking_urls", "possible_valet"],
+      "evidence_claim": "ABM describes more than 2,000 parking locations in more than 230 cities and direct booking/rates on its public site.",
+      "recommended_connector": "public_web_parser_then_partner",
+      "static_or_browser_required": "browser_likely_for_search_and_booking_flows",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "Metropolis",
+      "source_url": "https://www.metropolis.io/parking",
+      "parking_layers": ["garages_lots", "operator_inventory", "availability_signals", "hospitality", "events_venues", "healthcare", "universities", "aviation"],
+      "evidence_claim": "Metropolis describes itself as the largest US parking operator, with thousands of North American locations and verticals including hospitality, aviation, healthcare, universities, and events/venues.",
+      "recommended_connector": "partner_or_public_page_research",
+      "static_or_browser_required": "browser_for_consumer_or_help_flows_if_public_inventory_exists",
+      "legal_risk": "medium_high_partner_preferred",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "SP Plus / Parking.com",
+      "source_url": "https://parking.com",
+      "parking_layers": ["garages_lots", "monthly", "event", "rates", "booking_urls", "operator_inventory"],
+      "evidence_claim": "Parking.com exposes city and facility-style pages for daily and monthly parking; SP+ corporate pages also list valet, hospitality, airports, healthcare, universities, and events/venues as relevant operating verticals.",
+      "recommended_connector": "public_web_parser_or_partner",
+      "static_or_browser_required": "browser_required_for_search_date_time_price_scenarios",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "AirportParking.com",
+      "source_url": "https://airportparking.com",
+      "parking_layers": ["airport", "off_airport_lots", "rates", "booking_urls", "shuttle_frequency", "reviews"],
+      "evidence_claim": "AirportParking.com describes airport parking comparison/reservation coverage across many airports with prices, distance, shuttle information, and services.",
+      "recommended_connector": "public_web_parser_or_partner",
+      "static_or_browser_required": "browser_likely_for_search_and_booking_flows",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "Platinum Parking",
+      "source_url": "https://platinumparking.com",
+      "parking_layers": ["garages_lots", "monthly", "operator_inventory"],
+      "evidence_claim": "Platinum Parking describes managed parking across US cities and public monthly parking discovery.",
+      "recommended_connector": "public_web_parser_or_partner",
+      "static_or_browser_required": "browser_or_static_after_site_map",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    }
+  ],
+  "research_note": "These sources are not treated as master data until parser specs, evidence capture, legal/ToS review, and dedupe rules are written. They are high-priority candidates because city open data alone cannot cover private garages/lots, valet, monthly, airport, venue, event, and operator-managed inventory."
+}

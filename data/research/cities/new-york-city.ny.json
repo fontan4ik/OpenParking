@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-06-10T10:54:33.440Z",
+  "source_inventory": "data\\research\\phase6-source-inventory-20260610.json",
+  "city": "New York City",
+  "state": "NY",
+  "sources": [
+    {
+      "source_name": "NYC Parking Meters Locations and Status",
+      "source_type": "city_open_data",
+      "portal_type": "socrata",
+      "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Meters-Locations-and-Status/693u-uax6",
+      "metadata_url": "https://data.cityofnewyork.us/api/views/693u-uax6",
+      "api_url": "https://data.cityofnewyork.us/resource/693u-uax6.json",
+      "last_observed_update": "2026-06-08",
+      "parking_layers": [
+        "street_meters",
+        "meter_status"
+      ],
+      "recommended_connector": "socrata",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.95,
+      "city": "New York City",
+      "state": "NY",
+      "evidence": [
+        {
+          "url": "https://data.cityofnewyork.us/Transportation/Parking-Meters-Locations-and-Status/693u-uax6",
+          "claim": "Source landing page discovered in Phase 6 research."
+        },
+        {
+          "url": "https://data.cityofnewyork.us/api/views/693u-uax6",
+          "claim": "Machine-readable metadata endpoint."
+        },
+        {
+          "url": "https://data.cityofnewyork.us/resource/693u-uax6.json",
+          "claim": "Machine-readable API/query endpoint."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": false,
+      "ingestion_status": "ready_for_inspection"
+    },
+    {
+      "source_name": "NYC Parking Regulation Locations and Signs",
+      "source_type": "city_open_data",
+      "portal_type": "socrata",
+      "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Regulation-Locations-and-Signs/nfid-uabd",
+      "metadata_url": "https://data.cityofnewyork.us/api/views/nfid-uabd",
+      "api_url": "https://data.cityofnewyork.us/resource/nfid-uabd.json",
+      "last_observed_update": "2026-06-08",
+      "parking_layers": [
+        "curb_rules",
+        "signs"
+      ],
+      "recommended_connector": "socrata_plus_rule_parser",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.95,
+      "city": "New York City",
+      "state": "NY",
+      "evidence": [
+        {
+          "url": "https://data.cityofnewyork.us/Transportation/Parking-Regulation-Locations-and-Signs/nfid-uabd",
+          "claim": "Source landing page discovered in Phase 6 research."
+        },
+        {
+          "url": "https://data.cityofnewyork.us/api/views/nfid-uabd",
+          "claim": "Machine-readable metadata endpoint."
+        },
+        {
+          "url": "https://data.cityofnewyork.us/resource/nfid-uabd.json",
+          "claim": "Machine-readable API/query endpoint."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": true,
+      "ingestion_status": "ready_for_inspection"
+    }
+  ],
+  "gaps": [],
+  "acceptance": {
+    "direct_source_urls_required": true,
+    "api_sources_require_api_url": true,
+    "parser_sources_require_parser_spec_before_ingestion": true,
+    "non_official_sources_require_legal_risk": true
+  }
+}

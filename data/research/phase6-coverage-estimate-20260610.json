@@ -1,0 +1,163 @@
+{
+  "generated_at": "2026-06-10T10:54:34.452Z",
+  "all_layers": [
+    "street_meters",
+    "street_meter_rules",
+    "curb_rules",
+    "curb_geometry",
+    "garages_lots",
+    "valet",
+    "airport_event",
+    "monthly",
+    "ev_accessibility",
+    "private_customer_only",
+    "availability",
+    "rates"
+  ],
+  "cities": [
+    {
+      "city": "Chicago",
+      "state": "IL",
+      "source_count": 2,
+      "source_types": [
+        "html"
+      ],
+      "covered_layers": [
+        "rates",
+        "street_meter_context",
+        "official_links"
+      ],
+      "missing_layers": [
+        "street_meters",
+        "street_meter_rules",
+        "curb_rules",
+        "curb_geometry",
+        "garages_lots",
+        "valet",
+        "airport_event",
+        "monthly",
+        "ev_accessibility",
+        "private_customer_only",
+        "availability"
+      ],
+      "parser_required_sources": [
+        "ParkChicago Rates and Hours",
+        "City of Chicago About Parking Meters"
+      ],
+      "coverage_status": "needs_more_sources"
+    },
+    {
+      "city": "Los Angeles",
+      "state": "CA",
+      "source_count": 2,
+      "source_types": [
+        "socrata"
+      ],
+      "covered_layers": [
+        "occupancy",
+        "street_meters",
+        "street_meter_rules",
+        "rates"
+      ],
+      "missing_layers": [
+        "curb_rules",
+        "curb_geometry",
+        "garages_lots",
+        "valet",
+        "airport_event",
+        "monthly",
+        "ev_accessibility",
+        "private_customer_only",
+        "availability"
+      ],
+      "parser_required_sources": [],
+      "coverage_status": "benchmark_started"
+    },
+    {
+      "city": "New York City",
+      "state": "NY",
+      "source_count": 2,
+      "source_types": [
+        "socrata"
+      ],
+      "covered_layers": [
+        "street_meters",
+        "meter_status",
+        "curb_rules",
+        "signs"
+      ],
+      "missing_layers": [
+        "street_meter_rules",
+        "curb_geometry",
+        "garages_lots",
+        "valet",
+        "airport_event",
+        "monthly",
+        "ev_accessibility",
+        "private_customer_only",
+        "availability",
+        "rates"
+      ],
+      "parser_required_sources": [
+        "NYC Parking Regulation Locations and Signs"
+      ],
+      "coverage_status": "benchmark_started"
+    },
+    {
+      "city": "San Francisco",
+      "state": "CA",
+      "source_count": 2,
+      "source_types": [
+        "socrata"
+      ],
+      "covered_layers": [
+        "street_meters",
+        "street_meter_rules",
+        "rates"
+      ],
+      "missing_layers": [
+        "curb_rules",
+        "curb_geometry",
+        "garages_lots",
+        "valet",
+        "airport_event",
+        "monthly",
+        "ev_accessibility",
+        "private_customer_only",
+        "availability"
+      ],
+      "parser_required_sources": [],
+      "coverage_status": "needs_more_sources"
+    },
+    {
+      "city": "Seattle",
+      "state": "WA",
+      "source_count": 2,
+      "source_types": [
+        "socrata",
+        "arcgis_rest"
+      ],
+      "covered_layers": [
+        "occupancy",
+        "blockface_reference",
+        "rates",
+        "curb_geometry",
+        "blockface"
+      ],
+      "missing_layers": [
+        "street_meters",
+        "street_meter_rules",
+        "curb_rules",
+        "garages_lots",
+        "valet",
+        "airport_event",
+        "monthly",
+        "ev_accessibility",
+        "private_customer_only",
+        "availability"
+      ],
+      "parser_required_sources": [],
+      "coverage_status": "benchmark_started"
+    }
+  ]
+}

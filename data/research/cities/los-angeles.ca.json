@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-06-10T10:54:33.445Z",
+  "source_inventory": "data\\research\\phase6-source-inventory-20260610.json",
+  "city": "Los Angeles",
+  "state": "CA",
+  "sources": [
+    {
+      "source_name": "LADOT Parking Meter Occupancy",
+      "source_type": "city_open_data",
+      "portal_type": "socrata",
+      "source_url": "https://data.lacity.org/Transportation/LADOT-Parking-Meter-Occupancy/e7h6-4a3e",
+      "metadata_url": "https://data.lacity.org/api/views/e7h6-4a3e",
+      "api_url": "https://data.lacity.org/resource/e7h6-4a3e.json",
+      "last_observed_update": "2026-06-10",
+      "parking_layers": [
+        "occupancy"
+      ],
+      "recommended_connector": "socrata",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.92,
+      "city": "Los Angeles",
+      "state": "CA",
+      "evidence": [
+        {
+          "url": "https://data.lacity.org/Transportation/LADOT-Parking-Meter-Occupancy/e7h6-4a3e",
+          "claim": "Source landing page discovered in Phase 6 research."
+        },
+        {
+          "url": "https://data.lacity.org/api/views/e7h6-4a3e",
+          "claim": "Machine-readable metadata endpoint."
+        },
+        {
+          "url": "https://data.lacity.org/resource/e7h6-4a3e.json",
+          "claim": "Machine-readable API/query endpoint."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": false,
+      "ingestion_status": "ready_for_inspection"
+    },
+    {
+      "source_name": "LADOT Metered Parking Inventory and Policies",
+      "source_type": "city_open_data",
+      "portal_type": "socrata",
+      "source_url": "https://data.lacity.org/A-Livable-and-Sustainable-City/Parking-Meter-Inventory/s49e-q6j2",
+      "metadata_url": "https://data.lacity.org/api/views/s49e-q6j2",
+      "api_url": "https://data.lacity.org/resource/s49e-q6j2.json",
+      "last_observed_update": "2026-06-09",
+      "parking_layers": [
+        "street_meters",
+        "street_meter_rules",
+        "rates"
+      ],
+      "recommended_connector": "socrata",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.92,
+      "city": "Los Angeles",
+      "state": "CA",
+      "evidence": [
+        {
+          "url": "https://data.lacity.org/A-Livable-and-Sustainable-City/Parking-Meter-Inventory/s49e-q6j2",
+          "claim": "Source landing page discovered in Phase 6 research."
+        },
+        {
+          "url": "https://data.lacity.org/api/views/s49e-q6j2",
+          "claim": "Machine-readable metadata endpoint."
+        },
+        {
+          "url": "https://data.lacity.org/resource/s49e-q6j2.json",
+          "claim": "Machine-readable API/query endpoint."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": false,
+      "ingestion_status": "ready_for_inspection"
+    }
+  ],
+  "gaps": [],
+  "acceptance": {
+    "direct_source_urls_required": true,
+    "api_sources_require_api_url": true,
+    "parser_sources_require_parser_spec_before_ingestion": true,
+    "non_official_sources_require_legal_risk": true
+  }
+}

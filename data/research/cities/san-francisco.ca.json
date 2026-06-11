@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-06-10T10:54:33.436Z",
+  "source_inventory": "data\\research\\phase6-source-inventory-20260610.json",
+  "city": "San Francisco",
+  "state": "CA",
+  "sources": [
+    {
+      "source_name": "DataSF Parking Meters",
+      "source_type": "city_open_data",
+      "portal_type": "socrata",
+      "source_url": "https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9",
+      "metadata_url": "https://data.sfgov.org/api/views/8vzz-qzz9",
+      "api_url": "https://data.sfgov.org/resource/8vzz-qzz9.json",
+      "last_observed_update": "2026-06-06",
+      "parking_layers": [
+        "street_meters"
+      ],
+      "recommended_connector": "socrata",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.95,
+      "city": "San Francisco",
+      "state": "CA",
+      "evidence": [
+        {
+          "url": "https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9",
+          "claim": "Source landing page discovered in Phase 6 research."
+        },
+        {
+          "url": "https://data.sfgov.org/api/views/8vzz-qzz9",
+          "claim": "Machine-readable metadata endpoint."
+        },
+        {
+          "url": "https://data.sfgov.org/resource/8vzz-qzz9.json",
+          "claim": "Machine-readable API/query endpoint."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": false,
+      "ingestion_status": "ready_for_inspection"
+    },
+    {
+      "source_name": "DataSF Meter Policies",
+      "source_type": "city_open_data",
+      "portal_type": "socrata",
+      "source_url": "https://data.sfgov.org/Transportation/Meter-Policies/qq7v-hds4",
+      "metadata_url": "https://data.sfgov.org/api/views/qq7v-hds4",
+      "api_url": "https://data.sfgov.org/resource/qq7v-hds4.json",
+      "last_observed_update": "2026-06-10",
+      "parking_layers": [
+        "street_meter_rules",
+        "rates"
+      ],
+      "recommended_connector": "socrata",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.95,
+      "city": "San Francisco",
+      "state": "CA",
+      "evidence": [
+        {
+          "url": "https://data.sfgov.org/Transportation/Meter-Policies/qq7v-hds4",
+          "claim": "Source landing page discovered in Phase 6 research."
+        },
+        {
+          "url": "https://data.sfgov.org/api/views/qq7v-hds4",
+          "claim": "Machine-readable metadata endpoint."
+        },
+        {
+          "url": "https://data.sfgov.org/resource/qq7v-hds4.json",
+          "claim": "Machine-readable API/query endpoint."
+        }
+      ],
+      "field_mapping": null,
+      "parser_spec_required": false,
+      "ingestion_status": "ready_for_inspection"
+    }
+  ],
+  "gaps": [],
+  "acceptance": {
+    "direct_source_urls_required": true,
+    "api_sources_require_api_url": true,
+    "parser_sources_require_parser_spec_before_ingestion": true,
+    "non_official_sources_require_legal_risk": true
+  }
+}

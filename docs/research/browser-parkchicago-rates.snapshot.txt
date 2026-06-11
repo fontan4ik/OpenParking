@@ -1,0 +1,269 @@
+- main:
+  - navigation:
+    - generic: Chicago Parking Meters is the official operator of the City of Chicago’s 36,000 on‐street parking spaces.
+    - link:
+      - /url: https://www.instagram.com/parkchicago_official/
+    - link:
+      - /url: https://www.facebook.com/parkchicagoofficial
+    - link "FAQ":
+      - /url: /faq
+      - generic: FAQ
+    - link "About":
+      - /url: /about
+      - generic: About
+    - link "News":
+      - /url: /news
+      - generic: News
+    - 'button "High Contrast : Off"'
+    - link:
+      - /url: /
+    - link "FAQ":
+      - /url: /faq
+      - generic: FAQ
+    - link "Ways To Park":
+      - /url: ""
+      - generic: Ways To Park
+    - link "ParkChicago® Mobile Pay":
+      - /url: /park-chicago
+      - generic: ParkChicago®
+      - generic: Mobile Pay
+    - link "ParkChicago® Pay Box Street Pay":
+      - /url: /park-chicago-paybox
+      - generic: ParkChicago® Pay Box
+      - generic: Street Pay
+    - link "ParkChicago® Fleet Business Pay":
+      - /url: /park-chicago-fleet
+      - generic: ParkChicago® Fleet
+      - generic: Business Pay
+    - link "Find Parking":
+      - /url: /find-parking
+      - generic: Find Parking
+    - link "Rates & Hours":
+      - /url: /rates-hours
+      - generic: Rates & Hours
+    - link "Refund Request":
+      - /url: /refund-request
+      - generic: Refund Request
+    - link "Contact Us":
+      - /url: /contact-us
+      - generic: Contact Us
+    - link "FAQ":
+      - /url: /faq
+      - generic: FAQ
+    - generic: Ways To Park
+    - link "ParkChicago® Mobile Pay":
+      - /url: /park-chicago
+      - generic: ParkChicago®
+      - generic: Mobile Pay
+    - link "ParkChicago® Pay Box Street Pay":
+      - /url: /park-chicago-paybox
+      - generic: ParkChicago® Pay Box
+      - generic: Street Pay
+    - link "ParkChicago® Fleet Business Pay":
+      - /url: /park-chicago-fleet
+      - generic: ParkChicago® Fleet
+      - generic: Business Pay
+    - link "Find Parking":
+      - /url: /find-parking
+      - generic: Find Parking
+    - link "Rates & Hours":
+      - /url: /rates-hours
+      - generic: Rates & Hours
+    - link "Refund Request":
+      - /url: /refund-request
+      - generic: Refund Request
+    - link "Contact Us":
+      - /url: /contact-us
+      - generic: Contact Us
+    - link "FAQ":
+      - /url: /faq
+      - generic: FAQ
+    - link "About":
+      - /url: /about
+      - generic: About
+    - link "News":
+      - /url: /news
+      - generic: News
+    - 'button "High Contrast : Off"'
+    - link:
+      - /url: https://www.instagram.com/parkchicago_official/
+    - link:
+      - /url: https://www.facebook.com/parkchicagoofficial
+  - generic: Parking Rates
+  - generic: RATES VARY
+  - paragraph: Depending on where and when you park in Chicago, the cost and hours of operation vary. We operate 365 days/year, unless otherwise posted. Please see the rate map below for more information.
+  - generic: PRICE RANGE
+  - paragraph: Whether you use ParkChicago® or the pay boxes on the street, hourly parking rates range from $2.50 (outside the Loop and Central Business District) to $4.75 (Central Business District), to $4.75 (West Loop) and $7.00 (Loop).
+  - generic: CHECK SIGNAGE
+  - paragraph: Always remember to check the on-street pay boxes, ParkChicago®, or ParkChicago® Map for specific rates and times for where you parked, along with checking on-street signage posted by the City. The pay boxes and ParkChicago® will not accept payment if a parking fee is not required.
+  - iframe
+  - list:
+    - paragraph: In Chicago neighborhoods (area outside the downtown area bounded by Roosevelt Avenue to the south, North Avenue to the north and Halsted Street to the west), most rates are $2.50 per hour from 8:00 a.m. to 10:00 p.m. On Sundays, motorists can park for free in some spaces in this area.
+    - paragraph: In the Central Business District outside the Loop (area bounded by Lake Michigan to the east, North Avenue to the north, Halsted to the west, and Roosevelt Road to the south), rates are $4.75 per hour from 8:00 a.m. to midnight.
+    - paragraph: In the West Loop (area is bounded by Grand Avenue to the north, the I-290 Expressway to the south, Ashland Avenue to the west and Halsted Street to the east), rates are $4.75 per hour.
+    - paragraph: In the Loop (area bounded by Lake Michigan to the east, Wacker Drive to the north and west, and Congress Parkway to the south), rates are $7.00 per hour from 8:00 a.m. to 9:00 p.m. and $3.50 per hour from 9:00 p.m. to 8:00 a.m.
+  - heading "PARKING LOT TAX STRUCTURE *" [level=5]:
+    - strong: PARKING LOT TAX STRUCTURE *
+  - table:
+    - rowgroup:
+      - row "STATE TAX CITY TAX COUNTY TAX":
+        - columnheader
+        - columnheader "STATE TAX":
+          - paragraph: STATE TAX
+        - columnheader "CITY TAX":
+          - paragraph: CITY TAX
+        - columnheader "COUNTY TAX":
+          - paragraph: COUNTY TAX
+    - rowgroup:
+      - row "ALL PURCHASES 6%":
+        - cell "ALL PURCHASES":
+          - paragraph: ALL PURCHASES
+        - cell "6%":
+          - paragraph: 6%
+        - cell
+        - cell
+      - row "DAILY > $2.00 23.25% 6%":
+        - cell "DAILY > $2.00":
+          - paragraph: DAILY > $2.00
+        - cell
+        - cell "23.25%":
+          - paragraph: 23.25%
+        - cell "6%":
+          - paragraph: 6%
+  - paragraph
+  - paragraph: "*Taxes apply to rate and convenience fee."
+  - paragraph:
+    - strong: "Pro Tip:"
+    - strong: ZoneHop...Move Your Time
+    - text: Your purchased time can be moved and good until expiration at most meters OF THE SAME TYPE OF SPACE AND WITH THE SAME OR LOWER HOURLY RATE. However, purchased time cannot be moved between on-street meters and off-street metered lots, OR BETWEEN COMMERCIAL LOADING ZONES AND OTHER TYPES OF ON-STREET METERED PARKING SPACES. If you do move your vehicle to a space where moving time is permitted, please be sure to abide by all zone signage regarding restrictions and rules, including all signage of which may be posted on the SAME SIDE OF THE STREET ON THE BLOCK you parked your vehicle. For example, you can move your vehicle from a $4.75 zone to another $4.75 zone or $2.50 zone. If the rate at the new location is higher, you must create a new parking session or pay at the pay box. Make sure to check for rates, parking restrictions on the pay box and permanent or temporary signage to avoid a ticket.
+  - generic: Monthly Parking
+  - paragraph: We offer one month parking permits for use at various parking lots throughout the City. Monthly parking permits are ideal for local residents, business owners and employees who are frequent parkers.
+  - paragraph:
+    - text: Below is a list of parking lot locations that offer one month permits. To purchase a monthly parking pass please visit
+    - link "www.cpmpermits.com":
+      - /url: https://www.cpmpermits.com/
+    - text: . The permit is only valid for the parking lot you selected at time of purchase.
+  - table:
+    - rowgroup:
+      - row "LOT LOCATION WARD PRICE *":
+        - columnheader "LOT LOCATION":
+          - paragraph: LOT LOCATION
+        - columnheader "WARD":
+          - paragraph: WARD
+        - columnheader "PRICE *":
+          - paragraph: PRICE *
+    - rowgroup:
+      - row "3120 N Greenview 32 $120.06":
+        - cell "3120 N Greenview":
+          - paragraph: 3120 N Greenview
+        - cell "32":
+          - paragraph: "32"
+        - cell "$120.06":
+          - paragraph: $120.06
+      - row "1530 W Barry 32 $120.06":
+        - cell "1530 W Barry":
+          - paragraph: 1530 W Barry
+        - cell "32":
+          - paragraph: "32"
+        - cell "$120.06":
+          - paragraph: $120.06
+      - row "1635 W Melrose 32 $120.06":
+        - cell "1635 W Melrose":
+          - paragraph: 1635 W Melrose
+        - cell "32":
+          - paragraph: "32"
+        - cell "$120.06":
+          - paragraph: $120.06
+      - row "4050 N Laporte 45 $43.60":
+        - cell "4050 N Laporte":
+          - paragraph: 4050 N Laporte
+        - cell "45":
+          - paragraph: "45"
+        - cell "$43.60":
+          - paragraph: $43.60
+      - row "1752 W 95th St. 19 $43.60":
+        - cell "1752 W 95th St.":
+          - paragraph: 1752 W 95th St.
+        - cell "19":
+          - paragraph: "19"
+        - cell "$43.60":
+          - paragraph: $43.60
+      - row "1938 W Monterey 19 $43.60":
+        - cell "1938 W Monterey":
+          - paragraph: 1938 W Monterey
+        - cell "19":
+          - paragraph: "19"
+        - cell "$43.60":
+          - paragraph: $43.60
+      - row "1835 W 95th St. 19 $43.60":
+        - cell "1835 W 95th St.":
+          - paragraph: 1835 W 95th St.
+        - cell "19":
+          - paragraph: "19"
+        - cell "$43.60":
+          - paragraph: $43.60
+  - paragraph
+  - paragraph: "* Price is inclusive of all taxes (City, County and State)"
+  - paragraph: Beginning January 1, 2025 per city ordinance, the city tax for parking in a parking lot for a 24-hour period or less, with a purchase amount of more than $2.00 has increased to 23.25%, daily.
+  - paragraph: "Beginning on January 1, 2020, a tax is imposed on the privilege of using in this State a parking space in a parking area or garage for the use of parking one or more motor vehicles, recreational vehicles, or other self-propelled vehicles, at the rate of:"
+  - list:
+    - paragraph: 6% of the purchase price for a parking space paid for on an hourly, daily, or weekly basis.
+    - paragraph: 9% of the purchase price for a parking space paid for on a monthly or annual basis.
+  - generic: STILL HAVE QUESTIONS?
+  - link "View FAQ":
+    - /url: /faq
+    - generic: View FAQ
+  - contentinfo:
+    - link "Find Parking":
+      - /url: /find-parking
+      - generic: Find Parking
+    - link "Rates & Hours":
+      - /url: /rates-hours
+      - generic: Rates & Hours
+    - link "Refund Request":
+      - /url: /refund-request
+      - generic: Refund Request
+    - link "Contact Us":
+      - /url: /contact-us
+      - generic: Contact Us
+    - link "FAQ":
+      - /url: /faq
+      - generic: FAQ
+    - link "About":
+      - /url: /about
+      - generic: About
+    - link "News":
+      - /url: /news
+      - generic: News
+    - link "ESG":
+      - /url: /esg
+      - generic: ESG
+    - link:
+      - /url: https://itunes.apple.com/us/app/parkchicago/id686658594?ls=1&mt=8
+    - link:
+      - /url: https://play.google.com/store/apps/details?id=com.passportparking.mobile.parkchicago
+    - link:
+      - /url: https://itunes.apple.com/us/app/parkchicagomap/id1298072690?ls=1&mt=8
+    - link:
+      - /url: https://play.google.com/store/apps/details?id=com.passportparking.mobile.parkchicagoavailability
+    - link:
+      - /url: https://apps.apple.com/us/app/parkchicagofleet/id1455227700
+    - link:
+      - /url: https://play.google.com/store/apps/details?id=com.passportparking.mobile.parkchicagofleet&hl=en_US
+    - text: "@ 2026 Chicago Parking Meters, LLC. ParkChicago®, the ParkChicago® logo, and other trademarks on this site are trademarks of Chicago Parking Meters, LLC and may not be used without permission. This website has implemented reCAPTCHA v3 and your use of reCAPTCHA v3 is subject to the"
+    - link "Google Privacy Policy":
+      - /url: https://www.google.com/policies/privacy/
+    - text: and
+    - link "Terms of Use":
+      - /url: https://www.google.com/policies/terms/
+    - text: .
+    - link "Privacy Policy":
+      - /url: /privacy-policy
+      - generic: Privacy Policy
+    - link "Terms of Use":
+      - /url: /terms-of-use
+      - generic: Terms of Use
+    - link:
+      - /url: https://www.instagram.com/parkchicago_official/
+    - link:
+      - /url: https://www.facebook.com/parkchicagoofficial

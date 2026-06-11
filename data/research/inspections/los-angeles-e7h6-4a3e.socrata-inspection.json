@@ -1,0 +1,50 @@
+{
+  "inspected_at": "2026-06-10T10:54:57.867Z",
+  "source_name": "LADOT Parking Meter Occupancy",
+  "city": "Los Angeles",
+  "state": "CA",
+  "dataset_id": "e7h6-4a3e",
+  "portal_type": "socrata",
+  "source_url": "https://data.lacity.org/Transportation/LADOT-Parking-Meter-Occupancy/e7h6-4a3e",
+  "metadata_url": "https://data.lacity.org/api/views/e7h6-4a3e",
+  "api_url": "https://data.lacity.org/resource/e7h6-4a3e.json",
+  "sample_url": "https://data.lacity.org/resource/e7h6-4a3e.json?%24limit=1",
+  "title": "LADOT Parking Meter Occupancy",
+  "description": "Last known occupancy state of those City of Los Angeles Parking Meters equipped with occupancy detector sensors. Updated in real-time, as available.\n\nSee <a href=\"https://data.lacity.org/A-Livable-and-Sustainable-City/Parking-Meter-Inventory/s49e-q6j2\">\"LADOT Metered Parking Inventory & Policies\"</a> dataset for location and parking policy details.",
+  "attribution": "LADOT Parking Meters Division - LA ExpressPark",
+  "license": "Public Domain",
+  "rows_updated_at_unix": 1781088877,
+  "metadata_updated_at_unix": null,
+  "created_at_unix": 1528380425,
+  "columns": [
+    {
+      "name": "SpaceID",
+      "fieldName": "spaceid",
+      "dataTypeName": "text",
+      "position": 1
+    },
+    {
+      "name": "EventTime_UTC",
+      "fieldName": "eventtime",
+      "dataTypeName": "calendar_date",
+      "position": 2
+    },
+    {
+      "name": "OccupancyState",
+      "fieldName": "occupancystate",
+      "dataTypeName": "text",
+      "position": 3
+    }
+  ],
+  "sample_row": {
+    "spaceid": "66433",
+    "eventtime": "2026-06-10T10:53:28.000",
+    "occupancystate": "OCCUPIED"
+  },
+  "parking_layers": [
+    "occupancy"
+  ],
+  "recommended_connector": "socrata",
+  "legal_risk": "low_verify_license",
+  "confidence": 0.99
+}

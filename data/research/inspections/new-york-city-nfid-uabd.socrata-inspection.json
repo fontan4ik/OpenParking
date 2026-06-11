@@ -1,0 +1,197 @@
+{
+  "inspected_at": "2026-06-10T10:54:52.442Z",
+  "source_name": "NYC Parking Regulation Locations and Signs",
+  "city": "New York City",
+  "state": "NY",
+  "dataset_id": "nfid-uabd",
+  "portal_type": "socrata",
+  "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Regulation-Locations-and-Signs/nfid-uabd",
+  "metadata_url": "https://data.cityofnewyork.us/api/views/nfid-uabd",
+  "api_url": "https://data.cityofnewyork.us/resource/nfid-uabd.json",
+  "sample_url": "https://data.cityofnewyork.us/resource/nfid-uabd.json?%24limit=1",
+  "title": "Parking Regulation Locations and Signs",
+  "description": "Department of Transpiration manages approximately 1,000,000 signs on the streets of New York. This dataset contains current and historical parking regulation signs. For all street signs, please use <a href=\"https://data.cityofnewyork.us/Transportation/Street-Sign-Work-Orders/qt6m-xctn\">Street Sign Work Orders</a>.",
+  "attribution": "Department of Transportation (DOT)",
+  "license": "unknown",
+  "rows_updated_at_unix": 1780912982,
+  "metadata_updated_at_unix": null,
+  "created_at_unix": 1647265978,
+  "columns": [
+    {
+      "name": "order_number",
+      "fieldName": "order_number",
+      "dataTypeName": "text",
+      "position": 1
+    },
+    {
+      "name": "record_type",
+      "fieldName": "record_type",
+      "dataTypeName": "text",
+      "position": 2
+    },
+    {
+      "name": "order_type",
+      "fieldName": "order_type",
+      "dataTypeName": "text",
+      "position": 3
+    },
+    {
+      "name": "borough",
+      "fieldName": "borough",
+      "dataTypeName": "text",
+      "position": 4
+    },
+    {
+      "name": "on_street",
+      "fieldName": "on_street",
+      "dataTypeName": "text",
+      "position": 5
+    },
+    {
+      "name": "on_street_suffix",
+      "fieldName": "on_street_suffix",
+      "dataTypeName": "text",
+      "position": 6
+    },
+    {
+      "name": "from_street",
+      "fieldName": "from_street",
+      "dataTypeName": "text",
+      "position": 7
+    },
+    {
+      "name": "from_street_suffix",
+      "fieldName": "from_street_suffix",
+      "dataTypeName": "text",
+      "position": 8
+    },
+    {
+      "name": "to_street",
+      "fieldName": "to_street",
+      "dataTypeName": "text",
+      "position": 9
+    },
+    {
+      "name": "to_street_suffix",
+      "fieldName": "to_street_suffix",
+      "dataTypeName": "text",
+      "position": 10
+    },
+    {
+      "name": "side_of_street",
+      "fieldName": "side_of_street",
+      "dataTypeName": "text",
+      "position": 11
+    },
+    {
+      "name": "order_completed_on_date",
+      "fieldName": "order_completed_on_date",
+      "dataTypeName": "calendar_date",
+      "position": 12
+    },
+    {
+      "name": "sign_code",
+      "fieldName": "sign_code",
+      "dataTypeName": "text",
+      "position": 13
+    },
+    {
+      "name": "sign_description",
+      "fieldName": "sign_description",
+      "dataTypeName": "text",
+      "position": 14
+    },
+    {
+      "name": "sign_size",
+      "fieldName": "sign_size",
+      "dataTypeName": "text",
+      "position": 15
+    },
+    {
+      "name": "sign_design_voided_on_date",
+      "fieldName": "sign_design_voided_on_date",
+      "dataTypeName": "calendar_date",
+      "position": 16
+    },
+    {
+      "name": "sign_location",
+      "fieldName": "sign_location",
+      "dataTypeName": "text",
+      "position": 17
+    },
+    {
+      "name": "distance_from_intersection",
+      "fieldName": "distance_from_intersection",
+      "dataTypeName": "number",
+      "position": 18
+    },
+    {
+      "name": "arrow_direction",
+      "fieldName": "arrow_direction",
+      "dataTypeName": "text",
+      "position": 19
+    },
+    {
+      "name": "facing_direction",
+      "fieldName": "facing_direction",
+      "dataTypeName": "text",
+      "position": 20
+    },
+    {
+      "name": "sheeting_type",
+      "fieldName": "sheeting_type",
+      "dataTypeName": "text",
+      "position": 21
+    },
+    {
+      "name": "support",
+      "fieldName": "support",
+      "dataTypeName": "text",
+      "position": 22
+    },
+    {
+      "name": "sign_notes",
+      "fieldName": "sign_notes",
+      "dataTypeName": "text",
+      "position": 23
+    },
+    {
+      "name": "sign_x_coord",
+      "fieldName": "sign_x_coord",
+      "dataTypeName": "number",
+      "position": 24
+    },
+    {
+      "name": "sign_y_coord",
+      "fieldName": "sign_y_coord",
+      "dataTypeName": "number",
+      "position": 25
+    }
+  ],
+  "sample_row": {
+    "order_number": "P-01667780",
+    "record_type": "Current",
+    "order_type": "P-",
+    "borough": "Manhattan",
+    "on_street": "3 AVENUE",
+    "from_street": "EAST   85 STREET",
+    "to_street": "EAST   86 STREET",
+    "side_of_street": "W",
+    "order_completed_on_date": "2023-09-13T00:00:00.000",
+    "sign_code": "PS-127C",
+    "sign_description": "2 HMP SATURDAY 8AM-7PM <->",
+    "sign_size": "018 X 018",
+    "distance_from_intersection": "44",
+    "sheeting_type": "PNTD",
+    "support": "SAME",
+    "sign_x_coord": "996877",
+    "sign_y_coord": "222815"
+  },
+  "parking_layers": [
+    "curb_rules",
+    "signs"
+  ],
+  "recommended_connector": "socrata_plus_rule_parser",
+  "legal_risk": "low_verify_license",
+  "confidence": 0.99
+}

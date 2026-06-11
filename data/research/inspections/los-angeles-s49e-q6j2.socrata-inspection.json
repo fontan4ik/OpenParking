@@ -1,0 +1,124 @@
+{
+  "inspected_at": "2026-06-10T10:54:58.315Z",
+  "source_name": "LADOT Metered Parking Inventory and Policies",
+  "city": "Los Angeles",
+  "state": "CA",
+  "dataset_id": "s49e-q6j2",
+  "portal_type": "socrata",
+  "source_url": "https://data.lacity.org/A-Livable-and-Sustainable-City/Parking-Meter-Inventory/s49e-q6j2",
+  "metadata_url": "https://data.lacity.org/api/views/s49e-q6j2",
+  "api_url": "https://data.lacity.org/resource/s49e-q6j2.json",
+  "sample_url": "https://data.lacity.org/resource/s49e-q6j2.json?%24limit=1",
+  "title": "LADOT Metered Parking Inventory & Policies",
+  "description": "Inventory of all on-street metered parking spaces in the City of Los Angeles. Includes Space/Meter ID, block-level address, hourly rate, metered time limit, meter operating hours, enforced parking restrictions, and coordinates. Updated as operationally feasible. See <a href=\"https://data.lacity.org/A-Livable-and-Sustainable-City/Parking-Meter-Occupancy/e7h6-4a3e\">\"Parking Meter Occupancy\"</a> dataset for real-time parking availability at over 5,000 spaces.\n\nPLEASE NOTE: Operational changes on the street may create discrepancies between data and posted parking signs. Posted signs determine enforced parking policies.\n<b>ALWAYS CHECK AND FOLLOW ALL POSTED SIGNS BEFORE PARKING.</b>",
+  "attribution": "LADOT Parking Meters Division",
+  "license": "Public Domain",
+  "rows_updated_at_unix": 1781011818,
+  "metadata_updated_at_unix": null,
+  "created_at_unix": 1537550005,
+  "columns": [
+    {
+      "name": "SpaceID",
+      "fieldName": "spaceid",
+      "dataTypeName": "text",
+      "position": 1
+    },
+    {
+      "name": "BlockFace",
+      "fieldName": "blockface",
+      "dataTypeName": "text",
+      "position": 2
+    },
+    {
+      "name": "MeterType",
+      "fieldName": "metertype",
+      "dataTypeName": "text",
+      "position": 3
+    },
+    {
+      "name": "RateType",
+      "fieldName": "ratetype",
+      "dataTypeName": "text",
+      "position": 4
+    },
+    {
+      "name": "RateRange",
+      "fieldName": "raterange",
+      "dataTypeName": "text",
+      "position": 5
+    },
+    {
+      "name": "MeteredTimeLimit",
+      "fieldName": "timelimit",
+      "dataTypeName": "text",
+      "position": 6
+    },
+    {
+      "name": "LatLng",
+      "fieldName": "latlng",
+      "dataTypeName": "location",
+      "position": 9
+    },
+    {
+      "name": "Zip Codes",
+      "fieldName": ":@computed_region_qz3q_ghft",
+      "dataTypeName": "number",
+      "position": 14
+    },
+    {
+      "name": "Census Tracts",
+      "fieldName": ":@computed_region_k96s_3jcv",
+      "dataTypeName": "number",
+      "position": 15
+    },
+    {
+      "name": "Precinct Boundaries",
+      "fieldName": ":@computed_region_tatf_ua23",
+      "dataTypeName": "number",
+      "position": 16
+    },
+    {
+      "name": "LA Specific Plans",
+      "fieldName": ":@computed_region_ur2y_g4cx",
+      "dataTypeName": "number",
+      "position": 17
+    },
+    {
+      "name": "Council Districts",
+      "fieldName": ":@computed_region_kqwf_mjcx",
+      "dataTypeName": "number",
+      "position": 18
+    },
+    {
+      "name": "Neighborhood Councils (Certified)",
+      "fieldName": ":@computed_region_2dna_qi2s",
+      "dataTypeName": "number",
+      "position": 19
+    }
+  ],
+  "sample_row": {
+    "spaceid": "CB2863",
+    "blockface": "1400 OLIVE ST",
+    "metertype": "Single-Space",
+    "ratetype": "TOD",
+    "raterange": "$1.00 - $3.00",
+    "timelimit": "4HR",
+    "latlng": {
+      "latitude": "34.036155",
+      "longitude": "-118.264496"
+    },
+    ":@computed_region_qz3q_ghft": "23076",
+    ":@computed_region_k96s_3jcv": "693",
+    ":@computed_region_tatf_ua23": "1291",
+    ":@computed_region_kqwf_mjcx": "9",
+    ":@computed_region_2dna_qi2s": "76"
+  },
+  "parking_layers": [
+    "street_meters",
+    "street_meter_rules",
+    "rates"
+  ],
+  "recommended_connector": "socrata",
+  "legal_risk": "low_verify_license",
+  "confidence": 0.99
+}

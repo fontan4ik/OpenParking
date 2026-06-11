@@ -1,0 +1,360 @@
+{
+  "inspected_at": "2026-06-10T10:54:46.236Z",
+  "source_name": "DataSF Parking Meters",
+  "city": "San Francisco",
+  "state": "CA",
+  "dataset_id": "8vzz-qzz9",
+  "portal_type": "socrata",
+  "source_url": "https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9",
+  "metadata_url": "https://data.sfgov.org/api/views/8vzz-qzz9",
+  "api_url": "https://data.sfgov.org/resource/8vzz-qzz9.json",
+  "sample_url": "https://data.sfgov.org/resource/8vzz-qzz9.json?%24limit=1",
+  "title": "Parking Meters",
+  "description": "<strong>A. SUMMARY</strong>\nLocation, cap color and other key attributes of parking meters in San Francisco. Does not include operating schedules or rate schedules.\n\n<strong>B. METHODOLOGY  </strong>\nUpdated via the SFpark data warehouse (Parking Space Inventory) by meter shop staff, with manual updates sourced from SFMTA CAD drawings and MTAB resolutions. \n\n<strong>C. UPDATE FREQUENCY  </strong>\nUpdated weekly.\n\n<strong>D. OTHER CRITICAL INFO   </strong>\nFor active meters only, filter for \"Active_Met\" = 'M\" or \"T\". Meter operating and rate schedules are more complex and available as separate tables. Key field for joining is the Parking Space ID field.",
+  "attribution": "SFMTA",
+  "license": "Open Data Commons Public Domain Dedication and License (http://opendatacommons.org/licenses/pddl/1.0/)",
+  "rows_updated_at_unix": 1780767288,
+  "metadata_updated_at_unix": null,
+  "created_at_unix": 1556499710,
+  "columns": [
+    {
+      "name": "OBJECTID",
+      "fieldName": "objectid",
+      "dataTypeName": "number",
+      "position": 1
+    },
+    {
+      "name": "PARKING_SPACE_ID",
+      "fieldName": "parking_space_id",
+      "dataTypeName": "number",
+      "position": 2
+    },
+    {
+      "name": "POST_ID",
+      "fieldName": "post_id",
+      "dataTypeName": "text",
+      "position": 3
+    },
+    {
+      "name": "MS_PAY_STATION_ID",
+      "fieldName": "ms_pay_station_id",
+      "dataTypeName": "text",
+      "position": 4
+    },
+    {
+      "name": "MS_SPACE_NUM",
+      "fieldName": "ms_space_num",
+      "dataTypeName": "number",
+      "position": 5
+    },
+    {
+      "name": "SENSOR_FLAG",
+      "fieldName": "sensor_flag",
+      "dataTypeName": "text",
+      "position": 6
+    },
+    {
+      "name": "ON_OFFSTREET_TYPE",
+      "fieldName": "on_offstreet_type",
+      "dataTypeName": "text",
+      "position": 7
+    },
+    {
+      "name": "OSP_ID",
+      "fieldName": "osp_id",
+      "dataTypeName": "number",
+      "position": 8
+    },
+    {
+      "name": "JURISDICTION",
+      "fieldName": "jurisdiction",
+      "dataTypeName": "text",
+      "position": 9
+    },
+    {
+      "name": "PM_DISTRICT_ID",
+      "fieldName": "pm_district_id",
+      "dataTypeName": "number",
+      "position": 10
+    },
+    {
+      "name": "BLOCKFACE_ID",
+      "fieldName": "blockface_id",
+      "dataTypeName": "number",
+      "position": 11
+    },
+    {
+      "name": "ACTIVE_METER_FLAG",
+      "fieldName": "active_meter_flag",
+      "dataTypeName": "text",
+      "position": 12
+    },
+    {
+      "name": "REASON_CODE",
+      "fieldName": "reason_code",
+      "dataTypeName": "text",
+      "position": 13
+    },
+    {
+      "name": "SMART_METER_FLAG",
+      "fieldName": "smart_meter_flag",
+      "dataTypeName": "text",
+      "position": 14
+    },
+    {
+      "name": "METER_TYPE",
+      "fieldName": "meter_type",
+      "dataTypeName": "text",
+      "position": 15
+    },
+    {
+      "name": "METER_VENDOR",
+      "fieldName": "meter_vendor",
+      "dataTypeName": "text",
+      "position": 16
+    },
+    {
+      "name": "METER_MODEL",
+      "fieldName": "meter_model",
+      "dataTypeName": "text",
+      "position": 17
+    },
+    {
+      "name": "CAP_COLOR",
+      "fieldName": "cap_color",
+      "dataTypeName": "text",
+      "position": 18
+    },
+    {
+      "name": "PCO_BEAT",
+      "fieldName": "pco_beat",
+      "dataTypeName": "text",
+      "position": 19
+    },
+    {
+      "name": "OLD_RATE_AREA",
+      "fieldName": "old_rate_area",
+      "dataTypeName": "text",
+      "position": 20
+    },
+    {
+      "name": "STREET_ID",
+      "fieldName": "street_id",
+      "dataTypeName": "number",
+      "position": 21
+    },
+    {
+      "name": "STREET_NAME",
+      "fieldName": "street_name",
+      "dataTypeName": "text",
+      "position": 22
+    },
+    {
+      "name": "STREET_NUM",
+      "fieldName": "street_num",
+      "dataTypeName": "number",
+      "position": 23
+    },
+    {
+      "name": "PARITY_DIGIT_POSITION",
+      "fieldName": "parity_digit_position",
+      "dataTypeName": "text",
+      "position": 24
+    },
+    {
+      "name": "STREET_SEG_CTRLN_ID",
+      "fieldName": "street_seg_ctrln_id",
+      "dataTypeName": "number",
+      "position": 25
+    },
+    {
+      "name": "ORIENTATION",
+      "fieldName": "orientation",
+      "dataTypeName": "number",
+      "position": 26
+    },
+    {
+      "name": "LONGITUDE",
+      "fieldName": "longitude",
+      "dataTypeName": "number",
+      "position": 27
+    },
+    {
+      "name": "LATITUDE",
+      "fieldName": "latitude",
+      "dataTypeName": "number",
+      "position": 28
+    },
+    {
+      "name": "LEGISLATION_REF",
+      "fieldName": "legislation_ref",
+      "dataTypeName": "text",
+      "position": 29
+    },
+    {
+      "name": "LEGISLATION_DT",
+      "fieldName": "legislation_dt",
+      "dataTypeName": "text",
+      "position": 30
+    },
+    {
+      "name": "WORK_ORDER",
+      "fieldName": "work_order",
+      "dataTypeName": "text",
+      "position": 31
+    },
+    {
+      "name": "COMMENTS",
+      "fieldName": "comments",
+      "dataTypeName": "text",
+      "position": 32
+    },
+    {
+      "name": "COLLECTION_ROUTE",
+      "fieldName": "collection_route",
+      "dataTypeName": "text",
+      "position": 37
+    },
+    {
+      "name": "COLLECTION_SUBROUTE",
+      "fieldName": "collection_subroute",
+      "dataTypeName": "text",
+      "position": 38
+    },
+    {
+      "name": "PMR_ROUTE",
+      "fieldName": "pmr_route",
+      "dataTypeName": "text",
+      "position": 39
+    },
+    {
+      "name": "NFC_KEY",
+      "fieldName": "nfc_key",
+      "dataTypeName": "text",
+      "position": 40
+    },
+    {
+      "name": "SPT_CODE",
+      "fieldName": "spt_code",
+      "dataTypeName": "text",
+      "position": 41
+    },
+    {
+      "name": "COLLECTION_ROUTE_DESC",
+      "fieldName": "collection_route_desc",
+      "dataTypeName": "text",
+      "position": 42
+    },
+    {
+      "name": "COLLECTION_SUBROUTE_DESC",
+      "fieldName": "collection_subroute_desc",
+      "dataTypeName": "text",
+      "position": 43
+    },
+    {
+      "name": "shape",
+      "fieldName": "shape",
+      "dataTypeName": "point",
+      "position": 48
+    },
+    {
+      "name": "data_as_of",
+      "fieldName": "data_as_of",
+      "dataTypeName": "calendar_date",
+      "position": 49
+    },
+    {
+      "name": "data_loaded_at",
+      "fieldName": "data_loaded_at",
+      "dataTypeName": "calendar_date",
+      "position": 50
+    },
+    {
+      "name": "analysis_neighborhood",
+      "fieldName": "analysis_neighborhood",
+      "dataTypeName": "text",
+      "position": 51
+    },
+    {
+      "name": "supervisor_district",
+      "fieldName": "supervisor_district",
+      "dataTypeName": "text",
+      "position": 52
+    },
+    {
+      "name": "Analysis Neighborhoods",
+      "fieldName": ":@computed_region_ajp5_b2md",
+      "dataTypeName": "number",
+      "position": 53
+    },
+    {
+      "name": "Neighborhoods",
+      "fieldName": ":@computed_region_jwn9_ihcz",
+      "dataTypeName": "number",
+      "position": 54
+    },
+    {
+      "name": "SF Find Neighborhoods",
+      "fieldName": ":@computed_region_6qbp_sg9q",
+      "dataTypeName": "number",
+      "position": 55
+    },
+    {
+      "name": "Current Police Districts",
+      "fieldName": ":@computed_region_qgnn_b9vv",
+      "dataTypeName": "number",
+      "position": 56
+    },
+    {
+      "name": "Current Supervisor Districts",
+      "fieldName": ":@computed_region_26cr_cadq",
+      "dataTypeName": "number",
+      "position": 57
+    }
+  ],
+  "sample_row": {
+    "objectid": "14503656",
+    "post_id": "569-18160",
+    "ms_pay_station_id": "-",
+    "ms_space_num": "0",
+    "on_offstreet_type": "ON",
+    "jurisdiction": "SFMTA",
+    "pm_district_id": "16",
+    "blockface_id": "569182",
+    "active_meter_flag": "U",
+    "reason_code": "UC",
+    "meter_type": "SS",
+    "meter_vendor": "IPS",
+    "meter_model": "M5",
+    "cap_color": "Grey",
+    "street_id": "569",
+    "street_name": "MARKET ST",
+    "street_num": "1816",
+    "street_seg_ctrln_id": "8760203",
+    "longitude": "-122.4241790936",
+    "latitude": "37.7714417995",
+    "pmr_route": "R-1",
+    "shape": {
+      "type": "Point",
+      "coordinates": [
+        -122.424179094,
+        37.771441799
+      ]
+    },
+    "data_as_of": "2026-06-06T02:12:10.000",
+    "data_loaded_at": "2026-06-06T10:34:10.000",
+    "analysis_neighborhood": "Hayes Valley",
+    "supervisor_district": "8",
+    ":@computed_region_ajp5_b2md": "9",
+    ":@computed_region_jwn9_ihcz": "27",
+    ":@computed_region_6qbp_sg9q": "27",
+    ":@computed_region_qgnn_b9vv": "1",
+    ":@computed_region_26cr_cadq": "5"
+  },
+  "parking_layers": [
+    "street_meters"
+  ],
+  "recommended_connector": "socrata",
+  "legal_risk": "low_verify_license",
+  "confidence": 0.99
+}

@@ -1,0 +1,487 @@
+{
+  "inspected_at": "2026-06-10T10:55:01.861Z",
+  "source_name": "Seattle Blockface FeatureServer",
+  "city": "Seattle",
+  "state": "WA",
+  "portal_type": "arcgis_rest",
+  "source_url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer",
+  "metadata_url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer/1?f=json",
+  "api_url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer/1/query?where=1%3D1&outFields=*&f=json",
+  "sample_url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/ArcGIS/rest/services/Blockface/FeatureServer/1/query?where=1%3D1&outFields=*&f=json&resultRecordCount=1",
+  "title": "Blockface",
+  "layer_type": "Feature Layer",
+  "geometry_type": "esriGeometryPolyline",
+  "object_id_field": "OBJECTID",
+  "max_record_count": 2000,
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "ELMNTKEY",
+      "type": "esriFieldTypeInteger",
+      "alias": "ELMNTKEY"
+    },
+    {
+      "name": "SEGKEY",
+      "type": "esriFieldTypeInteger",
+      "alias": "SEGKEY"
+    },
+    {
+      "name": "DISTANCE",
+      "type": "esriFieldTypeInteger",
+      "alias": "DISTANCE"
+    },
+    {
+      "name": "BLOCKFACE_LENGTH",
+      "type": "esriFieldTypeInteger",
+      "alias": "BLOCKFACE_LENGTH"
+    },
+    {
+      "name": "END_DISTANCE",
+      "type": "esriFieldTypeInteger",
+      "alias": "END_DISTANCE"
+    },
+    {
+      "name": "WIDTH",
+      "type": "esriFieldTypeInteger",
+      "alias": "WIDTH"
+    },
+    {
+      "name": "UNITID",
+      "type": "esriFieldTypeString",
+      "alias": "UNITID"
+    },
+    {
+      "name": "UNITID2",
+      "type": "esriFieldTypeString",
+      "alias": "UNITID2"
+    },
+    {
+      "name": "UNITDESC",
+      "type": "esriFieldTypeString",
+      "alias": "UNITDESC"
+    },
+    {
+      "name": "SIDE",
+      "type": "esriFieldTypeString",
+      "alias": "SIDE"
+    },
+    {
+      "name": "BLOCK_ID",
+      "type": "esriFieldTypeString",
+      "alias": "BLOCK_ID"
+    },
+    {
+      "name": "BLOCK_NBR",
+      "type": "esriFieldTypeDouble",
+      "alias": "BLOCK_NBR"
+    },
+    {
+      "name": "CSM",
+      "type": "esriFieldTypeString",
+      "alias": "CSM"
+    },
+    {
+      "name": "PARKING_CATEGORY",
+      "type": "esriFieldTypeString",
+      "alias": "PARKING_CATEGORY"
+    },
+    {
+      "name": "TOTAL_SPACES",
+      "type": "esriFieldTypeDouble",
+      "alias": "TOTAL_SPACES"
+    },
+    {
+      "name": "PAID_SPACES",
+      "type": "esriFieldTypeDouble",
+      "alias": "PAID_SPACES"
+    },
+    {
+      "name": "CARPOOL_SPACES",
+      "type": "esriFieldTypeDouble",
+      "alias": "CARPOOL_SPACES"
+    },
+    {
+      "name": "RPZ_SPACES",
+      "type": "esriFieldTypeDouble",
+      "alias": "RPZ_SPACES"
+    },
+    {
+      "name": "TL_SPACES",
+      "type": "esriFieldTypeDouble",
+      "alias": "TL_SPACES"
+    },
+    {
+      "name": "BUS",
+      "type": "esriFieldTypeDouble",
+      "alias": "BUS"
+    },
+    {
+      "name": "NOPARK",
+      "type": "esriFieldTypeDouble",
+      "alias": "NOPARK"
+    },
+    {
+      "name": "NOSTOP",
+      "type": "esriFieldTypeDouble",
+      "alias": "NOSTOP"
+    },
+    {
+      "name": "TOTAL_NOPARK",
+      "type": "esriFieldTypeDouble",
+      "alias": "TOTAL_NOPARK"
+    },
+    {
+      "name": "LOAD_",
+      "type": "esriFieldTypeDouble",
+      "alias": "LOAD"
+    },
+    {
+      "name": "ZONE",
+      "type": "esriFieldTypeDouble",
+      "alias": "ZONE"
+    },
+    {
+      "name": "TOTAL_ZONES",
+      "type": "esriFieldTypeDouble",
+      "alias": "TOTAL_ZONES"
+    },
+    {
+      "name": "PARKING_SPACES",
+      "type": "esriFieldTypeDouble",
+      "alias": "PARKING_SPACES"
+    },
+    {
+      "name": "UNRESTRICTED",
+      "type": "esriFieldTypeDouble",
+      "alias": "UNRESTRICTED"
+    },
+    {
+      "name": "TIER",
+      "type": "esriFieldTypeInteger",
+      "alias": "TIER"
+    },
+    {
+      "name": "WKD_RATE1",
+      "type": "esriFieldTypeDouble",
+      "alias": "WKD_RATE1"
+    },
+    {
+      "name": "WKD_START1",
+      "type": "esriFieldTypeInteger",
+      "alias": "WKD_START1"
+    },
+    {
+      "name": "WKD_END1",
+      "type": "esriFieldTypeInteger",
+      "alias": "WKD_END1"
+    },
+    {
+      "name": "WKD_RATE2",
+      "type": "esriFieldTypeDouble",
+      "alias": "WKD_RATE2"
+    },
+    {
+      "name": "WKD_START2",
+      "type": "esriFieldTypeInteger",
+      "alias": "WKD_START2"
+    },
+    {
+      "name": "WKD_END2",
+      "type": "esriFieldTypeInteger",
+      "alias": "WKD_END2"
+    },
+    {
+      "name": "WKD_RATE3",
+      "type": "esriFieldTypeDouble",
+      "alias": "WKD_RATE3"
+    },
+    {
+      "name": "WKD_START3",
+      "type": "esriFieldTypeInteger",
+      "alias": "WKD_START3"
+    },
+    {
+      "name": "WKD_END3",
+      "type": "esriFieldTypeInteger",
+      "alias": "WKD_END3"
+    },
+    {
+      "name": "SAT_RATE1",
+      "type": "esriFieldTypeDouble",
+      "alias": "SAT_RATE1"
+    },
+    {
+      "name": "SAT_START1",
+      "type": "esriFieldTypeInteger",
+      "alias": "SAT_START1"
+    },
+    {
+      "name": "SAT_END1",
+      "type": "esriFieldTypeInteger",
+      "alias": "SAT_END1"
+    },
+    {
+      "name": "SAT_RATE2",
+      "type": "esriFieldTypeDouble",
+      "alias": "SAT_RATE2"
+    },
+    {
+      "name": "SAT_START2",
+      "type": "esriFieldTypeInteger",
+      "alias": "SAT_START2"
+    },
+    {
+      "name": "SAT_END2",
+      "type": "esriFieldTypeInteger",
+      "alias": "SAT_END2"
+    },
+    {
+      "name": "SAT_RATE3",
+      "type": "esriFieldTypeDouble",
+      "alias": "SAT_RATE3"
+    },
+    {
+      "name": "SAT_START3",
+      "type": "esriFieldTypeInteger",
+      "alias": "SAT_START3"
+    },
+    {
+      "name": "SAT_END3",
+      "type": "esriFieldTypeInteger",
+      "alias": "SAT_END3"
+    },
+    {
+      "name": "SUN_RATE1",
+      "type": "esriFieldTypeDouble",
+      "alias": "SUN_RATE1"
+    },
+    {
+      "name": "SUN_START1",
+      "type": "esriFieldTypeInteger",
+      "alias": "SUN_START1"
+    },
+    {
+      "name": "SUN_END1",
+      "type": "esriFieldTypeInteger",
+      "alias": "SUN_END1"
+    },
+    {
+      "name": "SUN_RATE2",
+      "type": "esriFieldTypeDouble",
+      "alias": "SUN_RATE2"
+    },
+    {
+      "name": "SUN_START2",
+      "type": "esriFieldTypeInteger",
+      "alias": "SUN_START2"
+    },
+    {
+      "name": "SUN_END2",
+      "type": "esriFieldTypeInteger",
+      "alias": "SUN_END2"
+    },
+    {
+      "name": "SUN_RATE3",
+      "type": "esriFieldTypeDouble",
+      "alias": "SUN_RATE3"
+    },
+    {
+      "name": "SUN_START3",
+      "type": "esriFieldTypeInteger",
+      "alias": "SUN_START3"
+    },
+    {
+      "name": "SUN_END3",
+      "type": "esriFieldTypeInteger",
+      "alias": "SUN_END3"
+    },
+    {
+      "name": "PEAK_HOUR",
+      "type": "esriFieldTypeString",
+      "alias": "PEAK_HOUR"
+    },
+    {
+      "name": "RPZ_ZONE",
+      "type": "esriFieldTypeString",
+      "alias": "RPZ_ZONE"
+    },
+    {
+      "name": "RPZ_AREA",
+      "type": "esriFieldTypeString",
+      "alias": "RPZ_AREA"
+    },
+    {
+      "name": "PAIDAREA",
+      "type": "esriFieldTypeString",
+      "alias": "PAIDAREA"
+    },
+    {
+      "name": "PARKING_TIME_LIMIT",
+      "type": "esriFieldTypeDouble",
+      "alias": "PARKING_TIME_LIMIT"
+    },
+    {
+      "name": "SUBAREA",
+      "type": "esriFieldTypeString",
+      "alias": "SUBAREA"
+    },
+    {
+      "name": "START_TIME_WKD",
+      "type": "esriFieldTypeString",
+      "alias": "START_TIME_WKD"
+    },
+    {
+      "name": "END_TIME_WKD",
+      "type": "esriFieldTypeString",
+      "alias": "END_TIME_WKD"
+    },
+    {
+      "name": "START_TIME_SAT",
+      "type": "esriFieldTypeString",
+      "alias": "START_TIME_SAT"
+    },
+    {
+      "name": "END_TIME_SAT",
+      "type": "esriFieldTypeString",
+      "alias": "END_TIME_SAT"
+    },
+    {
+      "name": "START_TIME_SUN",
+      "type": "esriFieldTypeString",
+      "alias": "START_TIME_SUN"
+    },
+    {
+      "name": "END_TIME_SUN",
+      "type": "esriFieldTypeString",
+      "alias": "END_TIME_SUN"
+    },
+    {
+      "name": "PRIMARYDISTRICTCD",
+      "type": "esriFieldTypeString",
+      "alias": "PRIMARYDISTRICTCD"
+    },
+    {
+      "name": "SECONDARYDISTRICTCD",
+      "type": "esriFieldTypeString",
+      "alias": "SECONDARYDISTRICTCD"
+    },
+    {
+      "name": "OVERRIDEYN",
+      "type": "esriFieldTypeString",
+      "alias": "OVERRIDEYN"
+    },
+    {
+      "name": "OVERRIDECOMMENT",
+      "type": "esriFieldTypeString",
+      "alias": "OVERRIDECOMMENT"
+    },
+    {
+      "name": "Shape__Length",
+      "type": "esriFieldTypeDouble",
+      "alias": "Shape__Length"
+    }
+  ],
+  "sample_feature": {
+    "attributes": {
+      "OBJECTID": 200157,
+      "ELMNTKEY": 23690,
+      "SEGKEY": 23509,
+      "DISTANCE": 13,
+      "BLOCKFACE_LENGTH": 185,
+      "END_DISTANCE": 198,
+      "WIDTH": 13,
+      "UNITID": "18810",
+      "UNITID2": "0130",
+      "UNITDESC": "W LEE ST BETWEEN ELLIOTT AVE W AND ALASKAN WAY W",
+      "SIDE": "SE",
+      "BLOCK_ID": null,
+      "BLOCK_NBR": 1300,
+      "CSM": "N",
+      "PARKING_CATEGORY": "Unrestricted Parking",
+      "TOTAL_SPACES": 7,
+      "PAID_SPACES": 0,
+      "CARPOOL_SPACES": 0,
+      "RPZ_SPACES": 0,
+      "TL_SPACES": 0,
+      "BUS": 0,
+      "NOPARK": 0,
+      "NOSTOP": 0,
+      "TOTAL_NOPARK": 0,
+      "LOAD_": null,
+      "ZONE": 0,
+      "TOTAL_ZONES": 0,
+      "PARKING_SPACES": 7,
+      "UNRESTRICTED": 7,
+      "TIER": 0,
+      "WKD_RATE1": 0,
+      "WKD_START1": 0,
+      "WKD_END1": 0,
+      "WKD_RATE2": 0,
+      "WKD_START2": 0,
+      "WKD_END2": 0,
+      "WKD_RATE3": 0,
+      "WKD_START3": 0,
+      "WKD_END3": 0,
+      "SAT_RATE1": 0,
+      "SAT_START1": 0,
+      "SAT_END1": 0,
+      "SAT_RATE2": 0,
+      "SAT_START2": 0,
+      "SAT_END2": 0,
+      "SAT_RATE3": 0,
+      "SAT_START3": 0,
+      "SAT_END3": 0,
+      "SUN_RATE1": 0,
+      "SUN_START1": 0,
+      "SUN_END1": 0,
+      "SUN_RATE2": 0,
+      "SUN_START2": 0,
+      "SUN_END2": 0,
+      "SUN_RATE3": 0,
+      "SUN_START3": 0,
+      "SUN_END3": 0,
+      "PEAK_HOUR": null,
+      "RPZ_ZONE": null,
+      "RPZ_AREA": null,
+      "PAIDAREA": null,
+      "PARKING_TIME_LIMIT": null,
+      "SUBAREA": null,
+      "START_TIME_WKD": null,
+      "END_TIME_WKD": null,
+      "START_TIME_SAT": null,
+      "END_TIME_SAT": null,
+      "START_TIME_SUN": null,
+      "END_TIME_SUN": null,
+      "PRIMARYDISTRICTCD": "DISTRICT7",
+      "SECONDARYDISTRICTCD": " ",
+      "OVERRIDEYN": "N",
+      "OVERRIDECOMMENT": null,
+      "Shape__Length": 184.17741174931876
+    },
+    "geometry": {
+      "paths": [
+        [
+          [
+            1260756.27564764,
+            233691.167913631
+          ],
+          [
+            1260594.46757232,
+            233603.193680137
+          ]
+        ]
+      ]
+    }
+  },
+  "parking_layers": [
+    "curb_geometry",
+    "blockface"
+  ],
+  "recommended_connector": "arcgis_rest",
+  "legal_risk": "low_verify_license",
+  "confidence": 0.97
+}

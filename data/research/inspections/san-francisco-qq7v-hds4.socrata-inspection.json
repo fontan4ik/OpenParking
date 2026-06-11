@@ -1,0 +1,129 @@
+{
+  "inspected_at": "2026-06-10T10:54:47.502Z",
+  "source_name": "DataSF Meter Policies",
+  "city": "San Francisco",
+  "state": "CA",
+  "dataset_id": "qq7v-hds4",
+  "portal_type": "socrata",
+  "source_url": "https://data.sfgov.org/Transportation/Meter-Policies/qq7v-hds4",
+  "metadata_url": "https://data.sfgov.org/api/views/qq7v-hds4",
+  "api_url": "https://data.sfgov.org/resource/qq7v-hds4.json",
+  "sample_url": "https://data.sfgov.org/resource/qq7v-hds4.json?%24limit=1",
+  "title": "Meter Policies",
+  "description": "<strong>A. SUMMARY</strong>\nDataset has  meter daily schedules with hourly rates.\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nData is an extract from SFMTA Meter API process.\n\n<strong>C. UPDATE PROCESS</strong>\nDataset is updated daily to reflect any changes in meter operational and rate schedules.\n\n<strong>D. HOW TO USE THIS DATASET</strong>\n\n\n<strong>E. RELATED DATASETS</strong>\n <u><a href=\"https://data.sfgov.org/Transportation/Meter-Inventory/uan2-8hmm\">Meter Inventory</a></u>\n <u><a href=\"https://data.sfgov.org/Transportation/SFMTA-Parking-Meter-Detailed-Revenue-Transactions/imvp-dq3v/about_data\">Meter Revenue</a></u>",
+  "attribution": null,
+  "license": "Open Data Commons Public Domain Dedication and License (http://opendatacommons.org/licenses/pddl/1.0/)",
+  "rows_updated_at_unix": 1781072495,
+  "metadata_updated_at_unix": null,
+  "created_at_unix": 1529088297,
+  "columns": [
+    {
+      "name": "RevisionDate",
+      "fieldName": "revisiondate",
+      "dataTypeName": "calendar_date",
+      "position": 1
+    },
+    {
+      "name": "StartDate",
+      "fieldName": "startdate",
+      "dataTypeName": "calendar_date",
+      "position": 2
+    },
+    {
+      "name": "EndDate",
+      "fieldName": "enddate",
+      "dataTypeName": "calendar_date",
+      "position": 3
+    },
+    {
+      "name": "PostID",
+      "fieldName": "postid",
+      "dataTypeName": "text",
+      "position": 4
+    },
+    {
+      "name": "ParkingSpaceID",
+      "fieldName": "parkingspaceid",
+      "dataTypeName": "number",
+      "position": 5
+    },
+    {
+      "name": "MSPayStationID",
+      "fieldName": "mspaystationid",
+      "dataTypeName": "text",
+      "position": 6
+    },
+    {
+      "name": "SpaceNumber",
+      "fieldName": "spacenumber",
+      "dataTypeName": "text",
+      "position": 7
+    },
+    {
+      "name": "DayOfWeek",
+      "fieldName": "dayofweek",
+      "dataTypeName": "text",
+      "position": 8
+    },
+    {
+      "name": "StartTime",
+      "fieldName": "starttime",
+      "dataTypeName": "text",
+      "position": 9
+    },
+    {
+      "name": "EndTime",
+      "fieldName": "endtime",
+      "dataTypeName": "text",
+      "position": 10
+    },
+    {
+      "name": "ScheduleType",
+      "fieldName": "scheduletype",
+      "dataTypeName": "text",
+      "position": 11
+    },
+    {
+      "name": "HourlyRate",
+      "fieldName": "hourlyrate",
+      "dataTypeName": "number",
+      "position": 12
+    },
+    {
+      "name": "CapColor",
+      "fieldName": "capcolor",
+      "dataTypeName": "text",
+      "position": 13
+    },
+    {
+      "name": "TimeLimitMinutes",
+      "fieldName": "timelimitminutes",
+      "dataTypeName": "number",
+      "position": 14
+    },
+    {
+      "name": "PK_MAPI",
+      "fieldName": "pk_mapi",
+      "dataTypeName": "number",
+      "position": 15
+    }
+  ],
+  "sample_row": {
+    "startdate": "2026-04-13T00:00:00.000",
+    "enddate": "2200-12-31T00:00:00.000",
+    "postid": "102-02990",
+    "parkingspaceid": "123238",
+    "dayofweek": "Mo",
+    "starttime": "0:00",
+    "endtime": "4:30",
+    "scheduletype": "FREE",
+    "pk_mapi": "1"
+  },
+  "parking_layers": [
+    "street_meter_rules",
+    "rates"
+  ],
+  "recommended_connector": "socrata",
+  "legal_risk": "low_verify_license",
+  "confidence": 0.99
+}

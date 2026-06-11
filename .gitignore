@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Local reference repositories
+Referenss/
+
+# Next.js / frontend build output
+.next/
+out/
+dist/
+build/
+
+# Test and coverage output
+coverage/
+.nyc_output/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local runtime state
+.omx/
+
+# Generated artifacts and scratch output
+outputs/
+tmp/
+temp/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/

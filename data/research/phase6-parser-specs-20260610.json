@@ -1,0 +1,216 @@
+{
+  "generated_at": "2026-06-10T10:54:34.454Z",
+  "parser_specs": [
+    {
+      "city": "Chicago",
+      "state": "IL",
+      "source_name": "ParkChicago Rates and Hours",
+      "source_type": "official_operator_page",
+      "source_url": "https://parkchicago.com/rates-hours",
+      "target_urls": [
+        "https://parkchicago.com/rates-hours"
+      ],
+      "crawl_or_search_flow": "Open landing page, inspect rendered cards and network calls, then record repeatable location/date-time flow.",
+      "static_or_browser_required": "browser",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Document after first browser/static inspection.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "browser_evidence_artifacts": [
+        "data/research/browser-parkchicago-rates.snapshot.txt",
+        "data/research/browser-parkchicago-rates.png",
+        "data/research/browser-parkchicago-rates.parser-hints.json"
+      ],
+      "browser_observations": [
+        "Rendered page states Chicago Parking Meters is the official operator of 36,000 on-street parking spaces.",
+        "Rendered page exposes rate bands for neighborhoods, Central Business District, West Loop, and Loop.",
+        "Rendered page includes a rate map iframe and monthly parking permit content/link, so browser inspection is required before production parser implementation."
+      ]
+    },
+    {
+      "city": "Chicago",
+      "state": "IL",
+      "source_name": "City of Chicago About Parking Meters",
+      "source_type": "official_city_page",
+      "source_url": "https://www.chicago.gov/city/en/depts/fin/supp_info/revenue/parking_meters.html",
+      "target_urls": [
+        "https://www.chicago.gov/city/en/depts/fin/supp_info/revenue/parking_meters.html"
+      ],
+      "crawl_or_search_flow": "Fetch landing page, extract relevant parking tables/links/text, and follow official links only.",
+      "static_or_browser_required": "static_first",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Document after first browser/static inspection.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "low_medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ]
+    },
+    {
+      "city": "New York City",
+      "state": "NY",
+      "source_name": "NYC Parking Regulation Locations and Signs",
+      "source_type": "city_open_data",
+      "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Regulation-Locations-and-Signs/nfid-uabd",
+      "target_urls": [
+        "https://data.cityofnewyork.us/Transportation/Parking-Regulation-Locations-and-Signs/nfid-uabd"
+      ],
+      "crawl_or_search_flow": "Fetch landing page, extract relevant parking tables/links/text, and follow official links only.",
+      "static_or_browser_required": "static_first",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Document after first browser/static inspection.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "low_verify_license",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+---
+description: ParkingUSA project rules
+alwaysApply: true
+---
+
+Follow `AGENTS.md` as the authoritative project guidance.
+
+Project documentation lives in `docs/`. Keep this file under `.cursor/rules/` as
+the Cursor-compatible discovery entry point.
