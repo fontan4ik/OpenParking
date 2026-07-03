@@ -4,7 +4,8 @@
    ═══════════════════════════════════════════════════════════════ */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { loadFacilities } from '@/lib/data-loader';
+import { DEFAULT_CITY_ID, loadFacilities } from '@/lib/data-loader';
+import { matchesPriceFilter } from '@/lib/data-quality';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -14,8 +15,9 @@ export async function GET(request: NextRequest) {
   const confidenceFilter = searchParams.get('confidence');
   const q = searchParams.get('q')?.toLowerCase();
   const limit = parseInt(searchParams.get('limit') || '50000', 10);
+  const city = searchParams.get('city') || DEFAULT_CITY_ID;
 
-  const data = await loadFacilities();
+  const data = await loadFacilities(city);
   let features = data.features;
 
   if (typeFilter) {
@@ -24,22 +26,8 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  if (priceFilter === 'known') {
-    features = features.filter((f) => {
-      const p = f.properties;
-      return (
-        p.base_hourly_rate ||
-        (p.charge && p.charge !== 'unknown')
-      );
-    });
-  } else if (priceFilter === 'unknown') {
-    features = features.filter((f) => {
-      const p = f.properties;
-      return (
-        !p.base_hourly_rate &&
-        (!p.charge || p.charge === 'unknown')
-      );
-    });
+  if (priceFilter === 'known' || priceFilter === 'unknown') {
+    features = features.filter((f) => matchesPriceFilter(f.properties, priceFilter));
   }
 
   if (sourceFilter) {
@@ -75,7 +63,7 @@ export async function GET(request: NextRequest) {
     type: 'FeatureCollection',
     metadata: {
       count: features.length,
-      filters: { type: typeFilter, price: priceFilter, source: sourceFilter, confidence: confidenceFilter, q },
+      filters: { city, type: typeFilter, price: priceFilter, source: sourceFilter, confidence: confidenceFilter, q },
     },
     features,
   });

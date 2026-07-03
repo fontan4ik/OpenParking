@@ -11,6 +11,40 @@ The product goal is a comprehensive US parking data layer with:
 - PostGIS/Prisma backend;
 - scalable vector-tile path.
 
+## Documentation Source of Truth
+
+`docs/PROJECT_OVERVIEW_RU.md` is the primary product and architecture source of truth. Read it before any non-trivial product, data, API, UI, backend, ingestion, parser, or roadmap work.
+
+Use the documentation set like this:
+
+- `docs/PROJECT_OVERVIEW_RU.md` - main project context: what ParkingUSA is, how current data/API works, known sources, source/payment link requirements, and the next data-quality gaps.
+- `docs/README.md` - documentation index and quick orientation. Update it when adding, renaming, removing, or changing the role of a major document.
+- `docs/ROADMAP.md` - implementation roadmap and current priorities. Update it when scope, sequencing, milestones, or acceptance criteria change.
+- `docs/ARCHITECTURE.md` - target architecture and system boundaries. Update it when data flow, API shape, storage, services, tiling, or deployment architecture changes.
+- `docs/REFERENCE_REPOS.md` - how to use `Referenss/`. Update it when new reference repos are added or reuse guidance changes.
+- `docs/THIRD_PARTY_NOTICES.md` - licenses and provenance for reused code/tools. Update it whenever porting code, adding a dependency, or relying on a new external tool/source with licensing implications.
+- `docs/INTEGRATION_USAGE_GUIDE.md` - local operational commands. Update it when scripts, environment variables, setup steps, import flows, or verification commands change.
+- `docs/parking_full_data_strategy.md` and `docs/parking_data_collection_plan.md` - deeper research/planning notes. Keep them consistent when changing source strategy, collection workflows, schema concepts, or coverage methodology.
+- `data/research/*.json` - machine-readable source manifests and evidence. Update or regenerate these when source URLs, API URLs, parser specs, evidence, connector recommendations, legal risk, confidence, or ingestion status changes.
+
+After any meaningful code or data change, update docs in the same change when the user-facing or operator-facing truth changed. Do not leave documentation stale for:
+
+- new, renamed, removed, or behavior-changing API endpoints;
+- Prisma schema/model changes;
+- new data files, changed baseline counts, or changed layer semantics;
+- new source URLs, API URLs, payment URLs, booking URLs, evidence files, or source confidence rules;
+- new import/parser/research/tile scripts or changed command names;
+- frontend behavior that changes map layers, filters, detail panels, source display, payment links, or user contribution workflows;
+- architecture decisions about PostGIS, vector tiles, OSM, reference repos, fallback files, or external services.
+
+When updating documentation:
+
+1. Start with `docs/PROJECT_OVERVIEW_RU.md` if the change affects project truth.
+2. Update the specific supporting doc for the changed area.
+3. Update `docs/README.md` if navigation changed.
+4. Update companion agent files only when their discoverability instructions become wrong or conflict with `AGENTS.md`.
+5. In the final response, mention which docs changed and what context was preserved.
+
 ## Golden Rule: Reuse First
 
 Before writing new code for parsing, OSM conversion, street-parking normalization, workers, map layers, GeoJSON APIs, PostGIS models, or tile generation, inspect `Referenss/`.
@@ -22,6 +56,10 @@ Prefer this order:
 4. Only write new code when no reference module fits.
 
 If writing from scratch, explain why the available reference code was not suitable.
+
+## Execution Stability
+
+Do not launch background subagents or `task(... run_in_background=true)` batches unless the user explicitly asks for parallel background work. Prefer foreground tasks or direct repository inspection for normal planning, research, and implementation. If background work is genuinely needed, launch one background task at a time, wait for its completion notification, collect it with `background_output`, and only then continue or start another. Avoid leaving parent sessions waiting on active background tasks, because interrupted parent runs can surface as `terminated` in OpenCode.
 
 ## Reference Repo Usage
 
@@ -130,16 +168,52 @@ Public API compatibility:
 - keep `/api/stats`;
 - keep `/api/facilities`;
 - keep `/api/geojson/[layer]`;
+- keep `/api/observations`;
 - keep GeoJSON-compatible responses for current frontend.
 
 Data quality is mandatory. Every imported record should preserve:
 - `source_name`;
 - `source_id`;
+- `source_url` when known;
+- `api_url` when known;
+- `payment_url` / `booking_url` when known;
 - `raw_properties`;
 - `confidence`;
 - `last_verified_at`;
 - `data_as_of`;
+- evidence URL/file when available;
 - geometry quality/provenance.
+
+## Project Work Protocol
+
+Before implementation:
+
+- Read `docs/PROJECT_OVERVIEW_RU.md` for product intent and current system truth.
+- Inspect relevant existing code and `Referenss/` before creating new parsing, import, OSM, API, map, PostGIS, or tile logic.
+- Identify whether the current path should use file fallback, PostGIS/Prisma, or both.
+
+During implementation:
+
+- Keep the current layout: frontend in `apps/frontend/`, backend/import/research/prisma in `apps/backend/`, shared fixtures and research outputs in `data/`.
+- Preserve public API compatibility unless the user explicitly asks for a breaking change.
+- Prefer idempotent import/upsert behavior for data scripts.
+- Preserve provenance fields and raw source payloads when transforming data.
+- Treat source/payment/booking/evidence links as first-class data, not UI decoration.
+- For uncertain or non-official sources, store confidence, legal risk, evidence, and review status rather than presenting them as authoritative.
+- Keep San Francisco file fallback working while DB-backed ingestion stabilizes.
+
+Before finishing:
+
+- Run the smallest meaningful verification for the changed area.
+- For app changes, run `npm run build` unless impossible; for shared TypeScript/library changes, also run `npm test` or focused tests.
+- For backend/Prisma changes, run `npm run db:generate` and an affected dry-run/fixture command when available.
+- For data import changes, verify repeated import behavior and baseline counts unless intentionally changing them.
+- For map changes, verify MapLibre canvas render, layer counters, and detail panel behavior when the dev server is already healthy or can be started quickly.
+- Do not let verification hang on flaky dev-server/browser loops. If a dev server or browser check does not become useful within a short bounded attempt, stop every process you started, record the limitation, and fall back to deterministic checks such as
+pm run build,
+pm test, focused unit tests, HTTP status checks, or code-level root-cause verification.
+- Always stop temporary dev/start server processes before finishing unless the user explicitly asked to keep them running.
+- Check whether documentation needs updates under the Documentation Source of Truth rules above.
 
 ## Companion Agent Files
 

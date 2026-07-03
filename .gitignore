@@ -13,6 +13,7 @@ build/
 # Test and coverage output
 coverage/
 .nyc_output/
+*.tsbuildinfo
 
 # Environment files
 .env
@@ -29,11 +30,23 @@ pnpm-debug.log*
 
 # Local runtime state
 .omx/
+.codegraph/
+.codex-tmp/
+.omo/
+.sisyphus/
 
 # Generated artifacts and scratch output
 outputs/
 tmp/
 temp/
+data/osm/*.osm.pbf
+data/osm/*.osm.pbf.part
+custom_files/
+valhalla_tiles/
+valhalla_tiles.tar
+data/routing/*.osm.pbf
+data/routing/*.tar
+data/routing/valhalla_tiles/
 
 # OS / editor noise
 .DS_Store

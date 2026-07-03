@@ -4,16 +4,16 @@ import { count } from '@/lib/street-parking/osm-tag-updater/transpose/utils/coun
 describe('count()', () => {
   test('retuns 0 if input empty', () => {
     const result = count('', '@')
-    expect(0).toMatchObject(result)
+    expect(result).toBe(0)
   })
 
   test('retuns 1', () => {
     const result = count('no @ (foo)', '@')
-    expect(1).toMatchObject(result)
+    expect(result).toBe(1)
   })
 
   test('retuns 2', () => {
     const result = count('no @ (foo); yes @ bar', '@')
-    expect(2).toMatchObject(result)
+    expect(result).toBe(2)
   })
 })

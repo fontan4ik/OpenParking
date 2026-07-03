@@ -1,0 +1,32 @@
+{
+  "market": {
+    "id": 9,
+    "name": "Miami",
+    "slug": "miami",
+    "latitude": 25.7617,
+    "longitude": -80.1918,
+    "venues": [
+      {
+        "id": 21,
+        "name": "P021",
+        "address": "100 SE 2nd St",
+        "slug": "p021",
+        "description": "Daily parking"
+      }
+    ],
+    "venue_groups": [
+      {
+        "id": 1,
+        "title": "Downtown Miami",
+        "venues": [
+          {
+            "id": 196,
+            "name": "P196",
+            "address": "200 Biscayne Blvd",
+            "slug": "p196"
+          }
+        ]
+      }
+    ]
+  }
+}

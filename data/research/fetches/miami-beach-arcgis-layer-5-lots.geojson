@@ -1,0 +1,3939 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13321137724387,
+              25.77612790064995
+            ],
+            [
+              -80.13280359184651,
+              25.776056689535938
+            ],
+            [
+              -80.1326397208682,
+              25.776825184129972
+            ],
+            [
+              -80.13269507152829,
+              25.776831264186406
+            ],
+            [
+              -80.13268518502966,
+              25.77688708326565
+            ],
+            [
+              -80.13303764302104,
+              25.776949381196587
+            ],
+            [
+              -80.13321137724387,
+              25.77612790064995
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 659,
+        "Address": "200 7th St",
+        "EV_CS": "N/A",
+        "OBJECTID": 1,
+        "Shape__Area": 41230.10374954548,
+        "Shape__Length": 882.2612623299742,
+        "NAME": "G1",
+        "HOURLY_RATE": "0-4hrs $2/hr; 4-15hrs $8+$1/hr; 15-24hrs $20",
+        "MAX_TYME": "No Limit",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle Fri, Sat & Sun 8PM-5AM ",
+        "ParkMobile": "88001",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.140224134476,
+              25.773845626594678
+            ],
+            [
+              -80.14023469519461,
+              25.773843295393785
+            ],
+            [
+              -80.1400584704648,
+              25.77359268727049
+            ],
+            [
+              -80.13978939370308,
+              25.77359827772411
+            ],
+            [
+              -80.13980466238661,
+              25.77385748168039
+            ],
+            [
+              -80.140224134476,
+              25.773845626594678
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 25,
+        "Address": "401 Alton Road",
+        "EV_CS": "N/A",
+        "OBJECTID": 2,
+        "Shape__Area": 10823.100699483426,
+        "Shape__Length": 432.6094235206428,
+        "NAME": "P5",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88604",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.14060359971414,
+              25.775654345636983
+            ],
+            [
+              -80.1405743354789,
+              25.774735169369425
+            ],
+            [
+              -80.14046697676801,
+              25.77470204287895
+            ],
+            [
+              -80.14040038098547,
+              25.77456983661608
+            ],
+            [
+              -80.13957516580469,
+              25.77459360015769
+            ],
+            [
+              -80.13962642114338,
+              25.775677211742963
+            ],
+            [
+              -80.14060359971414,
+              25.775654345636983
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 1070,
+        "Address": "550 Lenox Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 3,
+        "Shape__Area": 125776.51079796968,
+        "Shape__Length": 1412.0299025601482,
+        "NAME": "G8",
+        "HOURLY_RATE": "0-2hrs free w/retail receipt; 0-4rs $2/hr; 4-15hrs $8+$1/hr; 15-24hrs $20",
+        "MAX_TYME": "No Limit",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88008",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13480704644803,
+              25.77095141307575
+            ],
+            [
+              -80.13486384527754,
+              25.77068617168868
+            ],
+            [
+              -80.13446762572478,
+              25.77061885853865
+            ],
+            [
+              -80.13441182023425,
+              25.770893652533452
+            ],
+            [
+              -80.13480704644803,
+              25.77095141307575
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 29,
+        "Address": "139 Washington Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 4,
+        "Shape__Area": 13203.51640052916,
+        "Shape__Length": 464.19697787368557,
+        "NAME": "P4",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88516",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1355539030063,
+              25.76980376129535
+            ],
+            [
+              -80.13554847146393,
+              25.769534325661496
+            ],
+            [
+              -80.13541134106946,
+              25.769530649766377
+            ],
+            [
+              -80.1353459728493,
+              25.769813035904708
+            ],
+            [
+              -80.1355539030063,
+              25.76980376129535
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 14,
+        "Address": "710 1st Street",
+        "EV_CS": "N/A",
+        "OBJECTID": 5,
+        "Shape__Area": 5684.576299823153,
+        "Shape__Length": 316.4902087733446,
+        "NAME": "P3",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88617",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13301320552407,
+              25.769001622880626
+            ],
+            [
+              -80.13245738566668,
+              25.768904575366573
+            ],
+            [
+              -80.13237753382973,
+              25.769255737731193
+            ],
+            [
+              -80.1322335736208,
+              25.769230310702874
+            ],
+            [
+              -80.13220190070756,
+              25.769378194584785
+            ],
+            [
+              -80.13291829730167,
+              25.76951408471673
+            ],
+            [
+              -80.13294235289945,
+              25.769402444387996
+            ],
+            [
+              -80.13292456998984,
+              25.769399339570654
+            ],
+            [
+              -80.13292998466075,
+              25.769373399946424
+            ],
+            [
+              -80.13301320552407,
+              25.769001622880626
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 20,
+        "Address": "1 Ocean Drive",
+        "EV_CS": "N/A",
+        "OBJECTID": 6,
+        "Shape__Area": 37832.322947509536,
+        "Shape__Length": 855.3246283688524,
+        "NAME": "P2",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88502",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13302645058653,
+              25.768537784470883
+            ],
+            [
+              -80.13221583471775,
+              25.768569380108577
+            ],
+            [
+              -80.1322318854938,
+              25.768718731599947
+            ],
+            [
+              -80.13249701413596,
+              25.768711370571992
+            ],
+            [
+              -80.13246902674277,
+              25.768845547717856
+            ],
+            [
+              -80.13302416930908,
+              25.768943774189736
+            ],
+            [
+              -80.13309782544539,
+              25.768608669375997
+            ],
+            [
+              -80.13302864898662,
+              25.76859485868207
+            ],
+            [
+              -80.13302645058653,
+              25.768537784470883
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 39,
+        "Address": "1 Ocean Drive",
+        "EV_CS": "N/A",
+        "OBJECTID": 7,
+        "Shape__Area": 28753.060250576767,
+        "Shape__Length": 812.942906300129,
+        "NAME": "P2",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88502",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13662439478037,
+              25.776286414812812
+            ],
+            [
+              -80.13662570161587,
+              25.776105857504305
+            ],
+            [
+              -80.13621577442754,
+              25.77610771661739
+            ],
+            [
+              -80.13622866584763,
+              25.77629551146436
+            ],
+            [
+              -80.13662439478037,
+              25.776286414812812
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 27,
+        "Address": "833 6th Street",
+        "EV_CS": "N/A",
+        "OBJECTID": 8,
+        "Shape__Area": 8878.612850119618,
+        "Shape__Length": 399.2064562852144,
+        "NAME": "P11",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88505",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13356781416901,
+              25.779553493854834
+            ],
+            [
+              -80.13328508329587,
+              25.779546087304336
+            ],
+            [
+              -80.13319036548805,
+              25.779805379093492
+            ],
+            [
+              -80.13357658160918,
+              25.779798105151066
+            ],
+            [
+              -80.13356781416901,
+              25.779553493854834
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 22,
+        "Address": "900 Washington Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 9,
+        "Shape__Area": 10080.638898891752,
+        "Shape__Length": 408.43643026682867,
+        "NAME": "P12",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "8hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88552",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13339231552233,
+              25.781052267812036
+            ],
+            [
+              -80.13337526756862,
+              25.780784689275855
+            ],
+            [
+              -80.13295742748127,
+              25.78078602404064
+            ],
+            [
+              -80.13290262095707,
+              25.781068471359774
+            ],
+            [
+              -80.13339231552233,
+              25.781052267812036
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 37,
+        "Address": "1000 Washington Avenue",
+        "EV_CS": "N/A",
+        "OBJECTID": 10,
+        "Shape__Area": 14907.33565009658,
+        "Shape__Length": 500.4233324253919,
+        "NAME": "P13",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "8hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88553",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13337656970407,
+              25.782056574518762
+            ],
+            [
+              -80.13339393992717,
+              25.782572538163674
+            ],
+            [
+              -80.1329337750877,
+              25.7825889175867
+            ],
+            [
+              -80.13294236082706,
+              25.782858344027268
+            ],
+            [
+              -80.13394075618672,
+              25.782826075967623
+            ],
+            [
+              -80.13392543952774,
+              25.782031202395128
+            ],
+            [
+              -80.13337656970407,
+              25.782056574518762
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 140,
+        "Address": "1130 Washington Ave",
+        "EV_CS": "2 Spaces on 2nd Floor",
+        "OBJECTID": 11,
+        "Shape__Area": 66344.38425104594,
+        "Shape__Length": 1235.7364212199961,
+        "NAME": "G2",
+        "HOURLY_RATE": "0-4hrs $2/hr; 4-15hrs $8+$1/hr; 15-24hrs $20",
+        "MAX_TYME": "No Limit",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle Fri, Sat & Sun 8PM-5AM ",
+        "ParkMobile": "88002",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13817361664057,
+              25.78255316894172
+            ],
+            [
+              -80.13815969784048,
+              25.78192258104496
+            ],
+            [
+              -80.13747889859758,
+              25.781954395381163
+            ],
+            [
+              -80.13754304266806,
+              25.782568553386106
+            ],
+            [
+              -80.13817361664057,
+              25.78255316894172
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 117,
+        "Address": "943 11th Street",
+        "EV_CS": "N/A",
+        "OBJECTID": 12,
+        "Shape__Area": 48922.73970144513,
+        "Shape__Length": 885.4045331666069,
+        "NAME": "P9",
+        "HOURLY_RATE": "N/A",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": null,
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1315445410685,
+              25.78405500030621
+            ],
+            [
+              -80.13160438299063,
+              25.783661790804224
+            ],
+            [
+              -80.13117643423656,
+              25.783601899562527
+            ],
+            [
+              -80.1311165073524,
+              25.784006581080256
+            ],
+            [
+              -80.1315445410685,
+              25.78405500030621
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 50,
+        "Address": "1262 Collins Avenue",
+        "EV_CS": "N/A",
+        "OBJECTID": 13,
+        "Shape__Area": 20811.337199191163,
+        "Shape__Length": 577.1370803089277,
+        "NAME": "P16",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88565",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13080802613791,
+              25.78463716869879
+            ],
+            [
+              -80.13088970037126,
+              25.784146613142543
+            ],
+            [
+              -80.13051438819507,
+              25.784098534614127
+            ],
+            [
+              -80.13044123244896,
+              25.784583390734134
+            ],
+            [
+              -80.13080802613791,
+              25.78463716869879
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 293,
+        "Address": "1301 Collins Ave",
+        "EV_CS": "2 Spaces on floor 3B",
+        "OBJECTID": 14,
+        "Shape__Area": 22117.31290144804,
+        "Shape__Length": 605.206101969889,
+        "NAME": "G3",
+        "HOURLY_RATE": "0-4hrs $2/hr; 4-15hrs $8+$1/hr; 15-24hrs $20",
+        "MAX_TYME": "No Limit",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle Fri, Sat & Sun 8PM-5AM ",
+        "ParkMobile": "88003",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13166144805008,
+              25.789082813159876
+            ],
+            [
+              -80.13166269600794,
+              25.788694509035835
+            ],
+            [
+              -80.13047871184507,
+              25.78870320095799
+            ],
+            [
+              -80.13042354798408,
+              25.789104086049814
+            ],
+            [
+              -80.13166144805008,
+              25.789082813159876
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 823,
+        "Address": "1550 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 15,
+        "Shape__Area": 57102.14085057571,
+        "Shape__Length": 1085.026021393523,
+        "NAME": "G4",
+        "HOURLY_RATE": "0-3hrs $2/hr; 3-6hrs $10; 6-24hrs $20",
+        "MAX_TYME": "No Limit",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle Fri, Sat & Sun 8PM-5AM ",
+        "ParkMobile": "88004",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13644973979831,
+              25.789953174836903
+            ],
+            [
+              -80.13644860900786,
+              25.789815605480463
+            ],
+            [
+              -80.13552405493996,
+              25.78984070749571
+            ],
+            [
+              -80.13552302992204,
+              25.789982060753733
+            ],
+            [
+              -80.13644973979831,
+              25.789953174836903
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 38,
+        "Address": "1620 Euclid Avenue",
+        "EV_CS": "N/A",
+        "OBJECTID": 16,
+        "Shape__Area": 15440.252300282576,
+        "Shape__Length": 710.8842463336556,
+        "NAME": "P18",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88549",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 17,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13758110345476,
+              25.789927422443096
+            ],
+            [
+              -80.13757152602936,
+              25.789793627230363
+            ],
+            [
+              -80.13714943000929,
+              25.789794948183804
+            ],
+            [
+              -80.13715260327365,
+              25.789940150638433
+            ],
+            [
+              -80.13758110345476,
+              25.789927422443096
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 20,
+        "Address": "1621 Jefferson Avenue",
+        "EV_CS": "N/A",
+        "OBJECTID": 17,
+        "Shape__Area": 7101.48380131265,
+        "Shape__Length": 381.49816335907343,
+        "NAME": "P19",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88548",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 18,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13868298432176,
+              25.789893838170936
+            ],
+            [
+              -80.13868396444443,
+              25.789758179645258
+            ],
+            [
+              -80.1382175341283,
+              25.78976306541185
+            ],
+            [
+              -80.1381951872758,
+              25.789642565661204
+            ],
+            [
+              -80.13775829520264,
+              25.78964762496995
+            ],
+            [
+              -80.13776272314992,
+              25.789909377963053
+            ],
+            [
+              -80.13868298432176,
+              25.789893838170936
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 65,
+        "Address": "1620 Jefferson Avenue",
+        "EV_CS": "N/A",
+        "OBJECTID": 18,
+        "Shape__Area": 21726.875000332097,
+        "Shape__Length": 789.0229859748597,
+        "NAME": "P20",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88547",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 19,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1393521271855,
+              25.789874853526143
+            ],
+            [
+              -80.13935081369529,
+              25.789762126869835
+            ],
+            [
+              -80.1388886902176,
+              25.78975556754343
+            ],
+            [
+              -80.1388940864247,
+              25.789883615337615
+            ],
+            [
+              -80.1393521271855,
+              25.789874853526143
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 22,
+        "Address": "1620 Michigan Avenue",
+        "EV_CS": "N/A",
+        "OBJECTID": 19,
+        "Shape__Area": 6625.244600357663,
+        "Shape__Length": 390.3964816290331,
+        "NAME": "P21",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88550",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 20,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.14053200726899,
+              25.78985126357201
+            ],
+            [
+              -80.14052666424142,
+              25.789715595142184
+            ],
+            [
+              -80.1400581758366,
+              25.78971090029089
+            ],
+            [
+              -80.14005716969496,
+              25.78985038294721
+            ],
+            [
+              -80.14053200726899,
+              25.78985126357201
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 20,
+        "Address": "1100 Lincoln Road",
+        "EV_CS": "N/A",
+        "OBJECTID": 20,
+        "Shape__Area": 7760.500001015315,
+        "Shape__Length": 410.4670159398345,
+        "NAME": "P22",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88611",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 21,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.14235906009846,
+              25.789930829204337
+            ],
+            [
+              -80.14232822591498,
+              25.78952368167014
+            ],
+            [
+              -80.14185955899231,
+              25.789543862932156
+            ],
+            [
+              -80.14188207033096,
+              25.78993756281946
+            ],
+            [
+              -80.14235906009846,
+              25.789930829204337
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 32,
+        "Address": "1619 West Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 21,
+        "Shape__Area": 22688.345300293837,
+        "Shape__Length": 603.0033221060116,
+        "NAME": "P23",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88513",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 22,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.14237181749277,
+              25.79138486028594
+            ],
+            [
+              -80.14234101035815,
+              25.790973916253275
+            ],
+            [
+              -80.14191674135954,
+              25.790980960761473
+            ],
+            [
+              -80.14193496000956,
+              25.791384209615202
+            ],
+            [
+              -80.14237181749277,
+              25.79138486028594
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 68,
+        "Address": "1663 West Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 22,
+        "Shape__Area": 20973.945600721796,
+        "Shape__Length": 579.792354530541,
+        "NAME": "P24",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "2hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88512",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 23,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.14058007344552,
+              25.79196467599368
+            ],
+            [
+              -80.14056783569012,
+              25.791322626057273
+            ],
+            [
+              -80.14010977563984,
+              25.791333289840708
+            ],
+            [
+              -80.14013476880454,
+              25.79196776669034
+            ],
+            [
+              -80.14058007344552,
+              25.79196467599368
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 86,
+        "Address": "1688 Lenox Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 23,
+        "Shape__Area": 34496.60030023565,
+        "Shape__Length": 761.4843226076198,
+        "NAME": "P25",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88544",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 24,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13990223349838,
+              25.791435234731637
+            ],
+            [
+              -80.13989022118231,
+              25.79105306955386
+            ],
+            [
+              -80.13892133685026,
+              25.791079801693748
+            ],
+            [
+              -80.13893123233257,
+              25.791460083505324
+            ],
+            [
+              -80.13990223349838,
+              25.791435234731637
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 106,
+        "Address": "1665 Lenox Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 24,
+        "Shape__Area": 44259.79860123226,
+        "Shape__Length": 915.8394314876741,
+        "NAME": "P26",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88582",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 25,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13762268703015,
+              25.791761846853497
+            ],
+            [
+              -80.13758942762942,
+              25.791108227109305
+            ],
+            [
+              -80.13667970483138,
+              25.79112764658359
+            ],
+            [
+              -80.13669185886717,
+              25.79148882060689
+            ],
+            [
+              -80.13713075750367,
+              25.791497175140666
+            ],
+            [
+              -80.13713932777684,
+              25.79177424960021
+            ],
+            [
+              -80.13762268703015,
+              25.791761846853497
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 151,
+        "Address": "1662 Meridian Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 25,
+        "Shape__Area": 56819.23919877301,
+        "Shape__Length": 1072.9266161099538,
+        "NAME": "P27",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88546",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 26,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13634319654702,
+              25.79324116901694
+            ],
+            [
+              -80.13632450021322,
+              25.79263801113895
+            ],
+            [
+              -80.13575071810571,
+              25.792634602772193
+            ],
+            [
+              -80.13576924723993,
+              25.793264611886475
+            ],
+            [
+              -80.13634319654702,
+              25.79324116901694
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 714,
+        "Address": "1735 Meridian Ave",
+        "EV_CS": "2 spaces on 2nd floor",
+        "OBJECTID": 26,
+        "Shape__Area": 42342.599948706265,
+        "Shape__Length": 826.2595811705198,
+        "NAME": "G7",
+        "HOURLY_RATE": "0-4hrs $2/hr; 4-8hrs $8+$1/hr; 8-15hrs $15; 15-24hrs $20",
+        "MAX_TYME": "3hrs in guest lot",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle during special events",
+        "ParkMobile": "88007",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 27,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13646455830019,
+              25.79515246856803
+            ],
+            [
+              -80.13645584073903,
+              25.794988222149428
+            ],
+            [
+              -80.13587215765894,
+              25.794990725465723
+            ],
+            [
+              -80.13588402668913,
+              25.795172901270206
+            ],
+            [
+              -80.13646455830019,
+              25.79515246856803
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 31,
+        "Address": "1909 Meridian Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 27,
+        "Shape__Area": 12073.296848677364,
+        "Shape__Length": 509.3305233966313,
+        "NAME": "P33",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88521",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 28,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1347629675588,
+              25.793177797215773
+            ],
+            [
+              -80.13472401778893,
+              25.792338929162263
+            ],
+            [
+              -80.13426237388293,
+              25.79233618203603
+            ],
+            [
+              -80.13428206583657,
+              25.792805002348622
+            ],
+            [
+              -80.13398861700071,
+              25.792800256500936
+            ],
+            [
+              -80.1339956863188,
+              25.79320343934341
+            ],
+            [
+              -80.1347629675588,
+              25.793177797215773
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 160,
+        "Address": "581 17th St.",
+        "EV_CS": "N/A",
+        "OBJECTID": 28,
+        "Shape__Area": 61112.904500390694,
+        "Shape__Length": 1123.41127930912,
+        "NAME": "P29",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88517",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 29,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1444968363544,
+              25.79258756797549
+            ],
+            [
+              -80.14451577787754,
+              25.79347991149272
+            ],
+            [
+              -80.14469306809788,
+              25.79347715747571
+            ],
+            [
+              -80.14468047683843,
+              25.792584823787273
+            ],
+            [
+              -80.1444968363544,
+              25.79258756797549
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 43,
+        "Address": "1700 Purdy Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 29,
+        "Shape__Area": 19265.7129516923,
+        "Shape__Length": 767.5597491705225,
+        "NAME": "P46",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "8hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88586",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 30,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12826108608893,
+              25.79741319950474
+            ],
+            [
+              -80.12870346294467,
+              25.79644562347371
+            ],
+            [
+              -80.1275031989158,
+              25.795981665515615
+            ],
+            [
+              -80.12706675306856,
+              25.797038826453353
+            ],
+            [
+              -80.12826108608893,
+              25.79741319950474
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 262,
+        "Address": "2101 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 30,
+        "Shape__Area": 166997.96564473637,
+        "Shape__Length": 1636.161552593686,
+        "NAME": "P49",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "3hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88524",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 31,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13044696907986,
+              25.797482989432403
+            ],
+            [
+              -80.13063191791133,
+              25.797085274366456
+            ],
+            [
+              -80.13034246863131,
+              25.79698083965969
+            ],
+            [
+              -80.13013762559773,
+              25.79739755651885
+            ],
+            [
+              -80.13044696907986,
+              25.797482989432403
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 15,
+        "Address": "343 22nd St",
+        "EV_CS": "N/A",
+        "OBJECTID": 31,
+        "Shape__Area": 16794.415150528595,
+        "Shape__Length": 531.5821526598758,
+        "NAME": "P48",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "2hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88523",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 32,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12898277999037,
+              25.798568040114127
+            ],
+            [
+              -80.12907676534074,
+              25.798341735251693
+            ],
+            [
+              -80.1286768939891,
+              25.798184087053542
+            ],
+            [
+              -80.12857479658443,
+              25.79843903853593
+            ],
+            [
+              -80.12898277999037,
+              25.798568040114127
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 25,
+        "Address": "224 23rd St",
+        "EV_CS": "N/A",
+        "OBJECTID": 32,
+        "Shape__Area": 13305.18494952703,
+        "Shape__Length": 472.15534922153194,
+        "NAME": "P51",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "3hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88620",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 33,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12673072512683,
+              25.803581056952062
+            ],
+            [
+              -80.12592430659645,
+              25.803314458111394
+            ],
+            [
+              -80.12576737322414,
+              25.80370135734308
+            ],
+            [
+              -80.12673386787588,
+              25.80401478182028
+            ],
+            [
+              -80.12673072512683,
+              25.803581056952062
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 126,
+        "Address": "2660 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 33,
+        "Shape__Area": 46166.28704907259,
+        "Shape__Length": 927.7292940042096,
+        "NAME": "P55",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "3hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88572",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 34,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12361931505278,
+              25.808390627069087
+            ],
+            [
+              -80.12364980768027,
+              25.808191400990125
+            ],
+            [
+              -80.12288937294697,
+              25.808091264578568
+            ],
+            [
+              -80.12286281258469,
+              25.808292907779474
+            ],
+            [
+              -80.12361931505278,
+              25.808390627069087
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 60,
+        "Address": "3401 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 34,
+        "Shape__Area": 18517.934200437485,
+        "Shape__Length": 651.1661602782763,
+        "NAME": "P56",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "3hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88563",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 35,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12339527911833,
+              25.809616824557015
+            ],
+            [
+              -80.12346228851317,
+              25.80911449456681
+            ],
+            [
+              -80.12284947625038,
+              25.809030792344455
+            ],
+            [
+              -80.12278642442026,
+              25.809531935342353
+            ],
+            [
+              -80.12339527911833,
+              25.809616824557015
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 75,
+        "Address": "3501 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 35,
+        "Shape__Area": 37306.81070192547,
+        "Shape__Length": 773.8321832152665,
+        "NAME": "P57",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "3hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88564",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 36,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13618601184416,
+              25.81382025612326
+            ],
+            [
+              -80.1358623599455,
+              25.813480149532218
+            ],
+            [
+              -80.13570364893187,
+              25.813750038375506
+            ],
+            [
+              -80.1359204214395,
+              25.81398633836995
+            ],
+            [
+              -80.13618601184416,
+              25.81382025612326
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 37,
+        "Address": "4141 Alton Road",
+        "EV_CS": "N/A",
+        "OBJECTID": 36,
+        "Shape__Area": 14355.405399981271,
+        "Shape__Length": 492.130701896346,
+        "NAME": "P61",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88535",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 37,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1357773276105,
+              25.813415154851754
+            ],
+            [
+              -80.13567728043182,
+              25.81324117661278
+            ],
+            [
+              -80.1355106255492,
+              25.81329895214952
+            ],
+            [
+              -80.13561852227569,
+              25.813484449861885
+            ],
+            [
+              -80.1357773276105,
+              25.813415154851754
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 12,
+        "Address": "4141 Alton Road",
+        "EV_CS": "N/A",
+        "OBJECTID": 37,
+        "Shape__Area": 4287.64800077473,
+        "Shape__Length": 264.2034851450533,
+        "NAME": "P61",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88535",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 38,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13440353738339,
+              25.81445399371988
+            ],
+            [
+              -80.13432542289456,
+              25.814093858545874
+            ],
+            [
+              -80.1338761522346,
+              25.814263134902266
+            ],
+            [
+              -80.1340526183002,
+              25.81459950774429
+            ],
+            [
+              -80.13440353738339,
+              25.81445399371988
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 32,
+        "Address": "830 42nd St",
+        "EV_CS": "N/A",
+        "OBJECTID": 38,
+        "Shape__Area": 19057.914501477826,
+        "Shape__Length": 555.8419594473727,
+        "NAME": "P62",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88536",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 39,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13233086402008,
+              25.81341707362712
+            ],
+            [
+              -80.13232727379778,
+              25.812820968018414
+            ],
+            [
+              -80.13185116555306,
+              25.812765108904056
+            ],
+            [
+              -80.13186702153845,
+              25.813412873526193
+            ],
+            [
+              -80.13233086402008,
+              25.81341707362712
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 96,
+        "Address": "4000 Chase Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 39,
+        "Shape__Area": 34918.946599922325,
+        "Shape__Length": 762.7438167291353,
+        "NAME": "P60",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88533",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 40,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13046163512881,
+              25.813354318246063
+            ],
+            [
+              -80.13048826056772,
+              25.813179663629835
+            ],
+            [
+              -80.12949022242393,
+              25.813053323416856
+            ],
+            [
+              -80.12947140286012,
+              25.81324521982893
+            ],
+            [
+              -80.13046163512881,
+              25.813354318246063
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 74,
+        "Address": "4000 Royal Palm Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 40,
+        "Shape__Area": 22108.251301379827,
+        "Shape__Length": 793.8485258466176,
+        "NAME": "P59",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88594",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 41,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12921395785493,
+              25.813381239877632
+            ],
+            [
+              -80.12926553962262,
+              25.813036213103533
+            ],
+            [
+              -80.12883695983999,
+              25.812977767528796
+            ],
+            [
+              -80.1287947551278,
+              25.81333718429435
+            ],
+            [
+              -80.12921395785493,
+              25.813381239877632
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 44,
+        "Address": "4049 Royal Palm Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 41,
+        "Shape__Area": 18141.82639972195,
+        "Shape__Length": 539.3675484957273,
+        "NAME": "P58",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88592",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 42,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12763794493966,
+              25.8145697350877
+            ],
+            [
+              -80.12890774738787,
+              25.814769359401215
+            ],
+            [
+              -80.12895952878779,
+              25.814401416193373
+            ],
+            [
+              -80.1282731226638,
+              25.8143098944249
+            ],
+            [
+              -80.1276763733346,
+              25.814294841733716
+            ],
+            [
+              -80.12763794493966,
+              25.8145697350877
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 633,
+        "Address": "400 W 42nd St",
+        "EV_CS": "2 spaces on 1st floor; 2 spaces in aisle 1",
+        "OBJECTID": 42,
+        "Shape__Area": 52536.762799877564,
+        "Shape__Length": 1084.2147751872697,
+        "NAME": "G6",
+        "HOURLY_RATE": "1-8hrs $1/hr; any portion thereof",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88006",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 43,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13023879398403,
+              25.814387589296423
+            ],
+            [
+              -80.12978180334107,
+              25.814314614933753
+            ],
+            [
+              -80.12927052276972,
+              25.814304399889153
+            ],
+            [
+              -80.12918765473427,
+              25.8148126078191
+            ],
+            [
+              -80.13029620412628,
+              25.81497972472353
+            ],
+            [
+              -80.13035746420324,
+              25.81439545255437
+            ],
+            [
+              -80.13023879398403,
+              25.814387589296423
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 199,
+        "Address": "4142 Royal Palm Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 43,
+        "Shape__Area": 74635.13389855961,
+        "Shape__Length": 1129.8466876814232,
+        "NAME": "P63",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "2hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88532",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 44,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12237500477404,
+              25.821685187309964
+            ],
+            [
+              -80.1225504633348,
+              25.820076581694607
+            ],
+            [
+              -80.1213271844207,
+              25.819930666343506
+            ],
+            [
+              -80.12126817669275,
+              25.820775736478424
+            ],
+            [
+              -80.1217321507397,
+              25.820835876854364
+            ],
+            [
+              -80.12163688783804,
+              25.82158517760667
+            ],
+            [
+              -80.12237500477404,
+              25.821685187309964
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 452,
+        "Address": "4621 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 44,
+        "Shape__Area": 190701.60589742128,
+        "Shape__Length": 1975.1124395624006,
+        "NAME": "P71",
+        "HOURLY_RATE": "Non-resident $20 flat rate; Registered resident vehicle $6 flat or $1/hr at pay station only.",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "N/A",
+        "ParkMobile": "88569",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 45,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12624254003543,
+              25.82222899814688
+            ],
+            [
+              -80.12626166127197,
+              25.821996963791246
+            ],
+            [
+              -80.1260748950344,
+              25.821988687568947
+            ],
+            [
+              -80.12604634233175,
+              25.822213484448202
+            ],
+            [
+              -80.12624254003543,
+              25.82222899814688
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 17,
+        "Address": "4700 Pine Tree Dr",
+        "EV_CS": "N/A",
+        "OBJECTID": 45,
+        "Shape__Area": 5263.853949213272,
+        "Shape__Length": 293.12664360316427,
+        "NAME": "P64",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88534",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 46,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12161733918856,
+              25.831269453162577
+            ],
+            [
+              -80.121729131075,
+              25.831136391655175
+            ],
+            [
+              -80.12179225279631,
+              25.830809569310397
+            ],
+            [
+              -80.12071393673656,
+              25.83067170369134
+            ],
+            [
+              -80.12062705045734,
+              25.831358985446457
+            ],
+            [
+              -80.12089860231087,
+              25.831394056237553
+            ],
+            [
+              -80.12093442245154,
+              25.831191287187547
+            ],
+            [
+              -80.12161733918856,
+              25.831269453162577
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 143,
+        "Address": "5301 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 46,
+        "Shape__Area": 68078.53370063307,
+        "Shape__Length": 1182.337644281973,
+        "NAME": "P72",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88571",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 47,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.11996890209062,
+              25.848089255563437
+            ],
+            [
+              -80.11992538700599,
+              25.847017857823293
+            ],
+            [
+              -80.11969185260948,
+              25.847009289224907
+            ],
+            [
+              -80.11971154501377,
+              25.848094848953792
+            ],
+            [
+              -80.11996890209062,
+              25.848089255563437
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 76,
+        "Address": "6475 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 47,
+        "Shape__Area": 31640.508901055735,
+        "Shape__Length": 945.8767972209666,
+        "NAME": "P81",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "3hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88568",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 48,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12208093032636,
+              25.848477691148066
+            ],
+            [
+              -80.12205702678536,
+              25.848280751538518
+            ],
+            [
+              -80.12154177119895,
+              25.848291034073682
+            ],
+            [
+              -80.12163529226895,
+              25.849065381614906
+            ],
+            [
+              -80.1219523016899,
+              25.84902333416831
+            ],
+            [
+              -80.12187799001357,
+              25.848508956104936
+            ],
+            [
+              -80.12208093032636,
+              25.848477691148066
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 72,
+        "Address": "6500 Indian Creek Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 48,
+        "Shape__Area": 33630.25194987359,
+        "Shape__Length": 886.3070595294051,
+        "NAME": "P82",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "3hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88567",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 49,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12131373908214,
+              25.855181193195577
+            ],
+            [
+              -80.121299848657,
+              25.854917211932676
+            ],
+            [
+              -80.12092636420618,
+              25.85491734472901
+            ],
+            [
+              -80.12094944409668,
+              25.855188534823938
+            ],
+            [
+              -80.12131373908214,
+              25.855181193195577
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 29,
+        "Address": "6933 Harding Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 49,
+        "Shape__Area": 11808.362299466164,
+        "Shape__Length": 437.59953944258143,
+        "NAME": "P83",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88542",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 50,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1218598341263,
+              25.855577344033428
+            ],
+            [
+              -80.12184299522978,
+              25.855177242025317
+            ],
+            [
+              -80.1214694483093,
+              25.8551857120273
+            ],
+            [
+              -80.12149289244758,
+              25.855584698506544
+            ],
+            [
+              -80.1218598341263,
+              25.855577344033428
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 53,
+        "Address": "6964 Harding Ave",
+        "EV_CS": null,
+        "OBJECTID": 50,
+        "Shape__Area": 17702.964650576807,
+        "Shape__Length": 534.3673687666035,
+        "NAME": "P84",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88538",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 51,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1231438283856,
+              25.855946944907593
+            ],
+            [
+              -80.12315107452763,
+              25.85568188087754
+            ],
+            [
+              -80.12279998264167,
+              25.85568812383255
+            ],
+            [
+              -80.12281513981725,
+              25.85595808279788
+            ],
+            [
+              -80.1231438283856,
+              25.855946944907593
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 30,
+        "Address": "410 71st St",
+        "EV_CS": null,
+        "OBJECTID": 51,
+        "Shape__Area": 10873.480751115625,
+        "Shape__Length": 418.29295511988755,
+        "NAME": "P80",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88618",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 52,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12564473408237,
+              25.855590639560845
+            ],
+            [
+              -80.12556382676489,
+              25.85546596207428
+            ],
+            [
+              -80.12481801170341,
+              25.855486559564213
+            ],
+            [
+              -80.12490552511846,
+              25.85561006672891
+            ],
+            [
+              -80.12564473408237,
+              25.855590639560845
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 36,
+        "Address": "7011 Indian Creek Dr.",
+        "EV_CS": null,
+        "OBJECTID": 52,
+        "Shape__Area": 11216.14890098648,
+        "Shape__Length": 594.4936820032807,
+        "NAME": "P86",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88541",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 53,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1261729214205,
+              25.85630313988828
+            ],
+            [
+              -80.12606958703087,
+              25.856143442179775
+            ],
+            [
+              -80.12580343325362,
+              25.856156173768124
+            ],
+            [
+              -80.12591473490711,
+              25.85631160020386
+            ],
+            [
+              -80.1261729214205,
+              25.85630313988828
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 16,
+        "Address": "7061 Bonita Dr",
+        "EV_CS": null,
+        "OBJECTID": 53,
+        "Shape__Area": 5073.993700145928,
+        "Shape__Length": 307.2040354432501,
+        "NAME": "P90",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88580",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 54,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1280847357574,
+              25.855182614737515
+            ],
+            [
+              -80.1279012108942,
+              25.854945072254022
+            ],
+            [
+              -80.12756232833122,
+              25.85515653142542
+            ],
+            [
+              -80.12775050028306,
+              25.85541129739555
+            ],
+            [
+              -80.1280847357574,
+              25.855182614737515
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 34,
+        "Address": "6950 Bay Dr.",
+        "EV_CS": null,
+        "OBJECTID": 54,
+        "Shape__Area": 14792.898450382143,
+        "Shape__Length": 489.92657898062424,
+        "NAME": "P87",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88579",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 55,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12885627927807,
+              25.856223247266556
+            ],
+            [
+              -80.12883936571703,
+              25.85593798132076
+            ],
+            [
+              -80.1285493922231,
+              25.85596061700707
+            ],
+            [
+              -80.12856630529033,
+              25.856245855456955
+            ],
+            [
+              -80.12885627927807,
+              25.856223247266556
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 25,
+        "Address": "917 Normandy Dr.",
+        "EV_CS": null,
+        "OBJECTID": 55,
+        "Shape__Area": 9933.748700007925,
+        "Shape__Length": 399.1074726325739,
+        "NAME": "P89",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88577",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 56,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12953386913273,
+              25.855247187225316
+            ],
+            [
+              -80.12948578061145,
+              25.855000196519512
+            ],
+            [
+              -80.12913320351582,
+              25.855209431346594
+            ],
+            [
+              -80.1291973358246,
+              25.855354062742993
+            ],
+            [
+              -80.12953386913273,
+              25.855247187225316
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 16,
+        "Address": "1045 71st St",
+        "EV_CS": "N/A",
+        "OBJECTID": 56,
+        "Shape__Area": 9125.466750592705,
+        "Shape__Length": 403.7752450659724,
+        "NAME": "P88",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88578",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 57,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12474544057156,
+              25.857314529839314
+            ],
+            [
+              -80.1247729757992,
+              25.857159471853322
+            ],
+            [
+              -80.12374872057055,
+              25.857174780731757
+            ],
+            [
+              -80.12375009824416,
+              25.85734674043119
+            ],
+            [
+              -80.12474544057156,
+              25.857314529839314
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 50,
+        "Address": "541 72nd St",
+        "EV_CS": "N/A",
+        "OBJECTID": 57,
+        "Shape__Area": 19700.431851920435,
+        "Shape__Length": 784.0450162095444,
+        "NAME": "P91",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88574",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 58,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12220460832474,
+              25.857249998230774
+            ],
+            [
+              -80.12077482864774,
+              25.857279561137386
+            ],
+            [
+              -80.12078841879865,
+              25.857440122144116
+            ],
+            [
+              -80.1209339040974,
+              25.8577543396353
+            ],
+            [
+              -80.12107885324836,
+              25.85814115844891
+            ],
+            [
+              -80.12111363262667,
+              25.858294199301053
+            ],
+            [
+              -80.12195420639509,
+              25.858270645266213
+            ],
+            [
+              -80.12198500520697,
+              25.858106528614055
+            ],
+            [
+              -80.12205503705928,
+              25.857772596225317
+            ],
+            [
+              -80.12218024941585,
+              25.857402708815275
+            ],
+            [
+              -80.12220460832474,
+              25.857249998230774
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 313,
+        "Address": "258 73rd St",
+        "EV_CS": "N/A",
+        "OBJECTID": 58,
+        "Shape__Area": 138049.9818993929,
+        "Shape__Length": 1515.28591959562,
+        "NAME": "P92",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88539",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 59,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1209169060013,
+              25.861195187609983
+            ],
+            [
+              -80.1209076529786,
+              25.86101553197319
+            ],
+            [
+              -80.12056125388295,
+              25.861030629024768
+            ],
+            [
+              -80.12055000228878,
+              25.86083759033876
+            ],
+            [
+              -80.11981065448494,
+              25.86087132389076
+            ],
+            [
+              -80.11984814531257,
+              25.861228824492116
+            ],
+            [
+              -80.1209169060013,
+              25.861195187609983
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 111,
+        "Address": "7515 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 59,
+        "Shape__Area": 39189.21720161629,
+        "Shape__Length": 975.3659787046082,
+        "NAME": "P106",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88543",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 60,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1217191338114,
+              25.86465100753839
+            ],
+            [
+              -80.12170951842207,
+              25.86423634072214
+            ],
+            [
+              -80.12121324087359,
+              25.864240985476883
+            ],
+            [
+              -80.12122831021107,
+              25.865056895457766
+            ],
+            [
+              -80.12153034632802,
+              25.86505107530347
+            ],
+            [
+              -80.121533298515,
+              25.864651781341948
+            ],
+            [
+              -80.1217191338114,
+              25.86465100753839
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 37,
+        "Address": "225 79th St",
+        "EV_CS": "N/A",
+        "OBJECTID": 60,
+        "Shape__Area": 39324.00384876987,
+        "Shape__Length": 916.185359212246,
+        "NAME": "P107",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "6hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88600",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 61,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12173152503956,
+              25.865187927757585
+            ],
+            [
+              -80.12123508805874,
+              25.86521359084896
+            ],
+            [
+              -80.12124601559485,
+              25.86601800307335
+            ],
+            [
+              -80.12176984360856,
+              25.86600207998444
+            ],
+            [
+              -80.12173152503956,
+              25.865187927757585
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 99,
+        "Address": "8040 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 61,
+        "Shape__Area": 49409.40469938728,
+        "Shape__Length": 924.493837550633,
+        "NAME": "P108",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "6hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88584",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 62,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1218642412624,
+              25.868946839010686
+            ],
+            [
+              -80.12181746815361,
+              25.8681326359456
+            ],
+            [
+              -80.12129575700857,
+              25.86814477515207
+            ],
+            [
+              -80.12136151797857,
+              25.86896099160262
+            ],
+            [
+              -80.1218642412624,
+              25.868946839010686
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 100,
+        "Address": "8300 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 62,
+        "Shape__Area": 49999.998849293304,
+        "Shape__Length": 930.835564373097,
+        "NAME": "P109",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "6hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88601",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 63,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12196697284523,
+              25.86990463638284
+            ],
+            [
+              -80.12190337616045,
+              25.869078886588888
+            ],
+            [
+              -80.12136048653832,
+              25.86910044453311
+            ],
+            [
+              -80.12144516906326,
+              25.8699282479817
+            ],
+            [
+              -80.12196697284523,
+              25.86990463638284
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 66,
+        "Address": "8440 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 63,
+        "Shape__Area": 52808.788200334704,
+        "Shape__Length": 953.5572491084383,
+        "NAME": "P111",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "6hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88585",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 64,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.123151685986,
+              25.868476983871943
+            ],
+            [
+              -80.12312728714804,
+              25.868062227945693
+            ],
+            [
+              -80.12294349037067,
+              25.86807448834321
+            ],
+            [
+              -80.12298480782218,
+              25.86848359647441
+            ],
+            [
+              -80.123151685986,
+              25.868476983871943
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 26,
+        "Address": "331 83rd St",
+        "EV_CS": "N/A",
+        "OBJECTID": 64,
+        "Shape__Area": 8670.40199994524,
+        "Shape__Length": 415.828866865495,
+        "NAME": "P110",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "6hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88575",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 65,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.1218458930049,
+              25.872465396088515
+            ],
+            [
+              -80.12183977833503,
+              25.872218877674115
+            ],
+            [
+              -80.12162902499638,
+              25.872231936077277
+            ],
+            [
+              -80.12164309884245,
+              25.872471321991515
+            ],
+            [
+              -80.1218458930049,
+              25.872465396088515
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 16,
+        "Address": "226 87th Ter",
+        "EV_CS": "N/A",
+        "OBJECTID": 65,
+        "Shape__Area": 6015.999999022696,
+        "Shape__Length": 312.95023842739306,
+        "NAME": "P112",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "6hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88615",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 66,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13565006557799,
+              25.767124082062296
+            ],
+            [
+              -80.13425435713823,
+              25.766463793048747
+            ],
+            [
+              -80.13423239094003,
+              25.766216489140813
+            ],
+            [
+              -80.1335698512617,
+              25.765925947891187
+            ],
+            [
+              -80.13351394438926,
+              25.766545363968504
+            ],
+            [
+              -80.13553739956151,
+              25.767388524425655
+            ],
+            [
+              -80.13565006557799,
+              25.767124082062296
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 241,
+        "Address": "1 Washington Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 66,
+        "Shape__Area": 110320.39519929435,
+        "Shape__Length": 1912.7710508031612,
+        "NAME": "P1",
+        "HOURLY_RATE": "$2/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "$20/non-resident vehicle; $6/resident vehicle Sat & Sun 6AM-8PM",
+        "ParkMobile": "88602",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 67,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13422109352508,
+              25.792065570880457
+            ],
+            [
+              -80.13419419215072,
+              25.79122952560996
+            ],
+            [
+              -80.13380174419963,
+              25.79123613055272
+            ],
+            [
+              -80.13381547548346,
+              25.79206912605791
+            ],
+            [
+              -80.13422109352508,
+              25.792065570880457
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 562,
+        "Address": "1661 Pennsylvania Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 67,
+        "Shape__Area": 39841.153999673516,
+        "Shape__Length": 869.4621974898855,
+        "NAME": "G9",
+        "HOURLY_RATE": "0-4hrs $2/hr; 4-8hrs $8+$1/hr; 8-15hrs $15; 15-24hrs $20",
+        "MAX_TYME": "No Limit",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle during special events",
+        "ParkMobile": "88009",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 68,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.14433885000246,
+              25.794994316866866
+            ],
+            [
+              -80.14431555391722,
+              25.79419650853787
+            ],
+            [
+              -80.14386436116664,
+              25.794205793687894
+            ],
+            [
+              -80.14389567179713,
+              25.79499170876374
+            ],
+            [
+              -80.14433885000246,
+              25.794994316866866
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 440,
+        "Address": "1900 Bay Dr",
+        "EV_CS": "3 Spaces on 2nd Floor",
+        "OBJECTID": 68,
+        "Shape__Area": 42363.122950784986,
+        "Shape__Length": 870.2694328176588,
+        "NAME": "G10",
+        "HOURLY_RATE": "0-4hrs $2/hr; 4-8hrs $8+$1/hr; 8-15hrs $15; 15-24hrs $20",
+        "MAX_TYME": "No Limit",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle during special events",
+        "ParkMobile": "88010",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 69,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12525658097404,
+              25.85786458096456
+            ],
+            [
+              -80.12540318933017,
+              25.858027868896976
+            ],
+            [
+              -80.125551678082,
+              25.8579356344489
+            ],
+            [
+              -80.12526871356894,
+              25.857649728549763
+            ],
+            [
+              -80.12519707298539,
+              25.85769945168664
+            ],
+            [
+              -80.12525658097404,
+              25.85786458096456
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 19,
+        "Address": "7270 Dickens Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 69,
+        "Shape__Area": 6982.486250083179,
+        "Shape__Length": 368.0287114833226,
+        "NAME": "P93",
+        "HOURLY_RATE": "$1/hr",
+        "MAX_TYME": "10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88623",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 70,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13559206419642,
+              25.79202054352823
+            ],
+            [
+              -80.13557084707968,
+              25.791308723613447
+            ],
+            [
+              -80.13527679053949,
+              25.791115928761
+            ],
+            [
+              -80.13433217943627,
+              25.79114373753589
+            ],
+            [
+              -80.1343624773761,
+              25.792056232780435
+            ],
+            [
+              -80.13559206419642,
+              25.79202054352823
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 1490,
+        "Address": "640 17th St",
+        "EV_CS": "N/A",
+        "OBJECTID": 70,
+        "Shape__Area": 131062.4035541249,
+        "Shape__Length": 1425.9297340866638,
+        "NAME": "G5",
+        "HOURLY_RATE": "0-4hrs $2/hr; 4-8hrs $8+$1/hr; 8-15hrs $15; 15-24hrs $20",
+        "MAX_TYME": "None",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle during special events",
+        "ParkMobile": "88005",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 71,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12408427115994,
+              25.855634635194466
+            ],
+            [
+              -80.12407988864805,
+              25.85551138148042
+            ],
+            [
+              -80.12370922590063,
+              25.855524441658105
+            ],
+            [
+              -80.12371886815896,
+              25.85564772711998
+            ],
+            [
+              -80.12408427115994,
+              25.855634635194466
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 14,
+        "Address": "6977 Carlyle Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 71,
+        "Shape__Area": 5434.297749417317,
+        "Shape__Length": 332.01335098428245,
+        "NAME": "P85",
+        "HOURLY_RATE": " $1/hr",
+        "MAX_TYME": " 10hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88540",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 72,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.14502619398529,
+              25.79389513345553
+            ],
+            [
+              -80.14501463230931,
+              25.793566483068606
+            ],
+            [
+              -80.14449755252342,
+              25.793576015682127
+            ],
+            [
+              -80.14452297543141,
+              25.793908296733896
+            ],
+            [
+              -80.14502619398529,
+              25.79389513345553
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 12,
+        "Address": "1700 Purdy Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 72,
+        "Shape__Area": 20188.588600116844,
+        "Shape__Length": 576.4191061007499,
+        "NAME": "P45",
+        "HOURLY_RATE": "Registered Residents Only ",
+        "MAX_TYME": "7am-10pm",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": "88586",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 73,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13862868374214,
+              25.787028525388756
+            ],
+            [
+              -80.13861646059543,
+              25.78649523227882
+            ],
+            [
+              -80.13778479436199,
+              25.786491928480903
+            ],
+            [
+              -80.13780936781377,
+              25.78703982141373
+            ],
+            [
+              -80.13862868374214,
+              25.787028525388756
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 134,
+        "Address": "1441 Michigan Ave",
+        "EV_CS": null,
+        "OBJECTID": 73,
+        "Shape__Area": 53385.42170005623,
+        "Shape__Length": 936.5180328908455,
+        "NAME": "P10",
+        "HOURLY_RATE": " N/A",
+        "MAX_TYME": "3hrs",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "None",
+        "ParkMobile": null,
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 74,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.13042379454058,
+              25.784591017519244
+            ],
+            [
+              -80.13040211273575,
+              25.78474721405657
+            ],
+            [
+              -80.13080201908215,
+              25.78479422930851
+            ],
+            [
+              -80.13082771973522,
+              25.784645264994637
+            ],
+            [
+              -80.13042379454058,
+              25.784591017519244
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 20,
+        "Address": "1337 Collins Ave",
+        "EV_CS": "N/A",
+        "OBJECTID": 74,
+        "Shape__Area": 7478.661700552316,
+        "Shape__Length": 379.10487237088364,
+        "NAME": "P17",
+        "HOURLY_RATE": "Permit Only",
+        "MAX_TYME": " ",
+        "SUBTYPE": "Lot",
+        "EVENT_RATE": "N/A",
+        "ParkMobile": "N/A",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 75,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.12926595197705,
+              25.79831320972765
+            ],
+            [
+              -80.12913046022811,
+              25.79862562778141
+            ],
+            [
+              -80.1298985678358,
+              25.798870437031557
+            ],
+            [
+              -80.13002333928627,
+              25.798564997295596
+            ],
+            [
+              -80.12926595197705,
+              25.79831320972765
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "SPACES": 516,
+        "Address": "340 23rd St",
+        "EV_CS": "",
+        "OBJECTID": 75,
+        "Shape__Area": 32046.09630089067,
+        "Shape__Length": 773.7921722806732,
+        "NAME": " G12",
+        "HOURLY_RATE": " 0-4hrs $2/hr; 4-8hrs $8+$1/hr; 8-15hrs $15; 15-24hrs $20",
+        "MAX_TYME": " ",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle during special events",
+        "ParkMobile": "88012",
+        "AMENITIES": null,
+        "created_user": null,
+        "created_date": null,
+        "last_edited_user": null,
+        "last_edited_date": null
+      }
+    }
+  ]
+}

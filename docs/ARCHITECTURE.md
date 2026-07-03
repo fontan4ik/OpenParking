@@ -10,12 +10,13 @@ The target system keeps the current public API surface stable while replacing ad
 
 ```text
 City / OSM / operator sources
-  -> deterministic importers and external tools
-  -> normalized ParkingUSA records
-  -> PostGIS + Prisma
-  -> compatible GeoJSON APIs
-  -> MapLibre frontend
-  -> Martin / Tippecanoe vector tile path for scale
+   -> deterministic importers and external tools
+   -> candidate coverage baseline + normalized ParkingUSA records
+   -> pricing/rules enrichment and missing-data queue
+   -> PostGIS + Prisma
+   -> compatible GeoJSON APIs
+   -> MapLibre frontend
+   -> Martin / Tippecanoe vector tile path for scale
 ```
 
 ## Core Layers
@@ -35,14 +36,18 @@ Keep the current public endpoints compatible:
 
 - `GET /api/stats`
 - `GET /api/facilities`
+- `GET /api/parking-index`
 - `GET /api/geojson/[layer]`
+- `POST /api/route`
 
 API behavior:
 
-- Read from PostGIS first when database records are available.
-- Fall back to `data/*.geojson` fixtures while database work stabilizes.
+- Read OSM/Geofabrik baseline records from PostGIS first when database records are available.
+- Merge official/source-specific fixtures as enrichment and fallback instead of letting DB mode hide those stronger records.
+- Fall back to `data/*.geojson` fixtures while database work stabilizes or when `DATABASE_URL` is absent.
 - Return GeoJSON-compatible responses for the existing frontend.
 - Preserve layer counters and selected-feature details.
+- Keep routing behind the ParkingUSA API boundary: the frontend posts route requests to same-origin `POST /api/route`, and the server calls Valhalla via `VALHALLA_URL`. The routing MVP accepts finite lat/lon start/destination coordinates, supports `costing: "auto"` only, caps direct distance at 100 km, times out provider calls after 5 seconds, and returns a GeoJSON `LineString` with Valhalla/OpenStreetMap attribution. The same endpoint serves selected-parking navigation from map-picked/geolocation/manual starts, map-picked point-to-point routes, and current-location to clicked-destination routes; the browser must not call Valhalla directly or persist route/location history.
 
 ### Storage
 
@@ -58,6 +63,12 @@ API behavior:
 - Production OSM PBF imports should use external `osm2pgsql`.
 - Street-parking tags should use the ported `osm-tag-updater` normalizer.
 - Heavy or ambiguous extraction should be routed through research/import tasks, not hidden inside frontend code.
+- Google Maps/Places is not a master ingestion source. It may be used only for discovery, matching, manual QA, and permitted identifiers such as `place_id`; long-lived ParkingUSA records must come from storable sources such as official data, OSM/Overture, operator/partner feeds, user evidence, or manual verification.
+- Ingestion must keep parking existence separate from price/rule enrichment. A candidate facility can be map-visible with unknown pricing, low confidence, and a missing-data task rather than being hidden until tariffs are known.
+- The application should expose one internal source of truth: the ParkingUSA canonical database, surfaced through `GET /api/parking-index` as the single canonical coverage feed. For initial nationwide existence coverage, OSM/Geofabrik is the primary baseline source and Overture is the preferred cross-check/enrichment baseline. Official city/authority data, operator pages/APIs, payment providers, partner feeds, browser/manual evidence, and user reports update individual facts on top of that baseline rather than replacing the whole system with another external master.
+- User-submitted tariffs, rules, photos, payment links, and comments are source observations. They should enter moderation/review with evidence, confidence, and timestamps before changing canonical price/rule fields.
+- Current implementation: the map detail panel posts suggestions to `POST /api/observations`, which stores `SourceObservation(entityType = user_report, sourceName = User Report, confidence = 0.35)` with `rawProperties.status = pending_review`. This preserves evidence without silently overwriting verified canonical facts.
+- Miami Beach official WPGMZA/ArcGIS records with ParkMobile zones are enriched with payment-provider evidence (`ParkMobile / PayByPhone`) and an official PayByPhone Miami Beach app URL. This is deliberately separate from `payment_url`: ParkingUSA does not infer per-record checkout URLs from a provider/zone unless the upstream source provides a stable checkout/payment URL for that exact record.
 
 ### Tiles
 
@@ -76,6 +87,18 @@ ParkingUSA records should represent:
 - availability, occupancy, predictions, and freshness signals;
 - source observations and evidence.
 
+The canonical map layer should be coverage-first: show the broadest legally storable candidate inventory, then expose enrichment status per object. The API/frontend should be able to distinguish at least:
+
+- `exists_known`: the parking object is known from one or more sources;
+- `price_known`: hourly/daily/monthly/event price is known for at least one scenario;
+- `rules_known`: hours, restrictions, access, or curb rules are known;
+- `needs_enrichment`: price/rules/source conflict/staleness require research or review.
+
+Current implementation: `loadParkingIndex()` combines facilities, curb segments, and parking zones into one GeoJSON feed at `/api/parking-index`. Each feature receives `parkingusa_id`, `parkingusa_layer`, `existence_status`, `price_status`, `rule_status`, `needs_enrichment`, and `canonical_source = ParkingUSA Parking Index`. For `city=miami`, the loader reads DB scope `Miami + Miami-Dade` so OpenStreetMap/Geofabrik parking candidates, including Miami Beach `P` icon candidates, become ParkingUSA features. Miami Beach ArcGIS has a DB canonical import path for official meters, lot centroids, lot polygons, and residential/regulatory parking-zone polygons. Layer 7 `Parking Zones` records are road-side residential/rule areas, not filled parking availability polygons: `data-loader.ts` converts those polygons into `curb_segment` line features for `/api/geojson/segments`, preserves the residential/rule metadata, and excludes them from `/api/geojson/zones`. The default frontend display renders curb/road-side lines, parking points, and real parking-area polygons/lots; the explicit `all` display mode renders all three visual layer types together. Curb segment rendering is line-only: official parking-space points are filtered out when they fall inside a parking lot/garage polygon, then remaining street-side points are grouped into straight curb-row `LineString` features. If an upstream or legacy row for a street parking space arrives as a Polygon/MultiPolygon, `data-loader.ts` excludes it from the zone endpoint and derives a LineString/MultiLineString from the long axis before exposing it through `/api/geojson/segments`. Official fixtures are still merged as enrichment/fallback when DB rows are unavailable. Legacy layer endpoints remain for compatibility and map rendering.
+UX implication: unknown-price records stay visible. The map should look like a complete parking search layer, while the detail panel tells the truth about which facts are known, unknown, user-suggested, stale, or verified. This turns incomplete parking records into an enrichment queue instead of hiding them from users.
+
+Public metrics are record completeness/provenance coverage indicators, not deduped real-world coverage.
+
 Use `Referenss/parking` for Prisma/PostGIS model patterns, especially ideas around `Space`, `Occupancy`, and `Prediction`, but adapt them to the ParkingUSA schema and API surface.
 
 ## Data Quality Contract
@@ -91,6 +114,8 @@ Every imported record should preserve:
 | `last_verified_at` | When ParkingUSA last verified the record. |
 | `data_as_of` | Upstream data currency or publication date. |
 | Geometry provenance | Notes about geometry source, derivation, and quality. |
+| `price_status` / `rule_status` | Whether pricing and rules are known, unknown, stale, conflicting, or review-needed. |
+| `matched_place_id` | Optional Google/third-party matching identifier when policy permits; never the canonical source by itself. |
 
 ## Reference-First Implementation Rules
 

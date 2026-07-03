@@ -14,21 +14,35 @@ const prisma = new PrismaClient();
 const SOURCES = {
   datasf: {
     name: 'DataSF Parking Meters + Meter Rate Schedules',
+    sourceKey: 'datasf-parking-meters-sf',
     type: 'city_open_data',
     homepageUrl: 'https://data.sfgov.org/',
+    sourceUrl: 'https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9',
+    apiUrl: 'https://data.sfgov.org/resource/8vzz-qzz9.json',
+    evidenceUrl: 'https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9',
     license: 'City and County of San Francisco open data terms',
   },
   curb: {
     name: 'DataSF Derived Curb Segments',
+    sourceKey: 'datasf-derived-curb-segments-sf',
     type: 'derived_city_open_data',
     homepageUrl: 'https://data.sfgov.org/',
+    sourceUrl: 'https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9',
+    apiUrl: 'https://data.sfgov.org/resource/8vzz-qzz9.json',
+    evidenceUrl: 'https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9',
     license: 'Derived from City and County of San Francisco open data',
+    notes: 'Derived from DataSF meter points grouped by blockface_id; not an independent official curb-line source.',
   },
   osm: {
     name: 'OpenStreetMap via Overpass',
+    sourceKey: 'osm-overpass-sf-parking-zones',
     type: 'openstreetmap',
     homepageUrl: 'https://www.openstreetmap.org/',
+    sourceUrl: 'https://www.openstreetmap.org/',
+    apiUrl: 'https://overpass-api.de/api/interpreter',
+    evidenceUrl: 'https://www.openstreetmap.org/',
     license: 'ODbL',
+    notes: 'OSM-derived candidate/probable parking zones; lower confidence than official city data.',
   },
 };
 
@@ -40,6 +54,10 @@ function parseDate(value) {
 
 function numberOrNull(value) {
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+function stringOrNull(value) {
+  return typeof value === 'string' && value.trim() ? value : null;
 }
 
 async function readGeoJSON(filename) {
@@ -97,8 +115,8 @@ function mapFacility(feature) {
     geojson: feature.geometry,
     lat: numberOrNull(lat),
     lng: numberOrNull(lng),
-    city: 'San Francisco',
-    state: 'CA',
+    city: stringOrNull(p.city) ?? 'San Francisco',
+    state: stringOrNull(p.state) ?? 'CA',
     operator: p.operator ?? null,
     access: p.access ?? null,
     capacity: p.capacity ? String(p.capacity) : null,
@@ -113,9 +131,17 @@ function mapFacility(feature) {
     capColor: p.cap_color ?? null,
     rawProperties: p,
     confidence: numberOrNull(p.confidence) ?? 0.85,
-    lastVerifiedAt: parseDate(p.data_as_of),
+    lastVerifiedAt: parseDate(p.last_verified_at),
     dataAsOf: parseDate(p.data_as_of),
-    geometryQuality: 'official_point',
+    geometryQuality: stringOrNull(p.geometry_quality) ?? 'official_point',
+    sourceUrl: stringOrNull(p.source_url),
+    apiUrl: stringOrNull(p.api_url),
+    paymentUrl: stringOrNull(p.payment_url),
+    bookingUrl: stringOrNull(p.booking_url),
+    evidenceUrl: stringOrNull(p.evidence_url),
+    priceStatus: stringOrNull(p.price_status),
+    ruleStatus: stringOrNull(p.rule_status),
+    enrichmentStatus: stringOrNull(p.enrichment_status),
   };
 }
 
@@ -126,6 +152,8 @@ function mapCurbSegment(feature) {
     sourceName: SOURCES.curb.name,
     sourceId: String(p.source_id ?? ''),
     blockfaceId: p.blockface_id ?? null,
+    city: stringOrNull(p.city) ?? 'San Francisco',
+    state: stringOrNull(p.state) ?? 'CA',
     meterCount: Number.isInteger(p.meter_count) ? p.meter_count : null,
     streetSample: p.street_sample ?? null,
     neighborhood: p.neighborhood ?? null,
@@ -135,9 +163,17 @@ function mapCurbSegment(feature) {
     geojson: feature.geometry,
     rawProperties: p,
     confidence: numberOrNull(p.confidence) ?? 0.7,
-    lastVerifiedAt: null,
-    dataAsOf: null,
-    geometryQuality: 'derived_line_from_meter_points',
+    lastVerifiedAt: parseDate(p.last_verified_at),
+    dataAsOf: parseDate(p.data_as_of),
+    geometryQuality: stringOrNull(p.geometry_quality) ?? 'derived_line_from_meter_points',
+    sourceUrl: stringOrNull(p.source_url),
+    apiUrl: stringOrNull(p.api_url),
+    paymentUrl: stringOrNull(p.payment_url),
+    bookingUrl: stringOrNull(p.booking_url),
+    evidenceUrl: stringOrNull(p.evidence_url),
+    priceStatus: stringOrNull(p.price_status),
+    ruleStatus: stringOrNull(p.rule_status),
+    enrichmentStatus: stringOrNull(p.enrichment_status),
   };
 }
 
@@ -148,6 +184,8 @@ function mapZone(feature) {
     sourceName: SOURCES.osm.name,
     sourceId: String(p.source_id ?? ''),
     name: p.name ?? null,
+    city: stringOrNull(p.city) ?? 'San Francisco',
+    state: stringOrNull(p.state) ?? 'CA',
     facilityType: p.facility_type ?? null,
     operator: p.operator ?? null,
     access: p.access ?? null,
@@ -159,9 +197,17 @@ function mapZone(feature) {
     geojson: feature.geometry,
     rawProperties: p,
     confidence: numberOrNull(p.confidence) ?? 0.6,
-    lastVerifiedAt: null,
-    dataAsOf: null,
-    geometryQuality: p.geometry_note ? 'osm_display_fallback' : 'osm_geometry',
+    lastVerifiedAt: parseDate(p.last_verified_at),
+    dataAsOf: parseDate(p.data_as_of),
+    geometryQuality: stringOrNull(p.geometry_quality) ?? (p.geometry_note ? 'osm_display_fallback' : 'osm_geometry'),
+    sourceUrl: stringOrNull(p.source_url),
+    apiUrl: stringOrNull(p.api_url),
+    paymentUrl: stringOrNull(p.payment_url),
+    bookingUrl: stringOrNull(p.booking_url),
+    evidenceUrl: stringOrNull(p.evidence_url),
+    priceStatus: stringOrNull(p.price_status),
+    ruleStatus: stringOrNull(p.rule_status),
+    enrichmentStatus: stringOrNull(p.enrichment_status),
   };
 }
 

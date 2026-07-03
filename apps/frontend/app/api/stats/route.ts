@@ -1,14 +1,25 @@
 /* ═══════════════════════════════════════════════════════════════
    GET /api/stats
-   Returns aggregate statistics for the dashboard
+   Returns aggregate statistics for the dashboard including
+   record-completeness / provenance-coverage metrics.
    ═══════════════════════════════════════════════════════════════ */
 
-import { NextResponse } from 'next/server';
-import { loadAllLayers, computeStats } from '@/lib/data-loader';
+import { NextRequest, NextResponse } from 'next/server';
+import { DEFAULT_CITY_ID, loadAllLayers, computeStats, buildParkingIndex } from '@/lib/data-loader';
+import { computeRecordCompleteness } from '@/lib/data-quality';
+import { computeDerivedEnrichmentBacklog } from '@/lib/enrichment-backlog';
 
-export async function GET() {
-  const { facilities, segments, zones } = await loadAllLayers();
-  const stats = computeStats(facilities, segments, zones);
+export async function GET(request: NextRequest) {
+  const city = request.nextUrl.searchParams.get('city') || DEFAULT_CITY_ID;
+  const { facilities, segments, zones } = await loadAllLayers(city);
+  const stats = computeStats(facilities, segments, zones, city);
 
-  return NextResponse.json(stats);
+  // Build canonical parking index to get enriched feature properties
+  // for record-completeness metrics without reloading data.
+  const index = buildParkingIndex(city, { facilities, segments, zones });
+  const indexProperties = index.features.map((f) => f.properties);
+  const recordCompleteness = computeRecordCompleteness(indexProperties);
+  const derivedEnrichmentBacklog = computeDerivedEnrichmentBacklog(indexProperties, { cityId: city });
+
+  return NextResponse.json({ ...stats, recordCompleteness, derivedEnrichmentBacklog });
 }

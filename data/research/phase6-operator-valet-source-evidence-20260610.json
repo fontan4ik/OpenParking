@@ -1,5 +1,6 @@
 {
   "generated_at": "2026-06-10T00:00:00Z",
+  "last_supplemented_at": "2026-06-18T00:00:00Z",
   "tool": "tavily_search",
   "purpose": "Evidence baseline for Phase 6 operator, valet, monthly, event, and airport parser/source discovery before partnerships.",
   "sources": [
@@ -50,6 +51,86 @@
       "evidence_claim": "Platinum Parking describes managed parking across US cities and public monthly parking discovery.",
       "recommended_connector": "public_web_parser_or_partner",
       "static_or_browser_required": "browser_or_static_after_site_map",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "LAZ Parking",
+      "source_url": "https://www.lazparking.com/",
+      "parking_layers": ["garages_lots", "monthly", "valet", "airport", "healthcare", "government_municipal", "event", "operator_inventory", "rates", "booking_urls"],
+      "evidence_claim": "LAZ public history and public-sector material describe a national operator with over 1.2 million parking spaces, 3,000+ locations, and 400+ cities; other public materials mention 1.6M+ spaces and 4,000+ locations.",
+      "recommended_connector": "public_web_parser_then_partner",
+      "static_or_browser_required": "browser_likely_for_search_booking_and_date_time_flows",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "Propark Mobility",
+      "source_url": "https://www.propark.com/",
+      "parking_layers": ["garages_lots", "monthly", "valet", "airport", "healthcare", "hospitality", "event", "operator_inventory", "rates", "booking_urls"],
+      "evidence_claim": "Propark publishes national operator pages and city/facility pages that expose garage, valet, airport, healthcare, hospitality, event, and daily/monthly parking candidates.",
+      "recommended_connector": "public_web_parser_or_partner",
+      "static_or_browser_required": "static_possible_for_city_pages_browser_for_booking",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "Ace Parking",
+      "source_url": "https://aceparking.com/",
+      "parking_layers": ["garages_lots", "monthly", "event", "operator_inventory", "rates", "booking_urls"],
+      "evidence_claim": "Ace exposes find-parking and reservation flows, with strong relevance for California and event parking such as San Diego convention/event inventory.",
+      "recommended_connector": "public_web_parser_or_partner",
+      "static_or_browser_required": "browser_required_for_reservation_and_event_flows",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "REEF Parking / Republic Parking",
+      "source_url": "https://pay.reefparking.com/",
+      "parking_layers": ["garages_lots", "lot_number_payment", "operator_inventory", "rates", "payment_urls"],
+      "evidence_claim": "REEF payment pages expose lot-number based payment flows and ParkMobile pages show Republic/REEF lot examples with prices, making this a candidate for lot-number payment enrichment rather than a master inventory.",
+      "recommended_connector": "provider_zone_parser_or_partner",
+      "static_or_browser_required": "browser_or_mobile_web_likely_for_payment_flows",
+      "legal_risk": "medium_high_partner_preferred",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "Towne",
+      "source_url": "https://towne.com/",
+      "parking_layers": ["valet", "hotel", "healthcare", "hospitality", "self_parking_management", "operator_inventory"],
+      "evidence_claim": "Towne positions itself as an integrated parking and mobility platform; TA Associates describes Towne Park as one of North America's largest outsourced valet and self-parking providers serving 800+ properties.",
+      "recommended_connector": "valet_venue_research_then_phone_or_partner",
+      "static_or_browser_required": "static_for_company_pages_browser_or_phone_for_location_level_facts",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "Interstate Parking",
+      "source_url": "https://www.interstateparking.com/",
+      "parking_layers": ["garages_lots", "monthly", "event", "operator_inventory", "rates", "booking_urls"],
+      "evidence_claim": "Interstate publishes city-level location pages for Milwaukee, Minneapolis, St. Paul, Denver, Fargo, Indianapolis, and related markets with daily/monthly/event parking details.",
+      "recommended_connector": "public_web_parser",
+      "static_or_browser_required": "static_possible_browser_for_purchase_flows",
+      "legal_risk": "medium_terms_review",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "Flash",
+      "source_url": "https://www.flashparking.com/",
+      "parking_layers": ["demand_network", "operator_inventory_hints", "booking_urls", "payment_urls", "partner_feed"],
+      "evidence_claim": "Flash states 17K+ parking locations on its platform and 30K locations available in Waze through integrations, making it useful as a demand-network or partner-feed source rather than independent master data.",
+      "recommended_connector": "partner_feed_preferred",
+      "static_or_browser_required": "partner_or_public_research_only",
+      "legal_risk": "medium_high_partner_preferred",
+      "parser_spec_required": true
+    },
+    {
+      "source_name": "ParkMobile",
+      "source_url": "https://parkmobile.io/",
+      "parking_layers": ["payment_zones", "street_meters", "off_street_payment", "app_zone", "payment_urls"],
+      "evidence_claim": "ParkMobile reports availability at two million spaces, 600+ cities and municipalities, and 140 colleges and universities; this is highly relevant for payment-zone enrichment where official city data includes zone IDs.",
+      "recommended_connector": "zone_deeplink_parser_or_partner",
+      "static_or_browser_required": "official_city_zone_data_plus_provider_link_validation",
       "legal_risk": "medium_terms_review",
       "parser_spec_required": true
     }

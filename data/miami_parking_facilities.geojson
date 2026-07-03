@@ -1,0 +1,318 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "city": "miami",
+    "source": "Official Miami parking pages plus OSM/Nominatim geocoding",
+    "generated_at": "2026-06-11T00:00:00.000Z",
+    "count": 12,
+    "notes": "Miami seed fixture for ParkingUSA. Facilities come from Miami Parking Authority and Miami-Dade County parking pages. Coordinates were geocoded from listed street addresses and should be replaced by authoritative GIS footprints when available."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.1905995, 25.7770581] },
+      "properties": {
+        "source_id": "miami:mpa:college-station-garage",
+        "source_name": "Miami Parking Authority",
+        "name": "College Station Garage",
+        "facility_type": "garage",
+        "street": "190 NE 3rd Street",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami Parking Authority",
+        "access": "public",
+        "fee": "yes",
+        "charge": "unknown",
+        "confidence": 0.78,
+        "last_verified_source": "Miami Parking Authority",
+        "source_url": "https://www.miamiparking.com/",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "190 NE 3rd Street, Miami, FL 33132",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.1914324, 25.7722518] },
+      "properties": {
+        "source_id": "miami:mpa:convention-center-garage",
+        "source_name": "Miami Parking Authority",
+        "name": "Convention Center Garage",
+        "facility_type": "garage",
+        "street": "100 SE 2nd Street",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami Parking Authority",
+        "access": "public",
+        "fee": "yes",
+        "charge": "unknown",
+        "confidence": 0.76,
+        "last_verified_source": "Miami Parking Authority",
+        "source_url": "https://www.miamiparking.com/",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "100 SE 2nd Street, Miami, FL 33131",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.2356731, 25.7294472] },
+      "properties": {
+        "source_id": "miami:mpa:regatta-harbour-garage",
+        "source_name": "Miami Parking Authority",
+        "name": "Regatta Harbour Garage",
+        "facility_type": "garage",
+        "street": "3351 Pan American Drive",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami Parking Authority",
+        "access": "public",
+        "fee": "yes",
+        "charge": "unknown",
+        "confidence": 0.76,
+        "last_verified_source": "Miami Parking Authority",
+        "source_url": "https://www.miamiparking.com/",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "3351 Pan American Drive, Miami, FL 33133",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.1947466, 25.7757911] },
+      "properties": {
+        "source_id": "miami:county:courthouse-center",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "Courthouse Center",
+        "facility_type": "garage",
+        "street": "175 NW 1st Avenue",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "monthly",
+        "fee": "yes",
+        "charge": "monthly $115-$145",
+        "confidence": 0.82,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "175 NW 1st Avenue, Miami, FL 33128",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.198583, 25.7754721] },
+      "properties": {
+        "source_id": "miami:county:hickman-garage",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "Hickman Garage",
+        "facility_type": "garage",
+        "street": "270 NW 2nd Street",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "public",
+        "fee": "yes",
+        "charge": "$3 per half-hour; $20 max weekdays; $10 max weekends",
+        "base_hourly_rate": 6,
+        "confidence": 0.86,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "270 NW 2nd Street, Miami, FL 33128",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.1990628, 25.7764995] },
+      "properties": {
+        "source_id": "miami:county:west-lot-garage",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "West Lot Garage",
+        "facility_type": "garage",
+        "street": "275 NW 2nd Street",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "public",
+        "fee": "yes",
+        "charge": "$3 per half-hour; $20 max weekdays; $10 max weekends",
+        "base_hourly_rate": 6,
+        "confidence": 0.86,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "275 NW 2nd Street, Miami, FL 33128",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.1978923, 25.7745416] },
+      "properties": {
+        "source_id": "miami:county:cultural-center-garage",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "Cultural Center Garage",
+        "facility_type": "garage",
+        "street": "50 NW 2nd Avenue",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "public",
+        "fee": "yes",
+        "charge": "$5 flat daily",
+        "confidence": 0.84,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "50 NW 2nd Avenue, Miami, FL 33128",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.1966597, 25.7814103] },
+      "properties": {
+        "source_id": "miami:county:overtown-transit-village-garage",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "Overtown Transit Village Garage",
+        "facility_type": "garage",
+        "street": "701 NW 1st Court",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "public",
+        "fee": "yes",
+        "charge": "$3 per half-hour; $20 max weekdays; $10 max weekends",
+        "base_hourly_rate": 6,
+        "confidence": 0.86,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "701 NW 1st Court, Miami, FL 33136",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.1980034, 25.7763297] },
+      "properties": {
+        "source_id": "miami:county:west-lot-surface",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "West Lot",
+        "facility_type": "surface_lot",
+        "street": "220 NW 3rd Street",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "public",
+        "fee": "yes",
+        "charge": "$15 flat daily",
+        "confidence": 0.82,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "220 NW 3rd Street, Miami, FL 33128",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.21629, 25.7869503] },
+      "properties": {
+        "source_id": "miami:county:highland-garage",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "Highland Garage",
+        "facility_type": "garage",
+        "street": "1350 NW 13th Avenue",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "public",
+        "fee": "yes",
+        "charge": "$3 per half-hour; $20 max weekdays; $10 max weekends",
+        "base_hourly_rate": 6,
+        "confidence": 0.86,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "1350 NW 13th Avenue, Miami, FL 33136",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.2154812, 25.7854158] },
+      "properties": {
+        "source_id": "miami:county:jackson-south-garage",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "Jackson South Garage",
+        "facility_type": "garage",
+        "street": "1250 NW 12th Street",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "public",
+        "fee": "yes",
+        "charge": "$3 per half-hour; $20 max weekdays; $10 max weekends",
+        "base_hourly_rate": 6,
+        "confidence": 0.86,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "1250 NW 12th Street, Miami, FL 33136",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-80.2149011, 25.7872169] },
+      "properties": {
+        "source_id": "miami:county:park-plaza-west-garage",
+        "source_name": "Miami-Dade County Parking Facilities",
+        "name": "Park Plaza West Garage",
+        "facility_type": "garage",
+        "street": "1355 NW 12th Avenue",
+        "city": "Miami",
+        "state": "FL",
+        "operator": "Miami-Dade County",
+        "access": "public",
+        "fee": "yes",
+        "charge": "$3 per half-hour; $20 max weekdays; $10 max weekends",
+        "base_hourly_rate": 6,
+        "confidence": 0.86,
+        "last_verified_source": "Miami-Dade County Parking Facilities",
+        "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+        "data_as_of": "2026-06-11",
+        "raw_properties": {
+          "listed_address": "1355 NW 12th Avenue, Miami, FL 33136",
+          "geocode_source": "OpenStreetMap Nominatim"
+        }
+      }
+    }
+  ]
+}

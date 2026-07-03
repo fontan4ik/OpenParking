@@ -117,9 +117,33 @@ export interface CityStats {
   zones: number;
   coveragePercent: number;
   lastUpdated: string;
+  recordCompleteness?: {
+    totalKnownRecords: number;
+    priceKnownRecords: number;
+    priceUnknownRecords: number;
+    knownFreeRecords: number;
+    sourceLinkedRecords: number;
+    paymentLinkedRecords: number;
+    bookingLinkedRecords: number;
+    paymentOrBookingLinkedRecords: number;
+    evidenceLinkedRecords: number;
+    staleRecords: number;
+    needsReviewRecords: number;
+    conflictRecords: number;
+  };
 }
 
 export const CITIES: Record<string, CityConfig> = {
+  miami: {
+    id: 'miami',
+    name: 'Miami',
+    state: 'FL',
+    center: [-80.1918, 25.7617],
+    zoom: 12,
+    bbox: [25.7090, -80.3198, 25.8558, -80.1395],
+    dataSources: ['Miami Parking Authority', 'Miami-Dade County', 'OSM'],
+    color: '#06b6d4',
+  },
   sf: {
     id: 'sf',
     name: 'San Francisco',

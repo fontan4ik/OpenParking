@@ -22,6 +22,15 @@ Build before considering app changes done:
 npm run build
 ```
 
+Routing MVP configuration:
+
+```powershell
+$env:VALHALLA_URL="http://127.0.0.1:8002"
+npm run dev
+```
+
+`POST /api/route` is a server-side Valhalla boundary. The browser should call only `/api/route`; do not expose Valhalla directly to frontend code. The MVP supports `costing: "auto"`, finite lat/lon validation, a 100 km direct-distance cap, a 5 second provider timeout, and GeoJSON `LineString` responses with Valhalla/OpenStreetMap attribution. The map UI uses the same endpoint for selected-parking navigation from map-picked/geolocation/manual starts, point-to-point routes from two clicked map points, and current-location to clicked-destination routes; it intentionally excludes geocoder/autocomplete, turn-by-turn, route history, and location persistence.
+
 Check the installed agent/tooling health:
 
 ```powershell
@@ -193,9 +202,24 @@ Existing scripts:
 
 ```powershell
 npm run import:sf
+npm run fetch:miami-beach
+npm run fetch:osm:miami
+npm run fetch:osm:sf
+npm run fetch:boundary:miami:dry-run
+npm run fetch:boundary:miami
+npm run fetch:boundary:miami-dade:dry-run
+npm run fetch:boundary:miami-dade
+npm run fetch:pbf:florida:dry-run
+npm run fetch:pbf:florida
 npm run import:osm:sf
 npm run import:osm:sf:db
 npm run import:osm:pbf:dry-run
+npm run import:osm:pbf:florida:dry-run
+npm run import:osm:pbf:florida:parking:dry-run
+npm run import:osm:pbf:florida:parking:docker
+npm run normalize:osm:pbf:miami:dry-run
+npm run normalize:osm:pbf:miami:boundary:dry-run
+npm run normalize:osm:pbf:miami-dade:boundary:dry-run
 npm run normalize:street-parking
 npm run normalize:street-parking:db
 npm run derive:heuristics
@@ -204,6 +228,33 @@ npm run tiles:dry-run
 npm run tiles:build
 npm run test:street-parking
 ```
+
+Connector commands:
+
+```powershell
+npm run connector:socrata:dry-run
+npm run connector:arcgis:dry-run
+npm run connector:ckan:dry-run
+npm run enrich:premium:dry-run
+npm run connector:socrata:import
+npm run connector:arcgis:import
+npm run connector:ckan:import
+npm run enrich:premium:import
+```
+
+`connector:arcgis:dry-run` remains non-mutating and fetches a bounded sample/report. The default `connector:arcgis:import` target is Miami Beach ArcGIS: it preserves the foundation records (`DataSource`, `ImportRun`, `SourceObservation`), fetches live GeoJSON layers 1, 3, 5, and 7 for accounting, and promotes only layers 1, 5, and 7 into canonical `ParkingFacility` and `ParkingZone` rows by `sourceName + sourceId`. Layer 3 parking spaces are counted as skipped/non-canonical and are still retained only by `fetch:miami-beach:arcgis` as a raw fixture, not as canonical rows in this slice.
+
+`enrich:premium:dry-run` is the first safe Miami operator enrichment probe. It targets Premium Parking's public Miami client/GraphQL contract and emits bounded `operator_facility_observation` records with evidence URLs and link classification. A live server-side request may return `401 Unauthorized source`; that is expected for this source and means a browser-captured JSON payload should be passed with `tsx apps/backend/scripts/run_premium_enrichment.ts --dry-run --fixture=<market-json>`. The script intentionally keeps canonical `payment_url` and `booking_url` empty for Premium facility pages unless a direct checkout URL is observed and reviewed.
+
+Direct per-record payment links require external parsers, not just static backend fetches. The practical workflow is:
+
+1. Run a bounded browser/network parser for one provider flow (for example Premium, PayByPhone/ParkMobile zone, Parking.com/SP+, MPA commerce, or airport parking) without bypassing CAPTCHA, auth, paywalls, or rate limits.
+2. Capture DOM/network evidence, final candidate URL, source page URL, provider zone/location id, content hash or screenshot path, and raw payload.
+3. Classify each candidate as `direct_checkout`, `facility_page`, `app_zone`, or `operator_search`.
+4. Store the result as `SourceObservation` first. Do not update canonical `payment_url` / `booking_url` from `facility_page`, `operator_search`, or generic app links.
+5. Promote only stable `direct_checkout` links after ToS/legal review, repeated-run stability, and a match to one canonical facility/zone with high confidence.
+
+If a source blocks server-side requests with `403`, `401 Unauthorized source`, Incapsula/challenge pages, or client-only GraphQL, mark it `browser_required` or `partner_required` in the parser notes instead of weakening the rules. Preferred long-term path for payment operators is a partner/API feed; browser parsers are for evidence and targeted gap closure.
 
 Before changing import logic:
 
@@ -215,6 +266,7 @@ After changing import logic:
 
 ```powershell
 npm run build
+npm run typecheck
 npm run test:street-parking
 ```
 
@@ -225,6 +277,68 @@ For data import changes, verify idempotency and keep the San Francisco baseline 
 2,889 curb segments
 403 OSM zones
 ```
+
+The app currently defaults to Miami. In DB mode, `city=miami` intentionally reads the `Miami + Miami-Dade` DB scope so the ParkingUSA layer includes OSM/Geofabrik parking candidates that OpenStreetMap renders as `P` icons, including Miami Beach/Muss Park candidates. Official fixtures are still merged as enrichment/fallback: `data/miami_parking_facilities.geojson`, `data/miami_beach_parking_wpgmza.geojson`, `data/miami_beach_parking_arcgis_facilities.geojson`, and 532 renderable official Miami Beach lot/zone polygons. `npm run fetch:miami-beach` refreshes the Miami Beach official marker fixture. `npm run fetch:miami-beach:arcgis` refreshes official ArcGIS meters, street spaces, lots, and zones for file fallback. `npm run connector:arcgis:import` is the DB-backed Miami Beach ArcGIS promotion path for canonical meters, lot centroids, and lot/zone polygons. `npm run fetch:osm:miami` and `npm run fetch:osm:sf` create optional mixed-geometry OSM coverage files (`data/miami_parking_osm.geojson`, `data/sf_parking_osm.geojson`) for file fallback only. Public Overpass may require retry/backoff and can be sparse; Geofabrik PBF through `osm2pgsql` is the preferred production path.
+
+For the production-scale Florida/Miami OSM baseline, use the Geofabrik workflow instead of public Overpass:
+
+```powershell
+npm run fetch:pbf:florida:dry-run
+npm run fetch:pbf:florida
+npm run import:osm:pbf:florida:parking:dry-run
+npm run import:osm:pbf:florida:parking:docker
+npm run import:osm:pbf -- --input=data/osm/florida-latest.osm.pbf --schema=osm_raw --flex=apps/backend/scripts/osm2pgsql_parking.lua
+npm run fetch:boundary:miami
+npm run normalize:osm:pbf:miami:dry-run
+npm run normalize:osm:pbf:miami:boundary:dry-run
+npm run normalize:osm:pbf -- --city=Miami --state=FL
+```
+
+The parking-focused import is preferred over the generic import because `apps/backend/scripts/osm2pgsql_parking.lua` creates raw tables that already match ParkingUSA layer semantics:
+
+```text
+osm_raw.parking_points   -> Point candidates for facilities, entrances, and spaces
+osm_raw.parking_lines    -> road-side or open-way parking candidates for curb/segment lines
+osm_raw.parking_polygons -> parking lots, garages, areas, and multipolygon zones
+```
+
+`fetch:pbf:florida:dry-run` performs a HEAD check and prints the expected URL, output path, remote size, and last-modified timestamp without downloading. `import:osm:pbf:florida:parking:dry-run` prints the exact external `osm2pgsql --output=flex --style ...osm2pgsql_parking.lua` command and no longer requires `DATABASE_URL` for dry-run. If `osm2pgsql` is not installed on the host, use `import:osm:pbf:florida:parking:docker`, which runs the external tool through the `osm2pgsql` Docker Compose service and mounts `data/osm` plus the ParkingUSA Lua flex config read-only. After raw import, `normalize:osm:pbf` reads `osm_raw.parking_points`, `osm_raw.parking_lines`, and `osm_raw.parking_polygons`, then idempotently upserts them into `ParkingFacility`, `CurbSegment`, and `ParkingZone` with source/provenance and confidence fields.
+
+For real-world Miami boundaries, prefer the Census TIGERweb polygon commands over bbox-only normalization:
+
+```powershell
+npm run fetch:boundary:miami:dry-run
+npm run fetch:boundary:miami
+npm run normalize:osm:pbf:miami:boundary:dry-run
+```
+
+For county-wide Miami-Dade coverage, use:
+
+```powershell
+npm run fetch:boundary:miami-dade
+npm run normalize:osm:pbf:miami-dade:boundary:dry-run
+npm run normalize:osm:pbf:miami-dade:boundary
+```
+
+The boundary files are stored in `data/boundaries/` with Census provenance metadata. `--boundary-geojson` applies a PostGIS polygon `ST_Intersects` filter; the City of Miami command keeps the old bbox as a fast prefilter, while the Miami-Dade county command uses the county polygon directly.
+
+The package-script real boundary import commands include `--replace-source` so an earlier bbox-only Geofabrik import does not leave stale OSM candidates outside the chosen boundary. Run the dry-run command first, compare counts, then run the real command only for the boundary scope you want to display as the current DB baseline. On 2026-06-13 the local ParkingUSA DB imported the Miami-Dade OSM baseline without replacing rows by running `node apps/backend/scripts/normalize_osm_raw_parking_to_db.mjs --city=Miami-Dade --state=FL --boundary-geojson=data/boundaries/miami_dade_county_boundary.geojson`; it imported 1,425 points, 185 lines, and 6,821 polygons.
+
+## 6.1 Local Site Preview With Zrok
+
+For the practical run/test/share workflow, use `docs/LOCAL_TESTING_AND_ZROK_GUIDE.md`.
+
+Zrok token handling must stay local-only. Do not commit real tokens.
+
+```powershell
+C:\zrok\zrok2.exe version
+$env:ZROK_ENABLE_TOKEN="<local-token>"
+npm run zrok:enable
+npm run dev:public
+npm run share:zrok
+```
+
+ParkingUSA automatically looks for `ZROK_PATH`, `C:\zrok\zrok2.exe`, `C:\zrok\zrok.exe`, and then `zrok` from `PATH`. `dev:public` binds Next.js to `0.0.0.0:3000`, which lets zrok proxy the local site. `share:zrok` shares `localhost:3000` and prints the external URL. The older `frontend:dev:public` and `tunnel:zrok` aliases remain available for compatibility.
 
 ## 7. Best Prompt Templates
 
@@ -299,4 +413,3 @@ Then:
 ```text
 Fix the duplicate import issue. Add or update a focused test. Run npm run build and the relevant import/test command.
 ```
-

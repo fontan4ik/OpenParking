@@ -1,0 +1,449 @@
+{
+  "generated_at": "2026-06-11T00:00:00Z",
+  "scope": "Miami-first source expansion for ParkingUSA",
+  "city": "Miami",
+  "state": "FL",
+  "summary": {
+    "problem": "The current Miami fallback grew from 86 to 621 official-source facility points, but full City of Miami and Miami-Dade coverage still needs MPA, OSM/Geofabrik, county, airport, port, Coral Gables, and operator sources.",
+    "target": "Find source families that can scale Miami coverage across on-street meters, municipal garages/lots, county facilities, airport/cruise/event parking, private operators, valet/monthly, and OSM/Overture baseline data.",
+    "high_value_next_step": "Prioritize Geofabrik Florida PBF for Miami bbox, MPA partner/public-records path, Coral Gables ArcGIS extraction, and MIA/PortMiami official parser work. Miami Beach ArcGIS is now fetched as an official fixture."
+  },
+  "field_contract": {
+    "public_source_fields": ["source_url", "api_url", "payment_url", "booking_url", "evidence_url"],
+    "quality_contract_terms": ["record completeness", "provenance coverage", "existence_status", "price_status", "rule_status", "enrichment_status"]
+  },
+  "sources": [
+    {
+      "source_name": "Miami Parking Authority Main Site",
+      "source_type": "official_parking_authority",
+      "portal_type": "html",
+      "source_url": "https://www.miamiparking.com/",
+      "api_url": null,
+      "parking_layers": [
+        "garages_lots",
+        "street_meters",
+        "on_street_zones",
+        "monthly",
+        "valet_permits",
+        "payments"
+      ],
+      "coverage_signal": "MPA describes itself as managing roughly 47,000 parking spaces, including garages, surface lots, on-street spaces, and permit programs.",
+      "recommended_connector": "url_fetcher_plus_browser_research",
+      "legal_risk": "low_medium_terms_review",
+      "confidence": 0.88,
+      "priority": "P0"
+    },
+    {
+      "source_name": "Miami Parking Authority Find Parking Commerce",
+      "source_type": "official_parking_authority",
+      "portal_type": "browser_dynamic",
+      "source_url": "https://commerce.miamiparking.com/facility/findparking",
+      "api_url": null,
+      "parking_layers": [
+        "garages_lots",
+        "monthly",
+        "on_street_meter_rentals",
+        "visitor_passes",
+        "special_event",
+        "validation"
+      ],
+      "coverage_signal": "Browser snapshot exposes service categories for off-street facilities, garage monthly parking, lot monthly parking, on-street monthly/annual parking, meter rentals, valet, production, construction, and special event use cases.",
+      "recommended_connector": "browser_agent_network_inspection",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.86,
+      "priority": "P0",
+      "browser_evidence": {
+        "observed_at": "2026-06-11",
+        "visible_select_options": [
+          "Onstreet Meter Rentals - Valet",
+          "Onstreet Meter Rentals - Construction",
+          "Onstreet Meter Rentals - Production",
+          "Onstreet Meter Rentals - Special Event",
+          "Garage Monthly Parking",
+          "Lot Monthly Parking",
+          "Onstreet Monthly Parking",
+          "Onstreet Annual Residential Permit"
+        ],
+        "notes": "The page loaded but some bundled JS returned 403 in browser inspection, so production extraction needs a Playwright/browser recipe and careful ToS review."
+      }
+    },
+    {
+      "source_name": "Miami Parking Authority Annual Report",
+      "source_type": "official_parking_authority_report",
+      "portal_type": "pdf_or_html",
+      "source_url": "https://www.miamiparking.com/annual-reports/",
+      "api_url": null,
+      "parking_layers": [
+        "coverage_context",
+        "inventory_counts",
+        "garages_lots",
+        "street_meters"
+      ],
+      "coverage_signal": "Useful for validating expected scale, managed space counts, garage/lot program names, and public-private management scope.",
+      "recommended_connector": "url_fetcher_pdf_fetcher",
+      "legal_risk": "low_medium_terms_review",
+      "confidence": 0.82,
+      "priority": "P0"
+    },
+    {
+      "source_name": "Miami-Dade County Parking Facilities",
+      "source_type": "official_county_page",
+      "portal_type": "html",
+      "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+      "api_url": null,
+      "parking_layers": [
+        "county_garages",
+        "county_lots",
+        "rates",
+        "monthly"
+      ],
+      "coverage_signal": "Official county page lists downtown/government and medical district facilities with addresses and rates.",
+      "recommended_connector": "static_html_parser",
+      "legal_risk": "low_medium_terms_review",
+      "confidence": 0.9,
+      "priority": "P0"
+    },
+    {
+      "source_name": "Miami-Dade Open Data Hub",
+      "source_type": "official_county_open_data",
+      "portal_type": "arcgis_hub",
+      "source_url": "https://gis-mdc.opendata.arcgis.com/",
+      "api_url": null,
+      "parking_layers": [
+        "gis_discovery",
+        "county_facilities",
+        "transit_parking_candidates"
+      ],
+      "coverage_signal": "County GIS/open-data discovery surface; should be searched for parking, garage, lot, transit, airport, and curb-adjacent layers.",
+      "recommended_connector": "arcgis_hub_search_then_arcgis_rest",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.78,
+      "priority": "P0"
+    },
+    {
+      "source_name": "Miami-Dade Transit Parking",
+      "source_type": "official_county_transit_page",
+      "portal_type": "html",
+      "source_url": "https://www.miamidade.gov/global/transportation/metrorail-parking.page",
+      "api_url": null,
+      "parking_layers": [
+        "transit_station_parking",
+        "rates",
+        "monthly_or_daily"
+      ],
+      "coverage_signal": "Metrorail/Transit parking facilities cover park-and-ride inventory outside the current downtown seed.",
+      "recommended_connector": "static_html_parser",
+      "legal_risk": "low_medium_terms_review",
+      "confidence": 0.78,
+      "priority": "P1"
+    },
+    {
+      "source_name": "Miami International Airport Parking",
+      "source_type": "official_airport_page",
+      "portal_type": "html",
+      "source_url": "https://www.miami-airport.com/parking.asp",
+      "api_url": null,
+      "parking_layers": [
+        "airport_garages",
+        "rates",
+        "cell_phone_lot",
+        "valet_or_premium_if_listed"
+      ],
+      "coverage_signal": "Official MIA page is the authoritative source for airport garage/rate inventory.",
+      "recommended_connector": "static_html_parser_plus_browser_for_rate_widgets",
+      "legal_risk": "low_medium_terms_review",
+      "confidence": 0.86,
+      "priority": "P0"
+    },
+    {
+      "source_name": "PortMiami Parking",
+      "source_type": "official_port_page",
+      "portal_type": "html",
+      "source_url": "https://www.miamidade.gov/portmiami/parking-transportation.asp",
+      "api_url": null,
+      "parking_layers": [
+        "cruise_terminal_parking",
+        "rates",
+        "garages_lots",
+        "accessibility"
+      ],
+      "coverage_signal": "Official cruise-port parking page for terminal garages/lots and daily rates.",
+      "recommended_connector": "static_html_parser",
+      "legal_risk": "low_medium_terms_review",
+      "confidence": 0.86,
+      "priority": "P0"
+    },
+    {
+      "source_name": "City of Miami Data Explorer",
+      "source_type": "official_city_open_data",
+      "portal_type": "arcgis_hub",
+      "source_url": "https://data.miamigov.com/",
+      "api_url": null,
+      "parking_layers": [
+        "city_dataset_discovery",
+        "possible_gis_layers",
+        "curb_or_facility_candidates"
+      ],
+      "coverage_signal": "Official city data portal; no confirmed citywide meter dataset in this pass, but it is the correct discovery source for future official layers.",
+      "recommended_connector": "arcgis_hub_search_then_arcgis_rest",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.7,
+      "priority": "P1"
+    },
+    {
+      "source_name": "City of Miami Beach Parking Facilities WPGMZA",
+      "source_type": "official_city_page_embedded_map",
+      "portal_type": "wordpress_wpgmza_json",
+      "source_url": "https://www.miamibeachfl.gov/city-hall/parking/",
+      "api_url": "https://www.miamibeachfl.gov/wp-json/wpgmza/v1/markers?map_id=17",
+      "parking_layers": [
+        "municipal_garages",
+        "municipal_lots",
+        "rates",
+        "parkmobile_zones",
+        "ev_charging"
+      ],
+      "coverage_signal": "Official Miami Beach parking page exposes WP Go Maps marker JSON; map_id=17 currently yields 74 garage/lot markers with addresses, coordinates, spaces, hourly rates, ParkMobile zones, event rates, and EV charging notes.",
+      "recommended_connector": "wordpress_wpgmza_json_import",
+      "legal_risk": "low_medium_terms_review",
+      "confidence": 0.9,
+      "priority": "P1"
+    },
+    {
+      "source_name": "City of Miami Beach Parking GIS FeatureServer",
+      "source_type": "official_city_gis",
+      "portal_type": "arcgis_rest",
+      "source_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer",
+      "api_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer",
+      "parking_layers": [
+        "parking_meters",
+        "parking_spaces",
+        "parking_lots",
+        "parking_zones",
+        "parking_signs",
+        "non_metered_spaces"
+      ],
+      "coverage_signal": "Confirmed official ArcGIS FeatureServer. Latest refresh fetched 460 Parking Meters, 11,018 raw Parking Spaces, 75 Parking Lots, and 458 Parking Zones. Layer 5 Parking Lots are actual lot polygons; layer 7 Parking Zones are residential/regulatory rule boundaries, not guaranteed parking-place polygons. Fallback uses 535 facility points and 532 renderable lot/zone polygons; one upstream null-geometry zone is preserved only in raw evidence.",
+      "recommended_connector": "arcgis_rest_geojson_import",
+      "legal_risk": "low_verify_license",
+      "confidence": 0.92,
+      "priority": "P0"
+    },
+    {
+      "source_name": "PayByPhone Miami",
+      "source_type": "payment_operator_public_site",
+      "portal_type": "html_or_browser_dynamic",
+      "source_url": "https://www.paybyphone.com/",
+      "api_url": null,
+      "parking_layers": [
+        "on_street_zones",
+        "payment_zones",
+        "rates_if_public",
+        "mobile_payment_links"
+      ],
+      "coverage_signal": "MPA points users to mobile payment/parking commerce flows; zone/payment providers may reveal zone ids and payment URLs but require ToS review.",
+      "recommended_connector": "browser_agent_or_partner",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.68,
+      "priority": "P1"
+    },
+    {
+      "source_name": "ParkMobile Miami",
+      "source_type": "payment_operator_public_site",
+      "portal_type": "html_or_browser_dynamic",
+      "source_url": "https://parkmobile.io/",
+      "api_url": null,
+      "parking_layers": [
+        "on_street_zones",
+        "payment_zones",
+        "event_parking",
+        "mobile_payment_links"
+      ],
+      "coverage_signal": "Potential payment/event-parking source for Miami zones and events; use only after ToS/legal review or partner path.",
+      "recommended_connector": "browser_agent_or_partner",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.62,
+      "priority": "P2"
+    },
+    {
+      "source_name": "Parking.com SP Plus Miami",
+      "source_type": "operator_public_site",
+      "portal_type": "browser_dynamic",
+      "source_url": "https://parking.com/miami",
+      "api_url": null,
+      "parking_layers": [
+        "private_garages_lots",
+        "rates",
+        "booking_url",
+        "monthly",
+        "event"
+      ],
+      "coverage_signal": "Major private operator/marketplace source for bookable Miami garages/lots.",
+      "recommended_connector": "browser_agent_network_inspection",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.82,
+      "priority": "P0"
+    },
+    {
+      "source_name": "ABM Parking Miami",
+      "source_type": "operator_public_site",
+      "portal_type": "browser_dynamic",
+      "source_url": "https://abmparking.com/",
+      "api_url": null,
+      "parking_layers": [
+        "private_garages_lots",
+        "monthly",
+        "rates",
+        "amenities",
+        "valet_candidates"
+      ],
+      "coverage_signal": "Major parking operator with facility/location search; Miami-specific extraction should use site search and detail pages.",
+      "recommended_connector": "browser_agent_network_inspection",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.74,
+      "priority": "P1"
+    },
+    {
+      "source_name": "LAZ Parking Miami",
+      "source_type": "operator_public_site",
+      "portal_type": "browser_dynamic",
+      "source_url": "https://www.lazparking.com/",
+      "api_url": null,
+      "parking_layers": [
+        "private_garages_lots",
+        "event",
+        "monthly",
+        "rates",
+        "booking_url"
+      ],
+      "coverage_signal": "Large national operator; Miami pages/facility search can fill private and event parking gaps.",
+      "recommended_connector": "browser_agent_network_inspection",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.7,
+      "priority": "P1"
+    },
+    {
+      "source_name": "Premium Parking Miami",
+      "source_type": "operator_public_site",
+      "portal_type": "browser_dynamic",
+      "source_url": "https://www.premiumparking.com/city/miami",
+      "api_url": null,
+      "parking_layers": [
+        "private_garages_lots",
+        "rates",
+        "booking_url",
+        "monthly"
+      ],
+      "coverage_signal": "Operator city page can add bookable private lots/garages and payment links.",
+      "recommended_connector": "browser_agent_network_inspection",
+      "legal_risk": "medium_terms_review",
+      "confidence": 0.76,
+      "priority": "P1"
+    },
+    {
+      "source_name": "SpotHero Miami",
+      "source_type": "marketplace_public_site",
+      "portal_type": "browser_dynamic",
+      "source_url": "https://spothero.com/city/miami-parking",
+      "api_url": null,
+      "parking_layers": [
+        "marketplace_garages_lots",
+        "rates",
+        "booking_url",
+        "event"
+      ],
+      "coverage_signal": "Useful for discovery/dedupe and booking links, but marketplace scraping carries higher ToS risk.",
+      "recommended_connector": "legal_review_then_partner_or_browser_agent",
+      "legal_risk": "high_terms_review",
+      "confidence": 0.72,
+      "priority": "P2"
+    },
+    {
+      "source_name": "ParkWhiz Miami",
+      "source_type": "marketplace_public_site",
+      "portal_type": "browser_dynamic",
+      "source_url": "https://www.parkwhiz.com/miami-parking/",
+      "api_url": null,
+      "parking_layers": [
+        "marketplace_garages_lots",
+        "rates",
+        "booking_url",
+        "event"
+      ],
+      "coverage_signal": "Useful for discovery/dedupe and event price scenarios after legal review.",
+      "recommended_connector": "legal_review_then_partner_or_browser_agent",
+      "legal_risk": "high_terms_review",
+      "confidence": 0.72,
+      "priority": "P2"
+    },
+    {
+      "source_name": "OpenStreetMap Miami Parking",
+      "source_type": "openstreetmap",
+      "portal_type": "overpass",
+      "source_url": "https://www.openstreetmap.org/",
+      "api_url": "https://overpass-api.de/api/interpreter",
+      "parking_layers": [
+        "garages_lots",
+        "parking_entrances",
+        "access",
+        "capacity_if_tagged",
+        "fee_if_tagged"
+      ],
+      "coverage_signal": "Best open baseline for facilities/lots and entrances; Miami bbox fetcher exists but public Overpass timed out on first broad run.",
+      "recommended_connector": "overpass_osm_import_with_retry_or_geofabrik_pbf",
+      "legal_risk": "low_odbl_attribution_required",
+      "confidence": 0.8,
+      "priority": "P0"
+    },
+    {
+      "source_name": "Geofabrik Florida OSM PBF",
+      "source_type": "openstreetmap_extract",
+      "portal_type": "pbf",
+      "source_url": "https://download.geofabrik.de/north-america/us/florida.html",
+      "api_url": null,
+      "parking_layers": [
+        "statewide_osm_baseline",
+        "garages_lots",
+        "parking_entrances"
+      ],
+      "coverage_signal": "More reliable production OSM path than public Overpass for city-scale extraction; use osm2pgsql/osmtogeojson and clip to Miami.",
+      "recommended_connector": "osm2pgsql_external_cli",
+      "legal_risk": "low_odbl_attribution_required",
+      "confidence": 0.82,
+      "priority": "P0"
+    },
+    {
+      "source_name": "Overture Maps Places And Transportation",
+      "source_type": "open_geodata",
+      "portal_type": "parquet",
+      "source_url": "https://overturemaps.org/download/",
+      "api_url": null,
+      "parking_layers": [
+        "poi_baseline",
+        "parking_category_places",
+        "dedupe_enrichment"
+      ],
+      "coverage_signal": "Open dataset candidate for nationwide POI/facility enrichment and dedupe against OSM/operator data.",
+      "recommended_connector": "overture_parquet_import",
+      "legal_risk": "low_verify_overture_license",
+      "confidence": 0.74,
+      "priority": "P1"
+    }
+  ],
+  "coverage_strategy": [
+    "P0: Keep Miami Beach ArcGIS REST fixture refreshed for official Miami Beach meters, spaces, lots, and zones.",
+    "P0: MPA commerce/map + MPA annual report to establish official City of Miami scale and municipal/off-street/on-street source links; use outreach/public-records path, not commerce scraping.",
+    "P0: Miami-Dade, MIA, and PortMiami official pages to cover county/government/airport/cruise parking classes.",
+    "P0: OSM via Geofabrik or tiled Overpass for open baseline geometry.",
+    "P1: Coral Gables official ArcGIS/parking department sources for additional Miami metro coverage.",
+    "P1: City of Miami and Miami-Dade ArcGIS Hub searches for official GIS layers not obvious from public pages.",
+    "P1/P2: Operator and marketplace parsers only after legal/ToS review, with partner path preferred for booking/payment feeds."
+  ],
+  "known_gaps": [
+    "No confirmed City of Miami official street-meter point dataset/API was found in this pass.",
+    "MPA commerce page is browser/dynamic and had blocked bundled JS responses during inspection; needs a Playwright recipe and ToS review.",
+    "Private operator and marketplace sources can reveal many more facilities but require legal review before automated ingestion.",
+    "Real-time availability should not be promised without partner feeds or official APIs."
+  ]
+}
+

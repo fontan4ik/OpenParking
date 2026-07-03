@@ -2,11 +2,11 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PrismaClient } from '@prisma/client';
-import type { deriveCapacityHeuristics as DeriveCapacityHeuristics } from '../../frontend/lib/heuristics/parking-capacity';
-import type { GeoJSONCollection } from '../../frontend/lib/data-loader';
+import { PrismaClient, type Prisma } from '@prisma/client';
+import type { CapacityHeuristic } from '../../frontend/lib/heuristics/parking-capacity';
+import type { GeoJSONCollection, GeoJSONFeature } from '../../frontend/lib/data-loader';
 
-type CapacityHeuristicRecord = ReturnType<DeriveCapacityHeuristics>[number];
+type CapacityHeuristicRecord = CapacityHeuristic;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..', '..', '..');
@@ -17,9 +17,13 @@ const { loadEnvConfig } = require('@next/env') as {
 loadEnvConfig(root);
 
 const { deriveCapacityHeuristics } = require('../../frontend/lib/heuristics/parking-capacity') as {
-  deriveCapacityHeuristics: typeof DeriveCapacityHeuristics;
+  deriveCapacityHeuristics: (zones: GeoJSONFeature[], curbs: GeoJSONFeature[]) => CapacityHeuristicRecord[];
 };
 const prisma = new PrismaClient();
+
+function json(value: unknown): Prisma.InputJsonValue {
+  return value as Prisma.InputJsonValue;
+}
 
 const positional = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const zonesPath = positional[0] ?? path.join(root, 'data', 'sf_parking_zones_osm.geojson');
@@ -71,7 +75,7 @@ async function upsertObservations(records: CapacityHeuristicRecord[]) {
           },
           update: {
             entitySourceId: item.sourceId,
-            rawProperties: item,
+            rawProperties: json(item),
             confidence: item.confidence,
             notes: item.reviewRequired ? 'Review required before treating as authoritative capacity.' : null,
           },
@@ -80,7 +84,7 @@ async function upsertObservations(records: CapacityHeuristicRecord[]) {
             sourceId,
             entityType: 'parking_capacity_heuristic',
             entitySourceId: item.sourceId,
-            rawProperties: item,
+            rawProperties: json(item),
             confidence: item.confidence,
             notes: item.reviewRequired ? 'Review required before treating as authoritative capacity.' : null,
           },

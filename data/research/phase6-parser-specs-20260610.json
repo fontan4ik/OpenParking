@@ -211,6 +211,566 @@
         "manual_review",
         "user_report"
       ]
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "source_type": "official_parking_authority",
+      "crawl_or_search_flow": "Fetch official pages, follow facilities/permits/payment links, and record inventory/count claims plus facility URLs.",
+      "static_or_browser_required": "static_first",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "payment_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions",
+        "source_url"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Use site search/map pagination when present; otherwise follow official facility links and extract all visible facility rows/cards.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity",
+        "source_id"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "low_medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "source_name": "Miami Parking Authority Main Site",
+      "source_url": "https://www.miamiparking.com/",
+      "target_urls": [
+        "https://www.miamiparking.com/"
+      ]
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "source_type": "official_parking_authority",
+      "crawl_or_search_flow": "Browser flow: inspect service filters, map/search requests, facility cards, product availability, and monthly/on-street product detail URLs.",
+      "static_or_browser_required": "browser",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "payment_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions",
+        "source_url"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Use site search/map pagination when present; otherwise follow official facility links and extract all visible facility rows/cards.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity",
+        "source_id"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "low_medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "source_name": "Miami Parking Authority Find Parking Commerce",
+      "source_url": "https://commerce.miamiparking.com/facility/findparking",
+      "target_urls": [
+        "https://commerce.miamiparking.com/facility/findparking"
+      ]
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "source_type": "official_airport_page",
+      "crawl_or_search_flow": "Fetch official airport parking page, extract garage/lot names, rates, cell phone lot, valet/premium signals if present, and official source URLs.",
+      "static_or_browser_required": "static_first",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "payment_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions",
+        "source_url"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Use site search/map pagination when present; otherwise follow official facility links and extract all visible facility rows/cards.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity",
+        "source_id"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "low_medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "source_name": "Miami International Airport Parking",
+      "source_url": "https://www.miami-airport.com/parking.asp",
+      "target_urls": [
+        "https://www.miami-airport.com/parking.asp"
+      ]
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "source_type": "official_city_page",
+      "crawl_or_search_flow": "Fetch official Miami Beach parking pages, follow garages/lots/rates/permits links, and extract municipal inventory.",
+      "static_or_browser_required": "static_first",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "payment_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions",
+        "source_url"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Use site search/map pagination when present; otherwise follow official facility links and extract all visible facility rows/cards.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity",
+        "source_id"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "low_medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "source_name": "Miami Beach Parking Department",
+      "source_url": "https://www.miamibeachfl.gov/city-hall/parking/",
+      "target_urls": [
+        "https://www.miamibeachfl.gov/city-hall/parking/"
+      ]
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "source_type": "operator_public_site",
+      "crawl_or_search_flow": "Browser flow: city page/search -> facility cards -> detail pages -> date/time price and booking URL scenario.",
+      "static_or_browser_required": "browser",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "payment_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions",
+        "source_url"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Use site search/map pagination when present; otherwise follow official facility links and extract all visible facility rows/cards.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity",
+        "source_id"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "source_name": "Parking.com SP Plus Miami",
+      "source_url": "https://parking.com/miami",
+      "target_urls": [
+        "https://parking.com/miami"
+      ]
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "source_type": "operator_public_site",
+      "crawl_or_search_flow": "Browser/site-search flow for Miami facilities, detail pages, monthly/rate/amenity fields, and booking/contact URLs.",
+      "static_or_browser_required": "browser",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "payment_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions",
+        "source_url"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Use site search/map pagination when present; otherwise follow official facility links and extract all visible facility rows/cards.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity",
+        "source_id"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "source_name": "ABM Parking Miami",
+      "source_url": "https://abmparking.com/",
+      "target_urls": [
+        "https://abmparking.com/"
+      ]
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "source_type": "operator_public_site",
+      "crawl_or_search_flow": "Browser/site-search flow for Miami facilities and event/monthly parking detail pages.",
+      "static_or_browser_required": "browser",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "payment_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions",
+        "source_url"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Use site search/map pagination when present; otherwise follow official facility links and extract all visible facility rows/cards.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity",
+        "source_id"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "source_name": "LAZ Parking Miami",
+      "source_url": "https://www.lazparking.com/",
+      "target_urls": [
+        "https://www.lazparking.com/"
+      ]
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "source_type": "operator_public_site",
+      "crawl_or_search_flow": "Browser flow: city page -> lot cards -> detail/payment pages, rates, hours, and monthly links.",
+      "static_or_browser_required": "browser",
+      "selectors_or_network_endpoints": [],
+      "fields_to_extract": [
+        "name",
+        "address",
+        "coordinates_or_zone",
+        "facility_type",
+        "valet_flag",
+        "rates",
+        "hours",
+        "booking_url",
+        "payment_url",
+        "phone",
+        "operator",
+        "amenities",
+        "restrictions",
+        "source_url"
+      ],
+      "date_time_scenarios": [
+        "now",
+        "weekday_morning",
+        "weekday_evening",
+        "weekend",
+        "overnight",
+        "event",
+        "monthly"
+      ],
+      "pagination_or_location_strategy": "Use site search/map pagination when present; otherwise follow official facility links and extract all visible facility rows/cards.",
+      "dedupe_keys": [
+        "normalized_address",
+        "name",
+        "operator",
+        "phone",
+        "website",
+        "coordinate_proximity",
+        "source_id"
+      ],
+      "evidence_capture": [
+        "raw_html_or_markdown",
+        "screenshot_if_browser",
+        "network_metadata_if_browser",
+        "content_hash",
+        "observed_at"
+      ],
+      "refresh_cadence": "weekly for prices/rates, monthly for existence, faster for event/airport pages when used in product.",
+      "legal_tos_risk": "medium_terms_review",
+      "parser_failure_signals": [
+        "no expected text/cards",
+        "status_not_200",
+        "selector_miss",
+        "network_endpoint_changed",
+        "captcha_or_block"
+      ],
+      "fallback_path": [
+        "partner_or_outreach",
+        "ai_call_for_high_value_gap",
+        "manual_review",
+        "user_report"
+      ],
+      "source_name": "Premium Parking Miami",
+      "source_url": "https://www.premiumparking.com/city/miami",
+      "target_urls": [
+        "https://www.premiumparking.com/city/miami"
+      ]
     }
   ]
 }

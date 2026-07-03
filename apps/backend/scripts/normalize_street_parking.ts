@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, type Prisma } from '@prisma/client';
 import type { normalizeStreetParkingTags as NormalizeStreetParkingTags } from '../../frontend/lib/street-parking';
 
 type JsonRecord = Record<string, unknown>;
@@ -20,6 +20,10 @@ const { normalizeStreetParkingTags } = require('../../frontend/lib/street-parkin
   normalizeStreetParkingTags: typeof NormalizeStreetParkingTags;
 };
 const prisma = new PrismaClient();
+
+function json(value: unknown): Prisma.InputJsonValue {
+  return value as Prisma.InputJsonValue;
+}
 
 const positional = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const inputPath =
@@ -80,11 +84,11 @@ async function upsertObservations(records: JsonRecord[]) {
     await prisma.$transaction(
       chunk.map((item) => {
         const sourceId = `street-normalized:${String(item.source_id)}`;
-        const rawProperties = {
+        const rawProperties = json({
           normalized_tags: item.normalized_tags,
           manual_tags: item.manual_tags,
           ignored_tags: item.ignored_tags,
-        };
+        });
 
         return prisma.sourceObservation.upsert({
           where: {

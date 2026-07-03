@@ -24,22 +24,86 @@
     {
       "source_name": "Parking.com/SP+",
       "target_flow": "city page -> facility cards -> facility detail -> date/time price scenario",
-      "priority_layers": ["garages_lots", "monthly", "event", "rates", "booking_url"]
+      "priority_layers": [
+        "garages_lots",
+        "monthly",
+        "event",
+        "rates",
+        "booking_url"
+      ]
     },
     {
       "source_name": "ABM Parking",
       "target_flow": "home/search -> city page -> facility detail",
-      "priority_layers": ["garages_lots", "monthly", "rates", "amenities", "possible_valet"]
+      "priority_layers": [
+        "garages_lots",
+        "monthly",
+        "rates",
+        "amenities",
+        "possible_valet"
+      ]
     },
     {
       "source_name": "AirportParking.com",
       "target_flow": "airport search -> lot cards -> lot detail/booking scenario",
-      "priority_layers": ["airport_event", "off_airport_lots", "rates", "shuttle_frequency"]
+      "priority_layers": [
+        "airport_event",
+        "off_airport_lots",
+        "rates",
+        "shuttle_frequency"
+      ]
     },
     {
       "source_name": "Valet and venue pages",
       "target_flow": "city/operator/institution search -> valet/event page -> phone/site evidence",
-      "priority_layers": ["valet", "event", "hours", "phone", "price_or_unknown"]
+      "priority_layers": [
+        "valet",
+        "event",
+        "hours",
+        "phone",
+        "price_or_unknown"
+      ]
+    },
+    {
+      "source_name": "Miami Parking Authority Find Parking Commerce",
+      "target_flow": "commerce find-parking page -> service filter -> map/search/network requests -> facility/product detail",
+      "priority_layers": [
+        "garages_lots",
+        "monthly",
+        "on_street_meter_rentals",
+        "special_event",
+        "payment_url"
+      ]
+    },
+    {
+      "source_name": "Parking.com SP Plus Miami",
+      "target_flow": "Miami city page -> facility cards -> facility detail -> date/time price and booking scenario",
+      "priority_layers": [
+        "private_garages_lots",
+        "rates",
+        "booking_url",
+        "monthly",
+        "event"
+      ]
+    },
+    {
+      "source_name": "Premium Parking Miami",
+      "target_flow": "Miami city page -> lot cards -> lot detail/payment pages",
+      "priority_layers": [
+        "private_garages_lots",
+        "rates",
+        "payment_url",
+        "monthly"
+      ]
+    },
+    {
+      "source_name": "Miami International Airport Parking",
+      "target_flow": "official airport parking page -> rates/garage sections -> optional dynamic widgets",
+      "priority_layers": [
+        "airport_garages",
+        "rates",
+        "cell_phone_lot"
+      ]
     }
   ],
   "runner_requirements": [

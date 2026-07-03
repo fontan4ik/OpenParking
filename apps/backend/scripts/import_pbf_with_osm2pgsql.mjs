@@ -17,15 +17,29 @@ function argValue(name, fallback) {
 
 const inputPath = path.resolve(
   root,
-  argValue('--input', path.join('data', 'osm', 'san-francisco.osm.pbf'))
+  argValue('--input', path.join('data', 'osm', 'florida-latest.osm.pbf'))
 );
 const schema = argValue('--schema', 'osm_raw');
+const flexPathArg = argValue('--flex', '');
+const flexPath = flexPathArg ? path.resolve(root, flexPathArg) : '';
 const dryRun = process.argv.includes('--dry-run');
 
 const databaseUrl = process.env.DATABASE_URL;
 
 function databaseArgsFromUrl(value) {
   if (!value) {
+    if (dryRun) {
+      return [
+        '--database',
+        'parkingusa',
+        '--host',
+        'localhost',
+        '--port',
+        '5432',
+        '--username',
+        'parkingusa',
+      ];
+    }
     throw new Error('DATABASE_URL is required for osm2pgsql import.');
   }
 
@@ -47,13 +61,17 @@ async function main() {
     ...databaseArgsFromUrl(databaseUrl),
     '--create',
     '--slim',
-    '--hstore',
-    '--multi-geometry',
-    '--latlong',
     '--schema',
     schema,
-    inputPath,
   ];
+
+  if (flexPath) {
+    args.push('--output=flex', '--style', flexPath);
+  } else {
+    args.push('--multi-geometry', '--latlong', '--hstore');
+  }
+
+  args.push(inputPath);
   const command = ['osm2pgsql', ...args];
 
   if (dryRun) {
@@ -62,6 +80,7 @@ async function main() {
   }
 
   await access(inputPath);
+  if (flexPath) await access(flexPath);
 
   const probe = spawnSync('osm2pgsql', ['--version'], {
     encoding: 'utf8',

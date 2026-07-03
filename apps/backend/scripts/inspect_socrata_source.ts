@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, type Prisma } from '@prisma/client';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -41,8 +41,12 @@ const manifestPath = argValue('--manifest');
 const sourceNameFilter = argValue('--source');
 const metadataUrlArg = argValue('--metadata-url');
 const apiUrlArg = argValue('--api-url');
-const outputDir = argValue('--out', path.join(root, 'data', 'research', 'inspections'));
+const outputDir = argValue('--out') ?? path.join(root, 'data', 'research', 'inspections');
 const importToDb = process.argv.includes('--db');
+
+function json(value: unknown): Prisma.InputJsonValue {
+  return value as Prisma.InputJsonValue;
+}
 
 function asString(value: unknown) {
   return typeof value === 'string' ? value : '';
@@ -218,7 +222,7 @@ async function persistReport(report: JsonRecord) {
     },
     update: {
       entitySourceId: datasetId,
-      rawProperties: report,
+      rawProperties: json(report),
       confidence: Number(report.confidence ?? 0.8),
       notes: 'Observed by deterministic Socrata inspector.',
     },
@@ -227,7 +231,7 @@ async function persistReport(report: JsonRecord) {
       sourceId: `${datasetId}:metadata`,
       entityType: 'source_metadata',
       entitySourceId: datasetId,
-      rawProperties: report,
+      rawProperties: json(report),
       confidence: Number(report.confidence ?? 0.8),
       notes: 'Observed by deterministic Socrata inspector.',
     },

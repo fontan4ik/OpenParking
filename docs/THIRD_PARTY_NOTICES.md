@@ -28,3 +28,5 @@ This project intentionally reuses and adapts open-source building blocks from `R
 - Martin (`Referenss/martin`) - external vector tile server.
 - Tippecanoe (`Referenss/tippecanoe`) - external MBTiles/PMTiles builder.
 - A/B Street (`Referenss/abstreet`) - parking-lot and street-parking algorithms/workflows reference.
+- Valhalla - external routing engine used behind server-side `POST /api/route`; keep routing service calls outside browser code and preserve OpenStreetMap attribution in route responses/UI.
+- OpenStreetMap contributors - basemap data and routing graph data attribution for MapLibre/Valhalla-backed routing.

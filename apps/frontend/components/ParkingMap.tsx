@@ -8,9 +8,15 @@ import maplibregl, {
 } from 'maplibre-gl';
 import type { Feature, Geometry } from 'geojson';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import { useLanguage } from '@/components/LanguageProvider';
+import { safeUrl } from '@/lib/data-quality';
+import { cityNameKey, type TranslationKey } from '@/lib/i18n';
+import { priceTextOrFallback } from '@/lib/price-utils';
+import type { RouteCoordinate } from '@/lib/routing';
 import { CITIES } from '@/lib/types';
 
 type DisplayMode = 'all' | 'segments' | 'zones' | 'points' | 'both';
+type MapPickMode = 'none' | 'start' | 'destination';
 
 interface FeatureCollection {
   type: 'FeatureCollection';
@@ -26,6 +32,12 @@ interface ParkingMapProps {
   confidenceFilter: string;
   searchQuery: string;
   onFacilitySelect: (feature: Feature<Geometry, Record<string, unknown>>) => void;
+  routeGeometry?: GeoJSON.LineString | null;
+  userLocation?: RouteCoordinate | null;
+  pickedStart?: RouteCoordinate | null;
+  pickedDestination?: RouteCoordinate | null;
+  mapPickMode?: MapPickMode;
+  onMapPointPick?: (coordinate: RouteCoordinate) => void;
 }
 
 const EMPTY_COLLECTION: FeatureCollection = {
@@ -59,20 +71,43 @@ const MAP_STYLE = {
   ],
 } as maplibregl.StyleSpecification;
 
+function localText(t: (key: TranslationKey) => string, en: string, ru: string) {
+  return t('app.subtitle') === 'Все парковки Америки на одной карте' ? ru : en;
+}
+
+function statusColorExpression(): ExpressionSpecification {
+  return [
+    'case',
+    ['==', ['get', 'enrichment_status'], 'conflict'],
+    '#ef4444',
+    ['==', ['get', 'price_status'], 'stale'],
+    '#ef4444',
+    ['==', ['get', 'rule_status'], 'stale'],
+    '#ef4444',
+    ['==', ['get', 'enrichment_status'], 'stale'],
+    '#ef4444',
+    ['==', ['get', 'price_status'], 'known_priced'],
+    '#3b82f6',
+    ['==', ['get', 'price_status'], 'known_free'],
+    '#10b981',
+    ['==', ['get', 'price_status'], 'known_unpriced'],
+    '#64748b',
+    ['==', ['get', 'price_status'], 'paid_unknown'],
+    '#f59e0b',
+    ['==', ['get', 'price_status'], 'variable'],
+    '#f59e0b',
+    ['==', ['get', 'enrichment_status'], 'needs_review'],
+    '#f59e0b',
+    '#94a3b8',
+  ] as ExpressionSpecification;
+}
+
 function getString(value: unknown, fallback = '') {
   return typeof value === 'string' ? value : fallback;
 }
 
 function getNumber(value: unknown) {
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
-}
-
-function hasKnownPrice(properties: GeoJSON.GeoJsonProperties) {
-  if (!properties) return false;
-  return Boolean(
-    properties.base_hourly_rate ||
-      (properties.charge && properties.charge !== 'unknown')
-  );
 }
 
 function matchesFilters(
@@ -87,8 +122,10 @@ function matchesFilters(
 
   if (typeFilter && properties.facility_type !== typeFilter) return false;
 
-  if (priceFilter === 'known' && !hasKnownPrice(properties)) return false;
-  if (priceFilter === 'unknown' && hasKnownPrice(properties)) return false;
+  const priceStatus = getString(properties.price_status, 'unknown');
+  const hasCanonicalKnownPrice = priceStatus === 'known_priced' || priceStatus === 'known_free';
+  if (priceFilter === 'known' && !hasCanonicalKnownPrice) return false;
+  if (priceFilter === 'unknown' && hasCanonicalKnownPrice) return false;
 
   if (sourceFilter) {
     const source = properties.source_name || properties.last_verified_source;
@@ -137,6 +174,22 @@ function filterCollection(
   };
 }
 
+function isRegulatoryZone(feature: Feature<Geometry, Record<string, unknown>>) {
+  const properties = feature.properties || {};
+  return (
+    properties.facility_type === 'residential_parking_zone' ||
+    properties.access === 'regulated_residential_zone' ||
+    properties.price_status === 'not_applicable'
+  );
+}
+
+function parkingAreaZonesOnly(data: FeatureCollection): FeatureCollection {
+  return {
+    type: 'FeatureCollection',
+    features: data.features.filter((feature) => !isRegulatoryZone(feature)),
+  };
+}
+
 function htmlEscape(value: string) {
   return value
     .replace(/&/g, '&amp;')
@@ -146,28 +199,59 @@ function htmlEscape(value: string) {
     .replace(/'/g, '&#039;');
 }
 
-function popupHtml(feature: GeoJSON.Feature) {
+function linkHtml(label: string, rawUrl: unknown, unavailable: string) {
+  const url = typeof rawUrl === 'string' ? safeUrl(rawUrl) : '';
+  if (!url) return `<span class="popup-unavailable">${htmlEscape(unavailable)}</span>`;
+  return `<a class="popup-link" href="${htmlEscape(url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(label)}</a>`;
+}
+
+function priceDisplay(properties: Record<string, unknown>, t: (key: TranslationKey) => string) {
+  const status = getString(properties.price_status, 'unknown');
+  if (status === 'known_free') return { label: localText(t, 'Free', 'Бесплатно'), tone: 'free', status: localText(t, 'Known free', 'Точно бесплатно') };
+  if (status === 'known_priced') return { label: priceTextOrFallback(properties.charge, t('price.known')), tone: 'priced', status: localText(t, 'Known priced', 'Цена известна') };
+  if (status === 'paid_unknown') return { label: localText(t, 'Paid · amount unknown', 'Платно · сумма неизвестна'), tone: 'review', status: localText(t, 'Needs verification', 'Нужна проверка') };
+  if (status === 'variable') return { label: localText(t, 'Variable price', 'Переменная цена'), tone: 'variable', status: localText(t, 'Variable', 'Переменная') };
+  if (status === 'stale') return { label: localText(t, 'Price needs verification', 'Цена требует проверки'), tone: 'stale', status: localText(t, 'Stale', 'Устарело') };
+  if (status === 'not_applicable') return { label: localText(t, 'Regulatory zone', 'Зона правил'), tone: 'unknown', status: localText(t, 'Not a parking place', 'Не отдельная парковка') };
+  if (status === 'known_unpriced') return { label: localText(t, 'Price unknown', 'Цена неизвестна'), tone: 'unknown', status: localText(t, 'Known place · unpriced', 'Место известно · без цены') };
+  return { label: localText(t, 'Price needs verification', 'Цена требует проверки'), tone: 'unknown', status: t('price.unknown') };
+}
+
+function popupHtml(feature: GeoJSON.Feature, t: (key: TranslationKey) => string) {
   const p = feature.properties || {};
-  const name = htmlEscape(getString(p.name, 'Parking'));
-  const type = htmlEscape(getString(p.facility_type, 'unknown'));
-  const charge = htmlEscape(getString(p.charge, 'unknown') || 'unknown');
+  const name = htmlEscape(getString(p.name, t('facility.parkingFallback')));
+  const type = htmlEscape(getString(p.facility_type, t('types.unknown')));
+  const price = priceDisplay(p, t);
+  const charge = htmlEscape(price.label);
   const operator = htmlEscape(getString(p.operator, ''));
-  const source = htmlEscape(getString(p.last_verified_source, ''));
+  const source = htmlEscape(getString(p.source_name, '') || getString(p.last_verified_source, ''));
   const dataAsOf = htmlEscape(getString(p.data_as_of, ''));
+  const parkmobileZone = htmlEscape(getString(p.parkmobile_zone, ''));
+  const paymentProvider = htmlEscape(getString(p.payment_provider, ''));
+  const zoneType = htmlEscape(getString(p.zone_type, ''));
+  const restrictedTime = htmlEscape(getString(p.restricted_res_time, ''));
   const confidence = getNumber(p.confidence);
 
   return `
     <div class="popup-title">${name}</div>
-    <div class="popup-price">${charge}</div>
-    <div class="popup-row"><b>Type</b><span>${type}</span></div>
-    ${operator ? `<div class="popup-row"><b>Operator</b><span>${operator}</span></div>` : ''}
-    ${source ? `<div class="popup-row"><b>Source</b><span>${source}</span></div>` : ''}
-    ${dataAsOf ? `<div class="popup-row"><b>Freshness</b><span>${dataAsOf.slice(0, 10)}</span></div>` : ''}
+    <div class="popup-price price-${price.tone}">${charge}</div>
+    <div class="popup-status">${htmlEscape(price.status)}</div>
+    <div class="popup-row"><b>${t('map.popup.type')}</b><span>${type}</span></div>
+    ${operator ? `<div class="popup-row"><b>${t('map.popup.operator')}</b><span>${operator}</span></div>` : ''}
+    ${source ? `<div class="popup-row"><b>${t('map.popup.source')}</b><span>${source}</span></div>` : ''}
+    ${zoneType ? `<div class="popup-row"><b>${localText(t, 'Zone type', 'Тип зоны')}</b><span>${zoneType}</span></div>` : ''}
+    ${restrictedTime ? `<div class="popup-row"><b>${localText(t, 'Rule', 'Правило')}</b><span>${restrictedTime}</span></div>` : ''}
+    ${parkmobileZone ? `<div class="popup-row"><b>${localText(t, 'ParkMobile zone', 'Зона ParkMobile')}</b><span>${parkmobileZone}</span></div>` : ''}
+    ${paymentProvider ? `<div class="popup-row"><b>${localText(t, 'Payment providers', 'Провайдеры оплаты')}</b><span>${paymentProvider}</span></div>` : ''}
+    ${dataAsOf ? `<div class="popup-row"><b>${t('map.popup.freshness')}</b><span>${dataAsOf.slice(0, 10)}</span></div>` : ''}
     ${
       confidence !== null
-        ? `<div class="popup-row"><b>Confidence</b><span>${Math.round(confidence * 100)}%</span></div>`
+        ? `<div class="popup-row"><b>${t('map.popup.confidence')}</b><span>${Math.round(confidence * 100)}%</span></div>`
         : ''
     }
+    <div class="popup-row"><b>${localText(t, 'Source link', 'Ссылка источника')}</b>${linkHtml(localText(t, 'Open source', 'Открыть источник'), p.source_url, localText(t, 'Not available', 'Недоступно'))}</div>
+    <div class="popup-row"><b>${localText(t, 'Payment link', 'Ссылка оплаты')}</b>${linkHtml(localText(t, 'Open payment', 'Открыть оплату'), p.payment_url, localText(t, 'Not available', 'Недоступно'))}</div>
+    <div class="popup-row"><b>${localText(t, 'Payment app', 'Приложение оплаты')}</b>${linkHtml(localText(t, 'Open app info', 'Открыть оплату'), p.payment_app_url, localText(t, 'Not available', 'Недоступно'))}</div>
   `;
 }
 
@@ -184,6 +268,21 @@ function setVisibility(map: maplibregl.Map, id: string, visible: boolean) {
   map.setLayoutProperty(id, 'visibility', visible ? 'visible' : 'none');
 }
 
+function pointCollection(point: RouteCoordinate | null): GeoJSON.FeatureCollection<GeoJSON.Point> {
+  return point
+    ? {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [point.lon, point.lat] },
+            properties: {},
+          },
+        ],
+      }
+    : { type: 'FeatureCollection', features: [] };
+}
+
 export default function ParkingMap({
   activeCity,
   displayMode,
@@ -193,6 +292,12 @@ export default function ParkingMap({
   confidenceFilter,
   searchQuery,
   onFacilitySelect,
+  routeGeometry = null,
+  userLocation = null,
+  pickedStart = null,
+  pickedDestination = null,
+  mapPickMode = 'none',
+  onMapPointPick,
 }: ParkingMapProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
@@ -202,9 +307,32 @@ export default function ParkingMap({
   const [segments, setSegments] = useState<FeatureCollection>(EMPTY_COLLECTION);
   const [zones, setZones] = useState<FeatureCollection>(EMPTY_COLLECTION);
   const [isLoading, setIsLoading] = useState(true);
+  const { formatNumber, t } = useLanguage();
+  const tRef = useRef(t);
+  const mapPickModeRef = useRef<MapPickMode>(mapPickMode);
+  const onMapPointPickRef = useRef(onMapPointPick);
+  const onFacilitySelectRef = useRef(onFacilitySelect);
 
-  const activeCityConfig = CITIES[activeCity] || CITIES.sf;
-  const hasCityData = activeCity === 'sf';
+  useEffect(() => {
+    tRef.current = t;
+  }, [t]);
+
+  useEffect(() => {
+    mapPickModeRef.current = mapPickMode;
+  }, [mapPickMode]);
+
+  useEffect(() => {
+    onMapPointPickRef.current = onMapPointPick;
+  }, [onMapPointPick]);
+
+  useEffect(() => {
+    onFacilitySelectRef.current = onFacilitySelect;
+  }, [onFacilitySelect]);
+
+  const activeCityConfig = CITIES[activeCity] || CITIES.miami;
+  const activeCityNameKey = cityNameKey(activeCityConfig.id);
+  const activeCityName = activeCityNameKey ? t(activeCityNameKey) : activeCityConfig.name;
+  const hasCityData = activeCity === 'sf' || activeCity === 'miami';
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -212,8 +340,8 @@ export default function ParkingMap({
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: MAP_STYLE,
-      center: CITIES.sf.center,
-      zoom: CITIES.sf.zoom,
+      center: CITIES.miami.center,
+      zoom: CITIES.miami.zoom,
       minZoom: 9,
       maxZoom: 19,
       attributionControl: false,
@@ -232,27 +360,29 @@ export default function ParkingMap({
       map.addSource('zones', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('segments', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('facilities', { type: 'geojson', data: EMPTY_COLLECTION });
+      map.addSource('parkingusa-route-source', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] },
+      });
+      map.addSource('parkingusa-user-location-source', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] },
+      });
+      map.addSource('parkingusa-picked-start-source', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] },
+      });
+      map.addSource('parkingusa-picked-destination-source', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] },
+      });
 
       map.addLayer({
         id: 'zones-fill',
         type: 'fill',
         source: 'zones',
         paint: {
-          'fill-color': [
-            'match',
-            ['get', 'facility_type'],
-            'multi-storey',
-            '#3b82f6',
-            'garage',
-            '#3b82f6',
-            'underground',
-            '#8b5cf6',
-            'surface',
-            '#10b981',
-            'surface_lot',
-            '#10b981',
-            '#06b6d4',
-          ],
+          'fill-color': statusColorExpression(),
           'fill-opacity': [
             'interpolate',
             ['linear'],
@@ -277,32 +407,56 @@ export default function ParkingMap({
       });
 
       map.addLayer({
-        id: 'segments-line',
+        id: 'segments-line-casing',
         type: 'line',
         source: 'segments',
+        layout: {
+          'line-cap': 'round',
+          'line-join': 'round',
+        },
         paint: {
-          'line-color': [
-            'case',
-            ['>', ['coalesce', ['get', 'base_hourly_rate_max'], 0], 4],
-            '#ef4444',
-            ['>', ['coalesce', ['get', 'base_hourly_rate_max'], 0], 2],
-            '#f59e0b',
-            ['>', ['coalesce', ['get', 'base_hourly_rate_max'], 0], 0],
-            '#10b981',
-            '#64748b',
-          ],
+          'line-color': '#e0f2fe',
           'line-width': [
             'interpolate',
             ['linear'],
             ['zoom'],
             10,
-            1,
+            2,
             14,
-            3,
+            5,
             17,
-            7,
+            10,
+            19,
+            15,
           ],
-          'line-opacity': 0.9,
+          'line-opacity': 0.72,
+        },
+      });
+
+      map.addLayer({
+        id: 'segments-line',
+        type: 'line',
+        source: 'segments',
+        layout: {
+          'line-cap': 'round',
+          'line-join': 'round',
+        },
+        paint: {
+          'line-color': '#38bdf8',
+          'line-width': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            10,
+            1.4,
+            14,
+            3.5,
+            17,
+            7.5,
+            19,
+            11,
+          ],
+          'line-opacity': 0.98,
         },
       });
 
@@ -322,23 +476,82 @@ export default function ParkingMap({
             17,
             7,
           ],
-          'circle-color': [
-            'match',
-            ['get', 'facility_type'],
-            'street_meter',
+          'circle-color': statusColorExpression(),
+          'circle-stroke-color': [
+            'case',
+            ['==', ['get', 'enrichment_status'], 'conflict'],
+            '#ef4444',
+            ['==', ['get', 'enrichment_status'], 'needs_review'],
             '#f59e0b',
-            'offstreet_meter',
-            '#06b6d4',
-            'garage',
-            '#3b82f6',
-            'surface_lot',
-            '#10b981',
-            '#94a3b8',
+            '#0f172a',
           ],
-          'circle-stroke-color': '#0f172a',
-          'circle-stroke-width': 1,
+          'circle-stroke-width': [
+            'case',
+            ['any', ['==', ['get', 'enrichment_status'], 'conflict'], ['==', ['get', 'enrichment_status'], 'needs_review']],
+            2,
+            1,
+          ],
           'circle-opacity': 0.86,
         },
+      });
+
+      map.addLayer({
+        id: 'parkingusa-route-line-layer',
+        type: 'line',
+        source: 'parkingusa-route-source',
+        layout: {
+          'line-cap': 'round',
+          'line-join': 'round',
+        },
+        paint: {
+          'line-color': '#38bdf8',
+          'line-width': 5,
+          'line-opacity': 0.92,
+        },
+      });
+
+      map.addLayer({
+        id: 'parkingusa-user-location-layer',
+        type: 'circle',
+        source: 'parkingusa-user-location-source',
+        paint: {
+          'circle-radius': 7,
+          'circle-color': '#22d3ee',
+          'circle-stroke-color': '#f8fafc',
+          'circle-stroke-width': 2,
+          'circle-opacity': 0.95,
+        },
+      });
+
+      map.addLayer({
+        id: 'parkingusa-picked-start-layer',
+        type: 'circle',
+        source: 'parkingusa-picked-start-source',
+        paint: {
+          'circle-radius': 8,
+          'circle-color': '#10b981',
+          'circle-stroke-color': '#ecfeff',
+          'circle-stroke-width': 2,
+          'circle-opacity': 0.96,
+        },
+      });
+
+      map.addLayer({
+        id: 'parkingusa-picked-destination-layer',
+        type: 'circle',
+        source: 'parkingusa-picked-destination-source',
+        paint: {
+          'circle-radius': 8,
+          'circle-color': '#f59e0b',
+          'circle-stroke-color': '#fff7ed',
+          'circle-stroke-width': 2,
+          'circle-opacity': 0.96,
+        },
+      });
+
+      map.on('click', (event) => {
+        if (mapPickModeRef.current === 'none') return;
+        onMapPointPickRef.current?.({ lat: event.lngLat.lat, lon: event.lngLat.lng });
       });
 
       const clickableLayers = ['facilities-circle', 'zones-fill', 'segments-line'];
@@ -353,7 +566,11 @@ export default function ParkingMap({
           const feature = event.features?.[0] as Feature<Geometry, Record<string, unknown>> | undefined;
           if (!feature) return;
 
-          onFacilitySelect(feature);
+          if (mapPickModeRef.current !== 'none') {
+            return;
+          }
+
+          onFacilitySelectRef.current(feature);
           const coords = sourcePoint(feature, event.lngLat);
           popupRef.current?.remove();
           popupRef.current = new maplibregl.Popup({
@@ -362,7 +579,7 @@ export default function ParkingMap({
             maxWidth: '320px',
           })
             .setLngLat(coords)
-            .setHTML(popupHtml(feature))
+            .setHTML(popupHtml(feature, tRef.current))
             .addTo(map);
         });
       });
@@ -376,17 +593,18 @@ export default function ParkingMap({
       popupRef.current?.remove();
       map.remove();
       mapRef.current = null;
+      setIsReady(false);
     };
-  }, [onFacilitySelect]);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
     setIsLoading(true);
 
     Promise.all([
-      fetch('/api/geojson/facilities', { signal: controller.signal }).then((r) => r.json()),
-      fetch('/api/geojson/segments', { signal: controller.signal }).then((r) => r.json()),
-      fetch('/api/geojson/zones', { signal: controller.signal }).then((r) => r.json()),
+      fetch(`/api/geojson/facilities?city=${activeCity}`, { signal: controller.signal }).then((r) => r.json()),
+      fetch(`/api/geojson/segments?city=${activeCity}`, { signal: controller.signal }).then((r) => r.json()),
+      fetch(`/api/geojson/zones?city=${activeCity}`, { signal: controller.signal }).then((r) => r.json()),
     ])
       .then(([facilityData, segmentData, zoneData]) => {
         setFacilities(facilityData);
@@ -399,7 +617,7 @@ export default function ParkingMap({
       .finally(() => setIsLoading(false));
 
     return () => controller.abort();
-  }, []);
+  }, [activeCity]);
 
   const filteredFacilities = useMemo(() => {
     if (!hasCityData) return EMPTY_COLLECTION;
@@ -410,6 +628,11 @@ export default function ParkingMap({
     if (!hasCityData) return EMPTY_COLLECTION;
     return filterCollection(zones, typeFilter, priceFilter, sourceFilter, confidenceFilter, searchQuery);
   }, [confidenceFilter, hasCityData, priceFilter, searchQuery, sourceFilter, typeFilter, zones]);
+
+  const visibleZones = useMemo(() => {
+    if (displayMode === 'zones') return filteredZones;
+    return parkingAreaZonesOnly(filteredZones);
+  }, [displayMode, filteredZones]);
 
   const visibleSegments = useMemo(() => {
     if (!hasCityData) return EMPTY_COLLECTION;
@@ -422,22 +645,76 @@ export default function ParkingMap({
 
     (map.getSource('facilities') as GeoJSONSource).setData(filteredFacilities);
     (map.getSource('segments') as GeoJSONSource).setData(visibleSegments);
-    (map.getSource('zones') as GeoJSONSource).setData(filteredZones);
-  }, [filteredFacilities, filteredZones, isReady, visibleSegments]);
+    (map.getSource('zones') as GeoJSONSource).setData(visibleZones);
+  }, [filteredFacilities, isReady, visibleSegments, visibleZones]);
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !isReady) return;
 
     const showSegments = displayMode === 'all' || displayMode === 'segments' || displayMode === 'both';
-    const showZones = displayMode === 'all' || displayMode === 'zones';
+    const showZones = displayMode === 'all' || displayMode === 'both' || displayMode === 'zones';
     const showPoints = displayMode === 'all' || displayMode === 'points' || displayMode === 'both';
 
     setVisibility(map, 'segments-line', showSegments);
+    setVisibility(map, 'segments-line-casing', showSegments);
     setVisibility(map, 'zones-fill', showZones);
     setVisibility(map, 'zones-outline', showZones);
     setVisibility(map, 'facilities-circle', showPoints);
   }, [displayMode, isReady]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !isReady) return;
+    const source = map.getSource('parkingusa-route-source') as GeoJSONSource | undefined;
+    if (!source) return;
+
+    source.setData(
+      routeGeometry
+        ? { type: 'FeatureCollection', features: [{ type: 'Feature', geometry: routeGeometry, properties: {} }] }
+        : { type: 'FeatureCollection', features: [] }
+    );
+  }, [isReady, routeGeometry]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !isReady) return;
+    const source = map.getSource('parkingusa-user-location-source') as GeoJSONSource | undefined;
+    if (!source) return;
+
+    source.setData(
+      userLocation
+        ? {
+            type: 'FeatureCollection',
+            features: [
+              {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: [userLocation.lon, userLocation.lat] },
+                properties: {},
+              },
+            ],
+          }
+        : { type: 'FeatureCollection', features: [] }
+    );
+  }, [isReady, userLocation]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !isReady) return;
+    const source = map.getSource('parkingusa-picked-start-source') as GeoJSONSource | undefined;
+    if (!source) return;
+
+    source.setData(pointCollection(pickedStart));
+  }, [isReady, pickedStart]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !isReady) return;
+    const source = map.getSource('parkingusa-picked-destination-source') as GeoJSONSource | undefined;
+    if (!source) return;
+
+    source.setData(pointCollection(pickedDestination));
+  }, [isReady, pickedDestination]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -462,24 +739,39 @@ export default function ParkingMap({
       <div className="layer-toggles">
         <div className={`layer-toggle ${displayMode === 'all' || displayMode === 'segments' || displayMode === 'both' ? 'active' : ''}`}>
           <span className="layer-dot" style={{ background: 'var(--accent-emerald)' }} />
-          {visibleSegments.features.length.toLocaleString('en-US')} curbs
+          {formatNumber(visibleSegments.features.length)} {t('map.curbs')}
         </div>
-        <div className={`layer-toggle ${displayMode === 'all' || displayMode === 'zones' ? 'active' : ''}`}>
+        <div className={`layer-toggle ${displayMode === 'all' || displayMode === 'both' || displayMode === 'zones' ? 'active' : ''}`}>
           <span className="layer-dot" style={{ background: 'var(--accent-blue)' }} />
-          {filteredZones.features.length.toLocaleString('en-US')} zones
+          {formatNumber(visibleZones.features.length)} {t('map.zones')}
         </div>
         <div className={`layer-toggle ${displayMode === 'all' || displayMode === 'points' || displayMode === 'both' ? 'active' : ''}`}>
           <span className="layer-dot" style={{ background: 'var(--accent-amber)' }} />
-          {filteredFacilities.features.length.toLocaleString('en-US')} meters
+          {formatNumber(filteredFacilities.features.length)} {t('map.places')}
         </div>
       </div>
 
       {!hasCityData && (
         <div className="city-data-notice">
-          <b>{activeCityConfig.name}</b>
-          <span>Data connector planned. San Francisco layer is implemented now.</span>
+          <b>{activeCityName}</b>
+          <span>{t('map.connectorPlanned')}</span>
         </div>
       )}
+      <div className="qa-map-status" data-testid="route-layer-status">
+        {routeGeometry ? 'rendered' : 'empty'}
+      </div>
+      <div className="qa-map-status" data-testid="user-location-layer-status">
+        {userLocation ? 'rendered' : 'empty'}
+      </div>
+      <div className="qa-map-status" data-testid="picked-start-layer-status">
+        {pickedStart ? 'rendered' : 'empty'}
+      </div>
+      <div className="qa-map-status" data-testid="picked-destination-layer-status">
+        {pickedDestination ? 'rendered' : 'empty'}
+      </div>
+      <div className="qa-map-status" data-testid="map-pick-mode-status">
+        {mapPickMode}
+      </div>
     </div>
   );
 }

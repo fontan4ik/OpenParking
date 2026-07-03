@@ -23,7 +23,6 @@ export async function tryDatabase<T>(operation: () => Promise<T>): Promise<T | n
   if (Date.now() < databaseRetryAfter) return null;
 
   try {
-    databaseRetryAfter = Date.now() + 5_000;
     const result = await operation();
     databaseRetryAfter = 0;
     return result;

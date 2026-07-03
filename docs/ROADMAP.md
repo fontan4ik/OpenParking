@@ -1,8 +1,8 @@
 # ParkingUSA Advanced Roadmap
 
-Date: 2026-06-10
+Date: 2026-06-15
 
-This roadmap is the working checklist for moving ParkingUSA from the San Francisco proof of concept to a scalable, provenance-aware US parking data platform.
+This roadmap is the working checklist for moving ParkingUSA from city seed fixtures to a scalable, provenance-aware US parking data platform. Miami is now the default app seed; San Francisco remains the benchmark fixture set.
 
 ## Status Legend
 
@@ -38,16 +38,26 @@ Definition of done:
   - [x] `/api/facilities`
   - [x] `/api/geojson/[layer]`
 - [~] Maintain GeoJSON fixture fallback while PostGIS stabilizes.
+- [~] Keep fallback selection city-aware:
+  - [x] Miami seed facilities
+  - [x] San Francisco benchmark layers
+  - [ ] DB-backed city filtering for zones/curbs after city fields are added to those models
 - [ ] Audit `Referenss/parking` Prisma/PostGIS patterns before further schema changes.
-- [ ] Align ParkingUSA Prisma schema with source-aware entities:
-  - [ ] `DataSource`
-  - [ ] `SourceObservation`
-  - [ ] `ParkingFacility`
-  - [ ] `CurbSegment`
-  - [ ] `ParkingZone`
+- [~] Align ParkingUSA Prisma schema with source-aware entities:
+  - [x] `DataSource`
+  - [x] `SourceObservation`
+  - [x] `ParkingFacility` provenance/status fields
+  - [x] `CurbSegment` provenance/status fields
+  - [x] `ParkingZone` provenance/status fields
   - [ ] rate/rule/availability supporting models
 - [ ] Add migration notes for geometry indexes and PostGIS extensions.
-- [ ] Add idempotent upsert strategy for each source layer.
+- [~] Add idempotent upsert strategy for each source layer:
+  - [x] SF fixture import path
+  - [x] OSM/Geofabrik raw-to-canonical normalizer
+  - [~] Socrata/ArcGIS/CKAN canonical upsert promotion after geometry/layer dry-run mapping
+    - [x] Miami Beach ArcGIS import mode writes canonical `ParkingFacility` and `ParkingZone` rows for layers 1/5/7
+    - [ ] Socrata benchmark canonical upsert
+    - [ ] CKAN and generic ArcGIS canonical upsert targets
 
 Gate checks:
 
@@ -62,7 +72,7 @@ Gate checks:
   - [x] 2,889 curb segments target documented
   - [x] 403 OSM zones target documented
 - [ ] Add a baseline verification command.
-- [ ] Store import run summaries with source name, run time, row counts, and duplicate counts.
+- [~] Store import run summaries with source name, run time, row counts, and duplicate counts; `ImportRun` exists and connector foundation records dry-run/import counts, but canonical importer coverage is not complete.
 - [ ] Add regression fixtures for:
   - [ ] DataSF meters
   - [ ] derived curb segments
@@ -251,6 +261,11 @@ Gate checks:
   - [x] confidence
   - [x] review-needed threshold
 - [~] Add graceful empty/error/loading states for each layer.
+- [~] Make coverage gaps visible as a first-class product workflow:
+  - [x] show "known parking, unknown price" distinctly from "priced parking";
+  - [x] add counters for total known facilities, price-known facilities, price-unknown facilities, and review-needed facilities;
+  - [x] split provenance coverage from payment-link and booking-link completeness in stats/sidebar metrics;
+  - [~] route unknown-price and stale-price records into a derived enrichment/review backlog report, not an assignment workflow.
 
 Gate checks:
 
@@ -261,18 +276,50 @@ Gate checks:
 ## Phase 8 - Multi-City Expansion
 
 - [ ] Define city readiness score.
+- [ ] Define a common coverage baseline per city that does not depend on Google as the master database:
+  - [~] OSM/Geofabrik or Overture candidate inventory for garages/lots/parking polygons;
+    - [x] optional mixed-geometry OSM fallback file is split into places, road-side lines, and zones by the frontend loader;
+    - [~] production Geofabrik/osm2pgsql path for large city/state/national coverage;
+      - [x] Florida Geofabrik PBF download and dry-run commands;
+      - [x] osm2pgsql dry-run command works without `DATABASE_URL`;
+      - [x] parking-focused osm2pgsql flex config creates `parking_points`, `parking_lines`, and `parking_polygons` raw tables;
+      - [x] normalized extractor from `osm_raw` tables into ParkingUSA facilities/segments/zones;
+      - [x] run full Florida PBF import against PostGIS and verify Miami bbox counts;
+      - [x] add Miami-Dade/city boundary polygon filtering instead of bbox-only filtering;
+      - [x] import Miami-Dade OSM baseline and make `city=miami` read DB scope `Miami + Miami-Dade` for ParkingUSA Index coverage;
+  - [ ] official city/authority datasets for meters, municipal garages/lots, curb rules, and zones;
+  - [ ] operator/venue/airport/university/hospital source inventory for enrichment;
+  - [ ] optional Google Places `place_id` matching/manual QA path with no long-lived cached Places content as canonical records;
+  - [ ] dedupe rules between OSM, official sources, operators, and user reports.
+- [~] Add Miami as the default seed city:
+  - [x] add Miami app config and default map center
+  - [x] add official-source facility fixture
+  - [x] add Miami research manifest
+  - [x] add Miami source expansion inventory
+  - [x] add parser/browser backlog entries for high-value Miami sources
+  - [x] add Miami Beach official WPGMZA marker import fixture
+  - [ ] replace seed fixture with repeatable parser/importer
+  - [ ] add confirmed city meter/curb source if available
+  - [x] import OSM/Geofabrik Miami/Miami-Dade baseline instead of relying on public Overpass one-shot requests
+  - [ ] run browser extraction for MPA commerce and operator pages
 - [ ] Create source discovery checklist per city.
 - [ ] Add city ingestion manifests.
-- [ ] Add importer templates for:
-  - [ ] Socrata
-  - [ ] ArcGIS REST
-  - [ ] CKAN
+- [~] Add importer templates for:
+  - [~] Socrata foundation dry-run/import script writes `DataSource`, `ImportRun`, and `SourceObservation`; canonical upsert remains next slice
+  - [~] ArcGIS REST foundation dry-run/import script writes `DataSource`, `ImportRun`, and `SourceObservation`; Miami Beach import mode additionally writes canonical `ParkingFacility`/`ParkingZone` rows, while generic ArcGIS canonical promotion remains next slice
+  - [~] CKAN foundation dry-run/import script writes `DataSource`, `ImportRun`, and `SourceObservation`; default query currently returns zero rows and needs better target selection
   - [ ] static CSV/GeoJSON
   - [ ] operator feeds
   - [ ] public operator website parsers
   - [ ] valet/venue/airport/university/hospital page parsers
   - [ ] browser-agent extraction recipes for JavaScript-heavy pages
 - [ ] Add city-level data quality dashboards.
+- [ ] Bring Miami fixtures to SF-level status/provenance parity, including explicit granular statuses and source/API/evidence fields where evidence exists; do not fabricate payment/booking links.
+- [~] Add first Miami Beach complete-record slice from official WPGMZA/ArcGIS data: rates, event rates, max time, capacity, ParkMobile zones, EV notes, source/API/evidence links, and payment-provider evidence are exposed without fabricating per-record checkout URLs.
+- [ ] Prioritize payment/booking source enrichment for MPA commerce, MIA/airport parking, PortMiami, Parking.com/SP+, ABM, and Premium after parser/ToS review.
+  - [ ] Build external payment-link parsers instead of relying on static backend fetch: use Playwright/Chrome network extraction for JavaScript/payment flows, provider deep-link parsing for ParkMobile/PayByPhone zones, or partner/API feeds when scraping is unstable or prohibited.
+  - [ ] Require every external parser to dry-run first, classify candidate links (`direct_checkout`, `facility_page`, `app_zone`, `operator_search`), store `SourceObservation` evidence, and promote to canonical `payment_url` / `booking_url` only after stable direct checkout proof and ToS/legal review.
+  - [~] Premium Parking Miami dry-run parser exists as `enrich:premium:dry-run`; it records operator facility observations and evidence only, with canonical payment/booking promotion blocked until direct checkout URLs and ToS review are available.
 - [ ] Add conflict handling between official data, OSM, and operator sources.
 
 Gate checks:

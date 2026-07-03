@@ -31,5 +31,37 @@ services:
     ports:
       - "3003:3000"
 
+  osm2pgsql:
+    image: iboates/osm2pgsql:latest
+    container_name: parkingusa-osm2pgsql
+    profiles:
+      - tools
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD:-parking}
+    volumes:
+      - ./data/osm:/data/osm:ro
+      - ./apps/backend/scripts:/scripts:ro
+    entrypoint: ["osm2pgsql"]
+    command:
+      - --database
+      - ${POSTGRES_DB:-parkingusa}
+      - --host
+      - db
+      - --port
+      - "5432"
+      - --username
+      - ${POSTGRES_USER:-parking}
+      - --create
+      - --slim
+      - --schema
+      - osm_raw
+      - --output=flex
+      - --style
+      - /scripts/osm2pgsql_parking.lua
+      - /data/osm/florida-latest.osm.pbf
+
 volumes:
   pgdata:

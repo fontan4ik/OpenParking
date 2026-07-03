@@ -18,6 +18,8 @@
 
 Поэтому архитектура должна быть многоисточниковой. Цель MVP: не "100% truth", а лучший known parking graph с source, freshness, confidence и queue на добор данных.
 
+Продуктовая цель при этом остается простой для пользователя: карта должна выглядеть как общий поиск парковок, где видны все известные ParkingUSA candidates. Разница между объектами не в том, показываем мы их или нет, а в статусе фактов: где-то тариф подтвержден и есть payment/booking link, где-то цена неизвестна, где-то правила конфликтуют, где-то пользователь предложил тариф и запись ждет review.
+
 ## 2. Самый простой рабочий путь
 
 1. Начать с городов, где есть официальные open data.
@@ -25,6 +27,24 @@
 3. Для garages/lots взять OSM + operator websites + city-owned lots.
 4. Цены добирать по приоритету: official rates -> operator page -> marketplace public price -> AI call -> user report.
 5. Google Places использовать только как discovery/matching, а не как master database, потому что Google Places policy запрещает pre-fetch/cache/store Places content сверх исключений; `place_id` можно хранить.
+
+## 2.1 Решение по "одному общему источнику"
+
+Один внешний источник, который можно использовать как долговременную master database для всех парковок, цен и ссылок на оплату, не подходит:
+
+- Google Maps/Places визуально похож на нужный слой, но юридически и технически не подходит как master для MapLibre/ParkingUSA DB.
+- SpotHero, ParkWhiz, Parking.com, ParkMobile, PayByPhone и похожие сети полезны для цен/booking/payment, но покрывают только часть рынка и часто требуют partner/API path.
+- City open data очень надежна, но фрагментирована по городам и редко покрывает private/operator inventory.
+
+Рабочее решение: сделать один внутренний источник для приложения - ParkingUSA canonical database. Для начального "видно почти все" baseline использовать OSM/Geofabrik как основной nationwide skeleton, затем сверять и дополнять Overture. Дальше поверх конкретных canonical records накладывать более сильные факты:
+
+1. official city/authority geometry, meters, curb rules, zones;
+2. operator/venue/airport/university/hospital pages or APIs;
+3. payment/booking partner feeds;
+4. user reports with photo/link/evidence;
+5. browser/manual review for conflicts and missing tariffs.
+
+То есть "один источник" для frontend/API - это ParkingUSA DB. OSM/Geofabrik - лучший стартовый общий baseline существования парковок, но не источник тарифов и не финальная truth layer.
 
 ## 3. Источники по типам парковок
 
