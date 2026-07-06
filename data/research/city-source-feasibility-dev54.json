@@ -1,0 +1,250 @@
+{
+  "issue": "DEV-54",
+  "generated_at": "2026-07-03T12:59:31Z",
+  "scope": "Compare Miami vs New York City vs Los Angeles vs San Francisco parking source feasibility for OpenParking/ParkingUSA ingestion.",
+  "source_of_truth_inputs": [
+    "AGENTS.md",
+    "docs/PROJECT_OVERVIEW_RU.md",
+    "docs/parking_full_data_strategy.md",
+    "docs/REFERENCE_REPOS.md",
+    "data/research/cities/miami.fl.json",
+    "data/research/cities/new-york-city.ny.json",
+    "data/research/cities/los-angeles.ca.json",
+    "data/research/cities/san-francisco.ca.json",
+    "data/research/inspections/*.json",
+    "data/research/phase6-coverage-estimate-20260610.json"
+  ],
+  "notes": {
+    "reference_repos": "Local Referenss/ directory was not present under /Users/vladimirgrebennikov/Code/OpenParking during this heartbeat; reuse decision is based on docs/REFERENCE_REPOS.md and existing package/script reuse.",
+    "live_probe": "A bounded curl/python probe of Socrata and Miami Beach ArcGIS endpoints from the local terminal was attempted on 2026-07-03. data.sfgov.org DNS resolution failed locally; data.cityofnewyork.us and data.lacity.org returned 403; Miami Beach ArcGIS TLS handshakes timed out. This matrix therefore treats existing checked-in inspections and manifests as the current evidence and marks live revalidation as follow-up."
+  },
+  "recommendation": {
+    "single_easiest_path": "San Francisco DataSF Parking Meters + Meter Policies is the lowest-risk immediate canonical Socrata path because local fixtures already exist, source confidence is high, legal risk is low_verify_license, meter points and daily rate/policy schedules share stable join keys, and existing scripts can dry-run Socrata inspection/import behavior.",
+    "single_easiest_net_new_city_after_existing_sf_miami": "Los Angeles LADOT Metered Parking Inventory & Policies + Parking Meter Occupancy is the easiest net-new expansion path because both sources are Socrata, the inventory already contains rates/rules and coordinates, and the occupancy feed gives an availability signal without browser scraping; scope must be limited to metered spaces and sensor subset first.",
+    "do_not_pick_first": "Miami operator/payment enrichment and NYC sign rules are valuable but less suitable as the first easiest next path: Miami requires browser/operator/legal review and manual evidence for City of Miami proper; NYC requires a curb-rule/sign parser and rate-zone join before it can produce user-safe rules/rates."
+  },
+  "city_rankings": [
+    {
+      "rank_immediate": 1,
+      "rank_net_new": 2,
+      "city": "San Francisco",
+      "state": "CA",
+      "easiest_source_bundle": ["DataSF Parking Meters", "DataSF Meter Policies"],
+      "recommended_connector": "socrata",
+      "authoritative_score": 5,
+      "technical_ease_score": 5,
+      "coverage_score": 3,
+      "price_freshness_score": 5,
+      "availability_score": 1,
+      "legal_safety_score": 5,
+      "overall_feasibility_score": 4.4,
+      "why": "Best immediate path for reliable canonical meter/rate ingestion and regression benchmark; already has local fallback fixtures and inspection evidence.",
+      "main_gaps": ["No real-time availability", "Garages/lots still need OSM/operator enrichment", "Entrances/payment/booking links mostly absent"],
+      "manual_or_browser_evidence_needed": ["Garage/lot entrances", "Payment/booking links", "Conflict checks where OSM/operator candidates disagree with official meters"],
+      "source_records": [
+        {
+          "source_name": "DataSF Parking Meters",
+          "source_id": "socrata:data.sfgov.org:8vzz-qzz9",
+          "source_url": "https://data.sfgov.org/Transportation/Parking-Meters/8vzz-qzz9",
+          "api_url": "https://data.sfgov.org/resource/8vzz-qzz9.json",
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/san-francisco.ca.json", "inspection": "data/research/inspections/san-francisco-8vzz-qzz9.socrata-inspection.json", "local_fixture_count": 33511, "local_terminal_live_probe": "dns_failed"},
+          "confidence": 0.95,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-06"
+        },
+        {
+          "source_name": "DataSF Meter Policies",
+          "source_id": "socrata:data.sfgov.org:qq7v-hds4",
+          "source_url": "https://data.sfgov.org/Transportation/Meter-Policies/qq7v-hds4",
+          "api_url": "https://data.sfgov.org/resource/qq7v-hds4.json",
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/san-francisco.ca.json", "inspection": "data/research/inspections/san-francisco-qq7v-hds4.socrata-inspection.json", "join_keys": ["postid", "parkingspaceid"], "local_terminal_live_probe": "dns_failed"},
+          "confidence": 0.95,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-10"
+        }
+      ]
+    },
+    {
+      "rank_immediate": 2,
+      "rank_net_new": 1,
+      "city": "Los Angeles",
+      "state": "CA",
+      "easiest_source_bundle": ["LADOT Metered Parking Inventory and Policies", "LADOT Parking Meter Occupancy"],
+      "recommended_connector": "socrata",
+      "authoritative_score": 5,
+      "technical_ease_score": 5,
+      "coverage_score": 3,
+      "price_freshness_score": 4,
+      "availability_score": 4,
+      "legal_safety_score": 5,
+      "overall_feasibility_score": 4.3,
+      "why": "Best net-new city path: official Socrata inventory has coordinates, rate ranges and policy fields; paired official occupancy feed creates an early availability signal.",
+      "main_gaps": ["Occupancy covers only sensor-equipped subset", "Posted signs prevail over dataset", "Garages/lots, entrances and booking links need OSM/operator/manual enrichment"],
+      "manual_or_browser_evidence_needed": ["Sensor subset QA", "Sign conflicts in LA ExpressPark areas", "Garage/lot entrance and operator booking links"],
+      "source_records": [
+        {
+          "source_name": "LADOT Metered Parking Inventory and Policies",
+          "source_id": "socrata:data.lacity.org:s49e-q6j2",
+          "source_url": "https://data.lacity.org/A-Livable-and-Sustainable-City/Parking-Meter-Inventory/s49e-q6j2",
+          "api_url": "https://data.lacity.org/resource/s49e-q6j2.json",
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/los-angeles.ca.json", "inspection": "data/research/inspections/los-angeles-s49e-q6j2.socrata-inspection.json", "key_fields": ["spaceid", "blockface", "raterange", "timelimit", "latlng"], "local_terminal_live_probe": "403_forbidden"},
+          "confidence": 0.92,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-09"
+        },
+        {
+          "source_name": "LADOT Parking Meter Occupancy",
+          "source_id": "socrata:data.lacity.org:e7h6-4a3e",
+          "source_url": "https://data.lacity.org/Transportation/LADOT-Parking-Meter-Occupancy/e7h6-4a3e",
+          "api_url": "https://data.lacity.org/resource/e7h6-4a3e.json",
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/los-angeles.ca.json", "inspection": "data/research/inspections/los-angeles-e7h6-4a3e.socrata-inspection.json", "join_key": "spaceid", "local_terminal_live_probe": "403_forbidden"},
+          "confidence": 0.92,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-10"
+        }
+      ]
+    },
+    {
+      "rank_immediate": 3,
+      "rank_net_new": 3,
+      "city": "New York City",
+      "state": "NY",
+      "easiest_source_bundle": ["NYC Parking Meters Locations and Status", "NYC Parking Regulation Locations and Signs"],
+      "recommended_connector": "socrata_plus_rule_parser",
+      "authoritative_score": 5,
+      "technical_ease_score": 3,
+      "coverage_score": 4,
+      "price_freshness_score": 3,
+      "availability_score": 1,
+      "legal_safety_score": 4,
+      "overall_feasibility_score": 3.7,
+      "why": "Strong official rules/sign dataset and meter status data, but user-safe output depends on a text-to-rule parser, segment construction and DOT rate-zone join.",
+      "main_gaps": ["Parking signs are not a ready tariff table", "Rates require DOT page/rate-zone join", "Curb geometry must be derived from street/from/to/side fields", "Dataset license needs verification"],
+      "manual_or_browser_evidence_needed": ["Sign parser golden cases", "Rate-zone browser/static page capture", "Physical spot checks where signs conflict or history/current signs are ambiguous", "Garage/lot entrances and booking links"],
+      "source_records": [
+        {
+          "source_name": "NYC Parking Meters Locations and Status",
+          "source_id": "socrata:data.cityofnewyork.us:693u-uax6",
+          "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Meters-Locations-and-Status/693u-uax6",
+          "api_url": "https://data.cityofnewyork.us/resource/693u-uax6.json",
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/new-york-city.ny.json", "inspection": "data/research/inspections/new-york-city-693u-uax6.socrata-inspection.json", "key_fields": ["meter_number", "status", "pay_by_cell_number", "meter_hours", "on_street", "side_of_street"], "local_terminal_live_probe": "403_forbidden"},
+          "confidence": 0.95,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-08"
+        },
+        {
+          "source_name": "NYC Parking Regulation Locations and Signs",
+          "source_id": "socrata:data.cityofnewyork.us:nfid-uabd",
+          "source_url": "https://data.cityofnewyork.us/Transportation/Parking-Regulation-Locations-and-Signs/nfid-uabd",
+          "api_url": "https://data.cityofnewyork.us/resource/nfid-uabd.json",
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/new-york-city.ny.json", "inspection": "data/research/inspections/new-york-city-nfid-uabd.socrata-inspection.json", "key_fields": ["record_type", "sign_description", "side_of_street", "distance_from_intersection", "arrow_direction"], "parser_required": true, "local_terminal_live_probe": "403_forbidden"},
+          "confidence": 0.95,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-08"
+        }
+      ]
+    },
+    {
+      "rank_immediate": 4,
+      "rank_net_new": 4,
+      "city": "Miami",
+      "state": "FL",
+      "easiest_source_bundle": ["City of Miami Beach Parking GIS FeatureServer", "City of Miami Beach Parking Facilities WPGMZA", "Miami-Dade County Parking Facilities", "OSM/Geofabrik Florida PBF baseline"],
+      "recommended_connector": "arcgis_rest_geojson_import + wordpress_wpgmza_json_import + osm2pgsql_external_cli + static_html_parser/browser_agent for gaps",
+      "authoritative_score": 4,
+      "technical_ease_score": 3,
+      "coverage_score": 4,
+      "price_freshness_score": 3,
+      "availability_score": 1,
+      "legal_safety_score": 3,
+      "overall_feasibility_score": 3.3,
+      "why": "Best current product scope but not the easiest next source path: Miami Beach official GIS/WPGMZA and Miami-Dade are usable, while City of Miami proper and operator/payment links are fragmented and often require browser/manual/legal review.",
+      "main_gaps": ["City of Miami proper lacks confirmed official street-meter point API", "Miami Beach layer 7 zones are regulatory boundaries, not parkable polygons", "Payment/booking links need provider/operator review", "OSM candidates require confidence and access filtering"],
+      "manual_or_browser_evidence_needed": ["MPA commerce network/browser evidence", "City of Miami proper street-meter evidence", "Operator/payment direct checkout vs facility-page classification", "South Beach false-positive conflict checks", "Entrances/access/private/customer-only review"],
+      "source_records": [
+        {
+          "source_name": "City of Miami Beach Parking GIS FeatureServer",
+          "source_id": "arcgis:gis.miamibeachfl.gov:mb/Parking/FeatureServer",
+          "source_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer",
+          "api_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer",
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/miami.fl.json", "local_fixture_counts": {"facility_points": 535, "lot_zone_polygons": 532, "raw_spaces": 11018}, "local_terminal_live_probe": "tls_timeout"},
+          "confidence": 0.92,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-12"
+        },
+        {
+          "source_name": "City of Miami Beach Parking Facilities WPGMZA",
+          "source_id": "wpgmza:miamibeachfl.gov:map_id=17",
+          "source_url": "https://www.miamibeachfl.gov/city-hall/parking/parking-garages-lot-locations/",
+          "api_url": "https://www.miamibeachfl.gov/wp-json/wpgmza/v1/markers?map_id=17",
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/miami.fl.json", "local_fixture_count": 74, "contains": ["rates", "spaces", "ParkMobile zones", "EV notes"]},
+          "confidence": 0.9,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-12"
+        },
+        {
+          "source_name": "Miami-Dade County Parking Facilities",
+          "source_id": "html:miamidade.gov:parking-facilities",
+          "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1478201414291250",
+          "api_url": null,
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"manifest": "data/research/cities/miami.fl.json", "ingestion_status": "seed_fixture", "field_mapping": ["facility heading", "listed facility address", "rate text"]},
+          "confidence": 0.9,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-11"
+        },
+        {
+          "source_name": "OSM/Geofabrik Florida PBF baseline for Miami-Dade",
+          "source_id": "osm:geofabrik:florida-latest.osm.pbf:miami-dade-boundary",
+          "source_url": "https://download.geofabrik.de/north-america/us/florida.html",
+          "api_url": null,
+          "payment_url": null,
+          "booking_url": null,
+          "raw_properties": {"project_doc": "docs/PROJECT_OVERVIEW_RU.md", "db_baseline_counts": {"facility_entrance_points": 1425, "parking_lines": 185, "parking_polygons": 6821}, "license": "ODbL attribution required"},
+          "confidence": 0.72,
+          "last_verified_at": "2026-07-03",
+          "data_as_of": "2026-06-13"
+        }
+      ]
+    }
+  ],
+  "next_steps": [
+    {
+      "priority": 1,
+      "owner": "OpenParking data-инженер",
+      "action": "Run/re-run a bounded Socrata dry-run for San Francisco and Los Angeles with source-specific manifests when network/API access is available; preserve source_name/source_id/source_url/api_url/raw_properties/confidence/last_verified_at/data_as_of."
+    },
+    {
+      "priority": 2,
+      "owner": "OpenParking data-инженер",
+      "action": "If selecting net-new expansion, create a LA-focused dry-run/import task for LADOT inventory + occupancy join on spaceid; keep garages/lots as OSM/operator/manual follow-up."
+    },
+    {
+      "priority": 3,
+      "owner": "OpenParking data-инженер + QA/field reviewer",
+      "action": "Create browser/manual evidence backlog for Miami MPA commerce, City of Miami proper street meters, and operator/payment direct-checkout classification before promoting payment_url or booking_url."
+    },
+    {
+      "priority": 4,
+      "owner": "OpenParking data-инженер",
+      "action": "Treat NYC as a separate rule-parser track with golden sign cases and rate-zone join; do not mark sign-derived rules authoritative until parser confidence is tested."
+    }
+  ]
+}

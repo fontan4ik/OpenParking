@@ -1,0 +1,265 @@
+{
+  "schema_version": "dev51.payment_rate_model_fixture.v1",
+  "generated_at": "2026-07-03T00:00:00.000Z",
+  "purpose": "Fixture proposal for DEV-51 payment zones, payment methods, and structured garage tariffs. These records are proposal/evidence fixtures; they are not direct import authorization.",
+  "quality_contract": {
+    "required_provenance_fields": [
+      "source_name",
+      "source_id",
+      "source_url",
+      "api_url",
+      "payment_url",
+      "booking_url",
+      "raw_properties",
+      "confidence",
+      "last_verified_at",
+      "data_as_of"
+    ],
+    "promotion_rule": "Provider/zone evidence can populate payment options, but payment_url/booking_url remain null unless a direct stable checkout/reservation link is verified and legally usable.",
+    "legal_rule": "Operator/payment pages and marketplace pages remain medium_terms_review unless official/partner/API terms allow ingestion."
+  },
+  "fixtures": [
+    {
+      "fixture_id": "dev51:south-beach:paybyphone-zone:40208",
+      "fixture_class": "payment_zone_only",
+      "entity_type": "parking_payment_option",
+      "target": {
+        "target_type": "curb_segment_or_payment_zone",
+        "parkingusa_layer": "payment_zone",
+        "city": "Miami Beach",
+        "state": "FL",
+        "display_area": "South Beach",
+        "target_source_name": null,
+        "target_source_id": null
+      },
+      "source_name": "DEV-51 requested South Beach PayByPhone/ParkMobile zone example",
+      "source_id": "dev51:south-beach:zone-location-id:40208",
+      "source_url": "https://www.miamibeachfl.gov/city-hall/parking/mobile-apps/",
+      "api_url": null,
+      "payment_url": null,
+      "booking_url": null,
+      "evidence_url": "https://www.miamibeachfl.gov/city-hall/parking/mobile-apps/",
+      "provider": "paybyphone_or_parkmobile_unverified",
+      "zone_location_id": "40208",
+      "payment_methods": ["app", "web", "text", "call"],
+      "provider_landing_url": "https://www2.paybyphone.com/park-in-miami-beach",
+      "display_instructions": "Use as a shape fixture only. Verify exact provider, geographic boundary, rates, and allowed methods before import/promotion.",
+      "confidence": 0.45,
+      "legal_risk": "medium_terms_review",
+      "last_verified_at": "2026-07-03T00:00:00.000Z",
+      "data_as_of": null,
+      "raw_properties": {
+        "requested_example_zone_location_id": "40208",
+        "requested_issue": "DEV-51",
+        "evidence_note": "Issue requested zone_location_id example 40208. Official Miami Beach page confirms mobile-app payment support, but this fixture does not verify that 40208 maps to South Beach or to a specific provider.",
+        "authoritative_status": "not_authoritative_until_provider_observation"
+      },
+      "upsert_key_proposal": {
+        "model": "ParkingPaymentOption",
+        "unique": "provider_zoneLocationId_sourceName_sourceId",
+        "provider": "paybyphone_or_parkmobile_unverified",
+        "zoneLocationId": "40208",
+        "sourceName": "DEV-51 requested South Beach PayByPhone/ParkMobile zone example",
+        "sourceId": "dev51:south-beach:zone-location-id:40208"
+      }
+    },
+    {
+      "fixture_id": "dev51:miami-beach:g1:parkmobile:88001",
+      "fixture_class": "official_city_garage_tariff",
+      "entity_type": "facility_rate_and_payment",
+      "target": {
+        "target_type": "ParkingFacility",
+        "parkingusa_layer": "facility",
+        "target_source_name": "City of Miami Beach Parking GIS FeatureServer",
+        "target_source_id": "miami-beach:arcgis:lot:1",
+        "name": "G1",
+        "street": "200 7th St",
+        "city": "Miami Beach",
+        "state": "FL"
+      },
+      "source_name": "City of Miami Beach Parking GIS FeatureServer",
+      "source_id": "miami-beach:arcgis:lot:1:rate-payment:v1",
+      "source_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer",
+      "api_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer/5/query",
+      "payment_url": null,
+      "booking_url": null,
+      "evidence_url": "data/miami_beach_parking_arcgis_facilities.geojson#miami-beach:arcgis:lot:1",
+      "confidence": 0.9,
+      "legal_risk": "low_verify_license",
+      "last_verified_at": "2026-07-03T00:00:00.000Z",
+      "data_as_of": null,
+      "payment_options": [
+        {
+          "provider": "parkmobile",
+          "zone_location_id": "88001",
+          "payment_methods": ["app", "call"],
+          "provider_landing_url": "https://parkmobile.io/",
+          "payment_url": null,
+          "confidence": 0.9,
+          "display_instructions": "Official GIS carries ParkMobile zone 88001. Do not infer a direct checkout URL until provider deep-link is verified."
+        }
+      ],
+      "rate_plans": [
+        {
+          "rate_plan_type": "garage_public",
+          "currency": "USD",
+          "summary_text": "0-4hrs $2/hr; 4-15hrs $8+$1/hr; 15-24hrs $20",
+          "price_status": "known_priced",
+          "rules": [
+            {
+              "rule_kind": "hourly_bracket",
+              "duration_start_minutes": 0,
+              "duration_end_minutes": 240,
+              "amount_cents": 200,
+              "unit": "hour",
+              "raw_text": "0-4hrs $2/hr"
+            },
+            {
+              "rule_kind": "hourly_bracket_with_base",
+              "duration_start_minutes": 240,
+              "duration_end_minutes": 900,
+              "base_amount_cents": 800,
+              "amount_cents": 100,
+              "unit": "hour",
+              "raw_text": "4-15hrs $8+$1/hr"
+            },
+            {
+              "rule_kind": "flat_daily",
+              "duration_start_minutes": 900,
+              "duration_end_minutes": 1440,
+              "amount_cents": 2000,
+              "unit": "day",
+              "raw_text": "15-24hrs $20"
+            },
+            {
+              "rule_kind": "event",
+              "amount_cents": 1500,
+              "unit": "vehicle",
+              "days_of_week": ["fri", "sat", "sun"],
+              "start_time": "20:00",
+              "end_time": "05:00",
+              "raw_text": "$15/vehicle Fri, Sat & Sun 8PM-5AM"
+            }
+          ]
+        }
+      ],
+      "raw_properties": {
+        "SPACES": 659,
+        "Address": "200 7th St",
+        "OBJECTID": 1,
+        "NAME": "G1",
+        "HOURLY_RATE": "0-4hrs $2/hr; 4-15hrs $8+$1/hr; 15-24hrs $20",
+        "MAX_TYME": "No Limit",
+        "SUBTYPE": "Garage",
+        "EVENT_RATE": "$15/vehicle Fri, Sat & Sun 8PM-5AM ",
+        "ParkMobile": "88001"
+      },
+      "upsert_key_proposal": {
+        "model": "ParkingRatePlan",
+        "unique": "targetSourceName_targetSourceId_sourceName_sourceId_ratePlanType",
+        "targetSourceName": "City of Miami Beach Parking GIS FeatureServer",
+        "targetSourceId": "miami-beach:arcgis:lot:1",
+        "sourceName": "City of Miami Beach Parking GIS FeatureServer",
+        "sourceId": "miami-beach:arcgis:lot:1:rate-payment:v1",
+        "ratePlanType": "garage_public"
+      }
+    },
+    {
+      "fixture_id": "dev51:nyc:dock-1540-broadway:dynamic-tariff",
+      "fixture_class": "operator_dynamic_garage_tariff",
+      "entity_type": "source_observation_rate_quote",
+      "target": {
+        "target_type": "ParkingFacility",
+        "parkingusa_layer": "facility",
+        "target_source_name": null,
+        "target_source_id": null,
+        "name": "Dock Parking - 1540 Broadway Garage LLC",
+        "street": "164 West 46th Street",
+        "city": "New York",
+        "state": "NY"
+      },
+      "source_name": "ParkMobile / Dock / ParkWhiz public pages",
+      "source_id": "dev51:nyc:dock-1540-broadway:public-search-evidence",
+      "source_url": "https://parkmobile.io/parking/locations/ny/new-york-city-parking/parking-lot/dock-parking-1540-broadway-garage-llc",
+      "api_url": null,
+      "payment_url": null,
+      "booking_url": null,
+      "evidence_url": "https://poweredbydock.com/search?lat=40.7581391&lng=-73.98440269999999&search_text=164%20West%2046th%20Street%2C%20New%20York%2C%20NY%2C%20USA?vendor=here",
+      "confidence": 0.65,
+      "legal_risk": "medium_terms_review",
+      "last_verified_at": "2026-07-03T00:00:00.000Z",
+      "data_as_of": null,
+      "payment_options": [
+        {
+          "provider": "parkmobile",
+          "zone_location_id": null,
+          "payment_methods": ["app", "web"],
+          "provider_landing_url": "https://parkmobile.io/parking/locations/ny/new-york-city-parking/parking-lot/dock-parking-1540-broadway-garage-llc",
+          "payment_url": null,
+          "booking_url": null,
+          "confidence": 0.65,
+          "display_instructions": "ParkMobile page was discovered but blocked direct extraction with CloudFront 403 in this environment; keep as observation until browser/network evidence is captured."
+        }
+      ],
+      "rate_plans": [
+        {
+          "rate_plan_type": "reservation_quote",
+          "currency": "USD",
+          "summary_text": "Public search snippets report prices from $30; dynamic quote requires browser evidence.",
+          "price_status": "variable",
+          "rules": [
+            {
+              "rule_kind": "flat_daily_or_reservation_quote",
+              "amount_cents": 3000,
+              "unit": "session",
+              "raw_text": "prices from $30",
+              "confidence": 0.55
+            },
+            {
+              "rule_kind": "fee",
+              "fee_type": "oversize",
+              "amount_cents": null,
+              "unit": "session",
+              "raw_text": "Oversize fee reported by marketplace snippets; amount must be verified on source page or browser quote.",
+              "confidence": 0.45
+            },
+            {
+              "rule_kind": "restriction",
+              "restriction_type": "no_reentry",
+              "reentry_allowed": null,
+              "raw_text": "No re-entry requested in DEV-51 scope; not verified for this facility in current evidence.",
+              "confidence": 0.25
+            },
+            {
+              "rule_kind": "fee_placeholder",
+              "fee_type": "taxes_and_service_fees",
+              "amount_cents": null,
+              "unit": "session",
+              "raw_text": "Taxes/fees should be captured from checkout payment summary, not inferred from snippets.",
+              "confidence": 0.25
+            },
+            {
+              "rule_kind": "modifier_placeholder",
+              "applies_to": ["early_bird", "luxury", "exotic", "bicycle", "monthly"],
+              "raw_text": "Model must support these categories; no authoritative amount captured in current evidence.",
+              "confidence": 0.2
+            }
+          ]
+        }
+      ],
+      "raw_properties": {
+        "parkmobile_search_result_claim": "Dock Parking - 1540 Broadway Garage LLC in New York City offers EV charging, 24/7 access, valet service, prices from $30.",
+        "dock_search_result_claim": "dock @ 1540 Broadway, 164 West 46th Street, New York, NY, listed with $30 price in public search result.",
+        "browser_fetch_status": "ParkMobile direct page returned CloudFront 403 to automated fetch/browser in this environment; Dock search shell loaded but dynamic content was not visible in static HTML.",
+        "authoritative_status": "pending_browser_network_evidence_and_terms_review"
+      },
+      "upsert_key_proposal": {
+        "model": "SourceObservation",
+        "unique": "sourceName_sourceId_entityType",
+        "sourceName": "ParkMobile / Dock / ParkWhiz public pages",
+        "sourceId": "dev51:nyc:dock-1540-broadway:public-search-evidence",
+        "entityType": "rate_quote_observation"
+      }
+    }
+  ]
+}

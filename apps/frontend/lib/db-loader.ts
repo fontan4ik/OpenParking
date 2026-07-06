@@ -20,6 +20,9 @@ interface BaseDbRow {
   geojson: unknown;
   rawProperties: unknown;
   confidence: number | null;
+  sourceConfidence?: number | null;
+  offerConfidence?: number | null;
+  displayConfidence?: number | null;
   lastVerifiedAt?: DateLike;
   dataAsOf?: DateLike;
   sourceUrl?: string | null;
@@ -110,6 +113,17 @@ function firstString(...values: unknown[]) {
   return values.find((value): value is string => typeof value === 'string' && value.trim().length > 0);
 }
 
+function firstNumber(...values: unknown[]) {
+  for (const value of values) {
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+    if (typeof value === 'string' && value.trim()) {
+      const parsed = Number(value);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+  }
+  return null;
+}
+
 function safeRowUrl(rowValue: string | null | undefined, rawProperties: unknown, snakeKey: string, camelKey: string) {
   return safeUrl(firstString(rowValue, rawString(rawProperties, snakeKey), rawString(rawProperties, camelKey)) ?? '');
 }
@@ -151,12 +165,18 @@ const ENRICHMENT_STATUSES = new Set<EnrichmentStatus>([
 
 function provenanceProperties(row: BaseDbRow, baseProperties: Record<string, unknown>) {
   const rawProperties = rawObject(row.rawProperties);
+  const sourceConfidence = firstNumber(row.sourceConfidence, rawProperties.source_confidence, rawProperties.sourceConfidence, row.confidence);
+  const offerConfidence = firstNumber(row.offerConfidence, rawProperties.offer_confidence, rawProperties.offerConfidence, row.displayConfidence, rawProperties.display_confidence, rawProperties.displayConfidence, row.confidence);
+  const displayConfidence = firstNumber(row.displayConfidence, rawProperties.display_confidence, rawProperties.displayConfidence, offerConfidence, row.confidence);
   const properties = {
     ...baseProperties,
     source_id: row.sourceId,
     source_name: row.sourceName,
     existence_status: normalizeExistenceStatus(rawProperties.existence_status),
-    confidence: row.confidence,
+    confidence: displayConfidence ?? row.confidence,
+    source_confidence: sourceConfidence,
+    offer_confidence: offerConfidence,
+    display_confidence: displayConfidence,
     last_verified_source: row.sourceName,
     last_verified_at: isoDate(row.lastVerifiedAt),
     data_as_of: isoDate(row.dataAsOf),

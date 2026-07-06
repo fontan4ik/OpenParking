@@ -10,6 +10,14 @@ const MIAMI_BEACH_PAYMENT_PROVIDER = 'ParkMobile / PayByPhone';
 const MIAMI_BEACH_PAYMENT_APP_URL = 'https://www2.paybyphone.com/park-in-miami-beach';
 const MIAMI_BEACH_PAYMENT_NOTE =
   'Official Miami Beach source lists ParkMobile zones and PayByPhone/ParkMobile app support; ParkingUSA does not infer a per-record checkout URL.';
+const MIAMI_BEACH_FIELD_EVIDENCE_SOURCE_ID = 'dev-47:field-feedback:south-beach:valet-dropoff-no-ordinary-parking';
+const MIAMI_BEACH_FIELD_PAYMENT_ZONE_ID = '40208';
+const LOT_SOURCE_CONFIDENCE = 0.92;
+const LOT_OFFER_CONFIDENCE = 0.86;
+const METER_SOURCE_CONFIDENCE = 0.9;
+const METER_OFFER_CONFIDENCE = 0.5;
+const REGULATORY_ZONE_SOURCE_CONFIDENCE = 0.9;
+const REGULATORY_ZONE_OFFER_CONFIDENCE = 0.35;
 
 const MIAMI_BEACH_RESIDENTIAL_ZONE_NAMES: Record<number, string> = {
   0: 'Unknown',
@@ -87,6 +95,7 @@ export interface MiamiBeachArcgisLayerInput {
 export interface MiamiBeachArcgisCanonicalSet {
   facilities: Prisma.ParkingFacilityUncheckedCreateInput[];
   zones: Prisma.ParkingZoneUncheckedCreateInput[];
+  observations: Prisma.SourceObservationUncheckedCreateInput[];
   inputFeaturesSeen: number;
   canonicalRowsPlanned: number;
   skipped: {
@@ -108,6 +117,7 @@ export interface CanonicalImportResult {
   imported: {
     parkingFacilities: number;
     parkingZones: number;
+    sourceObservations: number;
   };
   skipped: MiamiBeachArcgisCanonicalSet['skipped'];
 }
@@ -284,7 +294,10 @@ function mapLotFacility(
     ...paymentEvidence(parkmobileZone),
     ev_charging: text(properties.EV_CS),
     amenities: text(properties.AMENITIES),
-    confidence: 0.92,
+    source_confidence: LOT_SOURCE_CONFIDENCE,
+    offer_confidence: LOT_OFFER_CONFIDENCE,
+    display_confidence: LOT_OFFER_CONFIDENCE,
+    confidence: LOT_OFFER_CONFIDENCE,
     source_url: source.sourceUrl ?? MIAMI_BEACH_ARCGIS_SOURCE_PAGE,
     api_url: apiUrl,
     evidence_url: apiUrl,
@@ -322,7 +335,10 @@ function mapLotFacility(
     meterType: null,
     capColor: null,
     rawProperties: json(publicProperties),
-    confidence: 0.92,
+    confidence: LOT_OFFER_CONFIDENCE,
+    sourceConfidence: LOT_SOURCE_CONFIDENCE,
+    offerConfidence: LOT_OFFER_CONFIDENCE,
+    displayConfidence: LOT_OFFER_CONFIDENCE,
     lastVerifiedAt: verifiedAt,
     dataAsOf: null,
     geometryQuality: 'derived_centroid_from_official_polygon',
@@ -369,7 +385,12 @@ function mapMeterFacility(
     ...paymentEvidence(parkmobileZone),
     meter_number: numberLabel,
     meter_status: status,
-    confidence: 0.9,
+    source_confidence: METER_SOURCE_CONFIDENCE,
+    offer_confidence: METER_OFFER_CONFIDENCE,
+    display_confidence: METER_OFFER_CONFIDENCE,
+    confidence: METER_OFFER_CONFIDENCE,
+    ordinary_parking_status: 'payment_equipment_evidence_only',
+    availability_semantics: 'meter_or_payment_equipment_evidence_not_standalone_stall_offer',
     source_url: source.sourceUrl ?? MIAMI_BEACH_ARCGIS_SOURCE_PAGE,
     api_url: apiUrl,
     evidence_url: apiUrl,
@@ -406,7 +427,10 @@ function mapMeterFacility(
     meterType: null,
     capColor: null,
     rawProperties: json(publicProperties),
-    confidence: 0.9,
+    confidence: METER_OFFER_CONFIDENCE,
+    sourceConfidence: METER_SOURCE_CONFIDENCE,
+    offerConfidence: METER_OFFER_CONFIDENCE,
+    displayConfidence: METER_OFFER_CONFIDENCE,
     lastVerifiedAt: verifiedAt,
     dataAsOf: null,
     geometryQuality: 'official_point',
@@ -440,6 +464,8 @@ function mapZone(
   const zoneSemantics = isLot ? {} : residentialZoneSemantics(properties);
   const zoneName = 'zone_name' in zoneSemantics ? text(zoneSemantics.zone_name) : '';
   const zoneType = isLot ? facilityType(properties) : 'residential_parking_zone';
+  const sourceConfidence = isLot ? LOT_SOURCE_CONFIDENCE : REGULATORY_ZONE_SOURCE_CONFIDENCE;
+  const offerConfidence = isLot ? LOT_OFFER_CONFIDENCE : REGULATORY_ZONE_OFFER_CONFIDENCE;
   const publicProperties = normalizedProperties(properties, {
     source_id: zoneSourceId(layer.key, id),
     source_name: source.sourceName,
@@ -457,7 +483,13 @@ function mapZone(
     parkmobile_zone: parkmobileZone,
     ...paymentEvidence(parkmobileZone),
     ...zoneSemantics,
-    confidence: 0.9,
+    source_confidence: sourceConfidence,
+    offer_confidence: offerConfidence,
+    display_confidence: offerConfidence,
+    confidence: offerConfidence,
+    ordinary_parking_status: isLot ? 'ordinary_public_parking_offer' : 'not_ordinary_parking_offer',
+    availability_semantics: isLot ? 'physical_lot_or_garage_offer' : 'regulatory_or_residential_rule_evidence_only',
+    field_conflict_status: isLot ? '' : 'not_applicable_regulatory_overlay',
     source_url: source.sourceUrl ?? MIAMI_BEACH_ARCGIS_SOURCE_PAGE,
     api_url: layer.apiUrl,
     evidence_url: layer.apiUrl,
@@ -486,7 +518,10 @@ function mapZone(
     website: null,
     geojson: json(feature.geometry),
     rawProperties: json(publicProperties),
-    confidence: 0.9,
+    confidence: offerConfidence,
+    sourceConfidence,
+    offerConfidence,
+    displayConfidence: offerConfidence,
     lastVerifiedAt: verifiedAt,
     dataAsOf: null,
     geometryQuality: 'official_polygon',
@@ -503,6 +538,56 @@ function mapZone(
 
 function isCanonicalZoneLayer(layer: MiamiBeachArcgisLayerInput): layer is CanonicalZoneLayerInput {
   return layer.key === 'lots' || layer.key === 'zones';
+}
+
+export function miamiBeachSouthBeachFieldObservations(
+  sourceName = MIAMI_BEACH_ARCGIS_SOURCE_NAME,
+  observedAt = new Date(),
+): Prisma.SourceObservationUncheckedCreateInput[] {
+  const sourceUrl = 'data/research/field-audits/dev-49-south-beach-false-positive-audit.json';
+  return [
+    {
+      sourceName,
+      sourceId: MIAMI_BEACH_FIELD_EVIDENCE_SOURCE_ID,
+      entityType: 'field_conflict_observation',
+      entitySourceId: null,
+      observedAt,
+      rawProperties: json({
+        source_url: sourceUrl,
+        data_as_of: '2026-07-03',
+        area: 'South Beach / Ocean Drive / Collins / Lincoln / 13th / 16th',
+        bboxes_wgs84: {
+          south_beach_core: [-80.1375, 25.78, -80.126, 25.7935],
+          ocean_drive_13_16: [-80.1325, 25.782, -80.128, 25.7905],
+          lincoln_collins: [-80.1355, 25.787, -80.128, 25.7935],
+        },
+        observed_problem: 'valet-only, drop-off, no ordinary parking, or no clear spaces where generated curb/payment/regulatory layers showed candidates',
+        affected_semantics: ['generated_curb_rows', 'regulatory_zone_overlays', 'meter_payment_equipment_points'],
+        recommended_status: 'needs_field_review_or_conflict_before_default_public_offer',
+      }),
+      status: 'conflict_evidence',
+      confidence: 0.75,
+      notes: 'DEV-49/DEV-47 user field evidence: cap generated curb and regulatory/payment offer confidence until road-side snapping and conflict checks pass.',
+    },
+    {
+      sourceName,
+      sourceId: 'dev-47:field-feedback:south-beach:zone-location-id:40208',
+      entityType: 'payment_zone_observation',
+      entitySourceId: null,
+      observedAt,
+      rawProperties: json({
+        source_url: sourceUrl,
+        data_as_of: '2026-07-03',
+        payment_provider: MIAMI_BEACH_PAYMENT_PROVIDER,
+        zone_location_id: MIAMI_BEACH_FIELD_PAYMENT_ZONE_ID,
+        evidence_claim: 'Field photo confirms PayByPhone/ParkMobile ZONE / LOCATION #40208 in the South Beach corridor.',
+        availability_semantics: 'payment evidence only; not proof of ordinary public parking availability',
+      }),
+      status: 'payment_evidence_needs_join',
+      confidence: 0.75,
+      notes: 'Preserve requested zone/location 40208 as SourceObservation evidence; do not promote to canonical payment_url or ordinary parking offer without provider/location join.',
+    },
+  ];
 }
 
 export function normalizeMiamiBeachArcgisCanonical(
@@ -555,6 +640,7 @@ export function normalizeMiamiBeachArcgisCanonical(
   return {
     facilities,
     zones,
+    observations: miamiBeachSouthBeachFieldObservations(source.sourceName, verifiedAt),
     inputFeaturesSeen,
     canonicalRowsPlanned: facilities.length + zones.length,
     skipped,
@@ -662,6 +748,41 @@ async function upsertZones(prisma: PrismaClient, rows: Prisma.ParkingZoneUncheck
   return { inserted, updated };
 }
 
+async function upsertSourceObservations(prisma: PrismaClient, rows: Prisma.SourceObservationUncheckedCreateInput[]) {
+  let inserted = 0;
+  let updated = 0;
+  const existing = await Promise.all(
+    rows.map((row) => prisma.sourceObservation.findUnique({
+      where: {
+        sourceName_sourceId_entityType: {
+          sourceName: row.sourceName,
+          sourceId: row.sourceId,
+          entityType: row.entityType,
+        },
+      },
+      select: { id: true },
+    })),
+  );
+
+  await prisma.$transaction(
+    rows.map((row) => prisma.sourceObservation.upsert({
+      where: {
+        sourceName_sourceId_entityType: {
+          sourceName: row.sourceName,
+          sourceId: row.sourceId,
+          entityType: row.entityType,
+        },
+      },
+      update: row,
+      create: row,
+    })),
+  );
+
+  updated += existing.filter(Boolean).length;
+  inserted += existing.filter((row) => !row).length;
+  return { inserted, updated };
+}
+
 export async function persistMiamiBeachArcgisCanonical(
   prisma: PrismaClient,
   source: ConnectorSourceConfig,
@@ -682,6 +803,7 @@ export async function persistMiamiBeachArcgisCanonical(
         planned: {
           parkingFacilities: canonical.facilities.length,
           parkingZones: canonical.zones.length,
+          sourceObservations: canonical.observations.length,
           canonicalRows: canonical.canonicalRowsPlanned,
         },
         skipped: canonical.skipped,
@@ -694,18 +816,20 @@ export async function persistMiamiBeachArcgisCanonical(
     await upsertDataSource(prisma, source);
     const facilityCounts = await upsertFacilities(prisma, canonical.facilities);
     const zoneCounts = await upsertZones(prisma, canonical.zones);
+    const observationCounts = await upsertSourceObservations(prisma, canonical.observations);
     const result: CanonicalImportResult = {
       mode: 'miami_beach_arcgis_canonical',
       sourceName: source.sourceName,
       sourceKey: source.sourceKey,
       recordsSeen,
-      recordsInserted: facilityCounts.inserted + zoneCounts.inserted,
-      recordsUpdated: facilityCounts.updated + zoneCounts.updated,
+      recordsInserted: facilityCounts.inserted + zoneCounts.inserted + observationCounts.inserted,
+      recordsUpdated: facilityCounts.updated + zoneCounts.updated + observationCounts.updated,
       recordsSkipped: canonical.skipped.nonCanonicalSpaces + canonical.skipped.invalidFacilities + canonical.skipped.nullGeometryZones,
       recordsErrorCount,
       imported: {
         parkingFacilities: canonical.facilities.length,
         parkingZones: canonical.zones.length,
+        sourceObservations: canonical.observations.length,
       },
       skipped: canonical.skipped,
     };
@@ -739,6 +863,7 @@ export async function persistMiamiBeachArcgisCanonical(
           planned: {
             parkingFacilities: canonical.facilities.length,
             parkingZones: canonical.zones.length,
+            sourceObservations: canonical.observations.length,
             canonicalRows: canonical.canonicalRowsPlanned,
           },
           skipped: canonical.skipped,

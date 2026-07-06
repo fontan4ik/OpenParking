@@ -11,6 +11,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { useLanguage } from '@/components/LanguageProvider';
 import { safeUrl } from '@/lib/data-quality';
 import { cityNameKey, type TranslationKey } from '@/lib/i18n';
+import { splitParkingSegments } from '@/lib/map-segment-classification';
 import { priceTextOrFallback } from '@/lib/price-utils';
 import type { RouteCoordinate } from '@/lib/routing';
 import { CITIES } from '@/lib/types';
@@ -359,6 +360,7 @@ export default function ParkingMap({
     map.on('load', () => {
       map.addSource('zones', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('segments', { type: 'geojson', data: EMPTY_COLLECTION });
+      map.addSource('reference-segments', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('facilities', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('parkingusa-route-source', {
         type: 'geojson',
@@ -461,6 +463,35 @@ export default function ParkingMap({
       });
 
       map.addLayer({
+        id: 'reference-segments-line',
+        type: 'line',
+        source: 'reference-segments',
+        layout: {
+          'line-cap': 'round',
+          'line-join': 'round',
+          visibility: 'none',
+        },
+        paint: {
+          'line-color': '#f59e0b',
+          'line-width': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            10,
+            0.8,
+            14,
+            1.4,
+            17,
+            2.2,
+            19,
+            3,
+          ],
+          'line-opacity': 0.46,
+          'line-dasharray': [1.4, 1.8],
+        },
+      });
+
+      map.addLayer({
         id: 'facilities-circle',
         type: 'circle',
         source: 'facilities',
@@ -554,7 +585,7 @@ export default function ParkingMap({
         onMapPointPickRef.current?.({ lat: event.lngLat.lat, lon: event.lngLat.lng });
       });
 
-      const clickableLayers = ['facilities-circle', 'zones-fill', 'segments-line'];
+      const clickableLayers = ['facilities-circle', 'zones-fill', 'segments-line', 'reference-segments-line'];
       clickableLayers.forEach((layerId) => {
         map.on('mouseenter', layerId, () => {
           map.getCanvas().style.cursor = 'pointer';
@@ -634,34 +665,40 @@ export default function ParkingMap({
     return parkingAreaZonesOnly(filteredZones);
   }, [displayMode, filteredZones]);
 
-  const visibleSegments = useMemo(() => {
+  const filteredSegments = useMemo(() => {
     if (!hasCityData) return EMPTY_COLLECTION;
     return filterCollection(segments, '', '', sourceFilter, confidenceFilter, '');
   }, [confidenceFilter, hasCityData, segments, sourceFilter]);
+
+  const splitSegments = useMemo(() => splitParkingSegments(filteredSegments), [filteredSegments]);
+  const visibleSegments = splitSegments.ordinary;
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !isReady) return;
 
     (map.getSource('facilities') as GeoJSONSource).setData(filteredFacilities);
-    (map.getSource('segments') as GeoJSONSource).setData(visibleSegments);
+    (map.getSource('segments') as GeoJSONSource).setData(splitSegments.ordinary);
+    (map.getSource('reference-segments') as GeoJSONSource).setData(splitSegments.reference);
     (map.getSource('zones') as GeoJSONSource).setData(visibleZones);
-  }, [filteredFacilities, isReady, visibleSegments, visibleZones]);
+  }, [filteredFacilities, isReady, splitSegments, visibleZones]);
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !isReady) return;
 
     const showSegments = displayMode === 'all' || displayMode === 'segments' || displayMode === 'both';
+    const showReferenceSegments = showSegments && (displayMode === 'segments' || confidenceFilter === 'review');
     const showZones = displayMode === 'all' || displayMode === 'both' || displayMode === 'zones';
     const showPoints = displayMode === 'all' || displayMode === 'points' || displayMode === 'both';
 
     setVisibility(map, 'segments-line', showSegments);
     setVisibility(map, 'segments-line-casing', showSegments);
+    setVisibility(map, 'reference-segments-line', showReferenceSegments);
     setVisibility(map, 'zones-fill', showZones);
     setVisibility(map, 'zones-outline', showZones);
     setVisibility(map, 'facilities-circle', showPoints);
-  }, [displayMode, isReady]);
+  }, [confidenceFilter, displayMode, isReady]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -739,7 +776,18 @@ export default function ParkingMap({
       <div className="layer-toggles">
         <div className={`layer-toggle ${displayMode === 'all' || displayMode === 'segments' || displayMode === 'both' ? 'active' : ''}`}>
           <span className="layer-dot" style={{ background: 'var(--accent-emerald)' }} />
-          {formatNumber(visibleSegments.features.length)} {t('map.curbs')}
+          {formatNumber(splitSegments.ordinary.features.length)} {t('map.curbs')}
+        </div>
+        <div
+          className={`layer-toggle layer-toggle-reference ${displayMode === 'segments' ? 'active' : 'muted'}`}
+          title={localText(
+            t,
+            'Reference/low-confidence regulatory evidence is hidden in the default view and shown dashed only in curb-only mode.',
+            'Справочные/низкоуверенные regulatory evidence скрыты в обычном виде и показываются пунктиром только в режиме бордюров.'
+          )}
+        >
+          <span className="layer-dot layer-dot-dashed" style={{ background: 'var(--accent-amber)' }} />
+          {formatNumber(splitSegments.reference.features.length)} {localText(t, 'reference/review', 'справочные/проверка')}
         </div>
         <div className={`layer-toggle ${displayMode === 'all' || displayMode === 'both' || displayMode === 'zones' ? 'active' : ''}`}>
           <span className="layer-dot" style={{ background: 'var(--accent-blue)' }} />

@@ -22,6 +22,18 @@ Build before considering app changes done:
 npm run build
 ```
 
+QA/DevOps baseline before handing off app/shared TypeScript changes:
+
+```powershell
+npm install
+npm run db:generate
+npm run typecheck
+npm test
+npm run build
+```
+
+See `docs/QA_DEVOPS_BASELINE_RUNBOOK.md` for the current Mac mini baseline result, package-lock sync history, PostGIS/Docker notes, temporary process cleanup, and rollback notes.
+
 Routing MVP configuration:
 
 ```powershell

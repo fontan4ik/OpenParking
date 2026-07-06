@@ -368,6 +368,26 @@ html, body {
   box-shadow: var(--shadow-glow-blue);
 }
 
+.data-status-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.45;
+  flex-shrink: 0;
+}
+
+.data-status-panel strong {
+  color: var(--accent-amber);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 /* ── Facility List ── */
 .facility-list {
   flex: 1;
@@ -712,6 +732,22 @@ html, body {
   background: rgba(59, 130, 246, 0.15);
   border-color: var(--accent-blue);
   color: var(--accent-blue);
+}
+
+.layer-toggle-reference.active {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.55);
+  color: var(--accent-amber);
+}
+
+.layer-toggle-reference.muted {
+  opacity: 0.72;
+  border-style: dashed;
+}
+
+.layer-dot-dashed {
+  border-radius: 2px;
+  box-shadow: 8px 0 0 rgba(245, 158, 11, 0.55);
 }
 
 .layer-dot {

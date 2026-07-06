@@ -208,10 +208,9 @@ Before finishing:
 - For app changes, run `npm run build` unless impossible; for shared TypeScript/library changes, also run `npm test` or focused tests.
 - For backend/Prisma changes, run `npm run db:generate` and an affected dry-run/fixture command when available.
 - For data import changes, verify repeated import behavior and baseline counts unless intentionally changing them.
-- For map changes, verify MapLibre canvas render, layer counters, and detail panel behavior when the dev server is already healthy or can be started quickly.
-- Do not let verification hang on flaky dev-server/browser loops. If a dev server or browser check does not become useful within a short bounded attempt, stop every process you started, record the limitation, and fall back to deterministic checks such as
-pm run build,
-pm test, focused unit tests, HTTP status checks, or code-level root-cause verification.
+- For map/data/UI changes, tests and API checks are not enough: start the local app when possible, open it in a real browser, visually inspect the MapLibre map for the affected city/area, and attach screenshot evidence. If the user supplied screenshots/field examples, visually compare the implemented state against those exact examples before marking the task done.
+- For Miami/South Beach/Ocean Drive/Collins/NYC parking-correctness work, explicitly verify the live map state: canvas render, layer counters, source/confidence/unknown states, detail panel behavior, and whether payment zones/curb rows/valet/no-parking/garage tariffs are visually represented honestly.
+- Do not let verification hang on flaky dev-server/browser loops. If a dev server or browser check does not become useful within a short bounded attempt, stop every process you started, record the limitation, and fall back to deterministic checks such as npm run build, npm test, focused unit tests, HTTP status checks, or code-level root-cause verification; this fallback must be reported as non-visual verification, not as visual QA.
 - Always stop temporary dev/start server processes before finishing unless the user explicitly asked to keep them running.
 - Check whether documentation needs updates under the Documentation Source of Truth rules above.
 

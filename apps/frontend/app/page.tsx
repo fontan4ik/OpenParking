@@ -700,6 +700,22 @@ export default function HomePage() {
           ))}
         </div>
 
+        {stats?.data_status && stats.data_status !== 'ready' && (
+          <div className="data-status-panel" role="status">
+            <strong>
+              {stats.data_status === 'unsupported'
+                ? uiText('Unsupported city', 'Город не поддерживается')
+                : uiText('Research-only data', 'Данные только для исследования')}
+            </strong>
+            <span>
+              {stats.support_message || uiText(
+                'No imported ParkingUSA layer is available for this city yet.',
+                'Для этого города пока нет импортированного слоя ParkingUSA.'
+              )}
+            </span>
+          </div>
+        )}
+
         {/* Filters */}
         <div className="filters-section">
           <div className="filter-group">

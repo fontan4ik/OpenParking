@@ -1,0 +1,355 @@
+{
+  "issue": "DEV-49",
+  "title": "South Beach / Ocean Drive false-positive audit",
+  "generated_at": "2026-07-03T12:53:38Z",
+  "audited_local_fixtures_data_as_of": "2026-06-12",
+  "scope": {
+    "description": "Ocean Drive, Collins Ave, Lincoln Road, 13th Street, 16th Street / South Beach corridor",
+    "bboxes_wgs84": {
+      "south_beach_core": [
+        -80.1375,
+        25.78,
+        -80.126,
+        25.7935
+      ],
+      "ocean_drive_13_16": [
+        -80.1325,
+        25.782,
+        -80.128,
+        25.7905
+      ],
+      "lincoln_collins": [
+        -80.1355,
+        25.787,
+        -80.128,
+        25.7935
+      ]
+    }
+  },
+  "user_evidence_summary": {
+    "source": "Paperclip DEV-47 brief, Field feedback: Miami/South Beach + NYC parking correctness",
+    "claims": [
+      "Map shows dense Parking Zones / points / white curb lines around Ocean Court, Collins Ave, 13th Street, Lincoln Road and Ocean Drive.",
+      "User observed valet-only, drop-off, no ordinary parking or no clear spaces in some displayed places.",
+      "Field photo confirms a real mobile-payment sign with PayByPhone/ParkMobile and ZONE / LOCATION #40208; payment zone evidence must be preserved separately from ordinary parking availability."
+    ]
+  },
+  "local_layer_counts_in_scope": {
+    "south_beach_core": {
+      "miami_beach_parking_arcgis_facilities": {
+        "count": 135,
+        "notes": "13 official lot/garage centroids plus 122 meter/pay-station points"
+      },
+      "miami_beach_parking_arcgis_lots_zones": {
+        "count": 112,
+        "notes": "13 actual lot/garage polygons plus 99 regulatory/residential parking-zone polygons"
+      },
+      "miami_beach_parking_arcgis_spaces": {
+        "count": 1765,
+        "notes": "raw official street-space points that the frontend currently groups into curb lines"
+      },
+      "miami_beach_parking_arcgis_meters": {
+        "count": 122,
+        "notes": "official meter/pay-station points"
+      },
+      "miami_parking_osm": {
+        "count": 35,
+        "notes": "candidate OSM points, including entrances/customer/private-like candidates"
+      },
+      "miami_beach_parking_wpgmza": {
+        "count": 12,
+        "notes": "official public garage/lot markers"
+      }
+    },
+    "ocean_drive_13_16": {
+      "miami_beach_parking_arcgis_facilities": {
+        "count": 68,
+        "notes": "4 official lots/garages plus 64 meter points"
+      },
+      "miami_beach_parking_arcgis_lots_zones": {
+        "count": 16,
+        "notes": "4 actual lot/garage polygons plus 12 regulatory/residential polygons"
+      },
+      "miami_beach_parking_arcgis_spaces": {
+        "count": 684,
+        "notes": "raw street-space points, many rendered as curb rows"
+      },
+      "miami_beach_parking_arcgis_meters": {
+        "count": 64,
+        "notes": "meter/pay-station points around Ocean/Collins/13th/16th"
+      },
+      "miami_parking_osm": {
+        "count": 14,
+        "notes": "candidate OSM points; several are entrances or customer-only business parking"
+      },
+      "miami_beach_parking_wpgmza": {
+        "count": 3,
+        "notes": "G3/G4/P16 official facilities"
+      }
+    },
+    "lincoln_collins": {
+      "miami_beach_parking_arcgis_facilities": {
+        "count": 37,
+        "notes": "4 official lots/garages plus 33 meter points"
+      },
+      "miami_beach_parking_arcgis_lots_zones": {
+        "count": 20,
+        "notes": "4 actual lot/garage polygons plus 16 regulatory/residential polygons"
+      },
+      "miami_beach_parking_arcgis_spaces": {
+        "count": 619,
+        "notes": "raw street-space points"
+      },
+      "miami_beach_parking_arcgis_meters": {
+        "count": 33,
+        "notes": "meter/pay-station points"
+      },
+      "miami_parking_osm": {
+        "count": 23,
+        "notes": "candidate OSM points, many entrances/multi-storey duplicates around known garages"
+      },
+      "miami_beach_parking_wpgmza": {
+        "count": 4,
+        "notes": "G4/G5/G9/P29 official facilities"
+      }
+    }
+  },
+  "false_positive_patterns": [
+    {
+      "id": "mb-layer7-regulatory-zone-as-parking-offer",
+      "severity": "high",
+      "source_name": "City of Miami Beach Parking GIS",
+      "source_id_examples": [
+        "miami-beach:arcgis:zones:172",
+        "miami-beach:arcgis:zones:181",
+        "miami-beach:arcgis:zones:386"
+      ],
+      "source_url": "https://www.miamibeachfl.gov/city-hall/parking/",
+      "api_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer/7/query?where=1%3D1&outFields=*&f=geojson&outSR=4326",
+      "payment_url": null,
+      "booking_url": null,
+      "confidence": 0.9,
+      "last_verified_at": "2026-07-03T12:53:38Z",
+      "data_as_of": "2026-06-12",
+      "raw_properties_examples": [
+        {
+          "OBJECTID": 172,
+          "ZONE_": 5,
+          "ZONE_TYPE": 2,
+          "RESTRICTED_RES_TIME": 4,
+          "Shape__Area": 13947.359100279029
+        },
+        {
+          "OBJECTID": 181,
+          "ZONE_": 5,
+          "ZONE_TYPE": 2,
+          "RESTRICTED_RES_TIME": 3,
+          "Shape__Area": 16661.436699145066
+        },
+        {
+          "OBJECTID": 386,
+          "ZONE_": 5,
+          "ZONE_TYPE": 4,
+          "RESTRICTED_RES_TIME": 4,
+          "Shape__Area": 22117.31290144804
+        }
+      ],
+      "why_false_positive": "Layer 7 is named Parking Zones but encodes residential/regulatory rule polygons. Showing it as parking_zone with public access, confidence 90%, and unknown price makes it look like a verified place to park, although it is not a physical stall/lot/garage offer.",
+      "filter_or_downgrade_rule": "Never route FeatureServer layer 7 to ordinary parking offers. Keep it as regulatory_zone / curb_rule_evidence only: price_status=not_applicable, fee=not_applicable, access=regulated_residential_zone, enrichment_status=needs_rules, offer_confidence<=0.35 unless joined to actual layer 1/3 meter/space or field-sign evidence."
+    },
+    {
+      "id": "mb-zone-type-4-off-street-residential-overlap",
+      "severity": "high",
+      "source_name": "City of Miami Beach Parking GIS",
+      "source_id_examples": [
+        "miami-beach:arcgis:zones:175",
+        "miami-beach:arcgis:zones:177",
+        "miami-beach:arcgis:zones:385",
+        "miami-beach:arcgis:zones:386"
+      ],
+      "source_url": "https://www.miamibeachfl.gov/city-hall/parking/",
+      "api_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer/7/query?where=1%3D1&outFields=*&f=geojson&outSR=4326",
+      "payment_url": null,
+      "booking_url": null,
+      "confidence": 0.9,
+      "last_verified_at": "2026-07-03T12:53:38Z",
+      "data_as_of": "2026-06-12",
+      "raw_properties_examples": [
+        {
+          "OBJECTID": 175,
+          "ZONE_": 5,
+          "ZONE_TYPE": 4,
+          "RESTRICTED_RES_TIME": 4
+        },
+        {
+          "OBJECTID": 386,
+          "ZONE_": 5,
+          "ZONE_TYPE": 4,
+          "RESTRICTED_RES_TIME": 4
+        }
+      ],
+      "why_false_positive": "ZONE_TYPE=4 maps to Off-Street Residential Parking. Around 13th/Collins the polygons overlap or shadow official lot/garage footprints such as G3 at 1301 Collins Ave. Rendering both the lot and the zone as user-selectable parking creates duplicate/ambiguous offers.",
+      "filter_or_downgrade_rule": "If layer7 ZONE_TYPE=4 intersects a layer5 official lot/garage polygon or a WPGMZA garage/lot marker within 25m, suppress the layer7 offer and attach it only as rule/provenance evidence to the physical facility."
+    },
+    {
+      "id": "mb-layer3-spaces-grouped-into-continuous-curb-lines",
+      "severity": "high",
+      "source_name": "City of Miami Beach Parking GIS",
+      "source_id_examples": [
+        "miami-beach:arcgis:spaces:429"
+      ],
+      "source_url": "https://www.miamibeachfl.gov/city-hall/parking/",
+      "api_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer/3/query?where=1%3D1&outFields=*&f=geojson&outSR=4326",
+      "payment_url": null,
+      "booking_url": null,
+      "confidence": 0.9,
+      "last_verified_at": "2026-07-03T12:53:38Z",
+      "data_as_of": "2026-06-12",
+      "raw_properties_examples": [
+        {
+          "OBJECTID": 429,
+          "TYPE": "PARKING SPACE",
+          "SPACE_NUMBER": "WA14045",
+          "METER_RATES": "$4/hr",
+          "ENFORCEMENT_TIME": "9am-3am",
+          "MtrCollect": "1X",
+          "ParkMobile": "88501"
+        }
+      ],
+      "why_false_positive": "Layer 3 is useful official space evidence, but the current fallback groups 1,765 core South Beach points / 684 Ocean-13th-16th points into continuous curb rows. Without snapping to exact curb side and without user-evidence conflict checks, these rows can cross valet/drop-off/no-parking segments that the user observed.",
+      "filter_or_downgrade_rule": "Treat layer3 points as individual official evidence, not as verified continuous parking rows. Generated rows get display_confidence<=0.55 and require road-side snapping, max-gap checks, side-of-street assignment, exclusion inside driveways/valet/drop-off/no-parking conflict polygons, and preservation of ParkMobile/PayByPhone zone fields before becoming ordinary public curb parking."
+    },
+    {
+      "id": "mb-layer1-meter-point-as-stall-offer",
+      "severity": "medium",
+      "source_name": "City of Miami Beach Parking GIS",
+      "source_id_examples": [
+        "miami-beach:arcgis:meters:13"
+      ],
+      "source_url": "https://www.miamibeachfl.gov/city-hall/parking/",
+      "api_url": "https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer/1/query?where=1%3D1&outFields=*&f=geojson&outSR=4326",
+      "payment_url": null,
+      "booking_url": null,
+      "confidence": 0.9,
+      "last_verified_at": "2026-07-03T12:53:38Z",
+      "data_as_of": "2026-06-12",
+      "raw_properties_examples": [
+        {
+          "OBJECTID": 13,
+          "NUMBER": "WA16E03",
+          "BRAND": "DPT",
+          "ZONE": "1X",
+          "STATUS": 5
+        }
+      ],
+      "why_false_positive": "A meter/pay-station point confirms payment equipment or collection zone, but not a polygon/line of every legal ordinary parking space around it. Current map density can make these points look like independent guaranteed spots.",
+      "filter_or_downgrade_rule": "Render layer1 as payment/meter evidence or attach to nearest verified space/curb segment. If it is not joined to layer3 spaces or a field sign, cap parking-offer confidence at 0.5 and set existence_status=payment_equipment_evidence."
+    },
+    {
+      "id": "osm-entrance-customer-private-candidates",
+      "severity": "medium",
+      "source_name": "OpenStreetMap Miami Parking",
+      "source_id_examples": [
+        "osm:node:5611595821",
+        "osm:node:5638862629",
+        "osm:node:5629495523",
+        "osm:node:4336461001"
+      ],
+      "source_url": "https://www.openstreetmap.org/",
+      "api_url": "https://overpass-api.de/api/interpreter",
+      "payment_url": null,
+      "booking_url": null,
+      "confidence": 0.55,
+      "last_verified_at": "2026-07-03T12:53:38Z",
+      "data_as_of": "2026-06-11_fetch_attempted",
+      "raw_properties_examples": [
+        {
+          "source_id": "osm:node:5611595821",
+          "name": "Liquor Lounge Cafe",
+          "parking": "yes",
+          "access": "customers"
+        },
+        {
+          "source_id": "osm:node:5638862629",
+          "name": "Crema Gourmet Espresso Bar South Beach",
+          "parking": "yes",
+          "access": "customers"
+        },
+        {
+          "source_id": "osm:node:5629495523",
+          "parking": "parking_entrance",
+          "access": "no"
+        }
+      ],
+      "why_false_positive": "OSM points in the target bboxes include parking entrances, customer-only business parking, access=no points, and low-detail unnamed parking candidates. They are useful coverage hints but not authoritative public parking offers.",
+      "filter_or_downgrade_rule": "For OSM: access in [private,no,customers,delivery,permit] => not ordinary public offer; parking_entrance => entrance/evidence only; unnamed point with missing access/fee/operator => candidate_confidence<=0.45; customer-only/business parking => facility_type=customer_only_parking and hidden from default public-parking layer unless user enables restricted/private candidates."
+    },
+    {
+      "id": "field-evidence-valet-dropoff-conflict",
+      "severity": "high",
+      "source_name": "User field evidence / Paperclip DEV-47 brief",
+      "source_id_examples": [
+        "dev-47:field-feedback:south-beach:valet-dropoff-no-ordinary-parking"
+      ],
+      "source_url": null,
+      "api_url": null,
+      "payment_url": null,
+      "booking_url": null,
+      "confidence": 0.75,
+      "last_verified_at": "2026-07-03T12:53:38Z",
+      "data_as_of": "2026-07-03",
+      "raw_properties_examples": [
+        {
+          "area": "Ocean Drive / Collins / Lincoln / 13th / 16th",
+          "observed_problem": "valet-only, drop-off, no ordinary parking, or no clear spaces where the map shows parking candidates"
+        },
+        {
+          "payment_sign": "PayByPhone + ParkMobile",
+          "zone_location_id": "40208"
+        }
+      ],
+      "why_false_positive": "Official GIS/OSM evidence can be stale or semantically wrong for a driver's immediate question. The user evidence directly conflicts with ordinary-parking display semantics in parts of the corridor.",
+      "filter_or_downgrade_rule": "Add field evidence as SourceObservation with geometry/time/evidence file. Any feature intersecting a verified valet/drop-off/no-ordinary-parking observation should become needs_field_review/conflict, default-hidden or shown with low confidence until confirmed by signage/OCR/manual review. Preserve payment zone/location ids separately from availability."
+    }
+  ],
+  "recommended_default_filtering_rules": [
+    "Default map layer should show only ordinary public offers: official layer5 lots/garages, WPGMZA public garages/lots, and curb segments with actual layer3/confirmed meter-space evidence after conflict checks.",
+    "Regulatory/payment/residential zones must be separate overlays, not selectable parking offers; price_status should be not_applicable unless the source gives actual payment/rate data for the selected physical segment/facility.",
+    "Generated curb lines from point clusters need a lower display_confidence than their source point confidence; expose geometry_provenance and source_space_start_id/source_space_end_id.",
+    "Payment provider evidence such as ParkMobile/PayByPhone zone/location id is not the same as a direct payment_url/booking_url and should not increase ordinary-parking availability confidence by itself.",
+    "OSM coverage candidates remain useful for discovery, but access/restriction tags should decide default visibility before confidence: access=no/private/customers/permit and parking_entrance are not ordinary public parking offers."
+  ],
+  "verification": {
+    "commands": [
+      "date -u +%Y-%m-%dT%H:%M:%SZ",
+      "Python local GeoJSON audit over data/miami_beach_parking_arcgis_*.geojson and data/miami_parking_osm.geojson",
+      "Paperclip GET DEV-49 and parent DEV-47 brief via API"
+    ],
+    "reference_repos": "Referenss/ directory was checked first and is absent in this checkout, so no reference code was reused for this audit artifact."
+  },
+  "dev63_loader_fix": {
+    "implemented_at": "2026-07-03",
+    "summary": "Split source_confidence from driver-facing offer_confidence/display_confidence for Miami Beach ArcGIS regulatory/payment/generated-curb cases.",
+    "confidence_caps": {
+      "miami_beach_arcgis_layer7_regulatory_zones_offer_confidence": 0.35,
+      "miami_beach_arcgis_layer3_generated_curb_rows_display_confidence": 0.55,
+      "miami_beach_arcgis_layer1_meter_payment_equipment_offer_confidence": 0.5
+    },
+    "source_observations": [
+      {
+        "source_id": "dev-47:field-feedback:south-beach:valet-dropoff-no-ordinary-parking",
+        "entity_type": "field_conflict_observation",
+        "status": "conflict_evidence",
+        "availability_semantics": "field conflict evidence; not an ordinary parking offer"
+      },
+      {
+        "source_id": "dev-47:field-feedback:south-beach:zone-location-id:40208",
+        "entity_type": "payment_zone_observation",
+        "status": "payment_evidence_needs_join",
+        "zone_location_id": "40208",
+        "availability_semantics": "payment evidence only; not proof of ordinary public parking availability"
+      }
+    ],
+    "remaining": "Geometry-specific intersection/join from field observations to individual curb segments/facilities remains a follow-up."
+  }
+}

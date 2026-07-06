@@ -48,14 +48,20 @@ const cache = new Map<string, { data: GeoJSONCollection; loadedAt: number }>();
 const CACHE_TTL = 60_000; // 1 minute
 export const DEFAULT_CITY_ID = 'miami';
 
-const CITY_FALLBACKS: Record<string, {
+type CityDataStatus = 'ready' | 'research_fixture' | 'research_only' | 'unsupported';
+
+type CityFallbackConfig = {
   dbCities: string[];
   facilities?: string | string[];
   segments?: string;
   streetSpaces?: string;
   zones?: string;
   coverage?: string | string[];
-}> = {
+  dataStatus: CityDataStatus;
+  supportMessage: string;
+};
+
+const CITY_FALLBACKS: Record<string, CityFallbackConfig> = {
   miami: {
     dbCities: ['Miami', 'Miami-Dade'],
     facilities: [
@@ -66,6 +72,8 @@ const CITY_FALLBACKS: Record<string, {
     streetSpaces: 'miami_beach_parking_arcgis_spaces.geojson',
     zones: 'miami_beach_parking_arcgis_lots_zones.geojson',
     coverage: 'miami_parking_osm.geojson',
+    dataStatus: 'ready',
+    supportMessage: 'Miami has imported/local fallback coverage from official Miami/Miami Beach sources plus OSM baseline data.',
   },
   sf: {
     dbCities: ['San Francisco'],
@@ -73,15 +81,77 @@ const CITY_FALLBACKS: Record<string, {
     segments: 'sf_parking_curb_segments.geojson',
     zones: 'sf_parking_zones_osm.geojson',
     coverage: 'sf_parking_osm.geojson',
+    dataStatus: 'ready',
+    supportMessage: 'San Francisco has benchmark DataSF meter fixtures plus OSM fallback zones.',
+  },
+  nyc: {
+    dbCities: ['New York City', 'New York'],
+    facilities: 'nyc_garage_tariff_evidence.geojson',
+    dataStatus: 'research_fixture',
+    supportMessage:
+      'NYC currently exposes a narrow garage/tariff evidence fixture for review; citywide NYC coverage is not imported yet.',
+  },
+  la: {
+    dbCities: ['Los Angeles'],
+    dataStatus: 'research_only',
+    supportMessage: 'Los Angeles is research-only in this build: sources are cataloged, but no local parking layer is imported yet.',
+  },
+  seattle: {
+    dbCities: ['Seattle'],
+    dataStatus: 'research_only',
+    supportMessage: 'Seattle is research-only in this build: sources are cataloged, but no local parking layer is imported yet.',
+  },
+  chicago: {
+    dbCities: ['Chicago'],
+    dataStatus: 'research_only',
+    supportMessage: 'Chicago is research-only in this build: sources are cataloged, but no local parking layer is imported yet.',
   },
 };
 
-function cityFallback(cityId = DEFAULT_CITY_ID) {
-  return CITY_FALLBACKS[cityId] ?? CITY_FALLBACKS[DEFAULT_CITY_ID];
+function normalizeCityId(cityId = DEFAULT_CITY_ID) {
+  const normalized = String(cityId || DEFAULT_CITY_ID).trim().toLowerCase();
+  return normalized || DEFAULT_CITY_ID;
+}
+
+function cityFallback(cityId = DEFAULT_CITY_ID): CityFallbackConfig & { cityId: string } {
+  const normalized = normalizeCityId(cityId);
+  const fallback = CITY_FALLBACKS[normalized];
+  if (fallback) return { ...fallback, cityId: normalized };
+
+  return {
+    cityId: normalized,
+    dbCities: [],
+    dataStatus: 'unsupported',
+    supportMessage: `City "${normalized}" is not configured in ParkingUSA yet; no Miami fallback data is reused for this request.`,
+  };
+}
+
+export function cityDataMetadata(cityId = DEFAULT_CITY_ID): Record<string, unknown> {
+  const fallback = cityFallback(cityId);
+  return {
+    cityId: fallback.cityId,
+    db_city_scope: fallback.dbCities,
+    data_status: fallback.dataStatus,
+    supported: fallback.dataStatus !== 'unsupported',
+    research_only: fallback.dataStatus === 'research_only' || fallback.dataStatus === 'research_fixture',
+    support_message: fallback.supportMessage,
+  };
 }
 
 export function cityDbScope(cityId = DEFAULT_CITY_ID) {
   return [...cityFallback(cityId).dbCities];
+}
+
+function loadFacilitiesFromConfiguredDb(fallback: CityFallbackConfig): Promise<GeoJSONCollection | null> {
+  return fallback.dbCities.length > 0 ? loadFacilitiesFromDb(fallback.dbCities) : Promise.resolve(null);
+}
+
+function loadCurbSegmentsFromConfiguredDb(fallback: CityFallbackConfig): Promise<GeoJSONCollection | null> {
+  return fallback.dbCities.length > 0 ? loadCurbSegmentsFromDb(fallback.dbCities) : Promise.resolve(null);
+}
+
+function loadZonesFromConfiguredDb(fallback: CityFallbackConfig): Promise<GeoJSONCollection | null> {
+  return fallback.dbCities.length > 0 ? loadZonesFromDb(fallback.dbCities) : Promise.resolve(null);
 }
 
 function emptyCollection(metadata: Record<string, unknown> = {}): GeoJSONCollection {
@@ -207,6 +277,12 @@ const MIAMI_BEACH_PAYMENT_PROVIDER = 'ParkMobile / PayByPhone';
 const MIAMI_BEACH_PAYMENT_APP_URL = 'https://www2.paybyphone.com/park-in-miami-beach';
 const MIAMI_BEACH_PAYMENT_NOTE =
   'Official Miami Beach source lists ParkMobile zones and PayByPhone/ParkMobile app support; ParkingUSA does not infer a per-record checkout URL.';
+const MIAMI_BEACH_FIELD_EVIDENCE_SOURCE_ID = 'dev-47:field-feedback:south-beach:valet-dropoff-no-ordinary-parking';
+const MIAMI_BEACH_FIELD_PAYMENT_ZONE_ID = '40208';
+const MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE = 0.55;
+const MIAMI_BEACH_REGULATORY_ZONE_OFFER_CONFIDENCE = 0.35;
+const MIAMI_BEACH_PAYMENT_EQUIPMENT_OFFER_CONFIDENCE = 0.5;
+const MIAMI_BEACH_MAX_GENERATED_CURB_ROW_LENGTH_METERS = 150;
 
 const MIAMI_BEACH_RESIDENTIAL_ZONE_NAMES: Record<number, string> = {
   0: 'Unknown',
@@ -267,6 +343,18 @@ function stringValue(value: unknown) {
 function numberValue(value: unknown) {
   const parsed = typeof value === 'number' ? value : Number(value);
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+function firstNumberValue(...values: unknown[]) {
+  for (const value of values) {
+    const parsed = numberValue(value);
+    if (parsed !== null) return parsed;
+  }
+  return null;
+}
+
+function cappedConfidence(value: number | null, cap: number) {
+  return Math.min(value ?? cap, cap);
 }
 
 function safeUrlFromProperties(properties: Record<string, unknown>, snakeKey: string, camelKey: string) {
@@ -334,6 +422,99 @@ function withPaymentProviderEvidence(properties: Record<string, unknown>) {
     payment_provider: stringValue(properties.payment_provider) || MIAMI_BEACH_PAYMENT_PROVIDER,
     payment_app_url: safeUrl(stringValue(properties.payment_app_url)) || MIAMI_BEACH_PAYMENT_APP_URL,
     payment_note: stringValue(properties.payment_note) || MIAMI_BEACH_PAYMENT_NOTE,
+  };
+}
+
+function withMiamiBeachOfferConfidenceSemantics(
+  properties: Record<string, unknown>,
+  layer: 'facility' | 'curb_segment' | 'parking_zone'
+) {
+  const sourceId = stringValue(properties.source_id).toLowerCase();
+  const sourceName = stringValue(properties.source_name || properties.last_verified_source).toLowerCase();
+  const raw = rawPropertiesObject(properties);
+  const sourceConfidence = firstNumberValue(
+    properties.source_confidence,
+    properties.sourceConfidence,
+    raw.source_confidence,
+    raw.sourceConfidence,
+    properties.confidence,
+  );
+  const currentOfferConfidence = firstNumberValue(
+    properties.offer_confidence,
+    properties.offerConfidence,
+    properties.display_confidence,
+    properties.displayConfidence,
+    sourceConfidence,
+  );
+  const isMiamiBeachArcgis = sourceName.includes('miami beach parking gis') || sourceId.startsWith('miami-beach:arcgis:');
+  if (!isMiamiBeachArcgis && !sourceId.startsWith('parking-space-row:')) {
+    const displayConfidence = firstNumberValue(properties.display_confidence, properties.displayConfidence, currentOfferConfidence);
+    return {
+      ...properties,
+      source_confidence: sourceConfidence,
+      offer_confidence: currentOfferConfidence,
+      display_confidence: displayConfidence,
+      confidence: displayConfidence ?? properties.confidence,
+    };
+  }
+
+  if (sourceId.startsWith('miami-beach:arcgis:zones:') || properties.source_zone_type === 'residential_parking_zone') {
+    const displayConfidence = cappedConfidence(currentOfferConfidence, MIAMI_BEACH_REGULATORY_ZONE_OFFER_CONFIDENCE);
+    return {
+      ...properties,
+      source_confidence: sourceConfidence,
+      offer_confidence: displayConfidence,
+      display_confidence: displayConfidence,
+      confidence: displayConfidence,
+      ordinary_parking_status: 'not_ordinary_parking_offer',
+      availability_semantics: 'regulatory_or_residential_rule_evidence_only',
+      confidence_reason:
+        'Official Miami Beach layer 7 source confidence is preserved separately; driver-facing offer confidence is capped because this is a regulatory/residential rule zone, not a physical parking offer.',
+    };
+  }
+
+  if (sourceId.startsWith('parking-space-row:') || sourceId.includes(':spaces:')) {
+    const displayConfidence = cappedConfidence(currentOfferConfidence, MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE);
+    return {
+      ...properties,
+      source_confidence: sourceConfidence,
+      offer_confidence: displayConfidence,
+      display_confidence: displayConfidence,
+      confidence: displayConfidence,
+      ordinary_parking_status: 'unknown_pending_snap_conflict_check',
+      field_conflict_status: stringValue(properties.field_conflict_status) || 'needs_field_review',
+      field_evidence_source_id: MIAMI_BEACH_FIELD_EVIDENCE_SOURCE_ID,
+      field_payment_zone_location_id: MIAMI_BEACH_FIELD_PAYMENT_ZONE_ID,
+      availability_semantics: 'official_space_evidence_not_verified_continuous_curb_offer',
+      confidence_reason:
+        'Official parking-space point confidence is preserved separately; generated curb rows are capped until road-side snapping and valet/drop-off/no-parking conflict checks pass.',
+      enrichment_status: properties.enrichment_status === 'conflict' ? 'conflict' : 'needs_review',
+    };
+  }
+
+  if (sourceId.startsWith('miami-beach:arcgis:meter:')) {
+    const displayConfidence = cappedConfidence(currentOfferConfidence, MIAMI_BEACH_PAYMENT_EQUIPMENT_OFFER_CONFIDENCE);
+    return {
+      ...properties,
+      source_confidence: sourceConfidence,
+      offer_confidence: displayConfidence,
+      display_confidence: displayConfidence,
+      confidence: displayConfidence,
+      ordinary_parking_status: 'payment_equipment_evidence_only',
+      availability_semantics: 'meter_or_payment_equipment_evidence_not_standalone_stall_offer',
+      confidence_reason:
+        'Official meter/payment equipment source confidence is preserved separately; offer confidence is capped unless joined to verified space/curb evidence.',
+      enrichment_status: properties.enrichment_status === 'conflict' ? 'conflict' : 'needs_review',
+    };
+  }
+
+  const displayConfidence = firstNumberValue(properties.display_confidence, properties.displayConfidence, currentOfferConfidence);
+  return {
+    ...properties,
+    source_confidence: sourceConfidence,
+    offer_confidence: currentOfferConfidence,
+    display_confidence: displayConfidence,
+    confidence: displayConfidence ?? properties.confidence,
   };
 }
 
@@ -461,10 +642,15 @@ function parkingSpacesAsCurbs(
     collection.features.filter(isParkingSpaceFeature),
     [collection, ...parkingAreaCollections]
   );
+  const features = deriveParkingSpacePointLines(parkingSpaces)
+    .map(curbSegmentWithLineGeometry)
+    .filter(isLineFeature)
+    .filter((feature) => !isLongGeneratedParkingSpaceRow(feature));
+
   return withFallbackMetadata(
     {
       ...collection,
-      features: deriveParkingSpacePointLines(parkingSpaces).map(curbSegmentWithLineGeometry),
+      features,
     },
     {
       coverage_role: 'parking_spaces_as_curb_lines',
@@ -668,6 +854,41 @@ function metersPerLngDegree(lat: number) {
   return Math.max(1, 111_320 * Math.cos((lat * Math.PI) / 180));
 }
 
+function haversineMeters(a: [number, number], b: [number, number]) {
+  const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
+  const radiusMeters = 6_371_000;
+  const [lngA, latA] = a;
+  const [lngB, latB] = b;
+  const deltaLat = toRadians(latB - latA);
+  const deltaLng = toRadians(lngB - lngA);
+  const sinLat = Math.sin(deltaLat / 2);
+  const sinLng = Math.sin(deltaLng / 2);
+  const h =
+    sinLat * sinLat +
+    Math.cos(toRadians(latA)) * Math.cos(toRadians(latB)) * sinLng * sinLng;
+  return 2 * radiusMeters * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
+function lineLengthMeters(coordinates: unknown): number {
+  if (!Array.isArray(coordinates)) return 0;
+  if (coordinates.length > 0 && Array.isArray(coordinates[0]) && typeof coordinates[0][0] === 'number') {
+    const positions = coordinates as [number, number][];
+    return positions.slice(1).reduce((sum, point, index) => sum + haversineMeters(positions[index], point), 0);
+  }
+  if (coordinates.length > 0 && Array.isArray(coordinates[0])) {
+    return Math.max(...coordinates.map(lineLengthMeters));
+  }
+  return 0;
+}
+
+function isLongGeneratedParkingSpaceRow(feature: GeoJSONFeature) {
+  const sourceId = stringValue(feature.properties.source_id);
+  return (
+    sourceId.startsWith('parking-space-row:') &&
+    lineLengthMeters(feature.geometry?.coordinates) > MIAMI_BEACH_MAX_GENERATED_CURB_ROW_LENGTH_METERS
+  );
+}
+
 function pointLineFeature(
   feature: GeoJSONFeature,
   direction: { x: number; y: number },
@@ -696,6 +917,15 @@ function pointLineFeature(
       ...feature.properties,
       facility_type: 'curb_segment',
       meter_count: feature.properties.meter_count ?? 1,
+      source_confidence: firstNumberValue(feature.properties.source_confidence, feature.properties.sourceConfidence, feature.properties.confidence) ?? 0.9,
+      offer_confidence: MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE,
+      display_confidence: MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE,
+      confidence: MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE,
+      ordinary_parking_status: 'unknown_pending_snap_conflict_check',
+      field_conflict_status: 'needs_field_review',
+      field_evidence_source_id: MIAMI_BEACH_FIELD_EVIDENCE_SOURCE_ID,
+      field_payment_zone_location_id: MIAMI_BEACH_FIELD_PAYMENT_ZONE_ID,
+      enrichment_status: 'needs_review',
       source_geometry_type: feature.properties.source_geometry_type ?? 'Point',
       geometry_provenance:
         feature.properties.geometry_provenance ??
@@ -763,6 +993,15 @@ function rowLineFeature(
       source_space_end_id: lastSourceId,
       facility_type: 'curb_segment',
       meter_count: sorted.length,
+      source_confidence: firstNumberValue(first.feature.properties.source_confidence, first.feature.properties.sourceConfidence, first.feature.properties.confidence) ?? 0.9,
+      offer_confidence: MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE,
+      display_confidence: MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE,
+      confidence: MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE,
+      ordinary_parking_status: 'unknown_pending_snap_conflict_check',
+      field_conflict_status: 'needs_field_review',
+      field_evidence_source_id: MIAMI_BEACH_FIELD_EVIDENCE_SOURCE_ID,
+      field_payment_zone_location_id: MIAMI_BEACH_FIELD_PAYMENT_ZONE_ID,
+      enrichment_status: 'needs_review',
       source_geometry_type: 'PointCluster',
       geometry_provenance:
         'Curb line derived from grouped official parking-space points; parking-area interior points are excluded before line generation.',
@@ -1004,7 +1243,7 @@ export function canonicalFeature(feature: GeoJSONFeature, layer: 'facility' | 'c
   const sourceId = typeof feature.properties.source_id === 'string'
     ? feature.properties.source_id
     : featureKey(feature);
-  const normalizedProperties: Record<string, unknown> = withMiamiBeachResidentialZoneSemantics(withPaymentProviderEvidence({
+  const normalizedProperties: Record<string, unknown> = withMiamiBeachOfferConfidenceSemantics(withMiamiBeachResidentialZoneSemantics(withPaymentProviderEvidence({
     ...feature.properties,
     source_url: safeUrlFromProperties(feature.properties, 'source_url', 'sourceUrl'),
     api_url: safeUrlFromProperties(feature.properties, 'api_url', 'apiUrl'),
@@ -1013,7 +1252,7 @@ export function canonicalFeature(feature: GeoJSONFeature, layer: 'facility' | 'c
     evidence_url: safeUrlFromProperties(feature.properties, 'evidence_url', 'evidenceUrl'),
     last_verified_at: feature.properties.last_verified_at ?? feature.properties.lastVerifiedAt,
     existence_status: normalizeExistenceStatus(feature.properties.existence_status),
-  }));
+  })), layer);
   const priceStatus = preservedPriceStatus(normalizedProperties);
   const ruleStatus = preservedRuleStatus(normalizedProperties);
   const enrichmentStatus = preservedEnrichmentStatus({
@@ -1063,15 +1302,15 @@ async function loadCoverageSubset(
 
 export async function loadFacilities(cityId = DEFAULT_CITY_ID): Promise<GeoJSONCollection> {
   const fallback = cityFallback(cityId);
+  const cityMetadata = cityDataMetadata(cityId);
   const [dbFacilities, officialFacilities, coveragePoints] = await Promise.all([
-    loadFacilitiesFromDb(fallback.dbCities),
-    fallback.facilities ? loadGeoJSONFiles(fallback.facilities) : emptyCollection({ cityId }),
+    loadFacilitiesFromConfiguredDb(fallback),
+    fallback.facilities ? loadGeoJSONFiles(fallback.facilities) : emptyCollection(cityMetadata),
     loadCoverageSubset(fallback.coverage, isPointFeature, 'candidate_facility_points'),
   ]);
 
   const merged = mergeCollections([dbFacilities ?? emptyCollection({ source: 'PostGIS/Prisma unavailable' }), officialFacilities, coveragePoints], {
-    cityId,
-    db_city_scope: fallback.dbCities,
+    ...cityMetadata,
     primary_baseline_source: 'OpenStreetMap via Geofabrik/osm2pgsql',
     layer_role: 'facilities_with_coverage_points',
   });
@@ -1084,20 +1323,20 @@ export async function loadFacilities(cityId = DEFAULT_CITY_ID): Promise<GeoJSONC
 
 export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSONCollection> {
   const fallback = cityFallback(cityId);
+  const cityMetadata = cityDataMetadata(cityId);
   const [dbSegments, dbZones, officialSegments, officialStreetSpaces, officialZones, coverageLines, coveragePolygons] = await Promise.all([
-    loadCurbSegmentsFromDb(fallback.dbCities),
-    loadZonesFromDb(fallback.dbCities),
-    fallback.segments ? loadGeoJSON(fallback.segments) : emptyCollection({ cityId }),
-    fallback.streetSpaces ? loadGeoJSON(fallback.streetSpaces) : emptyCollection({ cityId }),
-    fallback.zones ? loadGeoJSON(fallback.zones) : emptyCollection({ cityId }),
+    loadCurbSegmentsFromConfiguredDb(fallback),
+    loadZonesFromConfiguredDb(fallback),
+    fallback.segments ? loadGeoJSON(fallback.segments) : emptyCollection(cityMetadata),
+    fallback.streetSpaces ? loadGeoJSON(fallback.streetSpaces) : emptyCollection(cityMetadata),
+    fallback.zones ? loadGeoJSON(fallback.zones) : emptyCollection(cityMetadata),
     loadCoverageSubset(fallback.coverage, isLineFeature, 'candidate_street_parking_lines'),
     loadCoverageSubset(fallback.coverage, isPolygonFeature, 'candidate_parking_polygons_for_curb_filter'),
   ]);
   const parkingAreaCollections = [dbZones, officialZones, coveragePolygons];
 
-  const merged = mergeCollections([dbSegments ?? emptyCollection({ source: 'PostGIS/Prisma unavailable' }), roadsideRuleZonesAsCurbs(dbZones), parkingSpacesAsCurbs(dbZones, parkingAreaCollections), officialSegments, roadsideRuleZonesAsCurbs(officialZones), parkingSpacesAsCurbs(officialStreetSpaces, parkingAreaCollections), coverageLines], {
-    cityId,
-    db_city_scope: fallback.dbCities,
+  const merged = mergeCollections([dbSegments ?? emptyCollection({ source: 'PostGIS/Prisma unavailable' }), parkingSpacesAsCurbs(dbZones, parkingAreaCollections), officialSegments, parkingSpacesAsCurbs(officialStreetSpaces, parkingAreaCollections), coverageLines], {
+    ...cityMetadata,
     primary_baseline_source: 'OpenStreetMap via Geofabrik/osm2pgsql',
     layer_role: 'curb_segments_with_coverage_lines',
   });
@@ -1110,15 +1349,15 @@ export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSO
 
 export async function loadZones(cityId = DEFAULT_CITY_ID): Promise<GeoJSONCollection> {
   const fallback = cityFallback(cityId);
+  const cityMetadata = cityDataMetadata(cityId);
   const [dbZones, officialZones, coveragePolygons] = await Promise.all([
-    loadZonesFromDb(fallback.dbCities),
-    fallback.zones ? loadGeoJSON(fallback.zones) : emptyCollection({ cityId }),
+    loadZonesFromConfiguredDb(fallback),
+    fallback.zones ? loadGeoJSON(fallback.zones) : emptyCollection(cityMetadata),
     loadCoverageSubset(fallback.coverage, isPolygonFeature, 'candidate_parking_polygons'),
   ]);
 
   const merged = mergeCollections([collectionWithoutCurbDisplayPolygons(dbZones ?? emptyCollection({ source: 'PostGIS/Prisma unavailable' })), collectionWithoutCurbDisplayPolygons(officialZones), collectionWithoutParkingSpaces(coveragePolygons)], {
-    cityId,
-    db_city_scope: fallback.dbCities,
+    ...cityMetadata,
     primary_baseline_source: 'OpenStreetMap via Geofabrik/osm2pgsql',
     layer_role: 'zones_with_coverage_polygons',
   });
@@ -1164,7 +1403,7 @@ export function buildParkingIndex(
   return {
     type: 'FeatureCollection',
     metadata: {
-      cityId,
+      ...cityDataMetadata(cityId),
       source: 'ParkingUSA Parking Index',
       role: 'single canonical parking coverage feed',
       primary_baseline_source: 'OpenStreetMap via Geofabrik/osm2pgsql',
@@ -1200,7 +1439,7 @@ export function computeStats(
     totalFacilities > 0 ? Math.round((pricedFacilities / totalFacilities) * 100) : 0;
 
   return {
-    cityId,
+    ...cityDataMetadata(cityId),
     totalFacilities,
     pricedFacilities,
     curbSegments: segments.features.length,

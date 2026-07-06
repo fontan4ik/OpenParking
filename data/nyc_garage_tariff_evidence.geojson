@@ -1,0 +1,78 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "cityId": "nyc",
+    "source": "ParkingUSA NYC garage/tariff evidence fixture",
+    "data_status": "research_fixture",
+    "support_message": "Narrow NYC garage evidence fixture for DEV-62. Dynamic operator/payment marketplace facts remain pending review and are not promoted to canonical checkout links.",
+    "generated_at": "2026-07-03",
+    "count": 1
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.9849, 40.7586]
+      },
+      "properties": {
+        "source_name": "ParkingUSA NYC garage tariff evidence fixture",
+        "source_id": "nyc:garage-tariff-evidence:1540-broadway-164-w-46th",
+        "name": "1540 Broadway / 164 West 46th Street Garage",
+        "facility_type": "garage",
+        "city": "New York City",
+        "state": "NY",
+        "street": "1540 Broadway / 164 West 46th Street",
+        "neighborhood": "Times Square / Theater District",
+        "operator": "Dock / marketplace operator evidence pending review",
+        "access": "public_candidate",
+        "fee": "yes",
+        "charge": "paid amount unknown; tariff evidence pending review",
+        "price_status": "paid_unknown",
+        "rule_status": "unknown",
+        "enrichment_status": "needs_review",
+        "existence_status": "candidate",
+        "confidence": 0.55,
+        "source_confidence": 0.55,
+        "offer_confidence": 0.45,
+        "display_confidence": 0.55,
+        "source_url": "https://www.dockparking.com/",
+        "api_url": "",
+        "payment_url": "",
+        "booking_url": "",
+        "evidence_url": "",
+        "payment_provider": "Dock / ParkMobile / ParkWhiz-style candidate evidence",
+        "payment_note": "Dynamic operator/payment marketplace links are source observations only and are not promoted to canonical payment_url or booking_url until verified direct checkout and policy review.",
+        "tariff_review_status": "pending_review",
+        "tariff_observation_status": "source_observation_pending_review",
+        "hourly_rate_status": "unknown",
+        "hourly_rate_amount": null,
+        "daily_rate_status": "unknown",
+        "daily_rate_amount": null,
+        "taxes_status": "unknown",
+        "taxes_amount": null,
+        "fees_status": "unknown",
+        "fees_amount": null,
+        "oversize_fee_status": "unknown",
+        "oversize_fee_amount": null,
+        "reentry_policy_status": "unknown",
+        "reentry_policy": null,
+        "raw_properties": {
+          "issue": "DEV-62",
+          "observation_kind": "nyc_garage_tariff_fixture",
+          "search_terms": ["Dock", "1540 Broadway", "164 West 46th", "ParkMobile", "ParkWhiz"],
+          "canonical_checkout_promotion": "blocked_until_verified",
+          "unknown_known_contract": {
+            "garage_existence": "candidate",
+            "hourly_rate": "unknown",
+            "daily_rate": "unknown",
+            "taxes": "unknown",
+            "fees": "unknown",
+            "oversize": "unknown",
+            "reentry": "unknown"
+          }
+        }
+      }
+    }
+  ]
+}

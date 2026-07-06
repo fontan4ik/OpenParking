@@ -62,7 +62,9 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     type: 'FeatureCollection',
     metadata: {
+      ...(data.metadata ?? {}),
       count: features.length,
+      source_count: data.features.length,
       filters: { city, type: typeFilter, price: priceFilter, source: sourceFilter, confidence: confidenceFilter, q },
     },
     features,

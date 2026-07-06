@@ -60,6 +60,9 @@ model ParkingFacility {
   capColor           String?
   rawProperties      Json
   confidence         Float    @default(0.5)
+  sourceConfidence   Float?
+  offerConfidence    Float?
+  displayConfidence  Float?
   lastVerifiedAt     DateTime?
   dataAsOf           DateTime?
   geometryQuality    String?
@@ -99,6 +102,9 @@ model CurbSegment {
   geojson           Json
   rawProperties     Json
   confidence        Float    @default(0.5)
+  sourceConfidence  Float?
+  offerConfidence   Float?
+  displayConfidence Float?
   lastVerifiedAt    DateTime?
   dataAsOf          DateTime?
   geometryQuality   String?
@@ -139,6 +145,9 @@ model ParkingZone {
   geojson         Json
   rawProperties   Json
   confidence      Float    @default(0.5)
+  sourceConfidence Float?
+  offerConfidence  Float?
+  displayConfidence Float?
   lastVerifiedAt  DateTime?
   dataAsOf        DateTime?
   geometryQuality String?

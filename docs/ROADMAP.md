@@ -255,6 +255,7 @@ Gate checks:
   - [x] curb segments
   - [x] zones
   - [ ] garages/lots
+  - [ ] product filters for facilities / curb / zones / uncertain / valet from `docs/UI_DATA_TRUST_PROPOSAL_RU.md`
   - [ ] availability/rates
 - [x] Add data-quality filters:
   - [x] source
@@ -265,7 +266,17 @@ Gate checks:
   - [x] show "known parking, unknown price" distinctly from "priced parking";
   - [x] add counters for total known facilities, price-known facilities, price-unknown facilities, and review-needed facilities;
   - [x] split provenance coverage from payment-link and booking-link completeness in stats/sidebar metrics;
+  - [x] document DEV-50 trust-state UX proposal/backlog so unknown price/source/payment/confidence cannot look like a verified offer;
+  - [ ] add trust badges and disabled/explanatory payment states to cards/popups/detail panel;
+  - [ ] add evidence panel with source URL, evidence URL, source/location/zone IDs, payment provider, payment-link classification, and confidence reasons;
   - [~] route unknown-price and stale-price records into a derived enrichment/review backlog report, not an assignment workflow.
+- [~] Design user field evidence ingestion as a first-class product workflow:
+  - [x] document DEV-52 flow in `docs/USER_FIELD_EVIDENCE_INGESTION_FLOW_RU.md`;
+  - [x] tie current detail-panel suggestion form and `POST /api/observations` to `SourceObservation` review semantics;
+  - [ ] extend observation API fields for evidence kind, map point, client metadata, and correction type while preserving backward compatibility;
+  - [ ] add UI entry points for photo/screenshot URL, map-point correction, missing parking candidate, and clearer pending-review status;
+  - [ ] add protected review decision path before any canonical promotion;
+  - [ ] add confidence recompute helper/tests for accepted corrections.
 
 Gate checks:
 

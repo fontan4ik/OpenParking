@@ -60,6 +60,8 @@ export interface ParkingFacility {
   baseHourlyRate?: number | null;
   openingHours?: string;
   sourceConfidence: number;
+  offerConfidence?: number;
+  displayConfidence?: number;
   lastVerifiedSource?: string;
   dataAsOf?: string;
   neighborhood?: string;
@@ -111,6 +113,11 @@ export interface CityConfig {
 
 export interface CityStats {
   cityId: string;
+  data_status?: 'ready' | 'research_fixture' | 'research_only' | 'unsupported';
+  supported?: boolean;
+  research_only?: boolean;
+  support_message?: string;
+  db_city_scope?: string[];
   totalFacilities: number;
   pricedFacilities: number;
   curbSegments: number;

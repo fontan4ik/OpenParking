@@ -45,14 +45,23 @@ The DB-backed OSM/Geofabrik Miami baseline has been run locally: Florida PBF was
 | Document | Purpose |
 | --- | --- |
 | `PROJECT_OVERVIEW_RU.md` | Главный продуктовый и архитектурный источник правды: что строим, как работают данные/API, какие источники используются и какие поля нужно показывать пользователю. |
+| `UI_DATA_TRUST_PROPOSAL_RU.md` | DEV-50 UX proposal/backlog: как честно показывать unknown price/source/payment/confidence, layer filters, evidence panel и anti-false-offer states. |
 | `LOCAL_TESTING_AND_ZROK_GUIDE_RU.md` | Короткий русский guide для локального запуска, обновления Miami fixtures, проверки API и zrok-шаринга. |
 | `LOCAL_TESTING_AND_ZROK_GUIDE.md` | Short English guide for local run, Miami fixture refresh, API check, and zrok sharing. |
+| `QA_DEVOPS_BASELINE_RUNBOOK.md` | QA/DevOps baseline: `npm install`, Prisma generate, typecheck, tests, build, package-lock sync history, process cleanup and rollback notes. |
+| `QA_GOLDEN_PARKING_CORRECTNESS_PLAN.md` | DEV-53 deterministic golden QA plan and fixture list for South Beach/Ocean Drive/ParkMobile/Dock 1540 Broadway parking correctness regressions. |
+| `PAYMENT_RATE_MODEL_DEV_51.md` | DEV-51 schema/API implications and fixture proposal for ParkMobile/PayByPhone zones, payment methods, and structured garage tariffs. |
+| `CITY_SOURCE_FEASIBILITY_DEV_54_RU.md` | DEV-54 research: feasibility matrix Miami vs NYC vs LA vs SF, easiest next source path, legal/ToS risk, price freshness, rules/rates/entrance gaps, and browser/manual evidence needs. |
+| `USER_FIELD_EVIDENCE_INGESTION_FLOW_RU.md` | DEV-52 design/backlog: пользовательские фото/скрины/голос/точки на карте -> OCR/metadata/manual review -> `SourceObservation`/correction -> confidence update. |
+| `SOUTH_BEACH_FALSE_POSITIVE_AUDIT_DEV-49_RU.md` | DEV-49 data audit: почему South Beach/Ocean Drive/Collins/Lincoln слои дают false positives, какие source IDs затронуты и какие правила фильтрации/confidence применять. |
+| `ROAD_CURB_ENTRANCE_SNAPPING_HEURISTICS_DEV_55.md` | DEV-55 design/reference pack: road/curb/entrance snapping heuristics, side-of-street offsets, intersection/crosswalk/hydrant/driveway/loading/valet/no-parking cuts, entrance association, confidence gates and reusable reference data/tools before implementation. |
 | `AGENTS.md` | Project instructions for agents and implementation constraints. |
 | `CODEX.md` | Codex-specific operating guide that points back to `AGENTS.md`. |
 | `CLAUDE.md` | Claude-compatible agent entry point. |
 | `GEMINI.md` | Gemini-compatible agent entry point. |
 | `ROADMAP.md` | Advanced checklist roadmap for product, data, map, and operations work. |
 | `ARCHITECTURE.md` | Target architecture, data quality contract, and layer responsibilities. |
+| `data_taxonomy_parking_semantics_DEV-48.md` | Decision document for separating physical facilities, entrances, curb segments, payment/regulatory zones, valet/drop-off/loading/no-parking, and uncertain candidates. |
 | `REFERENCE_REPOS.md` | How to use the open-source reference repositories in `Referenss/`. |
 | `THIRD_PARTY_NOTICES.md` | Provenance and license notes for reused code and referenced tools. |
 | `INTEGRATION_USAGE_GUIDE.md` | Local workflow for Codex, Spec Kit, research, imports, tests, tiles, and zrok. |

@@ -17,6 +17,7 @@ import {
   stableHash,
 } from '../../apps/backend/scripts/connector_foundation';
 import {
+  miamiBeachSouthBeachFieldObservations,
   normalizeMiamiBeachArcgisCanonical,
   type MiamiBeachArcgisLayerInput,
 } from '../../apps/backend/scripts/miami_beach_arcgis_canonical';
@@ -303,6 +304,7 @@ describe('connector foundation', () => {
     expect(canonical.canonicalRowsPlanned).toBe(4);
     expect(canonical.facilities).toHaveLength(2);
     expect(canonical.zones).toHaveLength(2);
+    expect(canonical.observations).toHaveLength(2);
     expect(canonical.skipped).toEqual({
       nonCanonicalSpaces: 1,
       invalidFacilities: 0,
@@ -321,6 +323,10 @@ describe('connector foundation', () => {
       facilityType: 'street_meter',
       city: 'Miami Beach',
       state: 'FL',
+      confidence: 0.5,
+      sourceConfidence: 0.9,
+      offerConfidence: 0.5,
+      displayConfidence: 0.5,
       priceStatus: 'paid_unknown',
       ruleStatus: 'partial',
       dataAsOf: null,
@@ -332,6 +338,10 @@ describe('connector foundation', () => {
       payment_provider: 'ParkMobile / PayByPhone',
       payment_url: '',
       booking_url: '',
+      source_confidence: 0.9,
+      offer_confidence: 0.5,
+      display_confidence: 0.5,
+      ordinary_parking_status: 'payment_equipment_evidence_only',
     });
     expect(canonical.zones[0]).toMatchObject({
       sourceName: 'City of Miami Beach Parking GIS',
@@ -345,6 +355,10 @@ describe('connector foundation', () => {
       access: 'regulated_residential_zone',
       fee: 'not_applicable',
       charge: null,
+      confidence: 0.35,
+      sourceConfidence: 0.9,
+      offerConfidence: 0.35,
+      displayConfidence: 0.35,
       priceStatus: 'not_applicable',
       ruleStatus: 'partial',
       enrichmentStatus: 'needs_rules',
@@ -353,6 +367,14 @@ describe('connector foundation', () => {
       zone_name: 'Zone-5',
       zone_type: 'Metered Residential Zone',
       restricted_res_time: '1st Come 1st Served',
+      ordinary_parking_status: 'not_ordinary_parking_offer',
+      availability_semantics: 'regulatory_or_residential_rule_evidence_only',
+    });
+    expect(canonical.observations.map((observation) => observation.sourceId)).toContain('dev-47:field-feedback:south-beach:zone-location-id:40208');
+    expect(miamiBeachSouthBeachFieldObservations('City of Miami Beach Parking GIS', new Date('2026-07-03T00:00:00.000Z'))[0]).toMatchObject({
+      entityType: 'field_conflict_observation',
+      status: 'conflict_evidence',
+      confidence: 0.75,
     });
   });
 

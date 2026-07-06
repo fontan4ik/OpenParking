@@ -1,0 +1,216 @@
+{
+  "issue": "DEV-55",
+  "title": "Road / curb / entrance snapping heuristics for real parking geometry",
+  "generated_at": "2026-07-03T13:03:41Z",
+  "status": "design_only_before_implementation",
+  "document": "docs/ROAD_CURB_ENTRANCE_SNAPPING_HEURISTICS_DEV_55.md",
+  "reuse_check": {
+    "referenss_path": "Referenss/",
+    "local_referenss_present": false,
+    "notes": "The repository instructions require checking Referenss first. The directory was absent in this checkout, so implementation should reuse documented references and existing in-repo ports instead of copying unavailable local code.",
+    "existing_reuse_points": [
+      "apps/backend/scripts/osm2pgsql_parking.lua",
+      "apps/backend/scripts/normalize_osm_raw_parking_to_db.mjs",
+      "apps/frontend/lib/heuristics/parking-capacity.ts",
+      "ported osm-tag-updater street-parking normalization",
+      "osmtogeojson dependency in package.json",
+      "external osm2pgsql workflow"
+    ]
+  },
+  "official_docs_checked": [
+    {
+      "name": "OSM Street parking",
+      "url": "https://wiki.openstreetmap.org/wiki/Street_parking",
+      "observed_relevance": "parking:left/right/both tags on highway ways; side is relative to way direction; supports one/both-side curb classification."
+    },
+    {
+      "name": "OSM parking key",
+      "url": "https://wiki.openstreetmap.org/wiki/Key:parking",
+      "observed_relevance": "parking=* values on amenity=parking and parking entrances; entrance nodes are access evidence, not full facilities."
+    },
+    {
+      "name": "CurbLR",
+      "url": "https://www.curblr.org/",
+      "observed_relevance": "curb regulations as GeoJSON LineString features with side/location/regulation properties."
+    },
+    {
+      "name": "OMF Curb Data Specification",
+      "url": "https://github.com/openmobilityfoundation/curb-data-specification",
+      "observed_relevance": "static/dynamic curb parking and access regulations, metrics and policy model."
+    },
+    {
+      "name": "A/B Street parking docs",
+      "url": "https://a-b-street.github.io/docs/tech/trafficsim/parking.html",
+      "observed_relevance": "on-street parking as road lane divided by configurable spot length; lots/service aisles modeled separately."
+    },
+    {
+      "name": "PostGIS ST_OffsetCurve / ST_LineLocatePoint / ST_LineSubstring",
+      "url": "https://postgis.net/docs/",
+      "observed_relevance": "offset curb lines and linear referencing/cutting primitives for implementation."
+    }
+  ],
+  "required_provenance_fields": [
+    "source_name",
+    "source_id",
+    "source_url",
+    "api_url",
+    "payment_url",
+    "booking_url",
+    "raw_properties",
+    "confidence",
+    "last_verified_at",
+    "data_as_of",
+    "evidence_url",
+    "evidence_file"
+  ],
+  "proposed_geometry_fields": [
+    "geometry_role",
+    "geometry_provenance",
+    "source_geometry_id",
+    "matched_road_source_id",
+    "matched_side",
+    "matched_side_basis",
+    "linear_ref_start",
+    "linear_ref_end",
+    "offset_meters",
+    "snap_distance_meters",
+    "snap_method",
+    "cut_reasons",
+    "geometry_confidence",
+    "offer_confidence",
+    "review_status"
+  ],
+  "confidence_bands": {
+    "source_confidence": "Reliability of upstream source, e.g. official ArcGIS/Socrata can be high.",
+    "semantic_confidence": "Correctness of physical/curb/regulatory/entrance classification.",
+    "geometry_confidence": "Physical placement quality of line/polygon/point.",
+    "offer_confidence": "Driver-facing trust that this is ordinary public parking now."
+  },
+  "snapping_pipeline": [
+    {
+      "stage": 0,
+      "name": "input_classification",
+      "summary": "Classify physical facility, entrance, curb evidence point, curb rule boundary, road network candidate and exclusion/conflict feature before matching."
+    },
+    {
+      "stage": 1,
+      "name": "road_candidate_selection",
+      "preferred_order": [
+        "official_blockface_or_curblr_or_cds_line",
+        "street_from_to_side_join",
+        "nearest_road_side_filtered_by_class_and_name",
+        "point_cluster_side_fit",
+        "candidate_only_fallback"
+      ],
+      "initial_thresholds": {
+        "max_point_to_road_distance_m_urban_default": 18,
+        "max_point_to_road_distance_m_coarse_data": 30,
+        "ambiguous_nearby_roads": "needs_field_review"
+      }
+    },
+    {
+      "stage": 2,
+      "name": "side_of_street_assignment",
+      "rules": [
+        "OSM parking:left/right/both is relative to way direction.",
+        "Official side/blockface fields override heuristic side.",
+        "Point clusters infer side by signed perpendicular distance.",
+        "Both-side evidence should split into two curb rows."
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "curb_offset_line",
+      "tools": ["PostGIS ST_OffsetCurve", "Turf/equivalent for fixture tests"],
+      "default_offset_meters": [3.0, 4.5],
+      "wide_arterial_offset_meters": [5.0, 6.0]
+    },
+    {
+      "stage": 4,
+      "name": "linear_referencing_and_cutting",
+      "tools": ["ST_LineLocatePoint", "ST_LineSubstring"],
+      "cut_sources": [
+        "intersection_offset",
+        "crosswalk",
+        "hydrant",
+        "driveway",
+        "garage_entrance",
+        "bus_stop",
+        "loading_zone",
+        "valet",
+        "drop_off",
+        "no_parking",
+        "parking_lot_interior",
+        "max_gap"
+      ]
+    },
+    {
+      "stage": 5,
+      "name": "road_side_vs_lot_interior_filtering",
+      "summary": "Remove/generated downgrade curb rows inside official lot/garage polygons and keep internal spaces as facility evidence."
+    },
+    {
+      "stage": 6,
+      "name": "entrance_snapping_and_facility_association",
+      "summary": "Classify parking_entrance as garage_entrance, associate to nearby/contained physical facility, never count entrance as standalone offer."
+    },
+    {
+      "stage": 7,
+      "name": "conflict_scoring_and_promotion_gate",
+      "summary": "Promote to default public layer only after semantics, access, geometry, conflicts and provenance pass thresholds."
+    }
+  ],
+  "initial_cut_buffers_meters": {
+    "intersection_or_corner": [6, 10],
+    "crosswalk": 6,
+    "hydrant_15ft_default": 4.5,
+    "driveway_or_garage_entrance": [3, 5],
+    "bus_stop": [12, 25]
+  },
+  "promotion_thresholds": {
+    "official_physical_lot_or_garage": 0.7,
+    "osm_physical_facility_polygon": 0.55,
+    "official_generated_curb": { "geometry_confidence_min": 0.6, "requires_no_unresolved_conflicts": true },
+    "osm_street_parking_tags": { "semantic_confidence_min": 0.65, "geometry_confidence_min": 0.55 },
+    "entrance": "visible_as_entrance_overlay_not_parking_offer",
+    "regulatory_payment_no_parking_loading_valet": "separate_overlay_default_hidden"
+  },
+  "reference_data_to_reuse": [
+    {
+      "path": "data/research/field-audits/dev-49-south-beach-false-positive-audit.json",
+      "purpose": "Regression fixtures for Miami Beach layer7 zones, layer3 spaces, meters and OSM entrance/private/customer candidates."
+    },
+    {
+      "path": "data/miami_beach_parking_arcgis_*.geojson",
+      "purpose": "Official spaces/meters/lots/zones for road-side vs lot-interior filtering and source confidence separation."
+    },
+    {
+      "path": "data/miami_parking_osm.geojson",
+      "purpose": "OSM entrance/access restriction candidate fixtures."
+    },
+    {
+      "path": "data/research/cities/new-york-city.ny.json",
+      "purpose": "NYC meter and parking sign Socrata sources for future sign-to-curb parser."
+    },
+    {
+      "path": "data/research/cities/seattle.wa.json",
+      "purpose": "Seattle blockface FeatureServer as preferred official curb geometry source."
+    }
+  ],
+  "acceptance_tests_for_follow_up": [
+    "miami_beach_layer7_zone_is_regulatory_not_offer",
+    "layer3_spaces_do_not_bridge_driveways_or_conflicts",
+    "meter_point_is_payment_equipment_not_stall",
+    "osm_parking_entrance_is_not_facility_offer",
+    "osm_access_restrictions_downgrade_default_visibility",
+    "one_both_side_tags_split_rows",
+    "official_blockface_preferred_over_nearest_road",
+    "promotion_preserves_provenance"
+  ],
+  "legal_and_authority_guardrails": [
+    "Satellite/aerial/photo evidence may support review but must not become authoritative master geometry without license review and human/official confirmation.",
+    "Google Maps/Street View/Places can be used only as permitted discovery/matching/manual QA, not as cached ParkingUSA master geometry.",
+    "Payment app zone ids are payment evidence, not proof of physical availability.",
+    "User field evidence enters SourceObservation/conflict review first; it may downgrade confidence but should not silently overwrite official facts."
+  ]
+}

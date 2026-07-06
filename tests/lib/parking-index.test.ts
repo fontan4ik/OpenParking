@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildParkingIndex, canonicalFeature, cityDbScope, curbSegmentWithLineGeometry, deriveParkingSpacePointLines, type GeoJSONCollection } from '@/lib/data-loader';
+import { buildParkingIndex, canonicalFeature, cityDbScope, curbSegmentWithLineGeometry, deriveParkingSpacePointLines, loadCurbSegments, loadFacilities, loadAllLayers, type GeoJSONCollection } from '@/lib/data-loader';
 import {
   curbSegmentFeatureFromDbRow,
   facilityFeatureFromDbRow,
@@ -13,11 +13,86 @@ function collection(features: GeoJSONCollection['features']): GeoJSONCollection 
   return { type: 'FeatureCollection', features };
 }
 
+function segmentLengthMeters(coordinates: unknown): number {
+  if (!Array.isArray(coordinates)) return 0;
+  if (coordinates.length > 0 && Array.isArray(coordinates[0]) && typeof coordinates[0][0] === 'number') {
+    const positions = coordinates as [number, number][];
+    return positions.slice(1).reduce((sum, point, index) => sum + haversineMeters(positions[index], point), 0);
+  }
+  if (coordinates.length > 0 && Array.isArray(coordinates[0])) {
+    return Math.max(...coordinates.map(segmentLengthMeters));
+  }
+  return 0;
+}
+
+function haversineMeters(a: [number, number], b: [number, number]) {
+  const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
+  const radiusMeters = 6_371_000;
+  const [lngA, latA] = a;
+  const [lngB, latB] = b;
+  const deltaLat = toRadians(latB - latA);
+  const deltaLng = toRadians(lngB - lngA);
+  const sinLat = Math.sin(deltaLat / 2);
+  const sinLng = Math.sin(deltaLng / 2);
+  const h =
+    sinLat * sinLat +
+    Math.cos(toRadians(latA)) * Math.cos(toRadians(latB)) * sinLng * sinLng;
+  return 2 * radiusMeters * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
 describe('ParkingUSA Parking Index', () => {
-  it('uses Miami plus Miami-Dade as the default OSM DB baseline scope', () => {
+  it('uses Miami plus Miami-Dade only for the Miami DB baseline scope', () => {
     expect(cityDbScope('miami')).toEqual(['Miami', 'Miami-Dade']);
-    expect(cityDbScope('unknown-city')).toEqual(['Miami', 'Miami-Dade']);
+    expect(cityDbScope('unknown-city')).toEqual([]);
     expect(cityDbScope('sf')).toEqual(['San Francisco']);
+    expect(cityDbScope('nyc')).toEqual(['New York City', 'New York']);
+  });
+
+  it('keeps unsupported city ids empty instead of silently reusing Miami fallback data', async () => {
+    const layers = await loadAllLayers('unknown-city');
+    const statsIndex = buildParkingIndex('unknown-city', layers);
+
+    expect(layers.facilities.features).toHaveLength(0);
+    expect(layers.segments.features).toHaveLength(0);
+    expect(layers.zones.features).toHaveLength(0);
+    expect(layers.facilities.metadata).toMatchObject({
+      cityId: 'unknown-city',
+      data_status: 'unsupported',
+      supported: false,
+    });
+    expect(statsIndex.metadata).toMatchObject({
+      cityId: 'unknown-city',
+      baseline_scope: [],
+      data_status: 'unsupported',
+      count: 0,
+      layers: { facilities: 0, curb_segments: 0, parking_zones: 0 },
+    });
+  });
+
+  it('exposes the NYC 1540 Broadway garage tariff evidence fixture without verified checkout links', async () => {
+    const facilities = await loadFacilities('nyc');
+    const matches = facilities.features.filter((feature) => {
+      const text = `${feature.properties.name ?? ''} ${feature.properties.street ?? ''} ${feature.properties.operator ?? ''} ${feature.properties.source_id ?? ''}`.toLowerCase();
+      return text.includes('1540') || text.includes('dock');
+    });
+
+    expect(matches).toHaveLength(1);
+    expect(matches[0].properties).toMatchObject({
+      city: 'New York City',
+      state: 'NY',
+      facility_type: 'garage',
+      price_status: 'paid_unknown',
+      tariff_review_status: 'pending_review',
+      hourly_rate_status: 'unknown',
+      daily_rate_status: 'unknown',
+      taxes_status: 'unknown',
+      fees_status: 'unknown',
+      oversize_fee_status: 'unknown',
+      reentry_policy_status: 'unknown',
+      payment_url: '',
+      booking_url: '',
+    });
+    expect(String(matches[0].properties.payment_note)).toContain('not promoted');
   });
 
   it('builds a canonical mixed-geometry index with enrichment status metadata', () => {
@@ -134,7 +209,7 @@ describe('ParkingUSA Parking Index', () => {
     });
   });
 
-  it('treats Miami Beach ArcGIS Parking Zones as residential rule polygons, not parking places', () => {
+  it('treats Miami Beach ArcGIS Parking Zones 172/386 as residential rule polygons, not parking places', () => {
     const feature = canonicalFeature(
       {
         type: 'Feature',
@@ -144,8 +219,8 @@ describe('ParkingUSA Parking Index', () => {
         },
         properties: {
           source_name: 'City of Miami Beach Parking GIS',
-          source_id: 'miami-beach:arcgis:zones:162',
-          name: 'Parking Zones 162',
+          source_id: 'miami-beach:arcgis:zones:172',
+          name: 'Parking Zones 172',
           facility_type: 'parking_zone',
           access: 'public',
           price_status: 'known_unpriced',
@@ -169,6 +244,12 @@ describe('ParkingUSA Parking Index', () => {
       price_status: 'not_applicable',
       rule_status: 'partial',
       enrichment_status: 'needs_rules',
+      source_confidence: 0.9,
+      offer_confidence: 0.35,
+      display_confidence: 0.35,
+      confidence: 0.35,
+      ordinary_parking_status: 'not_ordinary_parking_offer',
+      availability_semantics: 'regulatory_or_residential_rule_evidence_only',
       zone_name: 'Zone-5',
       zone_type: 'Metered Residential Zone',
       restricted_res_time: '1st Come 1st Served',
@@ -176,42 +257,36 @@ describe('ParkingUSA Parking Index', () => {
     });
   });
 
-  it('keeps Miami Beach roadside rule zones as curb segments when displayed as lines', () => {
-    const feature = canonicalFeature(
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: [[-80.132, 25.775], [-80.129, 25.775]],
-        },
-        properties: {
-          source_name: 'City of Miami Beach Parking GIS',
-          source_id: 'miami-beach:arcgis:zones:162',
-          name: 'Parking Zones 162',
-          facility_type: 'parking_zone',
-          display_geometry_role: 'curb_line',
-          raw_properties: {
-            OBJECTID: 162,
-            ZONE_: 5,
-            ZONE_TYPE: 2,
-            RESTRICTED_RES_TIME: 4,
-          },
-          confidence: 0.9,
-        },
-      },
-      'curb_segment',
-    );
-
-    expect(feature.properties).toMatchObject({
-      name: 'Miami Beach Residential Zone-5',
-      facility_type: 'curb_segment',
-      source_zone_type: 'residential_parking_zone',
-      access: 'regulated_residential_zone',
-      price_status: 'not_applicable',
-      parkingusa_layer: 'curb_segment',
-      zone_type: 'Metered Residential Zone',
-      restricted_res_time: '1st Come 1st Served',
+  it('does not expose Miami Beach residential/regulatory zones as normal curb segments', async () => {
+    const segments = await loadCurbSegments('miami');
+    const residentialZoneSegments = segments.features.filter((feature) => {
+      const name = String(feature.properties.name ?? '');
+      const sourceId = String(feature.properties.source_id ?? '');
+      return (
+        name.includes('Residential Zone') ||
+        sourceId.startsWith('miami-beach:arcgis:zones:') ||
+        feature.properties.source_zone_type === 'residential_parking_zone'
+      );
     });
+
+    expect(residentialZoneSegments).toEqual([]);
+  });
+
+  it('does not expose long generated Miami Beach parking-space rows as normal curb segments', async () => {
+    const segments = await loadCurbSegments('miami');
+    const longGeneratedRows = segments.features
+      .filter((feature) => {
+        const sourceId = String(feature.properties.source_id ?? '');
+        return sourceId.startsWith('parking-space-row:') && segmentLengthMeters(feature.geometry?.coordinates) > 150;
+      })
+      .map((feature) => ({
+        source_id: feature.properties.source_id,
+        name: feature.properties.name,
+        length_m: Math.round(segmentLengthMeters(feature.geometry?.coordinates)),
+        ordinary_parking_status: feature.properties.ordinary_parking_status,
+      }));
+
+    expect(longGeneratedRows).toEqual([]);
   });
 
   it('renders polygon parking-space curbs as a single road-side line instead of rectangle outlines', () => {
@@ -248,8 +323,10 @@ describe('ParkingUSA Parking Index', () => {
         geometry: { type: 'Point', coordinates: [-80.1300, 25.7800] },
         properties: {
           source_name: 'City of Miami Beach Parking GIS',
-          source_id: 'miami-beach:arcgis:spaces:1',
-          name: 'Parking Spaces 1',
+          source_id: 'miami-beach:arcgis:spaces:429',
+          name: 'Parking Spaces 429',
+          confidence: 0.9,
+          ParkMobile: '88501',
         },
       },
       {
@@ -270,6 +347,13 @@ describe('ParkingUSA Parking Index', () => {
       facility_type: 'curb_segment',
       meter_count: 2,
       source_geometry_type: 'PointCluster',
+      source_confidence: 0.9,
+      offer_confidence: 0.55,
+      display_confidence: 0.55,
+      confidence: 0.55,
+      field_conflict_status: 'needs_field_review',
+      field_payment_zone_location_id: '40208',
+      enrichment_status: 'needs_review',
       geometry_provenance: 'Curb line derived from grouped official parking-space points; parking-area interior points are excluded before line generation.',
     });
   });
