@@ -259,6 +259,53 @@ For frontend/map changes:
 - verify layer counters display;
 - verify detail panel opens for selected parking records.
 
+## Frontend Visual QA Protocol
+
+When the user asks to test, review, critique, or improve the frontend, act as an independent product/design QA reviewer, not as a friendly demo operator. Be picky about visual quality, layout, hierarchy, responsiveness, and trust in the data presentation.
+
+Always test the live app in a real browser when possible. For the map app, cover at least:
+
+- initial load and slow-load state: skeleton/spinner, loading copy, retry/error state, and whether the UI explains what is happening;
+- desktop viewport around `1280x720`;
+- mobile viewport around `390x844`;
+- light and dark themes;
+- English and Russian locales;
+- `Find parking` and `Data quality` modes;
+- city chips, reliability chips, advanced filters, search suggestions, search results, and clear/reset behavior;
+- MapLibre canvas render, zoom controls, attribution, layer counters, visible markers/lines/polygons, and whether map data matches sidebar/list counters;
+- facility card list, selected-card state, popup/detail panel, source/payment/booking/evidence links, long price/rule text, and close/back behavior;
+- route panel controls: location button, pick start, pick destination, disabled/enabled route CTA, and offscreen/overlap behavior.
+
+During visual QA, explicitly look for:
+
+- text clipped, hidden, overlapping, too small, too low contrast, or visually de-emphasized when it is important;
+- horizontal overflow, offscreen chips/buttons, broken bottom sheets, unscrollable content, or controls hidden below the viewport;
+- inconsistent counts such as dataset total vs visible map vs current list;
+- technical/raw data values shown to drivers without friendly labels, for example `yes`, `parking_space`, `surface_lot`, or `known_priced`;
+- decorative effects that hurt utility, such as excessive blur, glow, glass, animation, shadows, or one-note color treatment;
+- theme mismatches where a light panel appears inside dark mode or dark text appears on a dark background;
+- focus rings, hover states, active states, disabled states, and selected states that look like bugs or are too subtle;
+- loading states that can be mistaken for a frozen app;
+- data-confidence UI that overstates uncertain/OSM/operator-derived records.
+
+For every frontend QA report, organize findings by severity:
+
+- `P0` blocks core use, such as app/runtime error, map not rendering, unusable mobile layout, or unreadable detail panel.
+- `P1` misleads or seriously slows users, such as wrong counters, broken mode switching, missing error state, or clipped primary controls.
+- `P2` is polish but still actionable, such as weak spacing, noisy decoration, inconsistent labels, or awkward focus styling.
+
+When suggesting visual improvements, be concrete. Do not say only "look at Uiverse" or "make it nicer". Name the exact pattern and where it applies, for example:
+
+- search input with left search icon, inline clear button, and compact suggestions;
+- segmented control with sliding active background for `Find parking` / `Data quality`;
+- horizontal scroll chip row with edge fade for city/reliability filters on mobile;
+- map skeleton loader with pulsing marker dots and per-layer status instead of a full blur spinner;
+- compact alert cards for `Needs review` and `Conflicts`;
+- bottom-sheet filter drawer for mobile map workflows;
+- theme-safe detail panel with explicit foreground/background tokens and strong price emphasis.
+
+Reference inspiration sites such as `https://uiverse.io` only as a source of concrete components/patterns. Adapt them to a restrained GIS/productivity interface: prioritize readability, density, predictable controls, and honest data states over decorative novelty.
+
 For ported `osm-tag-updater` logic:
 - port and run the original transpose/utils tests;
 - add ParkingUSA wrapper tests around OSM tag objects.

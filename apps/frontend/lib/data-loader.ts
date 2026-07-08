@@ -110,7 +110,15 @@ const CITY_FALLBACKS: Record<string, CityFallbackConfig> = {
 
 function normalizeCityId(cityId = DEFAULT_CITY_ID) {
   const normalized = String(cityId || DEFAULT_CITY_ID).trim().toLowerCase();
-  return normalized || DEFAULT_CITY_ID;
+  const compact = normalized.replace(/[_\s]+/g, '-');
+  const aliases: Record<string, string> = {
+    'san-francisco': 'sf',
+    sanfrancisco: 'sf',
+    'new-york': 'nyc',
+    'new-york-city': 'nyc',
+    'los-angeles': 'la',
+  };
+  return aliases[compact] || aliases[normalized] || normalized || DEFAULT_CITY_ID;
 }
 
 function cityFallback(cityId = DEFAULT_CITY_ID): CityFallbackConfig & { cityId: string } {

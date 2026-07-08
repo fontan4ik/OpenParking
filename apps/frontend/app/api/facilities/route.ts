@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { DEFAULT_CITY_ID, loadFacilities } from '@/lib/data-loader';
-import { matchesPriceFilter } from '@/lib/data-quality';
+import { driverConfidence, matchesPriceFilter, matchesTrustFilter } from '@/lib/data-quality';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
   const priceFilter = searchParams.get('price');
   const sourceFilter = searchParams.get('source');
   const confidenceFilter = searchParams.get('confidence');
+  const trustFilter = searchParams.get('trust');
   const q = searchParams.get('q')?.toLowerCase();
   const limit = parseInt(searchParams.get('limit') || '50000', 10);
   const city = searchParams.get('city') || DEFAULT_CITY_ID;
@@ -37,10 +38,13 @@ export async function GET(request: NextRequest) {
     });
   }
 
+  if (trustFilter) {
+    features = features.filter((f) => matchesTrustFilter(f.properties, trustFilter));
+  }
+
   if (confidenceFilter) {
     features = features.filter((f) => {
-      const confidence =
-        typeof f.properties.confidence === 'number' ? f.properties.confidence : 0.5;
+      const confidence = driverConfidence(f.properties);
       if (confidenceFilter === 'high') return confidence >= 0.75;
       if (confidenceFilter === 'medium') return confidence >= 0.5 && confidence < 0.75;
       if (confidenceFilter === 'low') return confidence < 0.5;
@@ -65,7 +69,7 @@ export async function GET(request: NextRequest) {
       ...(data.metadata ?? {}),
       count: features.length,
       source_count: data.features.length,
-      filters: { city, type: typeFilter, price: priceFilter, source: sourceFilter, confidence: confidenceFilter, q },
+      filters: { city, type: typeFilter, price: priceFilter, source: sourceFilter, trust: trustFilter, confidence: confidenceFilter, q },
     },
     features,
   });

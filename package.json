@@ -1,8 +1,8 @@
 {
-  "name": "parking-usa",
+  "name": "openparking",
   "version": "1.0.0",
   "private": true,
-  "description": "ParkingUSA — Find Every Parking Spot in America",
+  "description": "OpenParking — Open Parking Intelligence",
   "scripts": {
     "dev": "next dev apps/frontend",
     "dev:public": "next dev apps/frontend -H 0.0.0.0 -p 3000",

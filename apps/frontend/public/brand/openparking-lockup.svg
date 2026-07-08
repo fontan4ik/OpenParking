@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 128" role="img" aria-labelledby="openparking-lockup-title">
+  <title id="openparking-lockup-title">OpenParking logo</title>
+  <defs>
+    <linearGradient id="opl-panel" x1="22" y1="20" x2="106" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1730"/>
+      <stop offset="0.48" stop-color="#0d2550"/>
+      <stop offset="1" stop-color="#091021"/>
+    </linearGradient>
+    <linearGradient id="opl-glow" x1="24" y1="22" x2="105" y2="95" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#20f4d8"/>
+      <stop offset="0.48" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#5b6df7"/>
+    </linearGradient>
+    <linearGradient id="opl-word" x1="142" y1="34" x2="500" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="0.58" stop-color="#dbeafe"/>
+      <stop offset="1" stop-color="#99f6e4"/>
+    </linearGradient>
+    <filter id="opl-soft-shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#020617" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#22d3ee" flood-opacity="0.22"/>
+    </filter>
+    <filter id="opl-line-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#2dd4bf" flood-opacity="0.72"/>
+    </filter>
+    <clipPath id="opl-rounded">
+      <rect x="14" y="14" width="100" height="100" rx="24"/>
+    </clipPath>
+  </defs>
+
+  <g>
+    <rect x="9" y="9" width="110" height="110" rx="28" fill="#07111f" opacity="0.72"/>
+    <rect x="14" y="14" width="100" height="100" rx="24" fill="url(#opl-panel)" stroke="#1e3a5f" stroke-width="1.5" filter="url(#opl-soft-shadow)"/>
+    <g clip-path="url(#opl-rounded)">
+      <circle cx="82" cy="37" r="52" fill="#22d3ee" opacity="0.18"/>
+      <circle cx="40" cy="91" r="42" fill="#2563eb" opacity="0.22"/>
+      <path d="M26 47h76M26 68h76M26 89h76M39 28v78M61 28v78M83 28v78" stroke="#7dd3fc" stroke-width="1" opacity="0.15"/>
+    </g>
+    <circle cx="76" cy="51" r="29" fill="none" stroke="#7dd3fc" stroke-width="1.6" opacity="0.35"/>
+    <circle cx="76" cy="51" r="16" fill="none" stroke="#5eead4" stroke-width="1.4" opacity="0.45"/>
+    <path d="M45 93V46c0-14 11-24 26-24h9c18 0 31 12 31 29S98 80 80 80H62c-10 0-17 7-17 16" fill="none" stroke="url(#opl-glow)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#opl-line-glow)"/>
+    <path d="M63 58h17c5 0 9-3 9-8s-4-8-9-8H63v16Z" fill="#08111f" stroke="#99f6e4" stroke-width="4" stroke-linejoin="round" opacity="0.94"/>
+    <path d="M78 80l14 29 14-29" fill="none" stroke="url(#opl-glow)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" filter="url(#opl-line-glow)"/>
+  </g>
+
+  <text x="146" y="77" fill="url(#opl-word)" font-family="Inter, Fira Sans, Segoe UI, Arial, sans-serif" font-size="46" font-weight="850" letter-spacing="0">OpenParking</text>
+  <text x="149" y="101" fill="#93a4bd" font-family="Inter, Fira Sans, Segoe UI, Arial, sans-serif" font-size="15" font-weight="650" letter-spacing="2">OPEN PARKING INTELLIGENCE</text>
+</svg>

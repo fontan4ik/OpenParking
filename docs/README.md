@@ -1,14 +1,14 @@
-# ParkingUSA
+# OpenParking
 
-ParkingUSA is a parking data platform for the United States. The goal is to build a comprehensive, source-aware parking data layer covering facilities, garages, lots, meters, curb segments, parking zones, prices, rules, availability signals, freshness, confidence, and provenance.
+OpenParking, formerly ParkingUSA, is a parking data platform for the United States. The goal is to build a comprehensive, source-aware parking data layer covering facilities, garages, lots, meters, curb segments, parking zones, prices, rules, availability signals, freshness, confidence, and provenance. Legacy `ParkingUSA`/`parkingusa` technical identifiers may remain in API contracts and canonical fields until a dedicated compatibility migration.
 
-The current web application lives in `apps/frontend` and defaults to a Miami seed layer built with Next.js, React, and MapLibre GL JS. San Francisco remains a benchmark fallback dataset. Shared backend code lives in `apps/backend`, including Prisma, parsers, importers, research jobs, and tile scripts. The future mobile app has a separate workspace in `apps/mobile`.
+The current web application lives in `apps/frontend`: `/` is the OpenParking landing page and `/map` is the full-screen MapLibre app with light/dark theme switching. It defaults to a Miami seed layer built with Next.js, React, and MapLibre GL JS. San Francisco remains a benchmark fallback dataset. Shared backend code lives in `apps/backend`, including Prisma, parsers, importers, research jobs, and tile scripts. The future mobile app has a separate workspace in `apps/mobile`.
 
 ## Current Status
 
 The project currently includes:
 
-- a full-screen MapLibre map shell;
+- an OpenParking landing page plus a full-screen MapLibre map shell with premium glass UI and light/dark theme support;
 - public API routes for stats, facilities, and GeoJSON layers;
 - additive `POST /api/route` routing MVP backed by server-side Valhalla, including selected-parking routes and map-picked point-to-point routes;
 - Miami official-source seed facilities plus Miami Beach official GIS expansion layers;

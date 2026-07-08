@@ -3,10 +3,11 @@ import { LanguageProvider } from '@/components/LanguageProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'ParkingUSA — Find Every Parking Spot in America',
+  title: 'OpenParking — Open Parking Intelligence',
   description:
-    'The most comprehensive parking data layer for the USA. Real parking inventory with prices, rules, confidence scores, and multi-source verification across major US cities.',
+    'A premium open parking intelligence platform for maps, prices, rules, confidence scores, and multi-source verification across major US cities.',
   keywords: [
+    'OpenParking',
     'parking',
     'USA',
     'parking map',
@@ -19,9 +20,12 @@ export const metadata: Metadata = {
     'NYC parking',
   ],
   openGraph: {
-    title: 'ParkingUSA — Find Every Parking Spot in America',
-    description: 'The most comprehensive parking data layer for the USA.',
+    title: 'OpenParking — Open Parking Intelligence',
+    description: 'A premium open parking data layer for the USA.',
     type: 'website',
+  },
+  icons: {
+    icon: '/brand/openparking-mark.svg',
   },
 };
 

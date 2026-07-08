@@ -137,8 +137,92 @@ export function isKnownPriceStatus(status: unknown): boolean {
 
 export function matchesPriceFilter(properties: Record<string, unknown>, priceFilter: string | null) {
   if (priceFilter === 'known') return isKnownPriceStatus(properties.price_status);
+  if (priceFilter === 'free') return properties.price_status === 'known_free';
   if (priceFilter === 'unknown') return !isKnownPriceStatus(properties.price_status);
   return true;
+}
+
+export type TrustFilter = 'reliable' | 'likely' | 'all' | 'review' | 'conflict';
+
+function numberValue(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+function statusText(value: unknown): string {
+  return typeof value === 'string' ? value.trim().toLowerCase() : '';
+}
+
+export function driverConfidence(properties: Record<string, unknown>): number {
+  return (
+    numberValue(properties.display_confidence) ??
+    numberValue(properties.displayConfidence) ??
+    numberValue(properties.offer_confidence) ??
+    numberValue(properties.offerConfidence) ??
+    numberValue(properties.confidence) ??
+    numberValue(properties.source_confidence) ??
+    numberValue(properties.sourceConfidence) ??
+    0.5
+  );
+}
+
+export function hasParkingConflict(properties: Record<string, unknown>): boolean {
+  const ordinaryStatus = statusText(properties.ordinary_parking_status);
+  const enrichmentStatus = statusText(properties.enrichment_status);
+  const ruleStatus = statusText(properties.rule_status);
+  const fieldConflict = statusText(properties.field_conflict_status);
+  const access = statusText(properties.access);
+
+  return (
+    ordinaryStatus === 'not_ordinary_parking_offer' ||
+    enrichmentStatus === 'conflict' ||
+    ruleStatus === 'conflict' ||
+    fieldConflict.includes('conflict') ||
+    access === 'no'
+  );
+}
+
+export function needsParkingReview(properties: Record<string, unknown>): boolean {
+  const confidence = driverConfidence(properties);
+  const enrichmentStatus = statusText(properties.enrichment_status);
+  const ruleStatus = statusText(properties.rule_status);
+  const priceStatus = statusText(properties.price_status);
+  const fieldConflict = statusText(properties.field_conflict_status);
+
+  return (
+    confidence < 0.7 ||
+    enrichmentStatus === 'needs_review' ||
+    enrichmentStatus === 'stale' ||
+    ruleStatus === 'stale' ||
+    priceStatus === 'stale' ||
+    fieldConflict === 'needs_field_review' ||
+    fieldConflict.includes('review')
+  );
+}
+
+export function trustLabel(properties: Record<string, unknown>): TrustFilter {
+  if (hasParkingConflict(properties)) return 'conflict';
+  if (needsParkingReview(properties)) return 'review';
+  return driverConfidence(properties) >= 0.75 ? 'reliable' : 'likely';
+}
+
+export function matchesTrustFilter(properties: Record<string, unknown>, trustFilter: string | null) {
+  const confidence = driverConfidence(properties);
+  const conflict = hasParkingConflict(properties);
+
+  if (!trustFilter || trustFilter === 'all') return !conflict;
+  if (trustFilter === 'reliable') return !conflict && !needsParkingReview(properties) && confidence >= 0.75;
+  if (trustFilter === 'likely') return !conflict && confidence >= 0.6;
+  if (trustFilter === 'review') return !conflict && needsParkingReview(properties);
+  if (trustFilter === 'conflict') return conflict;
+  return true;
+}
+
+export function trustRank(properties: Record<string, unknown>): number {
+  const label = trustLabel(properties);
+  if (label === 'reliable') return 4;
+  if (label === 'likely') return 3;
+  if (label === 'review') return 2;
+  return 1;
 }
 
 /* ── Price Status Derivation ──────────────────────────────── */

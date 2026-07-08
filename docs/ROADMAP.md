@@ -1,8 +1,8 @@
-# ParkingUSA Advanced Roadmap
+# OpenParking Advanced Roadmap
 
-Date: 2026-06-15
+Date: 2026-07-07
 
-This roadmap is the working checklist for moving ParkingUSA from city seed fixtures to a scalable, provenance-aware US parking data platform. Miami is now the default app seed; San Francisco remains the benchmark fixture set.
+This roadmap is the working checklist for moving OpenParking, formerly ParkingUSA, from city seed fixtures to a scalable, provenance-aware US parking data platform. Miami is now the default app seed; San Francisco remains the benchmark fixture set. Existing `ParkingUSA`/`parkingusa` internal API and canonical-field names stay compatible unless a roadmap item explicitly schedules a migration.
 
 ## Status Legend
 
@@ -262,6 +262,17 @@ Gate checks:
   - [x] confidence
   - [x] review-needed threshold
 - [~] Add graceful empty/error/loading states for each layer.
+  - [x] Replace map-level infinite blur spinner with a skeleton-map loading/error state, progress bar, marker pulses, layer statuses, Retry, and file-fallback copy.
+  - [ ] Add per-layer empty/error states for facilities, curb segments, and zones after vector-tile/source switching work.
+- [~] Keep the map-first UI usable across desktop and mobile:
+  - [x] Reduce the desktop first-screen sidebar to search, city, mode, reliability presets, and collapsible advanced filters.
+  - [x] Move mobile controls into a bottom sheet so the MapLibre canvas remains visible immediately.
+  - [x] Add a compact mobile theme toggle and collapsible bottom-sheet handle for hiding filters.
+  - [x] Make mobile city/search/reliability/filter chips horizontal scroll rows instead of clipping outside the viewport.
+  - [x] Make Data quality an explicit amber segmented-control state with review/conflict count and review-mode filter switching.
+  - [x] Split sidebar counts into Dataset total, Visible on map, and Matched by search/current list semantics.
+  - [x] Keep detail panel contrast theme-safe in dark mode.
+  - [ ] Complete manual visual QA on mobile and desktop after every major map UI slice.
 - [~] Make coverage gaps visible as a first-class product workflow:
   - [x] show "known parking, unknown price" distinctly from "priced parking";
   - [x] add counters for total known facilities, price-known facilities, price-unknown facilities, and review-needed facilities;

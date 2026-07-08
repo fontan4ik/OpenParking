@@ -1,16 +1,16 @@
-# ParkingUSA - понятное описание проекта и главный источник правды
+# OpenParking - понятное описание проекта и главный источник правды
 
-Дата: 2026-06-15
+Дата: 2026-07-08
 
-Этот документ - главный продуктовый и архитектурный источник правды для ParkingUSA. Остальные документы, задачи, API, импортеры и UI должны сверяться с ним. Если другой документ противоречит этому файлу, сначала обновляем этот файл, потом приводим остальные материалы и код к нему.
+Этот документ - главный продуктовый и архитектурный источник правды для OpenParking. Проект раньше назывался ParkingUSA; внутренние API-пути, canonical fields и технические идентификаторы с префиксом `parkingusa` могут сохраняться для совместимости, пока не будет отдельной миграции. Остальные документы, задачи, API, импортеры и UI должны сверяться с этим файлом. Если другой документ противоречит этому файлу, сначала обновляем этот файл, потом приводим остальные материалы и код к нему.
 
-Документ объясняет ParkingUSA простым языком: что мы строим, как это будет работать, какие данные нужны, откуда брать парковки по США, где нужны обычные API, где нужны парсеры, где нужны браузерные агенты, а где уже придется подключать звонки, партнерства или ручную проверку.
+Документ объясняет OpenParking простым языком: что мы строим, как это будет работать, какие данные нужны, откуда брать парковки по США, где нужны обычные API, где нужны парсеры, где нужны браузерные агенты, а где уже придется подключать звонки, партнерства или ручную проверку.
 
 Термины на английском оставлены там, где они важны для разработки. Рядом дается перевод или пояснение в скобках.
 
 ## 0. Как сейчас устроен проект в репозитории
 
-Если смотреть на текущий код, ParkingUSA работает так:
+Если смотреть на текущий код, OpenParking работает так:
 
 ```text
 data/*.geojson и data/research/*.json
@@ -30,7 +30,8 @@ data/*.geojson и data/research/*.json
 
 | Что | Где находится | Зачем нужно |
 | --- | --- | --- |
-| Главная карта | `apps/frontend/app/page.tsx`, `apps/frontend/components/ParkingMap.tsx` | Пользовательский экран с MapLibre |
+| Лендинг | `apps/frontend/app/page.tsx`, `apps/frontend/public/hero/openparking-hero-dark.mp4`, `apps/frontend/public/hero/openparking-hero-light.mp4` | Публичный OpenParking first screen с брендом, CTA, синхронизированной светлой/темной темой и полноэкранным theme-aware видеофоном |
+| Главная карта | `apps/frontend/app/map/page.tsx`, `apps/frontend/components/ParkingMap.tsx` | Пользовательский map-first экран с MapLibre, поиском, desktop shortcut controls в стиле map-service sidebar, compact city/mode controls, bottom-sheet фильтрами на mobile, auto-peek поведением панели при движении карты, compact mobile theme toggle, отдельным режимом Data quality для review/conflict объектов и skeleton/error state при загрузке карты |
 | API routes | `apps/frontend/app/api/*/route.ts` | Публичные ручки для карты и данных |
 | Загрузка данных | `apps/frontend/lib/data-loader.ts` | Общий вход: БД или GeoJSON fallback |
 | Загрузка из БД | `apps/frontend/lib/db-loader.ts` | Prisma -> GeoJSON для frontend |
@@ -58,11 +59,14 @@ API реализован прямо в Next.js frontend-приложении ч�
 Поддержанные фильтры в `/api/facilities`:
 
 - `type` - например `street_meter`;
-- `price=known` или `price=unknown`; фильтр использует canonical `price_status`, где известной ценой считаются только `known_priced` и `known_free`;
+- `price=known`, `price=unknown` или `price=free`; фильтр использует canonical `price_status`, где известной ценой считаются только `known_priced` и `known_free`;
 - `source` - фильтр по `source_name` / `last_verified_source`;
+- `trust=reliable|likely|all|review|conflict` - driver-facing фильтр надежности: по умолчанию UI использует `likely`, `all` не показывает явные conflicts, а `review/conflict` нужны для проверки данных;
 - `confidence=high|medium|low|review`;
 - `q` - поиск по name/operator/source_id/street/neighborhood;
 - `limit` - ограничение количества объектов.
+
+`trust` не заменяет технический `confidence`: для пользователя он строится из `display_confidence`, затем `offer_confidence`, затем `confidence/source_confidence`, а также из флагов `not_ordinary_parking_offer`, `needs_field_review`, stale/conflict statuses и `access=no`. Это сохраняет важное разделение DEV-63: источник может быть official/high-confidence, но конкретный parking offer для водителя может оставаться низкоуверенным или conflict evidence.
 
 Важно: единые поля `source_url`, `api_url`, `payment_url`, `booking_url`, `evidence_url` уже протянуты через schema/loaders/API/UI contract. Главный оставшийся product gap - сами transactional links: в проверенных GeoJSON `payment_url` и `booking_url` почти везде отсутствуют, поэтому UI показывает готовые поля, но metrics честно отражают нулевое или низкое покрытие ссылками оплаты/брони.
 
@@ -91,6 +95,7 @@ Miami fallback:
 - `miami_beach_parking_arcgis_spaces.geojson` сохраняет 11,018 official street-space records как raw fixture по последнему refresh. Их нельзя показывать как отдельные прямоугольные полигоны или внутренние ряды парковки в curb-слое: frontend loader сначала исключает точки, попавшие внутрь parking lot/garage polygon, а оставшиеся street-side points группирует в прямые `LineString` curb rows. Если legacy rows приходят как Polygon/MultiPolygon, они нормализуются в линии по длинной оси. Parking lots остаются polygon zones, regulatory/residential rule polygons остаются вне normal curb layer, а слишком длинные generated parking-space rows (>150 м) не публикуются как обычные curb segments до road-side snapping/field review.
 - DEV-49 field audit по South Beach/Ocean Drive/Collins/Lincoln зафиксирован в `docs/SOUTH_BEACH_FALSE_POSITIVE_AUDIT_DEV-49_RU.md` и `data/research/field-audits/dev-49-south-beach-false-positive-audit.json`: layer 7 `Parking Zones` не является ordinary parking offer; layer 3 generated curb rows должны иметь пониженный `display_confidence` до road-side snapping/valet-dropoff/no-parking conflict checks; layer 1 meter points являются payment-equipment evidence; OSM `parking_entrance`, `access=no/private/customers/permit` и low-detail unnamed candidates не должны попадать в default public-parking layer. DEV-63 реализует split `source_confidence` vs `offer_confidence`/`display_confidence`: source evidence для официальных Miami Beach ArcGIS слоев остается высоким, но driver-facing confidence для layer 7 regulatory zones capped at `0.35`, для layer 3 generated curb rows capped at `0.55`, для layer 1 meter/payment equipment capped at `0.5`; field evidence по valet/drop-off/no ordinary parking и zone/location `40208` сохраняется как `SourceObservation` conflict/payment evidence, а не как гарантированная parking availability.
 - DEV-69 frontend safety: главная MapLibre карта разделяет curb `segments` на обычные высокоуверенные curb offers и справочные/низкоуверенные evidence-сегменты. `not_ordinary_parking_offer`, `needs_field_review`, residential/regulatory zones, payment-equipment evidence и `display_confidence < 0.6` больше не рисуются как обычные синие бордюрные линии в default `both/all` view; они вынесены в отдельный пунктирный amber overlay, видимый только в режиме `segments`, с отдельным счетчиком `справочные/проверка`.
+- Текущий UX refinement главной карты: карта остается главным объектом. На desktop сайдбар начинается с крупного поиска и Yandex Maps-inspired shortcut grid для быстрых parking-сценариев (`Garages`, `Lots`, `Meters`, `Known price`, `Review`), затем идут city chips, compact `Find parking` / `Data quality` segmented control и быстрые reliability presets; type/price/display/sort/source/confidence убраны в collapsible `Advanced filters`, чтобы не перегружать первый экран. Сама карта на desktop рендерится без декоративной рамки, чтобы она воспринималась как рабочая карта, а не превью внутри карточки. Счетчики разведены по смыслу: `Dataset total` показывает общий объем данных города, `Visible on map` - реально отфильтрованные/отрендеренные слои, `Matched by search` - результат текущего поискового запроса или списка. На mobile интерфейс работает как bottom sheet поверх карты: сразу видна MapLibre canvas, search/city/reliability chips используют горизонтальные scroll rows, а фильтры раскрываются ниже. Верхняя ручка mobile sheet сворачивает/разворачивает фильтры тапом или свайпом, рядом есть компактная иконка переключения светлой/темной темы, а при drag/zoom карты раскрытая панель временно сдвигается вниз в auto-peek state и затем возвращается, чтобы водитель видел больше карты во время движения. Основные водительские пресеты надежности: `Reliable`, `More options` (`likely`, default), `All candidates`, `Needs review`, `Conflicts`. Режим Data quality имеет amber active state, счетчик review/conflict records, переключает trust/confidence/sort/display в review-сценарий и показывает review/conflict evidence-сегменты вместо того, чтобы смешивать их с обычными parking offers. Detail panel theme-safe: в dark mode панель, header и секции остаются темными с читаемым светлым текстом. При долгой загрузке или ошибке карты UI показывает skeleton-map state с progress bar, marker dots, layer statuses, Retry и честным сообщением про file fallback вместо бесконечного blur-spinner.
 - В City of Miami proper все еще нет подтвержденного official street-meter point API. Для него следующий путь - MPA partner/public-records, Geofabrik/OSM baseline и аккуратные browser/manual evidence flows.
 - OSM expansion для Miami теперь имеет production DB path: Florida Geofabrik PBF импортируется через `osm2pgsql`, затем `normalize:osm:pbf:miami-dade:boundary` загружает county-wide baseline в PostGIS. Старый `data/miami_parking_osm.geojson` остается только file fallback и может быть неполным из-за public Overpass limits.
 - Главная проблема Miami теперь решается через масштабный baseline: в локальной БД импортирован Miami-Dade OSM coverage `1,425` facility/entrance points, `185` parking lines и `6,821` parking polygons. Следующий правильный путь - не вручную добавлять по одной парковке, а обогащать этот baseline источниками качества:
@@ -230,7 +235,7 @@ ParkingUSA - это платформа данных о парковках в С�
 - цены, расписания, ограничения, свежесть данных и уверенность в данных.
 - ссылки на источник и ссылки на оплату
 
-Продукт для пользователя должен выглядеть как удобная карта: человек открывает карту, видит парковки вокруг, фильтрует по цене, времени, типу парковки, доступности, долгосрочности, valet, гаражам, уличным местам и правилам, А также четко видит парковочные зоны.
+Продукт для пользователя должен выглядеть как удобная карта: человек открывает карту, видит парковки вокруг, фильтрует по надежности (`reliable/likely/review/conflict`), цене, времени, типу парковки, доступности, долгосрочности, valet, гаражам, уличным местам и правилам, а также четко видит парковочные зоны.
 
 Важная UX-цель: карта должна ощущаться как привычный общий поиск парковок - пользователь вводит или открывает район и видит все известные ParkingUSA парковки, как в Google Maps при поиске "parking". Но внутри ParkingUSA существование парковки и знание тарифов - разные факты. Если парковка найдена в baseline, но цена неизвестна, она все равно показывается на карте с честным статусом: "цена неизвестна", "правила неизвестны", "нужна проверка". Если тариф, правила, ссылка на оплату или booking link известны, карточка показывает эти факты вместе с источником, свежестью и confidence.
 

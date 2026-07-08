@@ -1,8 +1,8 @@
-# ParkingUSA Architecture
+# OpenParking Architecture
 
-Date: 2026-06-08
+Date: 2026-07-07
 
-ParkingUSA is a full-stack parking data platform built around source-aware ingestion, PostGIS storage, Prisma application access, and MapLibre visualization. The current San Francisco proof of concept remains the working frontend shell while the backend moves from file fixtures toward durable database-backed ingestion.
+OpenParking, formerly ParkingUSA, is a full-stack parking data platform built around source-aware ingestion, PostGIS storage, Prisma application access, and MapLibre visualization. Legacy `ParkingUSA`/`parkingusa` names may remain in API routes, canonical fields, and database-adjacent identifiers for compatibility until a deliberate migration. The current Miami-first web app combines a public landing page with a full-screen MapLibre map shell while the backend moves from file fixtures toward durable database-backed ingestion.
 
 ## Architecture Direction
 
@@ -11,7 +11,7 @@ The target system keeps the current public API surface stable while replacing ad
 ```text
 City / OSM / operator sources
    -> deterministic importers and external tools
-   -> candidate coverage baseline + normalized ParkingUSA records
+   -> candidate coverage baseline + normalized OpenParking records
    -> pricing/rules enrichment and missing-data queue
    -> PostGIS + Prisma
    -> compatible GeoJSON APIs
@@ -26,7 +26,8 @@ City / OSM / operator sources
 - Next.js App Router.
 - React.
 - MapLibre GL JS.
-- Full-screen map UI as the working shell.
+- `/` OpenParking landing page.
+- `/map` full-screen map UI as the working shell, with premium glass panels and light/dark theme switching.
 - GeoJSON mode for MVP, debugging, and fixture fallback.
 - Vector tile mode for large city/state/national layers.
 

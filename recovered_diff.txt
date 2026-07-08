@@ -1,0 +1,168 @@
+Created At: 2026-07-07T11:44:07Z
+Completed At: 2026-07-07T11:44:07Z
+The following changes were made by the replace_file_content tool to: c:\AI\ParkingUSA\apps\frontend\app\globals.css. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -2257,8 +2257,9 @@
+ .landing-page {
+   min-height: 100dvh;
+   overflow-x: hidden;
+-  background: #070912;
+-  color: #f8fbff;
++  background: #050814;
++  color: #f8fbff;
++  font-family: 'Fira Sans', 'Inter', sans-serif;
+ }
+ 
+ html:has(.landing-page),
+@@ -2268,12 +2268,14 @@
+ 
+ .landing-hero {
+   position: relative;
+-  min-height: 88dvh;
+-  display: grid;
+-  align-items: end;
+-  padding: 24px clamp(20px, 5vw, 72px) 80px;
++  min-height: 100dvh;
++  display: flex;
++  flex-direction: column;
++  justify-content: space-between;
++  padding: 0 clamp(20px, 5vw, 72px) 80px;
+   isolation: isolate;
+   overflow: hidden;
++  box-sizing: border-box;
+ }
+ 
+ .landing-map-image {
+@@ -2280,12 +2280,12 @@
+   inset: 0;
+   z-index: -2;
+   background:
+-    linear-gradient(90deg, rgba(7, 9, 18, 0.92) 0%, rgba(7, 9, 18, 0.72) 42%, rgba(7, 9, 18, 0.28) 100%),
+-    linear-gradient(180deg, rgba(7, 9, 18, 0.12) 0%, #070912 100%),
++    linear-gradient(90deg, rgba(5, 8, 20, 0.95) 0%, rgba(5, 8, 20, 0.78) 45%, rgba(5, 8, 20, 0.35) 100%),
++    linear-gradient(180deg, rgba(5, 8, 20, 0.1) 0%, #050814 100%),
+     url("https://tile.openstreetmap.org/12/1206/1541.png");
+   background-size: cover;
+   background-position: center;
+-  filter: saturate(0.8) contrast(1.1) brightness(0.72);
++  filter: saturate(0.7) contrast(1.15) brightness(0.6);
+   transform: scale(1.08);
+ }
+ 
+@@ -2294,17 +2294,17 @@
+   inset: 0;
+   z-index: -1;
+   background:
+-    repeating-linear-gradient(90deg, transparent 0 116px, rgba(96, 165, 250, 0.08) 116px 117px),
+-    repeating-linear-gradient(0deg, transparent 0 116px, rgba(45, 212, 191, 0.06) 116px 117px);
+-  mask-image: linear-gradient(90deg, #000 0%, transparent 78%);
++    repeating-linear-gradient(90deg, transparent 0 11
+<truncated 6591 bytes>
+ont-size: clamp(36px, 5vw, 64px);
+   font-weight: 700;
+   line-height: 1;
++  letter-spacing: -0.05em;
+ }
+ 
+ .landing-metric strong {
+@@ -2424,6 +2424,9 @@
+   margin-top: 14px;
+-  color: #f8fbff;
+-  font-size: 18px;
++  color: #ffffff;
++  font-size: 16px;
++  font-weight: 700;
++  text-transform: uppercase;
++  letter-spacing: 0.08em;
+ }
+ 
+ .landing-metric p {
+@@ -2430,34 +2430,35 @@
+   margin-top: 10px;
+   color: #94a3b8;
+-  line-height: 1.55;
+-}
+-
+-@media (prefers-reduced-motion: reduce) {
+-  *,
+-  *::before,
+-  *::after {
+-    animation-duration: 0.01ms !important;
+-    animation-iteration-count: 1 !important;
+-    scroll-behavior: auto !important;
+-    transition-duration: 0.01ms !important;
+-  }
+-}
+-
+-@media (max-width: 720px) {
+-  .sidebar-logo-row,
+-  .sidebar-actions,
+-  .landing-nav,
++  line-height: 1.6;
++  font-size: 14px;
++}
++
++@media (max-width: 1024px) {
++  .landing-hero-container {
++    grid-template-columns: 1fr;
++    text-align: center;
++    gap: 48px;
++    margin-top: 30px;
++    justify-items: center;
++  }
++
++  .landing-hero-content {
++    display: flex;
++    flex-direction: column;
++    align-items: center;
++  }
++
+   .landing-actions {
+-    align-items: flex-start;
+-  }
+-
+-  .sidebar-actions {
+-    justify-content: flex-start;
+-    width: 100%;
+-  }
+-
++    justify-content: center;
++  }
++
++  .glass-card-wrapper {
++    max-width: 440px;
++  }
++}
++
++@media (max-width: 720px) {
+   .landing-hero {
+-    min-height: 92dvh;
+     padding-bottom: 56px;
+   }
+ 
+@@ -2464,4 +2464,10 @@
+     flex-direction: column;
++    gap: 16px;
++  }
++
++  .landing-nav-actions {
++    width: 100%;
++    justify-content: center;
+   }
+ 
+   .landing-platform {
+@@ -2468,9 +2468,6 @@
+   }
+-
+-  .landing-map-image {
+-    background-position: 64% center;
+-  }
+-}
++}
++
+ 
+ .app-layout {
+   display: grid;
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

@@ -1,7 +1,7 @@
 # DEV-50: UX proposal/backlog для честного отображения unknown price/source/payment/confidence
 
 Дата: 2026-07-03
-Статус: proposal/backlog, без implementation changes
+Статус: partially implemented for main map UI/API on 2026-07-07; remaining detail/evidence work stays backlog
 Связано: DEV-50, parent DEV-47
 
 ## 1. Цель
@@ -12,18 +12,20 @@
 
 ## 2. Что уже есть в текущем UI/API
 
-По текущему коду `apps/frontend/app/page.tsx` и `apps/frontend/components/ParkingMap.tsx` уже есть база:
+По текущему коду `apps/frontend/app/map/page.tsx`, `apps/frontend/components/ParkingMap.tsx` и `apps/frontend/lib/data-quality.ts` уже есть база:
 
 - фильтры `displayMode`: all / segments / zones / points / both;
 - фильтр `facility_type`;
-- фильтр цены `known` / `unknown`, где known = `known_priced` или `known_free`;
+- фильтр цены `known` / `unknown` / `free`, где known = `known_priced` или `known_free`;
 - фильтр `source`;
+- driver-facing фильтр `trust=reliable|likely|all|review|conflict`;
 - фильтр `confidence`: high / medium / low / review;
+- режимы сайдбара `Find parking` и `Data quality`, где quality mode раскрывает health metrics и review/conflict сценарии;
 - карточки показывают `source`, confidence %, `price_status`, freshness;
 - detail panel показывает pricing, details, data quality, source ID, links, user report form;
 - links panel уже различает source/evidence/payment/payment app/booking и показывает `Недоступно`, если ссылки нет.
 
-Проблема DEV-50 не в отсутствии всех полей, а в product semantics: пользователю нужно еще яснее видеть, что unknown/low-confidence объект — это candidate/enrichment backlog, а не подтвержденное коммерческое предложение.
+Часть DEV-50 уже закрыта на уровне поиска и списка: пользователь может начать с надежных/вероятных парковок, а затем явно переключиться в `Needs review` или `Conflicts`. Оставшаяся проблема DEV-50 - довести те же semantics до popup/detail header, confidence reasons, payment-link disabled copy и будущей review/admin панели.
 
 ## 3. Новая trust-модель для UI
 
@@ -270,14 +272,21 @@ Acceptance:
 
 ## 9. Suggested first implementation slice
 
-Smallest safe first slice after approval/separate implementation task:
+Implemented first slice on 2026-07-07:
 
-1. Add frontend-only derived `trustState` helper and unit tests.
-2. Use it in facility cards and detail header.
-3. Add disabled explanatory payment row when no `payment_url`/`booking_url` exists.
-4. Do not change loaders/API yet.
+1. Added frontend-derived trust helpers in `apps/frontend/lib/data-quality.ts`: driver confidence, review/conflict detection, trust label/rank, trust filter.
+2. Added backward-compatible `/api/facilities?trust=reliable|likely|all|review|conflict`; existing filters remain valid.
+3. Reworked the main map sidebar into search-first controls with `Find parking` / `Data quality`, trust presets, price/type chips, source/confidence advanced filters and sort modes.
+4. Facility cards now show trust badges before detail-panel open, so a candidate/review/conflict object is not visually identical to a reliable offer.
 
-This gives immediate UX honesty without touching production/deploy/secrets or changing ingestion semantics.
+Remaining backlog:
+
+1. Add the same trust badge and reasons to popup/detail header.
+2. Add disabled explanatory payment row when no `payment_url`/`booking_url` exists.
+3. Persist optional `trust_state`, `confidence_reasons` and `review_reason_codes` only after loader/API schema design.
+4. Build the future admin/review UI for conflict and low-confidence queues.
+
+This keeps production/deploy/secrets untouched and does not promote payment/booking candidates into canonical links.
 
 ## 10. Non-goals for DEV-50
 
@@ -286,4 +295,3 @@ This gives immediate UX honesty without touching production/deploy/secrets or ch
 - No payment-provider scraping.
 - No canonical promotion of payment/booking links.
 - No DB schema migration unless opened as separate implementation task.
-- No code changes in this proposal task.
