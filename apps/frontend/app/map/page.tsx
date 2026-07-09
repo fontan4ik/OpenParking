@@ -166,6 +166,12 @@ function routeMessage(error: RouteError | undefined, uiText: (en: string, ru: st
 }
 
 
+type RouteEndpoint = {
+  type: 'my_location' | 'map_point' | 'dropped_pin' | 'facility';
+  coordinate: RouteCoordinate | null;
+  label: string;
+} | null;
+
 export default function HomePage() {
   const [theme, setTheme] = useState<ThemeMode>('light');
   const [themeHydrated, setThemeHydrated] = useState(false);
@@ -195,12 +201,12 @@ export default function HomePage() {
   const [routeError, setRouteError] = useState('');
   const [userLocation, setUserLocation] = useState<RouteCoordinate | null>(null);
   const [userLocationStatus, setUserLocationStatus] = useState<UserLocationStatus>('idle');
-  const [pickedStart, setPickedStart] = useState<RouteCoordinate | null>(null);
-  const [pickedDestination, setPickedDestination] = useState<RouteCoordinate | null>(null);
-  const [mapPickMode, setMapPickMode] = useState<MapPickMode>('none');
-  const [showManualStart, setShowManualStart] = useState(false);
-  const [manualStartLat, setManualStartLat] = useState('');
-  const [manualStartLon, setManualStartLon] = useState('');
+  const [droppedPin, setDroppedPin] = useState<RouteCoordinate | null>(null);
+  const [routeMode, setRouteMode] = useState<boolean>(false);
+  const [routeOrigin, setRouteOrigin] = useState<RouteEndpoint>(null);
+  const [routeDestination, setRouteDestination] = useState<RouteEndpoint>(null);
+  const [editingField, setEditingField] = useState<'origin' | 'destination' | null>(null);
+  const mapPickMode: MapPickMode = editingField === 'origin' ? 'start' : editingField === 'destination' ? 'destination' : 'none';
   const [facilityTypes, setFacilityTypes] = useState<string[]>([]);
   const [sourceNames, setSourceNames] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -210,7 +216,6 @@ export default function HomePage() {
     segments: 'loading',
     zones: 'loading',
   });
-  const [routePanelExpanded, setRoutePanelExpanded] = useState(false);
   const [mobileSheetCollapsed, setMobileSheetCollapsed] = useState(false);
   const [mobileSheetMapPeeking, setMobileSheetMapPeeking] = useState(false);
   const [mobileSheetDragOffset, setMobileSheetDragOffset] = useState(0);
@@ -323,13 +328,10 @@ export default function HomePage() {
     setRouteError('');
     setUserLocation(null);
     setUserLocationStatus('idle');
-    setPickedStart(null);
-    setPickedDestination(null);
-    setMapPickMode('none');
-    setShowManualStart(false);
-    setManualStartLat('');
-    setManualStartLon('');
-    setRoutePanelExpanded(false);
+    setRouteOrigin(null);
+    setRouteDestination(null);
+    setEditingField(null);
+    setRouteMode(false);
   }, []);
 
   const resetRouteResult = useCallback(() => {
@@ -389,20 +391,6 @@ export default function HomePage() {
     }
   }, [uiText]);
 
-  const requestRoute = useCallback(async (start: RouteCoordinate) => {
-    if (!selectedFacility) return;
-    const destinationResult = resolveParkingDestination(selectedFacility.geometry, start);
-    if (!destinationResult.ok) {
-      setRouteStatus('error');
-      setRouteResult(null);
-      setRouteError(routeMessage(destinationResult.error, uiText));
-      return;
-    }
-
-    setUserLocation(start);
-    await requestRouteBetween(start, destinationResult.destination);
-  }, [requestRouteBetween, selectedFacility, uiText]);
-
   const showMyLocation = useCallback(() => {
     setRouteError('');
 
@@ -424,80 +412,110 @@ export default function HomePage() {
     );
   }, []);
 
+  const selectMyLocation = useCallback((field: 'origin' | 'destination') => {
+    const label = uiText('My location', 'Мое местоположение');
+    if (userLocationStatus === 'geolocated' && userLocation) {
+      const endpoint = { type: 'my_location' as const, coordinate: userLocation, label };
+      if (field === 'origin') setRouteOrigin(endpoint);
+      else setRouteDestination(endpoint);
+    } else {
+      const endpoint = { type: 'my_location' as const, coordinate: null as any, label };
+      if (field === 'origin') setRouteOrigin(endpoint);
+      else setRouteDestination(endpoint);
+      showMyLocation();
+    }
+  }, [userLocation, userLocationStatus, showMyLocation, uiText]);
+
+  const selectMapPoint = useCallback((field: 'origin' | 'destination') => {
+    setEditingField(field);
+  }, []);
+
+  const swapEndpoints = useCallback(() => {
+    const temp = routeOrigin;
+    setRouteOrigin(routeDestination);
+    setRouteDestination(temp);
+  }, [routeOrigin, routeDestination]);
+
+  const handleMapLongPress = useCallback((coordinate: RouteCoordinate) => {
+    setSelectedFacility(null);
+    setDroppedPin(coordinate);
+  }, []);
+
   const handleMapPointPick = useCallback((coordinate: RouteCoordinate) => {
     resetRouteResult();
-    if (mapPickMode === 'start') {
-      setPickedStart(coordinate);
-      setMapPickMode('none');
-      return;
+    const label = `${coordinate.lat.toFixed(5)}, ${coordinate.lon.toFixed(5)}`;
+    if (editingField === 'origin') {
+      setRouteOrigin({ type: 'map_point', coordinate, label });
+    } else if (editingField === 'destination') {
+      setRouteDestination({ type: 'map_point', coordinate, label });
     }
-    if (mapPickMode === 'destination') {
-      setPickedDestination(coordinate);
-      setMapPickMode('none');
-    }
-  }, [mapPickMode, resetRouteResult]);
-
-  const requestPointToPointRoute = useCallback(() => {
-    const start = pickedStart ?? userLocation;
-
-    if (!start || !pickedDestination) {
-      setRouteStatus('error');
-      setRouteResult(null);
-      setRouteError(uiText('Pick a start or show your location, then pick a destination point on the map.', 'Выберите старт или покажите свое местоположение, затем выберите финиш на карте.'));
-      return;
-    }
-
-    setMapPickMode('none');
-    setRoutePanelExpanded(true);
-    void requestRouteBetween(start, pickedDestination);
-  }, [pickedDestination, pickedStart, requestRouteBetween, uiText, userLocation]);
+    setEditingField(null);
+  }, [editingField, resetRouteResult]);
 
   const startNavigation = useCallback(() => {
     if (!selectedFacility) return;
     setRouteError('');
     setRouteResult(null);
-    setShowManualStart(false);
-    setRoutePanelExpanded(true);
 
-    if (pickedStart) {
-      setUserLocationStatus('manual');
-      void requestRoute(pickedStart);
-      return;
-    }
-
-    if (!navigator.geolocation) {
-      setUserLocationStatus('unavailable');
-      setShowManualStart(true);
-      return;
-    }
-
-    setUserLocationStatus('requesting');
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const start = { lat: position.coords.latitude, lon: position.coords.longitude };
-        setUserLocationStatus('geolocated');
-        void requestRoute(start);
-      },
-      () => {
-        setUserLocationStatus('unavailable');
-        setShowManualStart(true);
-        setRouteStatus('idle');
-      },
-      { enableHighAccuracy: true, timeout: 8_000, maximumAge: 60_000 }
-    );
-  }, [pickedStart, requestRoute, selectedFacility]);
-
-  const submitManualStart = useCallback(() => {
-    const lat = Number(manualStartLat);
-    const lon = Number(manualStartLon);
-    if (!Number.isFinite(lat) || lat < -90 || lat > 90 || !Number.isFinite(lon) || lon < -180 || lon > 180) {
+    const destinationResult = resolveParkingDestination(selectedFacility.geometry);
+    if (!destinationResult.ok) {
       setRouteStatus('error');
-      setRouteError(uiText('Enter a valid latitude and longitude.', 'Введите корректные широту и долготу.'));
+      setRouteError(routeMessage(destinationResult.error, uiText));
       return;
     }
-    setUserLocationStatus('manual');
-    void requestRoute({ lat, lon });
-  }, [manualStartLat, manualStartLon, requestRoute, uiText]);
+
+    const label = (selectedFacility.properties.name as string) || t('facility.parkingFallback');
+    setRouteDestination({
+      type: 'facility',
+      coordinate: destinationResult.destination,
+      label
+    });
+    
+    selectMyLocation('origin');
+    setRouteMode(true);
+  }, [selectedFacility, selectMyLocation, t, uiText]);
+
+  useEffect(() => {
+    if (routeOrigin?.coordinate && routeDestination?.coordinate) {
+      void requestRouteBetween(routeOrigin.coordinate, routeDestination.coordinate);
+    } else {
+      resetRouteResult();
+    }
+  }, [routeOrigin?.coordinate, routeDestination?.coordinate, requestRouteBetween, resetRouteResult]);
+
+  useEffect(() => {
+    if (userLocationStatus === 'geolocated' && userLocation) {
+      setRouteOrigin(orig => {
+        if (orig?.type === 'my_location' && !orig.coordinate) {
+          return { ...orig, coordinate: userLocation };
+        }
+        return orig;
+      });
+      setRouteDestination(dest => {
+        if (dest?.type === 'my_location' && !dest.coordinate) {
+          return { ...dest, coordinate: userLocation };
+        }
+        return dest;
+      });
+    } else if (userLocationStatus === 'unavailable') {
+      setRouteOrigin(orig => {
+        if (orig?.type === 'my_location') {
+          setRouteStatus('error');
+          setRouteError(uiText('Geolocation failed or permission denied.', 'Не удалось определить местоположение.'));
+          return null;
+        }
+        return orig;
+      });
+      setRouteDestination(dest => {
+        if (dest?.type === 'my_location') {
+          setRouteStatus('error');
+          setRouteError(uiText('Geolocation failed or permission denied.', 'Не удалось определить местоположение.'));
+          return null;
+        }
+        return dest;
+      });
+    }
+  }, [userLocation, userLocationStatus, uiText]);
 
   const submitSuggestion = useCallback(async () => {
     if (!selectedFacility) return;
@@ -678,44 +696,7 @@ export default function HomePage() {
     return url ? { label, url } : null;
   };
 
-  const formatPickedPoint = (point: RouteCoordinate | null) => {
-    if (!point) return uiText('Not picked', 'Не выбрано');
-    return `${point.lat.toFixed(5)}, ${point.lon.toFixed(5)}`;
-  };
 
-  const formatPointRouteStart = () => {
-    if (pickedStart) return formatPickedPoint(pickedStart);
-    if (userLocation) return uiText(`Current location: ${formatPickedPoint(userLocation)}`, `Мое местоположение: ${formatPickedPoint(userLocation)}`);
-    return uiText('Not picked', 'Не выбрано');
-  };
-
-  const getPointRouteStartLabel = () => {
-    if (pickedStart) return uiText('Map-picked start', 'Старт выбран на карте');
-    if (userLocation) return uiText('Current location', 'Мое местоположение');
-    return uiText('Pick start or show location', 'Выберите старт или покажите местоположение');
-  };
-
-  const getPointRouteReadiness = () => {
-    if (!(pickedStart || userLocation) && !pickedDestination) {
-      return uiText('Pick a start and destination to build a route.', 'Выберите старт и финиш, чтобы построить маршрут.');
-    }
-    if (!(pickedStart || userLocation)) {
-      return uiText('Start is missing: pick start or show your location.', 'Не хватает старта: выберите старт или покажите местоположение.');
-    }
-    if (!pickedDestination) {
-      return uiText('Destination is missing: pick a finish point on the map.', 'Не хватает финиша: выберите точку финиша на карте.');
-    }
-    return pickedStart
-      ? uiText('Ready: map-picked start to map-picked destination.', 'Готово: выбранный старт к выбранному финишу.')
-      : uiText('Ready: current location to map-picked destination.', 'Готово: текущее местоположение к выбранному финишу.');
-  };
-
-  const getPointRouteActionLabel = () => {
-    if (routeStatus === 'requesting') return uiText('Finding route...', 'Строим маршрут...');
-    if (pickedStart && pickedDestination) return uiText('Route picked points', 'Маршрут между точками');
-    if (userLocation && pickedDestination) return uiText('Route from my location', 'Маршрут от меня');
-    return uiText('Route when ready', 'Построить когда готово');
-  };
 
   const getPriceDisplay = (p: Record<string, unknown>): PriceDisplay => {
     const status = getText(p, 'price_status', 'unknown');
@@ -835,7 +816,12 @@ export default function HomePage() {
   const desktopMapShortcuts = [
     {
       key: 'garage',
-      marker: 'P',
+      marker: (
+        <svg viewBox="0 0 24 24">
+          <path d="M3 10V21h18V10L12 3L3 10z" />
+          <path d="M9 17v-6h3a2 2 0 0 1 0 4H9" />
+        </svg>
+      ),
       label: uiText('Garages', 'Гаражи'),
       tone: 'blue',
       active: typeFilter === 'garage',
@@ -847,7 +833,15 @@ export default function HomePage() {
     },
     {
       key: 'surface_lot',
-      marker: 'P',
+      marker: (
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <line x1="9" y1="3" x2="9" y2="21" />
+          <line x1="15" y1="3" x2="15" y2="21" />
+          <line x1="3" y1="9" x2="21" y2="9" />
+          <line x1="3" y1="15" x2="21" y2="15" />
+        </svg>
+      ),
       label: uiText('Lots', 'Площадки'),
       tone: 'green',
       active: typeFilter === 'surface_lot',
@@ -859,7 +853,14 @@ export default function HomePage() {
     },
     {
       key: 'street_meter',
-      marker: '$',
+      marker: (
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="7" r="5" />
+          <line x1="12" y1="12" x2="12" y2="22" />
+          <path d="M9 7h6" />
+          <path d="M12 4v3" />
+        </svg>
+      ),
       label: uiText('Meters', 'Паркоматы'),
       tone: 'amber',
       active: typeFilter === 'street_meter',
@@ -871,7 +872,12 @@ export default function HomePage() {
     },
     {
       key: 'known_price',
-      marker: '$',
+      marker: (
+        <svg viewBox="0 0 24 24">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+          <circle cx="7" cy="7" r="1.5" fill="currentColor" />
+        </svg>
+      ),
       label: uiText('Known price', 'Цена есть'),
       tone: 'cyan',
       active: priceFilter === 'known',
@@ -883,7 +889,13 @@ export default function HomePage() {
     },
     {
       key: 'review',
-      marker: '!',
+      marker: (
+        <svg viewBox="0 0 24 24">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      ),
       label: uiText('Review', 'Проверка'),
       tone: 'red',
       active: workspaceMode === 'quality',
@@ -1001,16 +1013,7 @@ export default function HomePage() {
         },
       ]
     : [];
-  const routePanelHasContext = Boolean(
-    routeResult ||
-    routeError ||
-    userLocation ||
-    pickedStart ||
-    pickedDestination ||
-    mapPickMode !== 'none' ||
-    routeStatus !== 'idle'
-  );
-  const routePanelOpen = routePanelExpanded || routePanelHasContext;
+  const routePanelOpen = routeMode;
   const mobileSheetLabel = mobileSheetCollapsed
     ? uiText('Show filters', 'Показать фильтры')
     : uiText('Hide filters', 'Скрыть фильтры');
@@ -1658,10 +1661,12 @@ export default function HomePage() {
           onFacilitySelect={handleFacilityClick}
           routeGeometry={routeResult?.geometry ?? null}
           userLocation={userLocation}
-          pickedStart={pickedStart}
-          pickedDestination={pickedDestination}
+          pickedStart={routeOrigin?.coordinate ?? null}
+          pickedDestination={routeDestination?.coordinate ?? null}
+          droppedPin={droppedPin}
           mapPickMode={mapPickMode}
           onMapPointPick={handleMapPointPick}
+          onMapLongPress={handleMapLongPress}
           onMapInteractionStart={handleMapInteractionStart}
           onMapInteractionEnd={handleMapInteractionEnd}
           onDisplayModeChange={setDisplayMode}
@@ -1669,91 +1674,183 @@ export default function HomePage() {
           onLayerStatusChange={setMapLayerStatus}
         />
 
-        <div
-          className={`route-map-panel ${routePanelOpen ? 'route-panel-open' : 'route-panel-collapsed'}`}
-          aria-label={uiText('Map navigation controls', 'Управление навигацией на карте')}
-        >
-          <button
-            className="route-map-panel-title route-panel-toggle"
-            type="button"
-            onClick={() => setRoutePanelExpanded((expanded) => !expanded)}
-            aria-expanded={routePanelOpen}
-          >
-            {uiText('Navigation', 'Навигация')}
-          </button>
-          <p className="route-map-panel-help">
-            {uiText('Show your location, then click the map to pick route endpoints.', 'Покажите свое местоположение, затем выберите точки маршрута на карте.')}
-          </p>
-          <div className="route-map-actions">
-            <button
-              className="route-map-button"
-              type="button"
-              data-testid="show-my-location"
-              onClick={showMyLocation}
-              disabled={userLocationStatus === 'requesting'}
-            >
-              {userLocationStatus === 'requesting' ? uiText('Locating...', 'Ищем...') : uiText('Show my location', 'Мое местоположение')}
-            </button>
-            <button
-              className={`route-map-button ${mapPickMode === 'start' ? 'active' : ''}`}
-              type="button"
-              data-testid="pick-start-on-map"
-              onClick={() => setMapPickMode((mode) => (mode === 'start' ? 'none' : 'start'))}
-            >
-              {uiText('Pick start', 'Выбрать старт')}
-            </button>
-            <button
-              className={`route-map-button ${mapPickMode === 'destination' ? 'active' : ''}`}
-              type="button"
-              data-testid="pick-destination-on-map"
-              onClick={() => setMapPickMode((mode) => (mode === 'destination' ? 'none' : 'destination'))}
-            >
-              {uiText('Pick destination', 'Выбрать финиш')}
-            </button>
-          </div>
-          <div className="picked-point-grid">
-            <div className="picked-point-status route-readiness-status">
-              <span>{uiText('Start source', 'Источник старта')}</span>
-              <strong data-testid="route-start-source-status">{getPointRouteStartLabel()}</strong>
+        {/* ── Dropped Pin Card ── */}
+        {droppedPin && (
+          <div className="dropped-pin-card">
+            <div className="dropped-pin-card-header">
+              <span className="dropped-pin-title">
+                {uiText('Dropped Pin', 'Булавка')}
+              </span>
+              <button
+                className="dropped-pin-close"
+                type="button"
+                onClick={() => setDroppedPin(null)}
+              >
+                ✕
+              </button>
             </div>
-            <div className="picked-point-status">
-              <span>{uiText('Start', 'Старт')}</span>
-              <strong data-testid="picked-start-status">{formatPointRouteStart()}</strong>
+            <div className="dropped-pin-coords">
+              {droppedPin.lat.toFixed(5)}, {droppedPin.lon.toFixed(5)}
             </div>
-            <div className="picked-point-status">
-              <span>{uiText('Destination', 'Финиш')}</span>
-              <strong data-testid="picked-destination-status">{formatPickedPoint(pickedDestination)}</strong>
+            <div className="dropped-pin-actions">
+              <button
+                className="dropped-pin-button dropped-pin-button-primary"
+                type="button"
+                onClick={() => {
+                  const label = `${droppedPin.lat.toFixed(5)}, ${droppedPin.lon.toFixed(5)}`;
+                  setRouteDestination({ type: 'dropped_pin', coordinate: droppedPin, label });
+                  selectMyLocation('origin');
+                  setRouteMode(true);
+                  setDroppedPin(null);
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px' }}>
+                  <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                </svg>
+                {uiText('Route here', 'Сюда')}
+              </button>
+              <button
+                className="dropped-pin-button dropped-pin-button-secondary"
+                type="button"
+                onClick={() => {
+                  const label = `${droppedPin.lat.toFixed(5)}, ${droppedPin.lon.toFixed(5)}`;
+                  setRouteOrigin({ type: 'dropped_pin', coordinate: droppedPin, label });
+                  setRouteMode(true);
+                  setDroppedPin(null);
+                }}
+              >
+                {uiText('Route from here', 'Отсюда')}
+              </button>
             </div>
           </div>
-          <div className="route-readiness-note" data-testid="route-readiness-status">
-            {getPointRouteReadiness()}
+        )}
+
+        {/* ── Route Sheet ── */}
+        {routeMode && (
+          <div className="route-sheet">
+            <div className="route-sheet-header">
+              <span className="route-sheet-title">
+                {uiText('Directions', 'Маршрут')}
+              </span>
+              <button
+                className="route-sheet-close"
+                type="button"
+                onClick={resetRouteState}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="route-sheet-inputs">
+              <div className="route-sheet-field-container">
+                <button
+                  className={`route-sheet-field ${editingField === 'origin' ? 'active' : ''}`}
+                  type="button"
+                  onClick={() => setEditingField(editingField === 'origin' ? null : 'origin')}
+                >
+                  <span className="route-sheet-field-icon" style={{ color: 'var(--accent-emerald)' }}>●</span>
+                  {routeOrigin ? routeOrigin.label : uiText('Choose starting point...', 'Выберите точку отправления...')}
+                </button>
+                
+                {editingField === 'origin' && (
+                  <div className="route-sheet-field-menu">
+                    <button
+                      className="route-sheet-menu-item"
+                      type="button"
+                      onClick={() => {
+                        selectMyLocation('origin');
+                        setEditingField(null);
+                      }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                      </svg>
+                      {uiText('My location', 'Мое местоположение')}
+                    </button>
+                    <button
+                      className="route-sheet-menu-item"
+                      type="button"
+                      onClick={() => {
+                        selectMapPoint('origin');
+                      }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                      </svg>
+                      {uiText('Select on map', 'Выбрать на карте')}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <button className="route-sheet-swap" type="button" onClick={swapEndpoints}>
+                ↕
+              </button>
+
+              <div className="route-sheet-field-container">
+                <button
+                  className={`route-sheet-field ${editingField === 'destination' ? 'active' : ''}`}
+                  type="button"
+                  onClick={() => setEditingField(editingField === 'destination' ? null : 'destination')}
+                >
+                  <span className="route-sheet-field-icon" style={{ color: 'var(--accent-red)' }}>📍</span>
+                  {routeDestination ? routeDestination.label : uiText('Choose destination...', 'Выберите точку назначения...')}
+                </button>
+
+                {editingField === 'destination' && (
+                  <div className="route-sheet-field-menu">
+                    <button
+                      className="route-sheet-menu-item"
+                      type="button"
+                      onClick={() => {
+                        selectMapPoint('destination');
+                      }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                      </svg>
+                      {uiText('Select on map', 'Выбрать на карте')}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {routeStatus === 'requesting' && (
+              <div className="route-sheet-summary-card" style={{ opacity: 0.7 }}>
+                {uiText('Finding route...', 'Строим маршрут...')}
+              </div>
+            )}
+
+            {routeStatus === 'success' && routeResult && (
+              <div className="route-sheet-summary-card">
+                <strong>{formatRouteSummary(routeResult.distanceMeters, routeResult.durationSeconds)}</strong>
+                <span style={{ display: 'block', fontSize: '11px', marginTop: '4px', color: 'var(--text-muted)' }}>
+                  {routeResult.attribution}
+                </span>
+              </div>
+            )}
+
+            {routeStatus === 'error' && routeError && (
+              <div className="route-error">
+                {routeError}
+              </div>
+            )}
+
+            {(routeOrigin || routeDestination || routeResult || routeError) && (
+              <button className="route-clear" type="button" onClick={resetRouteState}>
+                {uiText('Clear route', 'Очистить маршрут')}
+              </button>
+            )}
           </div>
-          <button
-            className="route-map-button route-map-primary"
-            type="button"
-            data-testid="route-point-to-point"
-            onClick={requestPointToPointRoute}
-            disabled={routeStatus === 'requesting' || !(pickedStart || userLocation) || !pickedDestination}
-          >
-            {getPointRouteActionLabel()}
-          </button>
-          {routeResult && (
-            <div className="route-summary-card">
-              <strong>{formatRouteSummary(routeResult.distanceMeters, routeResult.durationSeconds)}</strong>
-              <span>{routeResult.attribution}</span>
-            </div>
-          )}
-          {routeError && (
-            <div className="route-error">
-              {routeError}
-            </div>
-          )}
-          {(routeResult || routeError || userLocation || pickedStart || pickedDestination || mapPickMode !== 'none') && (
-            <button className="route-clear" type="button" data-testid="clear-route-points" onClick={resetRouteState}>
-              {uiText('Clear route and points', 'Очистить маршрут и точки')}
-            </button>
-          )}
-        </div>
+        )}
 
         {/* Detail panel */}
         {selectedFacility && (
@@ -2022,18 +2119,6 @@ export default function HomePage() {
 
                     <div className="detail-section route-section">
                       <div className="detail-section-title">{uiText('Navigation', 'Навигация')}</div>
-                      <p className="detail-help-text">
-                        {uiText(
-                          'Route from a picked start point, your current location, or a manual latitude/longitude start point. No location is saved.',
-                          'Постройте маршрут от выбранного старта, текущего местоположения или ручной широты/долготы. Местоположение не сохраняется.'
-                        )}
-                      </p>
-                      <div className="route-status-row">
-                        <span className="detail-field-label">{uiText('Start', 'Старт')}</span>
-                        <span className="detail-field-value" data-testid="user-location-status">
-                          {userLocationStatus}
-                        </span>
-                      </div>
                       {selectedDestinationResult?.ok ? (
                         <button
                           className="suggestion-submit route-primary-action"
@@ -2044,51 +2129,12 @@ export default function HomePage() {
                         >
                           {routeStatus === 'requesting' || userLocationStatus === 'requesting'
                             ? uiText('Finding route...', 'Строим маршрут...')
-                            : uiText('Navigate to parking', 'Маршрут к парковке')}
+                            : uiText('Route to parking', 'Маршрут к парковке')}
                         </button>
                       ) : (
                         <div className="route-error" data-testid="route-error">
                           {uiText('Selected parking geometry cannot be routed.', 'Геометрию выбранной парковки нельзя использовать для маршрута.')}
                         </div>
-                      )}
-                      {showManualStart && (
-                        <div className="manual-start-grid">
-                          <input
-                            className="suggestion-input"
-                            data-testid="manual-start-lat"
-                            value={manualStartLat}
-                            onChange={(event) => setManualStartLat(event.target.value)}
-                            placeholder={uiText('Start latitude', 'Широта старта')}
-                            inputMode="decimal"
-                          />
-                          <input
-                            className="suggestion-input"
-                            data-testid="manual-start-lon"
-                            value={manualStartLon}
-                            onChange={(event) => setManualStartLon(event.target.value)}
-                            placeholder={uiText('Start longitude', 'Долгота старта')}
-                            inputMode="decimal"
-                          />
-                          <button className="suggestion-submit" type="button" onClick={submitManualStart} disabled={routeStatus === 'requesting'}>
-                            {uiText('Use manual start', 'Использовать ручной старт')}
-                          </button>
-                        </div>
-                      )}
-                      {routeResult && (
-                        <div className="route-summary-card" data-testid="route-summary">
-                          <strong>{formatRouteSummary(routeResult.distanceMeters, routeResult.durationSeconds)}</strong>
-                          <span>{routeResult.attribution}</span>
-                        </div>
-                      )}
-                      {routeError && (
-                        <div className="suggestion-message error" data-testid="route-error">
-                          {routeError}
-                        </div>
-                      )}
-                      {(routeResult || routeError || userLocation) && (
-                        <button className="route-clear" type="button" data-testid="clear-route" onClick={resetRouteState}>
-                          {uiText('Clear route', 'Очистить маршрут')}
-                        </button>
                       )}
                     </div>
 

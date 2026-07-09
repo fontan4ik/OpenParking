@@ -39,8 +39,10 @@ interface ParkingMapProps {
   userLocation?: RouteCoordinate | null;
   pickedStart?: RouteCoordinate | null;
   pickedDestination?: RouteCoordinate | null;
+  droppedPin?: RouteCoordinate | null;
   mapPickMode?: MapPickMode;
   onMapPointPick?: (coordinate: RouteCoordinate) => void;
+  onMapLongPress?: (coordinate: RouteCoordinate) => void;
   onMapInteractionStart?: () => void;
   onMapInteractionEnd?: () => void;
   onDisplayModeChange?: (mode: DisplayMode) => void;
@@ -374,8 +376,10 @@ export default function ParkingMap({
   userLocation = null,
   pickedStart = null,
   pickedDestination = null,
+  droppedPin = null,
   mapPickMode = 'none',
   onMapPointPick,
+  onMapLongPress,
   onMapInteractionStart,
   onMapInteractionEnd,
   onDisplayModeChange,
@@ -401,6 +405,7 @@ export default function ParkingMap({
   const tRef = useRef(t);
   const mapPickModeRef = useRef<MapPickMode>(mapPickMode);
   const onMapPointPickRef = useRef(onMapPointPick);
+  const onMapLongPressRef = useRef(onMapLongPress);
   const onFacilitySelectRef = useRef(onFacilitySelect);
   const onMapInteractionStartRef = useRef(onMapInteractionStart);
   const onMapInteractionEndRef = useRef(onMapInteractionEnd);
@@ -416,6 +421,10 @@ export default function ParkingMap({
   useEffect(() => {
     onMapPointPickRef.current = onMapPointPick;
   }, [onMapPointPick]);
+
+  useEffect(() => {
+    onMapLongPressRef.current = onMapLongPress;
+  }, [onMapLongPress]);
 
   useEffect(() => {
     onFacilitySelectRef.current = onFacilitySelect;
@@ -475,6 +484,10 @@ export default function ParkingMap({
         data: { type: 'FeatureCollection', features: [] },
       });
       map.addSource('parkingusa-picked-destination-source', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] },
+      });
+      map.addSource('parkingusa-dropped-pin-source', {
         type: 'geojson',
         data: { type: 'FeatureCollection', features: [] },
       });
@@ -730,6 +743,98 @@ export default function ParkingMap({
           'circle-stroke-width': 2,
           'circle-opacity': 0.96,
         },
+      });
+
+      map.addLayer({
+        id: 'parkingusa-dropped-pin-glow',
+        type: 'circle',
+        source: 'parkingusa-dropped-pin-source',
+        paint: {
+          'circle-radius': 16,
+          'circle-color': '#ef4444',
+          'circle-opacity': 0.3,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#ef4444',
+        },
+      });
+
+      map.addLayer({
+        id: 'parkingusa-dropped-pin-layer',
+        type: 'circle',
+        source: 'parkingusa-dropped-pin-source',
+        paint: {
+          'circle-radius': 8,
+          'circle-color': '#ef4444',
+          'circle-stroke-color': '#ffffff',
+          'circle-stroke-width': 2,
+          'circle-opacity': 0.95,
+        },
+      });
+
+      let longPressTimeout: NodeJS.Timeout | null = null;
+      let startPoint: { x: number; y: number } | null = null;
+      let longPressCoordinate: maplibregl.LngLat | null = null;
+
+      const startLongPress = (point: { x: number; y: number }, lngLat: maplibregl.LngLat) => {
+        cancelLongPress();
+        startPoint = point;
+        longPressCoordinate = lngLat;
+        longPressTimeout = setTimeout(() => {
+          if (longPressCoordinate) {
+            onMapLongPressRef.current?.({ lat: longPressCoordinate.lat, lon: longPressCoordinate.lng });
+          }
+          cancelLongPress();
+        }, 600);
+      };
+
+      const cancelLongPress = () => {
+        if (longPressTimeout) {
+          clearTimeout(longPressTimeout);
+          longPressTimeout = null;
+        }
+        startPoint = null;
+        longPressCoordinate = null;
+      };
+
+      map.on('mousedown', (e) => {
+        if (e.originalEvent.button !== 0) return;
+        startLongPress({ x: e.point.x, y: e.point.y }, e.lngLat);
+      });
+
+      map.on('mousemove', (e) => {
+        if (startPoint) {
+          const dx = e.point.x - startPoint.x;
+          const dy = e.point.y - startPoint.y;
+          if (Math.sqrt(dx * dx + dy * dy) > 8) {
+            cancelLongPress();
+          }
+        }
+      });
+
+      map.on('mouseup', () => {
+        cancelLongPress();
+      });
+
+      map.on('touchstart', (e) => {
+        if (e.points.length === 1) {
+          startLongPress({ x: e.point.x, y: e.point.y }, e.lngLat);
+        } else {
+          cancelLongPress();
+        }
+      });
+
+      map.on('touchmove', (e) => {
+        if (startPoint) {
+          const dx = e.point.x - startPoint.x;
+          const dy = e.point.y - startPoint.y;
+          if (Math.sqrt(dx * dx + dy * dy) > 10) {
+            cancelLongPress();
+          }
+        }
+      });
+
+      map.on('touchend', () => {
+        cancelLongPress();
       });
 
       map.on('click', (event) => {

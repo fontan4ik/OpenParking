@@ -11,7 +11,7 @@ export const LOCALE_LABELS: Record<Locale, { flag: string; short: string; native
 
 export const translations = {
   en: {
-    'app.title': 'ParkingUSA',
+    'app.title': 'OpenParking',
     'app.subtitle': 'Every parking spot in America',
     'language.label': 'Language',
     'language.switchTo': 'Switch language to',
@@ -128,7 +128,7 @@ export const translations = {
     'landing.metric3.desc': 'Every useful fact is designed around provenance, freshness, and confidence.',
   },
   ru: {
-    'app.title': 'ParkingUSA',
+    'app.title': 'OpenParking',
     'app.subtitle': 'Все парковки Америки на одной карте',
     'language.label': 'Язык',
     'language.switchTo': 'Переключить язык на',
