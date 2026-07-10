@@ -234,6 +234,8 @@ npm run normalize:osm:pbf:miami:boundary:dry-run
 npm run normalize:osm:pbf:miami-dade:boundary:dry-run
 npm run normalize:street-parking
 npm run normalize:street-parking:db
+npm run audit:parking-geometry:miami
+npm run audit:parking-geometry:miami:refresh
 npm run derive:heuristics
 npm run derive:heuristics:db
 npm run tiles:dry-run
@@ -291,6 +293,8 @@ For data import changes, verify idempotency and keep the San Francisco baseline 
 ```
 
 The app currently defaults to Miami. In DB mode, `city=miami` intentionally reads the `Miami + Miami-Dade` DB scope so the ParkingUSA layer includes OSM/Geofabrik parking candidates that OpenStreetMap renders as `P` icons, including Miami Beach/Muss Park candidates. Official fixtures are still merged as enrichment/fallback: `data/miami_parking_facilities.geojson`, `data/miami_beach_parking_wpgmza.geojson`, `data/miami_beach_parking_arcgis_facilities.geojson`, and 532 renderable official Miami Beach lot/zone polygons. `npm run fetch:miami-beach` refreshes the Miami Beach official marker fixture. `npm run fetch:miami-beach:arcgis` refreshes official ArcGIS meters, street spaces, lots, and zones for file fallback. `npm run connector:arcgis:import` is the DB-backed Miami Beach ArcGIS promotion path for canonical meters, lot centroids, and lot/zone polygons. `npm run fetch:osm:miami` and `npm run fetch:osm:sf` create optional mixed-geometry OSM coverage files (`data/miami_parking_osm.geojson`, `data/sf_parking_osm.geojson`) for file fallback only. Public Overpass may require retry/backoff and can be sparse; Geofabrik PBF through `osm2pgsql` is the preferred production path.
+
+For Miami curb-line correctness, run `npm run audit:parking-geometry:miami:refresh` after changing parking-space grouping or when the OSM road/building cache is stale; otherwise run `npm run audit:parking-geometry:miami`. The refresh command uses Overpass only to cache road centerlines and building polygons in `data/research/fetches/miami-osm-roads-buildings-cache.geojson`. The audit then checks generated curb rows locally against those roads/buildings plus official lot/garage polygons, and writes `data/research/miami-parking-geometry-quality-report.json`. Lines are trusted only if they are straight, parallel to the nearest road, offset from the road centerline, near the road, and do not cross buildings or parking-area interiors; failures stay in review/reference state or are suppressed.
 
 For the production-scale Florida/Miami OSM baseline, use the Geofabrik workflow instead of public Overpass:
 

@@ -1,8 +1,8 @@
-# AGENTS.md - ParkingUSA Agent Instructions
+# AGENTS.md - OpenParking Agent Instructions
 
 ## Project Mission
 
-ParkingUSA is our own parking data platform built from proven open-source building blocks in `Referenss/`.
+OpenParking (formerly ParkingUSA) is our parking data platform. Legacy `ParkingUSA` / `parkingusa` API fields and technical identifiers remain compatible until an explicit migration changes them.
 
 The product goal is a comprehensive US parking data layer with:
 - facilities, garages, lots, meters, curb segments, and parking zones;
@@ -17,7 +17,7 @@ The product goal is a comprehensive US parking data layer with:
 
 Use the documentation set like this:
 
-- `docs/PROJECT_OVERVIEW_RU.md` - main project context: what ParkingUSA is, how current data/API works, known sources, source/payment link requirements, and the next data-quality gaps.
+- `docs/PROJECT_OVERVIEW_RU.md` - main project context: what OpenParking is, how current data/API works, known sources, source/payment link requirements, and the next data-quality gaps.
 - `docs/README.md` - documentation index and quick orientation. Update it when adding, renaming, removing, or changing the role of a major document.
 - `docs/ROADMAP.md` - implementation roadmap and current priorities. Update it when scope, sequencing, milestones, or acceptance criteria change.
 - `docs/ARCHITECTURE.md` - target architecture and system boundaries. Update it when data flow, API shape, storage, services, tiling, or deployment architecture changes.
@@ -42,12 +42,22 @@ When updating documentation:
 1. Start with `docs/PROJECT_OVERVIEW_RU.md` if the change affects project truth.
 2. Update the specific supporting doc for the changed area.
 3. Update `docs/README.md` if navigation changed.
-4. Update companion agent files only when their discoverability instructions become wrong or conflict with `AGENTS.md`.
+4. Update an existing companion agent file only when it is in task scope or its conflict would misdirect the current work.
 5. In the final response, mention which docs changed and what context was preserved.
+
+## Context And Documentation Efficiency
+
+- For non-trivial work, read `docs/PROJECT_OVERVIEW_RU.md` once at the start of the task, then open only the task-specific supporting documents and code paths.
+- Use `rg` / `rg --files` to locate the smallest relevant surface before reading large files or directories.
+- Treat `docs/ROADMAP.md` as the only current priority checklist. Do not copy roadmap sequencing into this file.
+- Do not update product documentation for agent-rule-only, formatting-only, or internal refactors when product/operator truth did not change.
+- Do not rewrite unrelated stale documentation while completing a scoped task; report it separately unless it blocks correctness.
 
 ## Golden Rule: Reuse First
 
-Before writing new code for parsing, OSM conversion, street-parking normalization, workers, map layers, GeoJSON APIs, PostGIS models, or tile generation, inspect `Referenss/`.
+Before writing new parsing, OSM conversion, street-parking normalization, worker, GeoJSON API, PostGIS, or tile-generation logic, inspect the existing implementation and the relevant entry in `docs/REFERENCE_REPOS.md`.
+
+The optional local `Referenss/` library is not present in every checkout. When it exists, inspect only the relevant repository. When it is absent, use `docs/REFERENCE_REPOS.md`, installed package/source documentation, and already ported in-repo code; record the limitation once and continue instead of blocking the task.
 
 Prefer this order:
 1. Port ready code from `Referenss/` when license and architecture allow it.
@@ -55,11 +65,26 @@ Prefer this order:
 3. Use native/GPL tools as external Docker/CLI services.
 4. Only write new code when no reference module fits.
 
-If writing from scratch, explain why the available reference code was not suitable.
+If writing a major covered subsystem from scratch, explain why the existing implementation, package dependency, or available reference code was not suitable.
 
 ## Execution Stability
 
-Do not launch background subagents or `task(... run_in_background=true)` batches unless the user explicitly asks for parallel background work. Prefer foreground tasks or direct repository inspection for normal planning, research, and implementation. If background work is genuinely needed, launch one background task at a time, wait for its completion notification, collect it with `background_output`, and only then continue or start another. Avoid leaving parent sessions waiting on active background tasks, because interrupted parent runs can surface as `terminated` in OpenCode.
+- Do not launch subagents or background agent batches unless the user explicitly asks for delegation or parallel agent work.
+- Parallelize independent local reads and deterministic checks when safe, but never run concurrent writers against the same files, database, generated artifact, or dev server.
+- Keep network fetches, browser sessions, database imports, and long-running servers bounded. Reuse caches by default and stop every process started for verification.
+
+## Development Fast Paths
+
+- Inspect `package.json` and `docs/INTEGRATION_USAGE_GUIDE.md` before inventing a command. Prefer root `npm run ...` scripts so paths, Prisma schema selection, and runtime flags stay consistent.
+- Trace behavior from the public boundary inward: route or UI event -> loader/service -> canonical transform -> fixture/database. This usually finds the owning contract faster than reading whole directories.
+- Search for an existing field, endpoint, layer id, or source id before adding one. Extend the canonical path instead of creating a second representation.
+- For large GeoJSON, PBF, caches, and research manifests, inspect metadata, counts, schemas, and small samples first. Do not print or parse an entire large artifact when a bounded query answers the question.
+- Use file fallback for frontend/API work that does not require persistence. Require PostGIS only for schema, DB loader, canonical import/upsert, spatial-query, or migration behavior.
+- Prefer cached/local deterministic inputs. Refresh Overpass, Geofabrik, browser evidence, or operator data only when freshness is part of the task or the cache is missing/incomplete.
+- Start verification with the narrowest affected test or dry-run, then widen only when shared contracts changed. Do not use a full build as a substitute for a focused behavioral test.
+- Keep one semantic change per patch where practical. Before finishing, inspect `git diff --stat`, the focused diff, and `git diff --check`; distinguish pre-existing user changes from task changes in the report.
+- Never hand-edit generated Prisma clients, downloaded source payloads, caches, or derived reports. Change the source/script and regenerate only the artifacts required by the task.
+- Put temporary evidence in the existing `artifacts/` or `logs/` locations, and do not add it to version control unless the task or QA protocol requires it.
 
 ## Reference Repo Usage
 
@@ -167,8 +192,10 @@ Backend:
 Public API compatibility:
 - keep `/api/stats`;
 - keep `/api/facilities`;
+- keep `/api/parking-index`;
 - keep `/api/geojson/[layer]`;
 - keep `/api/observations`;
+- keep `POST /api/route`;
 - keep GeoJSON-compatible responses for current frontend.
 
 Data quality is mandatory. Every imported record should preserve:
@@ -188,8 +215,9 @@ Data quality is mandatory. Every imported record should preserve:
 
 Before implementation:
 
-- Read `docs/PROJECT_OVERVIEW_RU.md` for product intent and current system truth.
-- Inspect relevant existing code and `Referenss/` before creating new parsing, import, OSM, API, map, PostGIS, or tile logic.
+- Read `docs/PROJECT_OVERVIEW_RU.md` for product intent and current system truth, then route to the smallest relevant supporting doc/code surface.
+- Check `git status` before editing. Preserve user changes and avoid unrelated files.
+- Inspect relevant existing code and follow the Reuse First fallback above before creating new parsing, import, OSM, API, PostGIS, or tile logic.
 - Identify whether the current path should use file fallback, PostGIS/Prisma, or both.
 
 During implementation:
@@ -204,44 +232,51 @@ During implementation:
 
 Before finishing:
 
-- Run the smallest meaningful verification for the changed area.
-- For app changes, run `npm run build` unless impossible; for shared TypeScript/library changes, also run `npm test` or focused tests.
-- For backend/Prisma changes, run `npm run db:generate` and an affected dry-run/fixture command when available.
-- For data import changes, verify repeated import behavior and baseline counts unless intentionally changing them.
+- Use the Verification Matrix below and run the smallest deterministic checks that cover the changed behavior.
 - For map/data/UI changes, tests and API checks are not enough: start the local app when possible, open it in a real browser, visually inspect the MapLibre map for the affected city/area, and attach screenshot evidence. If the user supplied screenshots/field examples, visually compare the implemented state against those exact examples before marking the task done.
 - For Miami/South Beach/Ocean Drive/Collins/NYC parking-correctness work, explicitly verify the live map state: canvas render, layer counters, source/confidence/unknown states, detail panel behavior, and whether payment zones/curb rows/valet/no-parking/garage tariffs are visually represented honestly.
 - Do not let verification hang on flaky dev-server/browser loops. If a dev server or browser check does not become useful within a short bounded attempt, stop every process you started, record the limitation, and fall back to deterministic checks such as npm run build, npm test, focused unit tests, HTTP status checks, or code-level root-cause verification; this fallback must be reported as non-visual verification, not as visual QA.
 - Always stop temporary dev/start server processes before finishing unless the user explicitly asked to keep them running.
 - Check whether documentation needs updates under the Documentation Source of Truth rules above.
 
+### Miami Parking Geometry Correctness Protocol
+
+For Miami/Miami Beach curb-line, parking-space-row, or street-parking correctness tasks, run deterministic geometry QA before trusting generated lines:
+
+- Preferred command: `npm run audit:parking-geometry:miami:refresh` when the OSM road/building cache must be refreshed, otherwise `npm run audit:parking-geometry:miami`.
+- The audit compares generated curb `LineString` features against cached OSM road centerlines, OSM building polygons, and local official parking-lot/garage polygons.
+- A curb line is acceptable only when it is a straight line, parallel to the nearest road within the configured angle threshold, offset from the road centerline, near the road, and not intersecting a building or parking-area interior.
+- Every displayed curb segment must be a single `LineString` with exactly two coordinates. Do not publish curved or multi-vertex parking lines.
+- Generated parking-space rows must be rotated around their midpoint to a shared axis for the matched named street before the final geometry audit. Fall back to the exact local road-segment orientation for unnamed roads or real bends over 12 degrees. Road matching near intersections must combine midpoint distance with an angular penalty so that a crossing street cannot win only because it is closer to one endpoint.
+- A named-street shared axis must use only road segments within 300 meters of the official parking evidence. Automatic alignment must never move the curb midpoint more than 15 meters from the official source-point midpoint; fall back to rotation-only alignment when that guard would be exceeded.
+- Lines that lack a road reference, are too far from a road, sit on the road centerline, or are not parallel must stay `needs_field_review` / reference overlay. Lines crossing buildings or parking-area interiors must be suppressed.
+- Generated rows must split when adjacent official parking points are more than 18 meters apart. Any remaining curb line that crosses a non-parallel road centerline by more than 30 degrees must be suppressed so parking geometry cannot span an intersection, alley, or driveway represented as a road.
+- This QA is token-cheap by design: Overpass is used only by the refresh/audit script, results are cached under `data/research/fetches/`, and all checks are local numeric geometry calculations, not LLM review.
+- The audit report is `data/research/miami-parking-geometry-quality-report.json`; inspect `byStatus`, `byReason`, and `worst_examples` before claiming Miami curb correctness.
+- Do not claim maximum Miami coverage unless the OSM cache metadata has `complete: true`, `failed_tiles: []`, and all configured tiles were fetched. Records that remain too far from or too close to a road must stay in review rather than being auto-snapped beyond the 15-meter guard.
+
 ## Companion Agent Files
 
-`AGENTS.md` is the authoritative repository instruction file. Companion files exist only to help different tools discover the same rules:
+`AGENTS.md` is the authoritative repository instruction file. Thin companion files may help other tools discover the same rules. In the current checkout the maintained entry points are:
 
-- `CODEX.md` - Codex-specific operating guide.
-- `CLAUDE.md` - Claude-compatible entry point.
-- `GEMINI.md` - Gemini-compatible entry point.
 - `.github/copilot-instructions.md` - GitHub Copilot instructions.
-- `.cursor/rules/parkingusa.mdc` - Cursor rules.
+- `.cursor/rules/parkingusa.mdc` - Cursor rules; the legacy filename remains for compatibility.
 
-If any companion file appears to conflict with this file, follow `AGENTS.md` and update the companion file.
+If a companion file conflicts with this file, follow `AGENTS.md`. Update the companion only when it is part of the task scope or the conflict would misdirect the current work; do not assume that `CODEX.md`, `CLAUDE.md`, or `GEMINI.md` exists.
 
-## Implementation Order
+## Current Priorities
 
-1. Document architecture and third-party provenance.
-2. Port PNNL backend foundation into our app.
-3. Import current SF GeoJSON data into PostGIS-compatible schema.
-4. Keep file fallback while DB work stabilizes.
-5. Port `osm-tag-updater` normalization module and tests.
-6. Replace custom OSM parsing with `osmtogeojson`.
-7. Add `osm2pgsql`, Martin, and Tippecanoe as external services/jobs.
-8. Add A/B Street-derived heuristics after base ingestion is stable.
+Use `docs/ROADMAP.md` for current status, sequencing, and acceptance gates. Use `specs/001-system-agent-roadmap/plan.md` only for historical context about the agent-roadmap setup; it is not the live product implementation order.
 
-## Testing Rules
+## Verification Matrix
 
 After app changes:
-- run `npm run build`.
+- run `npm run build`;
 - run `npm test` when TypeScript/library behavior or imports move.
+
+After a focused logic change:
+- run the narrowest relevant Vitest target first;
+- run the full suite only when shared behavior, imports, or contracts could affect multiple areas.
 
 After backend/Prisma changes:
 - run `npm run db:generate`;
@@ -258,6 +293,10 @@ For frontend/map changes:
 - verify MapLibre canvas renders;
 - verify layer counters display;
 - verify detail panel opens for selected parking records.
+
+For documentation-only or agent-rule-only changes:
+- inspect links, paths, commands, and `git diff --check`;
+- do not run the application build unless the documentation changes executable commands, generated artifacts, or runtime contracts.
 
 ## Frontend Visual QA Protocol
 
@@ -308,7 +347,7 @@ Reference inspiration sites such as `https://uiverse.io` only as a source of con
 
 For ported `osm-tag-updater` logic:
 - port and run the original transpose/utils tests;
-- add ParkingUSA wrapper tests around OSM tag objects.
+- add OpenParking wrapper tests around OSM tag objects while preserving legacy `ParkingUSA` identifiers where required.
 - run `npm run test:street-parking`.
 
 ## Do Not
@@ -317,14 +356,15 @@ For ported `osm-tag-updater` logic:
 - Do not replace MapLibre with PNNL's Mapbox GL v1.
 - Do not copy GPL/native tool code into the app.
 - Do not rewrite OSM multipolygon/relation handling manually.
-- Do not delete or rewrite `Referenss/`; it is the local reference source library.
-- Do not introduce a new abstraction before checking whether PNNL already has a usable pattern.
+- When an optional `Referenss/` directory is present, do not delete or rewrite it; treat it as read-only reference material.
+- Do not introduce a new abstraction before checking the existing code and, when available, the relevant documented reference pattern.
 - Do not move website code back to root-level `app/`, `components/`, or `lib/`; it belongs in `apps/frontend/`.
 - Do not move backend code back to root-level `scripts/` or `prisma/`; it belongs in `apps/backend/`.
 
 <!-- SPECKIT START -->
-For the current advanced roadmap and Spec Kit planning context, read:
+For the current roadmap, read:
 
 - `docs/ROADMAP.md`
-- `specs/001-system-agent-roadmap/plan.md`
+
+For historical Spec Kit context about agent-file setup only, read `specs/001-system-agent-roadmap/plan.md`.
 <!-- SPECKIT END -->

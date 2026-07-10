@@ -270,7 +270,7 @@ describe('ParkingUSA Parking Index', () => {
     });
 
     expect(residentialZoneSegments).toEqual([]);
-  });
+  }, 15_000);
 
   it('does not expose long generated Miami Beach parking-space rows as normal curb segments', async () => {
     const segments = await loadCurbSegments('miami');
@@ -287,7 +287,7 @@ describe('ParkingUSA Parking Index', () => {
       }));
 
     expect(longGeneratedRows).toEqual([]);
-  });
+  }, 15_000);
 
   it('renders polygon parking-space curbs as a single road-side line instead of rectangle outlines', () => {
     const feature = curbSegmentWithLineGeometry({

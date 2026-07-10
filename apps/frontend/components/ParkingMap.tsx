@@ -530,21 +530,21 @@ export default function ParkingMap({
           'line-join': 'round',
         },
         paint: {
-          'line-color': '#e0f2fe',
+          'line-color': '#312bdc',
           'line-width': [
             'interpolate',
             ['linear'],
             ['zoom'],
             10,
-            2,
+            2.8,
             14,
-            5,
+            6.2,
             17,
-            10,
+            12,
             19,
-            15,
+            17,
           ],
-          'line-opacity': 0.72,
+          'line-opacity': 0.9,
         },
       });
 
@@ -557,7 +557,7 @@ export default function ParkingMap({
           'line-join': 'round',
         },
         paint: {
-          'line-color': '#38bdf8',
+          'line-color': '#93c5fd',
           'line-width': [
             'interpolate',
             ['linear'],
@@ -567,11 +567,50 @@ export default function ParkingMap({
             14,
             3.5,
             17,
-            7.5,
+            8,
             19,
-            11,
+            12,
           ],
-          'line-opacity': 0.98,
+          'line-opacity': 0.72,
+        },
+      });
+
+      map.addLayer({
+        id: 'segments-zone-label',
+        type: 'symbol',
+        source: 'segments',
+        minzoom: 15,
+        layout: {
+          'symbol-placement': 'line-center',
+          'symbol-spacing': 120,
+          'text-field': [
+            'coalesce',
+            ['get', 'parkmobile_zone'],
+            ['get', 'field_payment_zone_location_id'],
+            '',
+          ],
+          'text-size': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            15,
+            10,
+            17,
+            13,
+            19,
+            15,
+          ],
+          'text-font': ['Noto Sans Bold'],
+          'text-allow-overlap': false,
+          'text-ignore-placement': false,
+          'text-keep-upright': true,
+          visibility: 'visible',
+        },
+        paint: {
+          'text-color': '#ffffff',
+          'text-halo-color': '#312bdc',
+          'text-halo-width': 5,
+          'text-halo-blur': 0.2,
         },
       });
 
@@ -1055,6 +1094,7 @@ export default function ParkingMap({
 
     setVisibility(map, 'segments-line', showSegments);
     setVisibility(map, 'segments-line-casing', showSegments);
+    setVisibility(map, 'segments-zone-label', showSegments);
     setVisibility(map, 'reference-segments-line', showReferenceSegments);
     setVisibility(map, 'zones-fill', showZones);
     setVisibility(map, 'zones-outline', showZones);

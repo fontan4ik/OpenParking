@@ -23,6 +23,13 @@ import {
   type PriceStatus,
   type RuleStatus,
 } from '@/lib/data-quality';
+import {
+  alignCurbLineToNearestRoad,
+  areasFromCollection,
+  roadLinesFromCollection,
+  withCurbGeometryQuality,
+  type CurbGeometryQualityRefs,
+} from '@/lib/parking-geometry-quality';
 
 export interface GeoJSONCollection {
   type: 'FeatureCollection';
@@ -57,6 +64,7 @@ type CityFallbackConfig = {
   streetSpaces?: string;
   zones?: string;
   coverage?: string | string[];
+  geometryReference?: string;
   dataStatus: CityDataStatus;
   supportMessage: string;
 };
@@ -72,6 +80,7 @@ const CITY_FALLBACKS: Record<string, CityFallbackConfig> = {
     streetSpaces: 'miami_beach_parking_arcgis_spaces.geojson',
     zones: 'miami_beach_parking_arcgis_lots_zones.geojson',
     coverage: 'miami_parking_osm.geojson',
+    geometryReference: 'research/fetches/miami-osm-roads-buildings-cache.geojson',
     dataStatus: 'ready',
     supportMessage: 'Miami has imported/local fallback coverage from official Miami/Miami Beach sources plus OSM baseline data.',
   },
@@ -482,6 +491,27 @@ function withMiamiBeachOfferConfidenceSemantics(
   }
 
   if (sourceId.startsWith('parking-space-row:') || sourceId.includes(':spaces:')) {
+    const geometryQualityStatus = stringValue(properties.geometry_quality_status);
+    if (geometryQualityStatus === 'accepted') {
+      const displayConfidence = Math.max(
+        0.65,
+        cappedConfidence(currentOfferConfidence, 0.72)
+      );
+      return {
+        ...properties,
+        source_confidence: sourceConfidence,
+        offer_confidence: displayConfidence,
+        display_confidence: displayConfidence,
+        confidence: displayConfidence,
+        ordinary_parking_status: 'ordinary_parking_offer',
+        field_conflict_status: 'geometry_qa_passed',
+        availability_semantics: 'official_space_evidence_verified_roadside_curb_offer',
+        confidence_reason:
+          'Official parking-space evidence passed deterministic road-parallel geometry QA; source confidence is still preserved separately from driver-facing offer confidence.',
+        enrichment_status: properties.enrichment_status === 'conflict' ? 'conflict' : properties.enrichment_status,
+      };
+    }
+
     const displayConfidence = cappedConfidence(currentOfferConfidence, MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE);
     return {
       ...properties,
@@ -897,6 +927,28 @@ function isLongGeneratedParkingSpaceRow(feature: GeoJSONFeature) {
   );
 }
 
+function shouldRunGeneratedCurbGeometryQuality(feature: GeoJSONFeature) {
+  const sourceId = stringValue(feature.properties.source_id);
+  const provenance = stringValue(feature.properties.geometry_provenance).toLowerCase();
+  const sourceGeometryType = stringValue(feature.properties.source_geometry_type).toLowerCase();
+  return (
+    sourceId.startsWith('parking-space-row:') ||
+    sourceId.includes(':spaces:') ||
+    sourceGeometryType === 'pointcluster' ||
+    provenance.includes('derived from grouped official parking-space points') ||
+    provenance.includes('derived from an official parking-space point')
+  );
+}
+
+function applyGeneratedCurbGeometryQuality(features: GeoJSONFeature[], refs: CurbGeometryQualityRefs) {
+  return features
+    .map((feature) => {
+      if (!shouldRunGeneratedCurbGeometryQuality(feature)) return feature;
+      return withCurbGeometryQuality(alignCurbLineToNearestRoad(feature, refs), refs);
+    })
+    .filter((feature): feature is GeoJSONFeature => feature !== null);
+}
+
 function pointLineFeature(
   feature: GeoJSONFeature,
   direction: { x: number; y: number },
@@ -1144,7 +1196,7 @@ export function deriveParkingSpacePointLines(features: GeoJSONFeature[]): GeoJSO
 
   const globalOrientations = dominantGridOrientations();
   const rowBandMeters = 8;
-  const maxRowGapMeters = 34;
+  const maxRowGapMeters = 18;
   const groups = new Map<string, ProjectedParkingPoint[]>();
   const singletons: ProjectedParkingPoint[] = [];
 
@@ -1332,7 +1384,7 @@ export async function loadFacilities(cityId = DEFAULT_CITY_ID): Promise<GeoJSONC
 export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSONCollection> {
   const fallback = cityFallback(cityId);
   const cityMetadata = cityDataMetadata(cityId);
-  const [dbSegments, dbZones, officialSegments, officialStreetSpaces, officialZones, coverageLines, coveragePolygons] = await Promise.all([
+  const [dbSegments, dbZones, officialSegments, officialStreetSpaces, officialZones, coverageLines, coveragePolygons, geometryReference] = await Promise.all([
     loadCurbSegmentsFromConfiguredDb(fallback),
     loadZonesFromConfiguredDb(fallback),
     fallback.segments ? loadGeoJSON(fallback.segments) : emptyCollection(cityMetadata),
@@ -1340,8 +1392,17 @@ export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSO
     fallback.zones ? loadGeoJSON(fallback.zones) : emptyCollection(cityMetadata),
     loadCoverageSubset(fallback.coverage, isLineFeature, 'candidate_street_parking_lines'),
     loadCoverageSubset(fallback.coverage, isPolygonFeature, 'candidate_parking_polygons_for_curb_filter'),
+    fallback.geometryReference ? loadGeoJSON(fallback.geometryReference) : emptyCollection(cityMetadata),
   ]);
   const parkingAreaCollections = [dbZones, officialZones, coveragePolygons];
+  const geometryQualityRefs: CurbGeometryQualityRefs = {
+    roads: [
+      ...roadLinesFromCollection(coverageLines),
+      ...roadLinesFromCollection(geometryReference),
+    ],
+    parkingAreas: parkingAreaCollections.flatMap((collection) => areasFromCollection(collection)),
+    buildings: areasFromCollection(geometryReference),
+  };
 
   const merged = mergeCollections([dbSegments ?? emptyCollection({ source: 'PostGIS/Prisma unavailable' }), parkingSpacesAsCurbs(dbZones, parkingAreaCollections), officialSegments, parkingSpacesAsCurbs(officialStreetSpaces, parkingAreaCollections), coverageLines], {
     ...cityMetadata,
@@ -1351,7 +1412,10 @@ export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSO
 
   return {
     ...merged,
-    features: merged.features.map((f) => canonicalFeature(curbSegmentWithLineGeometry(f), 'curb_segment')),
+    features: applyGeneratedCurbGeometryQuality(
+      merged.features.map((f) => curbSegmentWithLineGeometry(f)),
+      geometryQualityRefs
+    ).map((f) => canonicalFeature(f, 'curb_segment')),
   };
 }
 

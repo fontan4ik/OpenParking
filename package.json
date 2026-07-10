@@ -44,6 +44,8 @@
     "normalize:osm:pbf:miami-dade:boundary": "node apps/backend/scripts/normalize_osm_raw_parking_to_db.mjs --city=Miami-Dade --state=FL --boundary-geojson=data/boundaries/miami_dade_county_boundary.geojson --replace-source",
     "normalize:street-parking": "tsx apps/backend/scripts/normalize_street_parking.ts",
     "normalize:street-parking:db": "tsx apps/backend/scripts/normalize_street_parking.ts --db",
+    "audit:parking-geometry:miami": "tsx apps/backend/scripts/audit_miami_parking_geometry.ts",
+    "audit:parking-geometry:miami:refresh": "tsx apps/backend/scripts/audit_miami_parking_geometry.ts --refresh-osm",
     "derive:heuristics": "tsx apps/backend/scripts/derive_parking_heuristics.ts",
     "derive:heuristics:db": "tsx apps/backend/scripts/derive_parking_heuristics.ts --db",
     "research:manifests": "node apps/backend/scripts/generate_research_city_manifests.mjs",
