@@ -64,6 +64,7 @@ type CityFallbackConfig = {
   streetSpaces?: string;
   zones?: string;
   coverage?: string | string[];
+  boundary?: string;
   geometryReference?: string;
   dataStatus: CityDataStatus;
   supportMessage: string;
@@ -79,7 +80,11 @@ const CITY_FALLBACKS: Record<string, CityFallbackConfig> = {
     ],
     streetSpaces: 'miami_beach_parking_arcgis_spaces.geojson',
     zones: 'miami_beach_parking_arcgis_lots_zones.geojson',
-    coverage: 'miami_parking_osm.geojson',
+    coverage: [
+      'miami_parking_osm.geojson',
+      'miami_beach_osm_basemap_candidates.geojson',
+    ],
+    boundary: 'boundaries/miami_dade_county_boundary.geojson',
     geometryReference: 'research/fetches/miami-osm-roads-buildings-cache.geojson',
     dataStatus: 'ready',
     supportMessage: 'Miami has imported/local fallback coverage from official Miami/Miami Beach sources plus OSM baseline data.',
@@ -201,13 +206,25 @@ async function loadGeoJSONFiles(filenames: string | string[] | undefined): Promi
   if (!filenames) return emptyCollection();
   const files = Array.isArray(filenames) ? filenames : [filenames];
   const collections = await Promise.all(files.map((file) => loadGeoJSON(file)));
+  const isReviewOnly = (collection: GeoJSONCollection) => collection.metadata?.review_only === true;
+  const incompleteSources = collections
+    .map((collection, index) => (collection.metadata?.complete === false ? files[index] : null))
+    .filter((file): file is string => Boolean(file));
   return {
     type: 'FeatureCollection',
     metadata: {
       sources: files,
-      count: collections.reduce((sum, collection) => sum + collection.features.length, 0),
+      incomplete_sources: incompleteSources,
+      complete: incompleteSources.length === 0,
+      count: collections.reduce(
+        (sum, collection) => sum + (collection.metadata?.complete === false && !isReviewOnly(collection) ? 0 : collection.features.length),
+        0
+      ),
     },
-    features: collections.flatMap((collection) => collection.features),
+    // Incomplete production extracts are excluded, but incomplete review-only
+    // candidate layers remain visible with their needs-review provenance. This
+    // preserves maximum discovery coverage without presenting it as complete.
+    features: collections.flatMap((collection) => (collection.metadata?.complete === false && !isReviewOnly(collection) ? [] : collection.features)),
   };
 }
 
@@ -579,6 +596,62 @@ function preservedEnrichmentStatus(properties: Record<string, unknown>) {
 
 function isPointFeature(feature: GeoJSONFeature) {
   return geometryType(feature) === 'Point' || geometryType(feature) === 'MultiPoint';
+}
+
+function isIncidentalOsmParkingFeature(feature: GeoJSONFeature) {
+  if (feature.properties.parking_evidence_kind !== 'parking_tag_candidate') return false;
+  const directTags = feature.properties.raw_tags;
+  const rawProperties = feature.properties.raw_properties;
+  const nestedTags = rawProperties && typeof rawProperties === 'object' && !Array.isArray(rawProperties)
+    ? (rawProperties as Record<string, unknown>).tags
+    : undefined;
+  const tagsValue = directTags ?? nestedTags;
+  const tags = tagsValue && typeof tagsValue === 'object' && !Array.isArray(tagsValue)
+    ? tagsValue as Record<string, unknown>
+    : {};
+  const parking = stringValue(tags.parking).toLowerCase();
+  const describesAnotherObject = [
+    'building',
+    'leisure',
+    'tourism',
+    'shop',
+    'office',
+    'sport',
+    'landuse',
+    'natural',
+    'healthcare',
+  ].some((key) => Boolean(tags[key]));
+
+  // `parking=yes` on a park, hotel, golf course, shop or other parent
+  // feature means "parking is available somewhere", not that the parent
+  // polygon itself is a parking facility.
+  return parking === 'yes' || describesAnotherObject;
+}
+
+function representativePointFeature(feature: GeoJSONFeature): GeoJSONFeature | null {
+  const positions: [number, number][] = [];
+  const walk = (value: unknown) => {
+    if (Array.isArray(value) && typeof value[0] === 'number' && typeof value[1] === 'number') {
+      positions.push([Number(value[0]), Number(value[1])]);
+      return;
+    }
+    if (Array.isArray(value)) value.forEach(walk);
+  };
+  walk(feature.geometry.coordinates);
+  if (positions.length === 0) return null;
+  const point: [number, number] = [
+    positions.reduce((sum, position) => sum + position[0], 0) / positions.length,
+    positions.reduce((sum, position) => sum + position[1], 0) / positions.length,
+  ];
+  return {
+    ...feature,
+    geometry: { type: 'Point', coordinates: point },
+    properties: {
+      ...feature.properties,
+      source_geometry_type: feature.geometry.type,
+      derived_from_area: true,
+    },
+  };
 }
 
 function isLineFeature(feature: GeoJSONFeature) {
@@ -1351,7 +1424,7 @@ async function loadCoverageSubset(
   return withFallbackMetadata(
     {
       ...coverage,
-      features: coverage.features.filter(predicate),
+      features: coverage.features.filter((feature) => !isIncidentalOsmParkingFeature(feature) && predicate(feature)),
     },
     {
       coverage_role: role,
@@ -1363,11 +1436,24 @@ async function loadCoverageSubset(
 export async function loadFacilities(cityId = DEFAULT_CITY_ID): Promise<GeoJSONCollection> {
   const fallback = cityFallback(cityId);
   const cityMetadata = cityDataMetadata(cityId);
-  const [dbFacilities, officialFacilities, coveragePoints] = await Promise.all([
+  const [dbFacilities, officialFacilities, coverage] = await Promise.all([
     loadFacilitiesFromConfiguredDb(fallback),
     fallback.facilities ? loadGeoJSONFiles(fallback.facilities) : emptyCollection(cityMetadata),
-    loadCoverageSubset(fallback.coverage, isPointFeature, 'candidate_facility_points'),
+    loadGeoJSONFiles(fallback.coverage),
   ]);
+  const coveragePoints = withFallbackMetadata(
+    {
+      ...coverage,
+      features: coverage.features.flatMap((feature) => {
+        if (isIncidentalOsmParkingFeature(feature)) return [];
+        if (isPointFeature(feature)) return [feature];
+        if (!isPolygonFeature(feature)) return [];
+        const point = representativePointFeature(feature);
+        return point ? [point] : [];
+      }),
+    },
+    { coverage_role: 'candidate_facility_points', source: 'OSM/coverage baseline fallback' }
+  );
 
   const merged = mergeCollections([dbFacilities ?? emptyCollection({ source: 'PostGIS/Prisma unavailable' }), officialFacilities, coveragePoints], {
     ...cityMetadata,
@@ -1379,6 +1465,18 @@ export async function loadFacilities(cityId = DEFAULT_CITY_ID): Promise<GeoJSONC
     ...merged,
     features: merged.features.map((f) => canonicalFeature(f, 'facility')),
   };
+}
+
+export async function loadCityBoundary(cityId = DEFAULT_CITY_ID): Promise<GeoJSONCollection> {
+  const fallback = cityFallback(cityId);
+  if (!fallback.boundary) {
+    return emptyCollection({ ...cityDataMetadata(cityId), boundary_available: false });
+  }
+  return withFallbackMetadata(await loadGeoJSON(fallback.boundary), {
+    ...cityDataMetadata(cityId),
+    boundary_available: true,
+    boundary_role: 'selected_city_coverage_outline',
+  });
 }
 
 export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSONCollection> {

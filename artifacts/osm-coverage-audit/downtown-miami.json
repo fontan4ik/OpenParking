@@ -1,0 +1,885 @@
+{
+  "generated_at": "2026-07-10T15:16:21.612376+00:00",
+  "method": "bounded_live_osm_api_to_local_fallback_parking_poi_reconciliation",
+  "bbox": [
+    -80.196,
+    25.772,
+    -80.188,
+    25.779
+  ],
+  "match_radius_meters": 35,
+  "coverage_files": [
+    "data\\miami_parking_osm.geojson",
+    "data\\miami_beach_osm_basemap_candidates.geojson"
+  ],
+  "missing_coverage_files": [],
+  "coverage_metadata": [
+    {
+      "city": "miami",
+      "scope": "Miami + Miami Beach fallback",
+      "bbox": [
+        25.709,
+        -80.3198,
+        25.888,
+        -80.113
+      ],
+      "source": "OpenStreetMap Overpass",
+      "coverage_role": "candidate_coverage_baseline",
+      "complete": false,
+      "requested_top_level_tiles": 16,
+      "failed_bboxes": [],
+      "generated_at_unix": 1783695662,
+      "count": 486,
+      "point_count": 486,
+      "line_count": 0,
+      "polygon_count": 0,
+      "duration_seconds": 8.45
+    },
+    {
+      "scope": "bounded OSM basemap reconciliation candidates",
+      "source": "https://api.openstreetmap.org/api/0.6/map",
+      "bbox": [
+        -80.132,
+        25.8158,
+        -80.1288,
+        25.8195
+      ],
+      "complete": true,
+      "generated_at": "2026-07-10T15:09:57.077376+00:00",
+      "count": 2,
+      "review_only": true
+    }
+  ],
+  "osm_parking_pois": 67,
+  "local_osm_candidates": 488,
+  "missing_from_fallback": 67,
+  "missing": [
+    {
+      "source_id": "osm:node:5026467520",
+      "coordinates": [
+        -80.1909582,
+        25.7762694
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2526.4
+    },
+    {
+      "source_id": "osm:node:5026467621",
+      "coordinates": [
+        -80.1909037,
+        25.7762727
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2528.1
+    },
+    {
+      "source_id": "osm:node:5026467622",
+      "coordinates": [
+        -80.1906325,
+        25.7762818
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2535.8
+    },
+    {
+      "source_id": "osm:node:5026467623",
+      "coordinates": [
+        -80.1905836,
+        25.7762849
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2537.4
+    },
+    {
+      "source_id": "osm:node:5026467624",
+      "coordinates": [
+        -80.1908016,
+        25.7770206
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2610.8
+    },
+    {
+      "source_id": "osm:node:5026467625",
+      "coordinates": [
+        -80.1908455,
+        25.7770193
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2609.6
+    },
+    {
+      "source_id": "osm:node:5026467626",
+      "coordinates": [
+        -80.1911626,
+        25.77701
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2601.2
+    },
+    {
+      "source_id": "osm:node:5026467627",
+      "coordinates": [
+        -80.1911207,
+        25.7770111
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2602.3
+    },
+    {
+      "source_id": "osm:node:5026467985",
+      "coordinates": [
+        -80.1946291,
+        25.7769227
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "level": "0"
+      },
+      "nearest_fallback_candidate_meters": 2535.5
+    },
+    {
+      "source_id": "osm:node:5026467986",
+      "coordinates": [
+        -80.1945926,
+        25.7769238
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "level": "0"
+      },
+      "nearest_fallback_candidate_meters": 2536.0
+    },
+    {
+      "source_id": "osm:node:5026467987",
+      "coordinates": [
+        -80.1945591,
+        25.7769248
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "level": "0"
+      },
+      "nearest_fallback_candidate_meters": 2536.4
+    },
+    {
+      "source_id": "osm:node:5026467988",
+      "coordinates": [
+        -80.194302,
+        25.7761339
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "level": "0"
+      },
+      "nearest_fallback_candidate_meters": 2452.2
+    },
+    {
+      "source_id": "osm:node:5026467989",
+      "coordinates": [
+        -80.1943416,
+        25.7761327
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "level": "0"
+      },
+      "nearest_fallback_candidate_meters": 2451.6
+    },
+    {
+      "source_id": "osm:node:5026467990",
+      "coordinates": [
+        -80.1943893,
+        25.7761313
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "level": "0"
+      },
+      "nearest_fallback_candidate_meters": 2450.9
+    },
+    {
+      "source_id": "osm:node:5308526714",
+      "coordinates": [
+        -80.1940299,
+        25.7732094
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2134.9
+    },
+    {
+      "source_id": "osm:node:5308527021",
+      "coordinates": [
+        -80.1941586,
+        25.7732047
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2132.6
+    },
+    {
+      "source_id": "osm:node:6264280021",
+      "coordinates": [
+        -80.1892539,
+        25.7724885
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2178.4
+    },
+    {
+      "source_id": "osm:node:7942094357",
+      "coordinates": [
+        -80.1885711,
+        25.772502
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2205.3
+    },
+    {
+      "source_id": "osm:node:8404574231",
+      "coordinates": [
+        -80.1892938,
+        25.7761491
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2559.1
+    },
+    {
+      "source_id": "osm:node:8404574233",
+      "coordinates": [
+        -80.1894545,
+        25.77532
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2466.9
+    },
+    {
+      "source_id": "osm:node:10073295661",
+      "coordinates": [
+        -80.1961456,
+        25.781138
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2991.3
+    },
+    {
+      "source_id": "osm:node:10558585009",
+      "coordinates": [
+        -80.189097,
+        25.7722757
+      ],
+      "tags": {
+        "amenity": "parking",
+        "name": "Premier Cruise Parking - 7th Floor"
+      },
+      "nearest_fallback_candidate_meters": 2162.2
+    },
+    {
+      "source_id": "osm:node:11103124758",
+      "coordinates": [
+        -80.1880259,
+        25.7758433
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2568.8
+    },
+    {
+      "source_id": "osm:node:11103124763",
+      "coordinates": [
+        -80.1896608,
+        25.7726954
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2185.7
+    },
+    {
+      "source_id": "osm:node:11103124766",
+      "coordinates": [
+        -80.1894895,
+        25.772702
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2192.2
+    },
+    {
+      "source_id": "osm:node:11105710856",
+      "coordinates": [
+        -80.1942034,
+        25.7733808
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2151.3
+    },
+    {
+      "source_id": "osm:node:11105710857",
+      "coordinates": [
+        -80.1945863,
+        25.7733721
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2145.6
+    },
+    {
+      "source_id": "osm:node:11105710864",
+      "coordinates": [
+        -80.19286,
+        25.7727352
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2103.2
+    },
+    {
+      "source_id": "osm:node:11105710867",
+      "coordinates": [
+        -80.1929923,
+        25.7732654
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2158.2
+    },
+    {
+      "source_id": "osm:node:11105710870",
+      "coordinates": [
+        -80.1905527,
+        25.7726588
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2153.2
+    },
+    {
+      "source_id": "osm:node:11105710873",
+      "coordinates": [
+        -80.1908999,
+        25.772536
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2129.9
+    },
+    {
+      "source_id": "osm:node:11105812005",
+      "coordinates": [
+        -80.1927641,
+        25.7764893
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2512.9
+    },
+    {
+      "source_id": "osm:node:11105812007",
+      "coordinates": [
+        -80.1932315,
+        25.7769906
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2560.1
+    },
+    {
+      "source_id": "osm:node:11105812010",
+      "coordinates": [
+        -80.1928281,
+        25.7769992
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2567.4
+    },
+    {
+      "source_id": "osm:node:11148611304",
+      "coordinates": [
+        -80.1884683,
+        25.7727349
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2233.0
+    },
+    {
+      "source_id": "osm:node:11148623207",
+      "coordinates": [
+        -80.1884014,
+        25.7733817
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2301.7
+    },
+    {
+      "source_id": "osm:node:12171639779",
+      "coordinates": [
+        -80.1933625,
+        25.7791036
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2789.5
+    },
+    {
+      "source_id": "osm:way:301239046",
+      "coordinates": [
+        -80.18856817,
+        25.778972
+      ],
+      "tags": {
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Lot 19-1",
+        "operator": "Miami Parking Authority",
+        "parking": "surface",
+        "source": "Mapbox"
+      },
+      "nearest_fallback_candidate_meters": 2878.6
+    },
+    {
+      "source_id": "osm:way:311357059",
+      "coordinates": [
+        -80.19090324594595,
+        25.776570372972973
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "college",
+        "building:levels": "7",
+        "fee": "yes",
+        "name": "Garage 3",
+        "operator": "Miami Parking Authority",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 2560.0
+    },
+    {
+      "source_id": "osm:way:398246343",
+      "coordinates": [
+        -80.18782835,
+        25.776569791666663
+      ],
+      "tags": {
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Lot 19-3",
+        "operator": "Miami Parking Authority",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 2651.0
+    },
+    {
+      "source_id": "osm:way:398246345",
+      "coordinates": [
+        -80.18815221666667,
+        25.777512783333336
+      ],
+      "tags": {
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Lot 19-2",
+        "operator": "Miami Parking Authority",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 2738.2
+    },
+    {
+      "source_id": "osm:way:436126218",
+      "coordinates": [
+        -80.19432560454545,
+        25.776531881818183
+      ],
+      "tags": {
+        "addr:city": "Miami",
+        "addr:housenumber": "40",
+        "addr:postcode": "33128",
+        "addr:state": "FL",
+        "addr:street": "Northwest 3rd Street",
+        "amenity": "parking",
+        "building": "yes",
+        "building:levels": "10",
+        "capacity": "400",
+        "fee": "yes",
+        "height": "51.9",
+        "name": "Garage 1",
+        "operator": "Miami Parking Authority",
+        "parking": "multi-storey",
+        "ref:miabldg": "91483"
+      },
+      "nearest_fallback_candidate_meters": 2495.6
+    },
+    {
+      "source_id": "osm:way:463466516",
+      "coordinates": [
+        -80.19496477777778,
+        25.776699788888887
+      ],
+      "tags": {
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 2507.9
+    },
+    {
+      "source_id": "osm:way:463466520",
+      "coordinates": [
+        -80.19245735714286,
+        25.776654985714284
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 2536.3
+    },
+    {
+      "source_id": "osm:way:463466524",
+      "coordinates": [
+        -80.19480534827586,
+        25.77854336896552
+      ],
+      "tags": {
+        "access": "private",
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 2712.4
+    },
+    {
+      "source_id": "osm:way:463466536",
+      "coordinates": [
+        -80.19432934285715,
+        25.775627857142858
+      ],
+      "tags": {
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 2396.3
+    },
+    {
+      "source_id": "osm:way:463466538",
+      "coordinates": [
+        -80.1915815,
+        25.776709519999997
+      ],
+      "tags": {
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 2559.6
+    },
+    {
+      "source_id": "osm:way:463472245",
+      "coordinates": [
+        -80.19013475714284,
+        25.77684292857143
+      ],
+      "tags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 2608.7
+    },
+    {
+      "source_id": "osm:way:463472247",
+      "coordinates": [
+        -80.18821013636364,
+        25.775862636363637
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "parking",
+        "building:levels": "12",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 2564.4
+    },
+    {
+      "source_id": "osm:way:463472256",
+      "coordinates": [
+        -80.18932284615386,
+        25.775774753846154
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "parking",
+        "height": "32.4",
+        "parking": "multi-storey",
+        "ref:miabldg": "46512"
+      },
+      "nearest_fallback_candidate_meters": 2518.8
+    },
+    {
+      "source_id": "osm:way:463472265",
+      "coordinates": [
+        -80.19102026666667,
+        25.7759197
+      ],
+      "tags": {
+        "addr:city": "Miami",
+        "addr:state": "FL",
+        "amenity": "parking",
+        "name": "Lot 41",
+        "operator": "Miami Parking Authority",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 2487.4
+    },
+    {
+      "source_id": "osm:way:463472278",
+      "coordinates": [
+        -80.19087312,
+        25.775516399999997
+      ],
+      "tags": {
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 2447.9
+    },
+    {
+      "source_id": "osm:way:465523176",
+      "coordinates": [
+        -80.19255518,
+        25.77281848
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 2118.5
+    },
+    {
+      "source_id": "osm:way:465523177",
+      "coordinates": [
+        -80.19092682,
+        25.773050480000002
+      ],
+      "tags": {
+        "amenity": "parking",
+        "fee": "yes",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 2183.7
+    },
+    {
+      "source_id": "osm:way:465523178",
+      "coordinates": [
+        -80.19520938000001,
+        25.772664480000003
+      ],
+      "tags": {
+        "amenity": "parking",
+        "source": "Bing"
+      },
+      "nearest_fallback_candidate_meters": 2061.4
+    },
+    {
+      "source_id": "osm:way:465523182",
+      "coordinates": [
+        -80.19285086,
+        25.772165519999998
+      ],
+      "tags": {
+        "amenity": "parking",
+        "source": "Bing"
+      },
+      "nearest_fallback_candidate_meters": 2041.7
+    },
+    {
+      "source_id": "osm:way:465523183",
+      "coordinates": [
+        -80.19448478000001,
+        25.77486288
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 2310.5
+    },
+    {
+      "source_id": "osm:way:467880481",
+      "coordinates": [
+        -80.1905906,
+        25.772907925
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "parking",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 2178.3
+    },
+    {
+      "source_id": "osm:way:467880483",
+      "coordinates": [
+        -80.19299638666666,
+        25.772850213333335
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "yes",
+        "building:levels": "6",
+        "height": "51.4",
+        "parking": "multi-storey",
+        "ref:miabldg": "14614"
+      },
+      "nearest_fallback_candidate_meters": 2113.0
+    },
+    {
+      "source_id": "osm:way:467880484",
+      "coordinates": [
+        -80.19472209999999,
+        25.77375635
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking",
+        "source": "Bing"
+      },
+      "nearest_fallback_candidate_meters": 2186.3
+    },
+    {
+      "source_id": "osm:way:467880493",
+      "coordinates": [
+        -80.1897935,
+        25.772896825
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "yes",
+        "building:levels": "6",
+        "height": "55.4",
+        "parking": "multi-storey",
+        "ref:miabldg": "14446"
+      },
+      "nearest_fallback_candidate_meters": 2202.2
+    },
+    {
+      "source_id": "osm:way:467885101",
+      "coordinates": [
+        -80.19300255454546,
+        25.776722354545452
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "parking",
+        "name": "MDC Garage- G2",
+        "operator": "Miami Dade College -Wolfson Campus",
+        "parking": "multi-storey",
+        "source": "Bing"
+      },
+      "nearest_fallback_candidate_meters": 2534.3
+    },
+    {
+      "source_id": "osm:way:467891261",
+      "coordinates": [
+        -80.19439813636363,
+        25.77355980909091
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "yes",
+        "building:levels": "6",
+        "source": "Bing"
+      },
+      "nearest_fallback_candidate_meters": 2168.4
+    },
+    {
+      "source_id": "osm:way:993168388",
+      "coordinates": [
+        -80.18832986666666,
+        25.773101055555557
+      ],
+      "tags": {
+        "amenity": "parking",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 2275.7
+    },
+    {
+      "source_id": "osm:way:993168391",
+      "coordinates": [
+        -80.19087335833333,
+        25.772331708333336
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building:levels": "7",
+        "building:part": "yes",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 2109.1
+    },
+    {
+      "source_id": "osm:way:994962334",
+      "coordinates": [
+        -80.18921512,
+        25.777824520000003
+      ],
+      "tags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 2738.4
+    },
+    {
+      "source_id": "osm:way:1363671535",
+      "coordinates": [
+        -80.19562182857143,
+        25.776456085714283
+      ],
+      "tags": {
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 2476.5
+    }
+  ]
+}

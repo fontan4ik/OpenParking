@@ -144,6 +144,19 @@ export function matchesPriceFilter(properties: Record<string, unknown>, priceFil
 
 export type TrustFilter = 'reliable' | 'likely' | 'all' | 'review' | 'conflict';
 
+const RESTRICTED_ORDINARY_PARKING_ACCESS = new Set([
+  'private',
+  'customers',
+  'customer',
+  'permit',
+  'residents',
+  'resident',
+  'employees',
+  'staff',
+  'delivery',
+  'destination',
+]);
+
 function numberValue(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
 }
@@ -171,13 +184,13 @@ export function hasParkingConflict(properties: Record<string, unknown>): boolean
   const ruleStatus = statusText(properties.rule_status);
   const fieldConflict = statusText(properties.field_conflict_status);
   const access = statusText(properties.access);
-
   return (
     ordinaryStatus === 'not_ordinary_parking_offer' ||
     enrichmentStatus === 'conflict' ||
     ruleStatus === 'conflict' ||
     fieldConflict.includes('conflict') ||
-    access === 'no'
+    access === 'no' ||
+    RESTRICTED_ORDINARY_PARKING_ACCESS.has(access)
   );
 }
 

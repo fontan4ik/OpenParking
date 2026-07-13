@@ -270,6 +270,8 @@ Gate checks:
   - [x] Add a compact mobile theme toggle and collapsible bottom-sheet handle for hiding filters.
   - [x] Make mobile city/search/reliability/filter chips horizontal scroll rows instead of clipping outside the viewport.
   - [x] Make Data quality an explicit amber segmented-control state with review/conflict count and review-mode filter switching.
+  - [x] Separate internal quality work into hidden `/map/admin`: reuse the complete MapLibre workspace with review/conflict/payment actions and no entry link from the public map.
+  - [ ] Protect `/map/admin` with operator authentication and add persisted review decisions/audit history before enabling canonical edits.
   - [x] Split sidebar counts into Dataset total, Visible on map, and Matched by search/current list semantics.
   - [x] Keep detail panel contrast theme-safe in dark mode.
   - [ ] Complete manual visual QA on mobile and desktop after every major map UI slice.

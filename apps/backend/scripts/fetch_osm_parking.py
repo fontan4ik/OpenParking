@@ -15,11 +15,56 @@ OVERPASS_URLS = [
 CITY_BBOXES = {
     # south, west, north, east
     "sf": (37.7047, -122.5270, 37.8324, -122.3482),
-    "miami": (25.7090, -80.3198, 25.8558, -80.1395),
+    # The file fallback is used when PostGIS is unavailable.  It must include
+    # Miami Beach too: the raster OSM basemap exposes parking POIs there and
+    # silently omitting them creates a misleading coverage gap in the app.
+    # This is deliberately named Miami in the public UI for compatibility;
+    # metadata records the actual Miami + Miami Beach fallback extent.
+    "miami": (25.7090, -80.3198, 25.8880, -80.1130),
+    # Kept as a separately refreshable fallback so a bounded Miami Beach fetch
+    # can repair/refresh POI coverage without waiting for the wider metro job.
+    "miami_beach": (25.7430, -80.1740, 25.8880, -80.1130),
     "nyc_manhattan": (40.7000, -74.0250, 40.8820, -73.9100),
     "la_dt": (33.9900, -118.3000, 34.0900, -118.1500),
     "chicago_loop": (41.8500, -87.6600, 41.9100, -87.6000),
 }
+
+DEDICATED_PARKING_VALUES = {
+    "surface",
+    "multi-storey",
+    "underground",
+    "rooftop",
+    "street_side",
+    "lane",
+    "carports",
+    "garage_boxes",
+}
+
+NON_PARKING_PARENT_KEYS = {
+    "amenity",
+    "building",
+    "leisure",
+    "tourism",
+    "shop",
+    "office",
+    "sport",
+    "landuse",
+    "natural",
+    "healthcare",
+}
+
+
+def is_dedicated_parking(tags):
+    amenity = str(tags.get("amenity", "")).lower()
+    if amenity in {"parking", "parking_entrance", "parking_space"}:
+        return True
+
+    parking = str(tags.get("parking", "")).lower()
+    if not parking or parking == "yes":
+        return False
+    if any(tags.get(key) for key in NON_PARKING_PARENT_KEYS):
+        return False
+    return parking in DEDICATED_PARKING_VALUES
 
 
 def build_query(bbox):
@@ -92,7 +137,7 @@ def fetch_overpass(query):
     raise last_error
 
 
-def fetch_bbox_with_subdivision(bbox, max_depth, depth=0):
+def fetch_bbox_with_subdivision(bbox, max_depth, failures, depth=0):
     try:
         return fetch_overpass(build_query(bbox)).get("elements", [])
     except Exception as exc:
@@ -101,6 +146,11 @@ def fetch_bbox_with_subdivision(bbox, max_depth, depth=0):
                 f"Skipping bbox {bbox_label(bbox)} after {depth + 1} attempts: {exc}",
                 flush=True,
             )
+            failures.append({
+                "bbox": bbox_label(bbox),
+                "depth": depth,
+                "error": str(exc),
+            })
             return []
 
         print(
@@ -109,7 +159,7 @@ def fetch_bbox_with_subdivision(bbox, max_depth, depth=0):
         )
         elements = []
         for child_bbox in split_bbox(bbox, rows=2, cols=2):
-            elements.extend(fetch_bbox_with_subdivision(child_bbox, max_depth, depth + 1))
+            elements.extend(fetch_bbox_with_subdivision(child_bbox, max_depth, failures, depth + 1))
         return elements
 
 
@@ -136,6 +186,8 @@ def geometry_from_element(el):
 
 def element_to_feature(el):
     tags = el.get("tags", {})
+    if not is_dedicated_parking(tags):
+        return None
     geometry, geometry_quality = geometry_from_element(el)
     if geometry is None:
         return None
@@ -173,9 +225,12 @@ def element_to_feature(el):
         "existence_status": "candidate",
         "price_status": "known_priced" if has_price else "known_unpriced",
         "rule_status": "partial" if has_rules else "unknown",
-        "enrichment_status": "needs_payment_link" if has_price else "needs_price",
+        "enrichment_status": "needs_review",
         "needs_enrichment": True,
         "confidence": 0.55 if fee == "unknown" else 0.65,
+        "ordinary_parking_status": "unknown_pending_access_rule_check",
+        "field_conflict_status": "needs_field_review",
+        "confidence_reason": "OSM parking candidate: geometry exists, but public access and rules require verification.",
         "last_verified_source": "OpenStreetMap via Overpass",
         "raw_tags": tags,
     }
@@ -186,14 +241,22 @@ def element_to_feature(el):
     }
 
 
-def write_geojson(out_path, args, features, started, complete=False):
+def write_geojson(out_path, args, features, started, bbox, requested_tiles, failures, complete=False):
     geojson = {
         "type": "FeatureCollection",
         "metadata": {
             "city": args.city,
+            "scope": (
+                "Miami + Miami Beach fallback" if args.city == "miami"
+                else "Miami Beach fallback" if args.city == "miami_beach"
+                else args.city
+            ),
+            "bbox": list(bbox),
             "source": "OpenStreetMap Overpass",
             "coverage_role": "candidate_coverage_baseline",
             "complete": complete,
+            "requested_top_level_tiles": requested_tiles,
+            "failed_bboxes": failures,
             "generated_at_unix": int(time.time()),
             "count": len(features),
             "point_count": sum(1 for f in features if f["geometry"]["type"] == "Point"),
@@ -224,14 +287,17 @@ def main():
     started = time.time()
     features = []
     seen = set()
-    bboxes = list(split_bbox(args.bbox or CITY_BBOXES[args.city], rows=args.rows, cols=args.cols))
+    failures = []
+    partial_path = out_path.with_suffix(f"{out_path.suffix}.partial")
+    source_bbox = args.bbox or CITY_BBOXES[args.city]
+    bboxes = list(split_bbox(source_bbox, rows=args.rows, cols=args.cols))
     if args.max_tiles > 0:
         bboxes = bboxes[: args.max_tiles]
 
     for idx, bbox in enumerate(bboxes, start=1):
         query = build_query(bbox)
         print(f"Fetching tile {idx}/{len(bboxes)}...", flush=True)
-        for el in fetch_bbox_with_subdivision(bbox, args.max_subdivide_depth):
+        for el in fetch_bbox_with_subdivision(bbox, args.max_subdivide_depth, failures):
             feature = element_to_feature(el)
             if not feature:
                 continue
@@ -241,13 +307,27 @@ def main():
             seen.add(key)
             features.append(feature)
         time.sleep(1)
-        checkpoint = write_geojson(out_path, args, features, started, complete=False)
+        checkpoint = write_geojson(partial_path, args, features, started, source_bbox, len(bboxes), failures, complete=False)
         print(
             f"Checkpoint after tile {idx}/{len(bboxes)}: {checkpoint['metadata']['count']} features",
             flush=True,
         )
 
-    geojson = write_geojson(out_path, args, features, started, complete=True)
+    complete = not failures and args.max_tiles == 0
+    geojson = write_geojson(
+        out_path if complete else partial_path,
+        args,
+        features,
+        started,
+        source_bbox,
+        len(bboxes),
+        failures,
+        complete=complete,
+    )
+    if complete and partial_path.exists():
+        partial_path.unlink()
+    if not complete:
+        print(f"Partial extract kept at {partial_path}; existing fallback file was not replaced.")
     print(json.dumps(geojson["metadata"], ensure_ascii=False, indent=2))
     print(str(out_path.resolve()))
 

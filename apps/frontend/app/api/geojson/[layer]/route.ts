@@ -4,12 +4,13 @@
    ═══════════════════════════════════════════════════════════════ */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { DEFAULT_CITY_ID, loadFacilities, loadCurbSegments, loadZones } from '@/lib/data-loader';
+import { DEFAULT_CITY_ID, loadCityBoundary, loadFacilities, loadCurbSegments, loadZones } from '@/lib/data-loader';
 
 const loaders: Record<string, (city: string) => ReturnType<typeof loadFacilities>> = {
   facilities: loadFacilities,
   segments: loadCurbSegments,
   zones: loadZones,
+  boundary: loadCityBoundary,
 };
 
 export async function GET(

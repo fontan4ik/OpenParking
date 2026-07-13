@@ -11,6 +11,7 @@ import type { Feature, Geometry } from 'geojson';
 import { useLanguage } from '@/components/LanguageProvider';
 import { LOCALE_LABELS, LOCALES, cityNameKey, type Locale } from '@/lib/i18n';
 import { FlagIcon } from '@/components/FlagIcon';
+import { useAdminMode } from '@/components/AdminModeContext';
 import {
   driverConfidence,
   matchesTrustFilter,
@@ -173,19 +174,22 @@ type RouteEndpoint = {
 } | null;
 
 export default function HomePage() {
+  const adminMode = useAdminMode();
   const [theme, setTheme] = useState<ThemeMode>('light');
   const [themeHydrated, setThemeHydrated] = useState(false);
   const [activeCity, setActiveCity] = useState('miami');
-  const [displayMode, setDisplayMode] = useState<DisplayMode>('both');
+  // Keep every map layer visible. The user-facing filters refine records, not the map canvas.
+  const displayMode: DisplayMode = 'all';
   const [typeFilter, setTypeFilter] = useState('');
   const [priceFilter, setPriceFilter] = useState('');
   const [sourceFilter, setSourceFilter] = useState('');
-  const [trustFilter, setTrustFilter] = useState<TrustFilter>('likely');
-  const [confidenceFilter, setConfidenceFilter] = useState<ConfidenceFilter>('');
-  const [workspaceMode, setWorkspaceMode] = useState<WorkspaceMode>('find');
-  const [sortMode, setSortMode] = useState<SortMode>('recommended');
+  const [trustFilter, setTrustFilter] = useState<TrustFilter>(adminMode ? 'review' : 'likely');
+  const [confidenceFilter, setConfidenceFilter] = useState<ConfidenceFilter>(adminMode ? 'review' : '');
+  const [workspaceMode, setWorkspaceMode] = useState<WorkspaceMode>(adminMode ? 'quality' : 'find');
+  const [sortMode, setSortMode] = useState<SortMode>(adminMode ? 'review' : 'recommended');
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchExpanded, setSearchExpanded] = useState(false);
   const [stats, setStats] = useState<CityStats | null>(null);
   const [facilities, setFacilities] = useState<FacilityFeature[]>([]);
   const [selectedFacility, setSelectedFacility] = useState<FacilityFeature | null>(null);
@@ -207,7 +211,6 @@ export default function HomePage() {
   const [routeDestination, setRouteDestination] = useState<RouteEndpoint>(null);
   const [editingField, setEditingField] = useState<'origin' | 'destination' | null>(null);
   const mapPickMode: MapPickMode = editingField === 'origin' ? 'start' : editingField === 'destination' ? 'destination' : 'none';
-  const [facilityTypes, setFacilityTypes] = useState<string[]>([]);
   const [sourceNames, setSourceNames] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [mapLayerCounts, setMapLayerCounts] = useState<LayerCounts>({ curbs: 0, reference: 0, zones: 0, places: 0 });
@@ -222,6 +225,18 @@ export default function HomePage() {
   const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const routeAbortRef = useRef<AbortController | null>(null);
   const facilityListRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedCity = params.get('city');
+    const requestedQuery = params.get('q')?.trim();
+    if (requestedCity && CITIES[requestedCity]) setActiveCity(requestedCity);
+    if (requestedQuery) {
+      setSearchInput(requestedQuery);
+      setSearchQuery(requestedQuery);
+      setSearchExpanded(true);
+    }
+  }, []);
   const mobileSheetPeekTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mobileSheetPointerStartYRef = useRef<number | null>(null);
   const mobileSheetMouseStartYRef = useRef<number | null>(null);
@@ -290,14 +305,6 @@ export default function HomePage() {
     fetch(`/api/facilities?city=${activeCity}&limit=50000`)
       .then((r) => r.json())
       .then((data) => {
-        const types = [
-          ...new Set(
-            (data.features || []).map(
-              (f: FacilityFeature) => (f.properties.facility_type as string) || 'unknown'
-            )
-          ),
-        ] as string[];
-        setFacilityTypes(types.sort());
         const sources = [
           ...new Set(
             (data.features || [])
@@ -796,7 +803,7 @@ export default function HomePage() {
         ...trustOptions.filter((option) => option.value === 'review' || option.value === 'conflict'),
         ...trustOptions.filter((option) => option.value !== 'review' && option.value !== 'conflict'),
       ]
-    : trustOptions;
+    : trustOptions.filter((option) => option.value === 'reliable' || option.value === 'likely' || option.value === 'all');
 
   const priceOptions = [
     { value: '', label: t('price.all') },
@@ -827,7 +834,6 @@ export default function HomePage() {
       active: typeFilter === 'garage',
       action: () => {
         setTypeFilter('garage');
-        setDisplayMode('points');
         setTrustFilter('likely');
       },
     },
@@ -847,7 +853,6 @@ export default function HomePage() {
       active: typeFilter === 'surface_lot',
       action: () => {
         setTypeFilter('surface_lot');
-        setDisplayMode('zones');
         setTrustFilter('likely');
       },
     },
@@ -866,7 +871,6 @@ export default function HomePage() {
       active: typeFilter === 'street_meter',
       action: () => {
         setTypeFilter('street_meter');
-        setDisplayMode('points');
         setTrustFilter('likely');
       },
     },
@@ -904,7 +908,6 @@ export default function HomePage() {
         setTrustFilter('review');
         setConfidenceFilter('review');
         setSortMode('review');
-        setDisplayMode('segments');
       },
     },
   ];
@@ -982,7 +985,6 @@ export default function HomePage() {
             setTrustFilter('review');
             setConfidenceFilter('review');
             setSortMode('review');
-            setDisplayMode('segments');
           },
         },
         {
@@ -995,7 +997,6 @@ export default function HomePage() {
             setTrustFilter('conflict');
             setConfidenceFilter('review');
             setSortMode('review');
-            setDisplayMode('segments');
           },
         },
         {
@@ -1008,7 +1009,6 @@ export default function HomePage() {
             setTrustFilter('all');
             setConfidenceFilter('');
             setSortMode('actionable');
-            setDisplayMode('both');
           },
         },
       ]
@@ -1156,7 +1156,7 @@ export default function HomePage() {
       style={mobileSheetStyle}
     >
       {/* ── Sidebar ── */}
-      <aside className={`sidebar ${mobileSheetCollapsed ? 'mobile-sheet-collapsed' : ''}`}>
+      <aside className={`sidebar ${mobileSheetCollapsed ? 'mobile-sheet-collapsed' : ''} ${searchExpanded ? 'search-expanded' : ''} ${searchExpanded && searchInput.trim() ? 'search-has-query' : ''}`}>
         <div className="mobile-sheet-bar">
           <button
             className="mobile-sheet-handle"
@@ -1226,7 +1226,14 @@ export default function HomePage() {
         </div>
 
         <div className="map-command-panel">
-          <label className="filter-label" htmlFor="parking-search">{t('filters.search')}</label>
+          <div className="driver-task-heading">
+            <span>{uiText('Step 1', 'Шаг 1')}</span>
+            <div>
+              <strong>{uiText('Where do you need to park?', 'Где нужно припарковаться?')}</strong>
+              <small>{uiText('Enter a destination, address or parking name', 'Введите адрес, место назначения или название парковки')}</small>
+            </div>
+          </div>
+          <label className="filter-label" htmlFor="parking-search">{uiText('Parking destination', 'Место назначения')}</label>
           <div className="search-command">
             <input
               id="parking-search"
@@ -1234,6 +1241,9 @@ export default function HomePage() {
               value={searchInput}
               placeholder={uiText('Address, garage, zone, operator...', 'Адрес, гараж, зона, оператор...')}
               onChange={(event) => handleSearch(event.target.value)}
+              onFocus={() => setSearchExpanded(true)}
+              aria-expanded={searchExpanded}
+              aria-controls="parking-search-panel"
             />
             <button
               className="search-clear-button"
@@ -1242,46 +1252,92 @@ export default function HomePage() {
               onClick={() => {
                 setSearchInput('');
                 setSearchQuery('');
+                setSearchExpanded(false);
               }}
-              disabled={!searchInput && !searchQuery}
             >
               ×
             </button>
           </div>
-          <div className="search-suggestions" aria-label={uiText('Search suggestions', 'Подсказки поиска')}>
-            {[
-              { value: 'garage', label: uiText('garage', 'гараж') },
-              { value: 'meter', label: uiText('meter', 'паркомат') },
-              { value: 'Miami Beach', label: uiText('Miami Beach', 'Майами-Бич') },
-            ].map((suggestion) => (
-              <button
-                key={suggestion.value}
-                type="button"
-                onClick={() => handleSearch(suggestion.value)}
-              >
-                {suggestion.label}
-              </button>
-            ))}
-          </div>
-          <div className="desktop-map-shortcuts" aria-label={uiText('Parking map shortcuts', 'Быстрые действия карты')}>
-            {desktopMapShortcuts.map((shortcut) => (
-              <button
-                key={shortcut.key}
-                type="button"
-                className={`desktop-map-shortcut shortcut-${shortcut.tone} ${shortcut.active ? 'active' : ''}`}
-                onClick={shortcut.action}
-                aria-pressed={shortcut.active}
-              >
-                <span className="desktop-map-shortcut-icon" aria-hidden="true">
-                  {shortcut.marker}
-                </span>
-                <span>{shortcut.label}</span>
-              </button>
-            ))}
-          </div>
+          {searchExpanded && (
+            <div id="parking-search-panel" className="parking-search-panel">
+              {!searchInput.trim() ? (
+                <>
+                  <div className="search-panel-heading">
+                    <strong>{uiText('Parking types', 'Типы парковок')}</strong>
+                    <span>{uiText('Choose a category or start typing', 'Выберите категорию или начните вводить')}</span>
+                  </div>
+                  <div className="search-category-grid" aria-label={uiText('Parking types', 'Типы парковок')}>
+                    {desktopMapShortcuts.slice(0, 4).map((shortcut) => (
+                      <button
+                        key={shortcut.key}
+                        type="button"
+                        className={`search-category shortcut-${shortcut.tone} ${shortcut.active ? 'active' : ''}`}
+                        onClick={shortcut.action}
+                        aria-pressed={shortcut.active}
+                      >
+                        <span className="search-category-icon" aria-hidden="true">{shortcut.marker}</span>
+                        <span>{shortcut.label}</span>
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      className={`search-category shortcut-violet ${typeFilter === 'valet' ? 'active' : ''}`}
+                      onClick={() => {
+                        setTypeFilter('valet');
+                        setTrustFilter('likely');
+                      }}
+                      aria-pressed={typeFilter === 'valet'}
+                    >
+                      <span className="search-category-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M5 19h14M7 19v-7l2-5h6l2 5v7M8 12h8M9 15h.01M15 15h.01" /></svg>
+                      </span>
+                      <span>{uiText('Valet', 'Валет')}</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`search-category shortcut-neutral ${!typeFilter && !priceFilter ? 'active' : ''}`}
+                      onClick={() => {
+                        setTypeFilter('');
+                        setPriceFilter('');
+                        setWorkspaceMode('find');
+                      }}
+                      aria-pressed={!typeFilter && !priceFilter}
+                    >
+                      <span className="search-category-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><path d="M12 8v8M8 12h8" /></svg>
+                      </span>
+                      <span>{uiText('All types', 'Все типы')}</span>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="search-result-controls" role="status">
+                  <div>
+                    <span>{uiText('Search results', 'Результаты поиска')}</span>
+                    <strong>{isLoading ? uiText('Searching…', 'Ищем…') : uiText(`${formatNumber(sortedFacilities.length)} places`, `${formatNumber(sortedFacilities.length)} мест`)}</strong>
+                  </div>
+                  <label>
+                    <span>{uiText('Sort', 'Сортировка')}</span>
+                    <select
+                      className="filter-select search-sort-select"
+                      value={sortMode}
+                      onChange={(event) => setSortMode(event.target.value as SortMode)}
+                    >
+                      <option value="recommended">{uiText('Recommended', 'Рекомендуемые')}</option>
+                      <option value="trust">{uiText('Most reliable', 'Сначала надежные')}</option>
+                      <option value="price">{uiText('Price known', 'Сначала с ценой')}</option>
+                      <option value="actionable">{uiText('Pay/book first', 'Оплата/бронь')}</option>
+                      <option value="review">{uiText('Needs review first', 'Сначала проверка')}</option>
+                    </select>
+                  </label>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="city-summary-panel">
+          <div className="section-kicker">{uiText('Search area', 'Район поиска')}</div>
           <div className="city-selector compact">
             {Object.values(CITIES).map((city) => (
               <button
@@ -1294,20 +1350,23 @@ export default function HomePage() {
               </button>
             ))}
           </div>
-          <div className="city-status-strip">
-            <span><b>{stats ? formatNumber(stats.totalFacilities) : '—'}</b> {t('stats.facilities')}</span>
-            <span><b>{stats ? formatNumber(stats.curbSegments) : '—'}</b> {t('stats.curbLines')}</span>
-            <span><b>{stats ? `${stats.coveragePercent}%` : '—'}</b> {t('stats.coverage')}</span>
-            <span><b>{stats?.recordCompleteness ? getCompletenessPercent(stats.recordCompleteness.sourceLinkedRecords, stats.recordCompleteness.totalKnownRecords) : '—'}</b> {uiText('sources', 'источники')}</span>
-          </div>
-          <div className="layer-scope-strip" aria-label={uiText('Layer result scope', 'Область счетчиков слоя')}>
-            {layerScopeItems.map((item) => (
-              <span key={item.label}>
-                <b>{typeof item.value === 'number' ? formatNumber(item.value) : item.value}</b>
-                {item.label}
-              </span>
-            ))}
-          </div>
+          <details className="dataset-summary-details">
+            <summary>{uiText('Dataset and map coverage', 'Данные и покрытие карты')}</summary>
+            <div className="city-status-strip">
+              <span><b>{stats ? formatNumber(stats.totalFacilities) : '—'}</b> {t('stats.facilities')}</span>
+              <span><b>{stats ? formatNumber(stats.curbSegments) : '—'}</b> {t('stats.curbLines')}</span>
+              <span><b>{stats ? `${stats.coveragePercent}%` : '—'}</b> {t('stats.coverage')}</span>
+              <span><b>{stats?.recordCompleteness ? getCompletenessPercent(stats.recordCompleteness.sourceLinkedRecords, stats.recordCompleteness.totalKnownRecords) : '—'}</b> {uiText('sources', 'источники')}</span>
+            </div>
+            <div className="layer-scope-strip" aria-label={uiText('Layer result scope', 'Область счетчиков слоя')}>
+              {layerScopeItems.map((item) => (
+                <span key={item.label}>
+                  <b>{typeof item.value === 'number' ? formatNumber(item.value) : item.value}</b>
+                  {item.label}
+                </span>
+              ))}
+            </div>
+          </details>
         </div>
 
         {stats?.data_status && stats.data_status !== 'ready' && (
@@ -1327,40 +1386,66 @@ export default function HomePage() {
         )}
 
         <div className="filters-section redesigned-filters">
-          <div className="mode-tabs" data-mode={workspaceMode} role="tablist" aria-label={uiText('Workspace mode', 'Режим работы')}>
+          {adminMode && <div className="admin-map-tools">
+            <div className="admin-map-heading">
+              <div>
+                <span>{uiText('Internal workspace', 'Внутренний режим')}</span>
+                <strong>{uiText('Parking data review', 'Проверка парковочных данных')}</strong>
+              </div>
+              <a href="/map">{uiText('Driver map', 'Обычная карта')}</a>
+            </div>
+
+          <div className="mode-tabs" data-mode={workspaceMode} role="group" aria-label={uiText('Admin map mode', 'Режим админ-карты')}>
             <button
               className={`mode-tab ${workspaceMode === 'find' ? 'active' : ''}`}
               type="button"
-              aria-selected={workspaceMode === 'find'}
+              aria-pressed={workspaceMode === 'find'}
               onClick={() => {
                 setWorkspaceMode('find');
                 if (trustFilter === 'review' || trustFilter === 'conflict') setTrustFilter('likely');
-                setDisplayMode('both');
+                setConfidenceFilter('');
+                setSortMode('recommended');
               }}
             >
-              <span className="mode-label">{uiText('Find parking', 'Найти парковку')}</span>
+              <span className="mode-tab-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z" />
+                  <circle cx="12" cy="9" r="2.25" />
+                </svg>
+              </span>
+              <span className="mode-label">{uiText('All map tools', 'Все функции карты')}</span>
             </button>
             <button
               className={`mode-tab ${workspaceMode === 'quality' ? 'active' : ''}`}
               type="button"
-              aria-selected={workspaceMode === 'quality'}
+              aria-pressed={workspaceMode === 'quality'}
               onClick={() => {
                 setWorkspaceMode('quality');
                 setTrustFilter('review');
                 setConfidenceFilter('review');
                 setSortMode('review');
-                setDisplayMode('segments');
               }}
             >
-              <span className="mode-label">{uiText('Data quality', 'Качество')}</span>
+              <span className="mode-tab-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="m12 3 7 3v5c0 4.4-2.9 8.3-7 10-4.1-1.7-7-5.6-7-10V6l7-3Z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </span>
+              <span className="mode-label">{uiText('Review queue', 'Очередь проверки')}</span>
               {stats?.recordCompleteness ? (
                 <span className="mode-count">
-                  <span className="mode-warning" aria-hidden="true">!</span>
                   {formatNumber(stats.recordCompleteness.needsReviewRecords + stats.recordCompleteness.conflictRecords)}
                 </span>
               ) : null}
             </button>
           </div>
+
+          <p className="mode-context" role="status">
+            {workspaceMode === 'quality'
+              ? uiText('Review and conflict records are shown on the same full map.', 'Записи review/conflict показаны на той же полнофункциональной карте.')
+              : uiText('Search, routing, layers and parking details remain available.', 'Доступны поиск, маршруты, слои и полные карточки парковок.')}
+          </p>
 
           {workspaceMode === 'quality' && qualityActions.length > 0 && (
             <div className="quality-action-panel" aria-label={uiText('Data quality action list', 'Список действий по качеству данных')}>
@@ -1377,11 +1462,12 @@ export default function HomePage() {
               ))}
             </div>
           )}
+          </div>}
 
           <div className="filter-group">
             <div className="filter-heading-row">
-              <label className="filter-label">{uiText('Reliability', 'Надежность')}</label>
-              <span className="filter-hint">{uiText('Driver-facing confidence', 'Доверие для водителя')}</span>
+              <label className="filter-label">{uiText('Step 2 · Choose confidence', 'Шаг 2 · Выберите надёжность')}</label>
+              <span className="filter-hint">{uiText('We never hide uncertainty', 'Не скрываем неопределённость')}</span>
             </div>
             <div className="trust-grid" key={workspaceMode}>
               {visibleTrustOptions.map((option) => (
@@ -1416,19 +1502,6 @@ export default function HomePage() {
                   </button>
                 ))}
               </div>
-              <select
-                className="filter-select compact-select"
-                value={typeFilter}
-                onChange={(event) => setTypeFilter(event.target.value)}
-                aria-label={t('filters.facilityType')}
-              >
-                <option value="">{t('types.all')}</option>
-                {facilityTypes.map((type) => (
-                  <option key={type} value={type} title={type}>
-                    {getTypeLabel(type)}
-                  </option>
-                ))}
-              </select>
             </div>
 
             <div className="filter-group">
@@ -1447,34 +1520,13 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="filter-group two-column-controls">
+            <div className="filter-group">
               <div>
                 <label className="filter-label">{t('filters.displayMode')}</label>
-                <select
-                  className="filter-select"
-                  value={displayMode}
-                  onChange={(event) => setDisplayMode(event.target.value as DisplayMode)}
-                >
-                  <option value="both">{t('display.both')}</option>
-                  <option value="all">{t('display.all')}</option>
-                  <option value="segments">{t('display.segments')}</option>
-                  <option value="zones">{t('display.zones')}</option>
-                  <option value="points">{t('display.points')}</option>
-                </select>
-              </div>
-              <div>
-                <label className="filter-label">{uiText('Sort', 'Сортировка')}</label>
-                <select
-                  className="filter-select"
-                  value={sortMode}
-                  onChange={(event) => setSortMode(event.target.value as SortMode)}
-                >
-                  <option value="recommended">{uiText('Recommended', 'Рекомендуемые')}</option>
-                  <option value="trust">{uiText('Most reliable', 'Сначала надежные')}</option>
-                  <option value="price">{uiText('Price known', 'Сначала с ценой')}</option>
-                  <option value="actionable">{uiText('Pay/book first', 'Оплата/бронь')}</option>
-                  <option value="review">{uiText('Needs review first', 'Сначала проверка')}</option>
-                </select>
+                <div className="display-mode-fixed" role="status">
+                  <span className="display-mode-fixed-dot" aria-hidden="true" />
+                  {t('display.all')}
+                </div>
               </div>
             </div>
 
@@ -1540,6 +1592,13 @@ export default function HomePage() {
 
         {/* Facility List */}
         <div className="facility-list" ref={facilityListRef} aria-label={uiText('Parking results', 'Результаты парковки')}>
+          <div className="facility-list-heading">
+            <div>
+              <span>{uiText('Step 3', 'Шаг 3')}</span>
+              <strong>{uiText('Compare nearby options', 'Сравните варианты рядом')}</strong>
+            </div>
+            <b>{isLoading ? '—' : formatNumber(sortedFacilities.length)}</b>
+          </div>
           {sortedFacilities.slice(0, 50).map((f, idx) => {
             const p = f.properties;
             const type = (p.facility_type as string) || 'unknown';
@@ -1669,7 +1728,6 @@ export default function HomePage() {
           onMapLongPress={handleMapLongPress}
           onMapInteractionStart={handleMapInteractionStart}
           onMapInteractionEnd={handleMapInteractionEnd}
-          onDisplayModeChange={setDisplayMode}
           onLayerCountsChange={setMapLayerCounts}
           onLayerStatusChange={setMapLayerStatus}
         />
@@ -1882,6 +1940,7 @@ export default function HomePage() {
               const priceStatus = getText(p, 'price_status', 'unknown');
               const ruleStatus = getText(p, 'rule_status', 'unknown');
               const enrichmentStatus = getText(p, 'enrichment_status', 'needs_review');
+              const trustDisplay = getTrustDisplay(p);
               const sourceLink = getSafeLink(p, 'source_url', uiText('Open source', 'Открыть источник'));
               const evidenceLink = getSafeLink(p, 'evidence_url', uiText('Open evidence', 'Открыть доказательство'));
               const paymentLink = getSafeLink(p, 'payment_url', uiText('Open payment', 'Открыть оплату'));
@@ -1914,11 +1973,36 @@ export default function HomePage() {
                     </button>
                   </div>
                   <div className="detail-body" tabIndex={0}>
-                    <div className="detail-section">
-                      <div className="detail-section-title">{t('detail.pricing')}</div>
-                      <div className={`popup-price price-${priceDisplay.tone}`}>
-                        {priceDisplay.label}
+                    <div className="detail-primary-card">
+                      <div className="detail-primary-copy">
+                        <span className={`quality-chip trust-chip trust-${trustDisplay.label}`}>
+                          {trustDisplay.text}
+                        </span>
+                        <div className={`popup-price price-${priceDisplay.tone}`}>
+                          {priceDisplay.label}
+                        </div>
+                        <small>{uiText('Check the terms below before parking', 'Перед парковкой проверьте условия ниже')}</small>
                       </div>
+                      {selectedDestinationResult?.ok ? (
+                        <button
+                          className="suggestion-submit route-primary-action"
+                          type="button"
+                          data-testid="navigate-to-parking"
+                          onClick={startNavigation}
+                          disabled={routeStatus === 'requesting'}
+                        >
+                          {routeStatus === 'requesting' || userLocationStatus === 'requesting'
+                            ? uiText('Finding route...', 'Строим маршрут...')
+                            : uiText('Route here', 'Маршрут сюда')}
+                        </button>
+                      ) : (
+                        <div className="route-error" data-testid="route-error">
+                          {uiText('Route is unavailable for this geometry.', 'Для этой геометрии маршрут недоступен.')}
+                        </div>
+                      )}
+                    </div>
+                    <div className="detail-section">
+                      <div className="detail-section-title">{uiText('Price and parking terms', 'Цена и условия парковки')}</div>
                       <div className="status-chip-row">
                         <span className={`quality-chip price-status-${priceDisplay.tone}`}>
                           {priceDisplay.statusLabel}
@@ -1988,8 +2072,8 @@ export default function HomePage() {
                       )}
                     </div>
 
-                    <div className="detail-section">
-                      <div className="detail-section-title">{t('detail.details')}</div>
+                    <details className="detail-section detail-disclosure">
+                      <summary>{uiText('Location and amenities', 'Место и удобства')}</summary>
                       {operator && (
                         <div className="detail-field">
                           <span className="detail-field-label">{t('detail.operator')}</span>
@@ -2056,10 +2140,10 @@ export default function HomePage() {
                           <span className="detail-field-value">{restrictions}</span>
                         </div>
                       )}
-                    </div>
+                    </details>
 
-                    <div className="detail-section">
-                      <div className="detail-section-title">{t('detail.dataQuality')}</div>
+                    <details className="detail-section detail-disclosure">
+                      <summary>{uiText('Why we trust this data', 'Почему этим данным можно доверять')}</summary>
                       <div className="detail-field">
                         <span className="detail-field-label">{t('detail.confidence')}</span>
                         <span className="detail-field-value">
@@ -2115,31 +2199,10 @@ export default function HomePage() {
                           </div>
                         </details>
                       )}
-                    </div>
+                    </details>
 
-                    <div className="detail-section route-section">
-                      <div className="detail-section-title">{uiText('Navigation', 'Навигация')}</div>
-                      {selectedDestinationResult?.ok ? (
-                        <button
-                          className="suggestion-submit route-primary-action"
-                          type="button"
-                          data-testid="navigate-to-parking"
-                          onClick={startNavigation}
-                          disabled={routeStatus === 'requesting'}
-                        >
-                          {routeStatus === 'requesting' || userLocationStatus === 'requesting'
-                            ? uiText('Finding route...', 'Строим маршрут...')
-                            : uiText('Route to parking', 'Маршрут к парковке')}
-                        </button>
-                      ) : (
-                        <div className="route-error" data-testid="route-error">
-                          {uiText('Selected parking geometry cannot be routed.', 'Геометрию выбранной парковки нельзя использовать для маршрута.')}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="detail-section">
-                      <div className="detail-section-title">{uiText('Links', 'Ссылки')}</div>
+                    <details className="detail-section detail-disclosure">
+                      <summary>{uiText('Official links and actions', 'Официальные ссылки и действия')}</summary>
                       <div className="detail-link-grid">
                         {[
                           { key: 'source', label: uiText('Source', 'Источник'), link: sourceLink },
@@ -2147,10 +2210,10 @@ export default function HomePage() {
                           { key: 'payment', label: uiText('Payment', 'Оплата'), link: paymentLink },
                           { key: 'payment-app', label: uiText('Payment app', 'Приложение оплаты'), link: paymentAppLink },
                           { key: 'booking', label: uiText('Booking', 'Бронь'), link: bookingLink },
-                        ].map((item) => (
+                        ].filter((item) => item.link).map((item) => (
                           <div className="detail-field" key={item.key}>
                             <span className="detail-field-label">{item.label}</span>
-                            {item.link ? (
+                            {item.link && (
                               <a
                                 className="detail-safe-link"
                                 href={item.link.url}
@@ -2159,18 +2222,17 @@ export default function HomePage() {
                               >
                                 {item.link.label}
                               </a>
-                            ) : (
-                              <span className="detail-field-value unavailable">
-                                {uiText('Not available', 'Недоступно')}
-                              </span>
                             )}
                           </div>
                         ))}
                       </div>
-                    </div>
+                      {!sourceLink && !evidenceLink && !paymentLink && !paymentAppLink && !bookingLink && (
+                        <p className="detail-help-text">{uiText('No external links are available for this record yet.', 'Для этой записи внешние ссылки пока недоступны.')}</p>
+                      )}
+                    </details>
 
-                    <div className="detail-section">
-                      <div className="detail-section-title">{t('detail.suggestTitle')}</div>
+                    <details className="detail-section detail-disclosure">
+                      <summary>{t('detail.suggestTitle')}</summary>
                       <p className="detail-help-text">
                         {t('detail.suggestHelp')}
                       </p>
@@ -2222,7 +2284,7 @@ export default function HomePage() {
                           {suggestionMessage}
                         </div>
                       )}
-                    </div>
+                    </details>
                   </div>
                 </>
               );

@@ -1,0 +1,202 @@
+{
+  "generated_at": "2026-07-10T15:16:17.233877+00:00",
+  "method": "bounded_live_osm_api_to_local_fallback_parking_poi_reconciliation",
+  "bbox": [
+    -80.134,
+    25.79,
+    -80.128,
+    25.796
+  ],
+  "match_radius_meters": 35,
+  "coverage_files": [
+    "data\\miami_parking_osm.geojson",
+    "data\\miami_beach_osm_basemap_candidates.geojson"
+  ],
+  "missing_coverage_files": [],
+  "coverage_metadata": [
+    {
+      "city": "miami",
+      "scope": "Miami + Miami Beach fallback",
+      "bbox": [
+        25.709,
+        -80.3198,
+        25.888,
+        -80.113
+      ],
+      "source": "OpenStreetMap Overpass",
+      "coverage_role": "candidate_coverage_baseline",
+      "complete": false,
+      "requested_top_level_tiles": 16,
+      "failed_bboxes": [],
+      "generated_at_unix": 1783695662,
+      "count": 486,
+      "point_count": 486,
+      "line_count": 0,
+      "polygon_count": 0,
+      "duration_seconds": 8.45
+    },
+    {
+      "scope": "bounded OSM basemap reconciliation candidates",
+      "source": "https://api.openstreetmap.org/api/0.6/map",
+      "bbox": [
+        -80.132,
+        25.8158,
+        -80.1288,
+        25.8195
+      ],
+      "complete": true,
+      "generated_at": "2026-07-10T15:09:57.077376+00:00",
+      "count": 2,
+      "review_only": true
+    }
+  ],
+  "osm_parking_pois": 11,
+  "local_osm_candidates": 488,
+  "missing_from_fallback": 11,
+  "missing": [
+    {
+      "source_id": "osm:node:99357532",
+      "coordinates": [
+        -80.1322721,
+        25.7965985
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2317.4
+    },
+    {
+      "source_id": "osm:node:5633591722",
+      "coordinates": [
+        -80.1338698,
+        25.7920679
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "level": "0"
+      },
+      "nearest_fallback_candidate_meters": 2832.1
+    },
+    {
+      "source_id": "osm:node:5638863133",
+      "coordinates": [
+        -80.1310577,
+        25.7892626
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "level": "0",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 3121.3
+    },
+    {
+      "source_id": "osm:node:9078816565",
+      "coordinates": [
+        -80.1292645,
+        25.7909284
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2938.6
+    },
+    {
+      "source_id": "osm:node:9078816569",
+      "coordinates": [
+        -80.1290157,
+        25.7909109
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2941.5
+    },
+    {
+      "source_id": "osm:node:11183140699",
+      "coordinates": [
+        -80.1341799,
+        25.7912594
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 2924.7
+    },
+    {
+      "source_id": "osm:node:11297323520",
+      "coordinates": [
+        -80.1297851,
+        25.7900075
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 3038.8
+    },
+    {
+      "source_id": "osm:way:277037896",
+      "coordinates": [
+        -80.1340091125,
+        25.791714725
+      ],
+      "tags": {
+        "addr:city": "Miami Beach",
+        "addr:housenumber": "1661",
+        "addr:postcode": "33139",
+        "addr:state": "FL",
+        "addr:street": "Pennsylvania Avenue",
+        "amenity": "parking",
+        "building": "garages",
+        "building:levels": "5",
+        "capacity": "550",
+        "fee": "yes",
+        "maxstay": "1 day",
+        "name": "Pennsylvania Avenue Garage",
+        "parking": "multi-storey",
+        "supervised": "yes",
+        "surface": "concrete"
+      },
+      "nearest_fallback_candidate_meters": 2872.6
+    },
+    {
+      "source_id": "osm:way:277037903",
+      "coordinates": [
+        -80.13051542000001,
+        25.791587420000003
+      ],
+      "tags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 2863.6
+    },
+    {
+      "source_id": "osm:way:590645539",
+      "coordinates": [
+        -80.13124791,
+        25.789740610000003
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "garages",
+        "building:levels": "4",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 3069.0
+    },
+    {
+      "source_id": "osm:way:765627073",
+      "coordinates": [
+        -80.13403122857143,
+        25.789957485714286
+      ],
+      "tags": {
+        "amenity": "parking",
+        "parking": "surface",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 3065.7
+    }
+  ]
+}

@@ -9,7 +9,14 @@ import maplibregl, {
 import type { Feature, Geometry } from 'geojson';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useLanguage } from '@/components/LanguageProvider';
-import { driverConfidence, matchesPriceFilter, matchesTrustFilter, safeUrl } from '@/lib/data-quality';
+import {
+  driverConfidence,
+  hasParkingConflict,
+  matchesPriceFilter,
+  matchesTrustFilter,
+  needsParkingReview,
+  safeUrl,
+} from '@/lib/data-quality';
 import { cityNameKey, type TranslationKey } from '@/lib/i18n';
 import { splitParkingSegments } from '@/lib/map-segment-classification';
 import { priceTextOrFallback } from '@/lib/price-utils';
@@ -45,7 +52,6 @@ interface ParkingMapProps {
   onMapLongPress?: (coordinate: RouteCoordinate) => void;
   onMapInteractionStart?: () => void;
   onMapInteractionEnd?: () => void;
-  onDisplayModeChange?: (mode: DisplayMode) => void;
   onLayerCountsChange?: (counts: { curbs: number; reference: number; zones: number; places: number }) => void;
   onLayerStatusChange?: (status: Record<'facilities' | 'segments' | 'zones', LayerLoadStatus>) => void;
 }
@@ -107,6 +113,11 @@ function applyRasterTheme(map: maplibregl.Map, theme: 'light' | 'dark') {
   Object.entries(paint).forEach(([property, value]) => {
     map.setPaintProperty('osm', property, value);
   });
+
+  if (map.getLayer('city-boundary-casing') && map.getLayer('city-boundary-line')) {
+    map.setPaintProperty('city-boundary-casing', 'line-color', theme === 'dark' ? '#111827' : '#ffffff');
+    map.setPaintProperty('city-boundary-line', 'line-color', theme === 'dark' ? '#f8fafc' : '#1f2937');
+  }
 }
 
 function localText(t: (key: TranslationKey) => string, en: string, ru: string) {
@@ -382,7 +393,6 @@ export default function ParkingMap({
   onMapLongPress,
   onMapInteractionStart,
   onMapInteractionEnd,
-  onDisplayModeChange,
   onLayerCountsChange,
   onLayerStatusChange,
 }: ParkingMapProps) {
@@ -393,6 +403,7 @@ export default function ParkingMap({
   const [facilities, setFacilities] = useState<FeatureCollection>(EMPTY_COLLECTION);
   const [segments, setSegments] = useState<FeatureCollection>(EMPTY_COLLECTION);
   const [zones, setZones] = useState<FeatureCollection>(EMPTY_COLLECTION);
+  const [cityBoundary, setCityBoundary] = useState<FeatureCollection>(EMPTY_COLLECTION);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [loadAttempt, setLoadAttempt] = useState(0);
@@ -468,9 +479,12 @@ export default function ParkingMap({
     map.on('load', () => {
       setLoadError('');
       map.addSource('zones', { type: 'geojson', data: EMPTY_COLLECTION });
+      map.addSource('review-zones', { type: 'geojson', data: EMPTY_COLLECTION });
+      map.addSource('city-boundary', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('segments', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('reference-segments', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('facilities', { type: 'geojson', data: EMPTY_COLLECTION });
+      map.addSource('review-facilities', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('parkingusa-route-source', {
         type: 'geojson',
         data: { type: 'FeatureCollection', features: [] },
@@ -679,6 +693,109 @@ export default function ParkingMap({
         },
       });
 
+      map.addLayer({
+        id: 'city-boundary-casing',
+        type: 'line',
+        source: 'city-boundary',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            5,
+            3,
+            10,
+            5,
+            16,
+            7,
+          ],
+          'line-opacity': 0.9,
+          'line-blur': 0.3,
+        },
+      });
+
+      map.addLayer({
+        id: 'city-boundary-line',
+        type: 'line',
+        source: 'city-boundary',
+        paint: {
+          'line-color': '#1f2937',
+          'line-width': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            5,
+            1,
+            10,
+            1.5,
+            16,
+            2,
+          ],
+          'line-opacity': 0.88,
+          'line-dasharray': [5, 2.5],
+        },
+      });
+
+      map.addLayer({
+        id: 'review-zones-fill',
+        type: 'fill',
+        source: 'review-zones',
+        minzoom: 12,
+        paint: {
+          'fill-color': '#f59e0b',
+          'fill-opacity': 0.16,
+        },
+      });
+
+      map.addLayer({
+        id: 'review-zones-outline',
+        type: 'line',
+        source: 'review-zones',
+        minzoom: 12,
+        paint: {
+          'line-color': '#d97706',
+          'line-width': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12,
+            1.2,
+            16,
+            2.2,
+            19,
+            3,
+          ],
+          'line-opacity': 0.92,
+          'line-dasharray': [2, 1.5],
+        },
+      });
+
+      map.addLayer({
+        id: 'review-facilities-circle',
+        type: 'circle',
+        source: 'review-facilities',
+        minzoom: 13,
+        paint: {
+          'circle-radius': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            13,
+            4,
+            16,
+            7,
+            19,
+            10,
+          ],
+          'circle-color': '#f59e0b',
+          'circle-opacity': 0.28,
+          'circle-stroke-color': '#f59e0b',
+          'circle-stroke-width': 2.4,
+          'circle-stroke-opacity': 0.9,
+        },
+      });
+
       map.addLayer(
         {
           id: 'facilities-glow',
@@ -881,7 +998,7 @@ export default function ParkingMap({
         onMapPointPickRef.current?.({ lat: event.lngLat.lat, lon: event.lngLat.lng });
       });
 
-      const clickableLayers = ['facilities-circle', 'zones-fill', 'segments-line', 'reference-segments-line'];
+      const clickableLayers = ['facilities-circle', 'review-facilities-circle', 'zones-fill', 'review-zones-fill', 'segments-line', 'reference-segments-line'];
       clickableLayers.forEach((layerId) => {
         map.on('mouseenter', layerId, () => {
           map.getCanvas().style.cursor = 'pointer';
@@ -989,10 +1106,25 @@ export default function ParkingMap({
       }
     };
 
+    const fetchBoundary = async () => {
+      try {
+        const response = await fetch(`/api/geojson/boundary?city=${activeCity}`, { signal: controller.signal });
+        if (!response.ok) throw new Error(`boundary failed with ${response.status}`);
+        setCityBoundary((await response.json()) as FeatureCollection);
+        return true;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return true;
+        console.error(error);
+        setCityBoundary(EMPTY_COLLECTION);
+        return false;
+      }
+    };
+
     Promise.all([
       fetchLayer('facilities', `/api/geojson/facilities?city=${activeCity}`, setFacilities),
       fetchLayer('segments', `/api/geojson/segments?city=${activeCity}`, setSegments),
       fetchLayer('zones', `/api/geojson/zones?city=${activeCity}`, setZones),
+      fetchBoundary(),
     ])
       .then((results) => {
         if (results.some((ok) => !ok)) {
@@ -1009,9 +1141,53 @@ export default function ParkingMap({
     return filterCollection(facilities, typeFilter, priceFilter, sourceFilter, trustFilter, confidenceFilter, searchQuery);
   }, [confidenceFilter, facilities, hasCityData, priceFilter, searchQuery, sourceFilter, trustFilter, typeFilter]);
 
+  const reviewReferenceFacilities = useMemo(() => {
+    if (!hasCityData || trustFilter === 'all' || trustFilter === 'review' || trustFilter === 'conflict') {
+      return EMPTY_COLLECTION;
+    }
+    const candidates = filterCollection(
+      facilities,
+      typeFilter,
+      priceFilter,
+      sourceFilter,
+      'review',
+      confidenceFilter,
+      searchQuery
+    );
+    return {
+      type: 'FeatureCollection' as const,
+      features: candidates.features.filter((feature) => {
+        const properties = feature.properties || {};
+        return needsParkingReview(properties) && !hasParkingConflict(properties);
+      }),
+    };
+  }, [confidenceFilter, facilities, hasCityData, priceFilter, searchQuery, sourceFilter, trustFilter, typeFilter]);
+
   const filteredZones = useMemo(() => {
     if (!hasCityData) return EMPTY_COLLECTION;
     return filterCollection(zones, typeFilter, priceFilter, sourceFilter, trustFilter, confidenceFilter, searchQuery);
+  }, [confidenceFilter, hasCityData, priceFilter, searchQuery, sourceFilter, trustFilter, typeFilter, zones]);
+
+  const reviewReferenceZones = useMemo(() => {
+    if (!hasCityData || trustFilter === 'all' || trustFilter === 'review' || trustFilter === 'conflict') {
+      return EMPTY_COLLECTION;
+    }
+    const candidates = filterCollection(
+      zones,
+      typeFilter,
+      priceFilter,
+      sourceFilter,
+      'review',
+      confidenceFilter,
+      searchQuery
+    );
+    return {
+      type: 'FeatureCollection' as const,
+      features: candidates.features.filter((feature) => {
+        const properties = feature.properties || {};
+        return needsParkingReview(properties) && !hasParkingConflict(properties) && !isRegulatoryZone(feature);
+      }),
+    };
   }, [confidenceFilter, hasCityData, priceFilter, searchQuery, sourceFilter, trustFilter, typeFilter, zones]);
 
   const visibleZones = useMemo(() => {
@@ -1026,10 +1202,6 @@ export default function ParkingMap({
 
   const splitSegments = useMemo(() => splitParkingSegments(filteredSegments), [filteredSegments]);
   const visibleSegments = splitSegments.ordinary;
-  const formatLayerCount = (key: 'facilities' | 'segments' | 'zones', count: number) =>
-    layerLoadStatus[key] === 'loading'
-      ? localText(t, 'Loading', 'Загрузка')
-      : formatNumber(count);
   const layerStatusItems = [
     {
       key: 'facilities',
@@ -1077,11 +1249,23 @@ export default function ParkingMap({
     const map = mapRef.current;
     if (!map || !isReady) return;
 
-    (map.getSource('facilities') as GeoJSONSource).setData(filteredFacilities);
-    (map.getSource('segments') as GeoJSONSource).setData(splitSegments.ordinary);
-    (map.getSource('reference-segments') as GeoJSONSource).setData(splitSegments.reference);
-    (map.getSource('zones') as GeoJSONSource).setData(visibleZones);
-  }, [filteredFacilities, isReady, splitSegments, visibleZones]);
+    const sourceUpdates = [
+      ['facilities', filteredFacilities],
+      ['review-facilities', reviewReferenceFacilities],
+      ['segments', splitSegments.ordinary],
+      ['reference-segments', splitSegments.reference],
+      ['zones', visibleZones],
+      ['review-zones', reviewReferenceZones],
+      ['city-boundary', cityBoundary],
+    ] as const;
+
+    for (const [sourceId, data] of sourceUpdates) {
+      const source = map.getSource(sourceId);
+      if (source && 'setData' in source) {
+        (source as GeoJSONSource).setData(data);
+      }
+    }
+  }, [cityBoundary, filteredFacilities, isReady, reviewReferenceFacilities, reviewReferenceZones, splitSegments, visibleZones]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -1098,8 +1282,11 @@ export default function ParkingMap({
     setVisibility(map, 'reference-segments-line', showReferenceSegments);
     setVisibility(map, 'zones-fill', showZones);
     setVisibility(map, 'zones-outline', showZones);
+    setVisibility(map, 'review-zones-fill', showZones);
+    setVisibility(map, 'review-zones-outline', showZones);
     setVisibility(map, 'facilities-circle', showPoints);
     setVisibility(map, 'facilities-glow', showPoints);
+    setVisibility(map, 'review-facilities-circle', showPoints);
   }, [confidenceFilter, displayMode, isReady, trustFilter]);
 
   useEffect(() => {
@@ -1210,50 +1397,6 @@ export default function ParkingMap({
           </div>
         </div>
       )}
-
-      <div className="layer-toggles" aria-label={localText(t, 'Map layer controls', 'Управление слоями карты')}>
-        <button
-          className={`layer-toggle ${displayMode === 'all' || displayMode === 'segments' || displayMode === 'both' ? 'active' : ''}`}
-          type="button"
-          aria-pressed={displayMode === 'all' || displayMode === 'segments' || displayMode === 'both'}
-          onClick={() => onDisplayModeChange?.('segments')}
-        >
-          <span className="layer-dot" style={{ background: 'var(--accent-emerald)' }} />
-          {formatLayerCount('segments', splitSegments.ordinary.features.length)} {t('map.curbs')}
-        </button>
-        <button
-          className={`layer-toggle layer-toggle-reference ${displayMode === 'segments' ? 'active' : 'muted'}`}
-          type="button"
-          aria-pressed={displayMode === 'segments'}
-          onClick={() => onDisplayModeChange?.('segments')}
-          title={localText(
-            t,
-            'Reference/low-confidence regulatory evidence is hidden in the default view and shown dashed only in curb-only mode.',
-            'Справочные/низкоуверенные regulatory evidence скрыты в обычном виде и показываются пунктиром только в режиме бордюров.'
-          )}
-        >
-          <span className="layer-dot layer-dot-dashed" style={{ background: 'var(--accent-amber)' }} />
-          {formatLayerCount('segments', splitSegments.reference.features.length)} {localText(t, 'reference/review', 'справочные/проверка')}
-        </button>
-        <button
-          className={`layer-toggle ${displayMode === 'all' || displayMode === 'both' || displayMode === 'zones' ? 'active' : ''}`}
-          type="button"
-          aria-pressed={displayMode === 'all' || displayMode === 'both' || displayMode === 'zones'}
-          onClick={() => onDisplayModeChange?.('zones')}
-        >
-          <span className="layer-dot" style={{ background: 'var(--accent-blue)' }} />
-          {formatLayerCount('zones', visibleZones.features.length)} {t('map.zones')}
-        </button>
-        <button
-          className={`layer-toggle ${displayMode === 'all' || displayMode === 'points' || displayMode === 'both' ? 'active' : ''}`}
-          type="button"
-          aria-pressed={displayMode === 'all' || displayMode === 'points' || displayMode === 'both'}
-          onClick={() => onDisplayModeChange?.('points')}
-        >
-          <span className="layer-dot" style={{ background: 'var(--accent-amber)' }} />
-          {formatLayerCount('facilities', filteredFacilities.features.length)} {t('map.places')}
-        </button>
-      </div>
 
       {!hasCityData && (
         <div className="city-data-notice">

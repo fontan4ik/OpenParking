@@ -1,0 +1,763 @@
+{
+  "generated_at": "2026-07-10T15:16:23.400115+00:00",
+  "method": "bounded_live_osm_api_to_local_fallback_parking_poi_reconciliation",
+  "bbox": [
+    -80.198,
+    25.755,
+    -80.19,
+    25.762
+  ],
+  "match_radius_meters": 35,
+  "coverage_files": [
+    "data\\miami_parking_osm.geojson",
+    "data\\miami_beach_osm_basemap_candidates.geojson"
+  ],
+  "missing_coverage_files": [],
+  "coverage_metadata": [
+    {
+      "city": "miami",
+      "scope": "Miami + Miami Beach fallback",
+      "bbox": [
+        25.709,
+        -80.3198,
+        25.888,
+        -80.113
+      ],
+      "source": "OpenStreetMap Overpass",
+      "coverage_role": "candidate_coverage_baseline",
+      "complete": false,
+      "requested_top_level_tiles": 16,
+      "failed_bboxes": [],
+      "generated_at_unix": 1783695662,
+      "count": 486,
+      "point_count": 486,
+      "line_count": 0,
+      "polygon_count": 0,
+      "duration_seconds": 8.45
+    },
+    {
+      "scope": "bounded OSM basemap reconciliation candidates",
+      "source": "https://api.openstreetmap.org/api/0.6/map",
+      "bbox": [
+        -80.132,
+        25.8158,
+        -80.1288,
+        25.8195
+      ],
+      "complete": true,
+      "generated_at": "2026-07-10T15:09:57.077376+00:00",
+      "count": 2,
+      "review_only": true
+    }
+  ],
+  "osm_parking_pois": 54,
+  "local_osm_candidates": 488,
+  "missing_from_fallback": 54,
+  "missing": [
+    {
+      "source_id": "osm:node:6264223238",
+      "coordinates": [
+        -80.1962609,
+        25.7623867
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 920.5
+    },
+    {
+      "source_id": "osm:node:7646205380",
+      "coordinates": [
+        -80.1913651,
+        25.7603448
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 895.4
+    },
+    {
+      "source_id": "osm:node:7646205381",
+      "coordinates": [
+        -80.1912476,
+        25.7608471
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 946.1
+    },
+    {
+      "source_id": "osm:node:7904749936",
+      "coordinates": [
+        -80.1903578,
+        25.7621042
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 1110.7
+    },
+    {
+      "source_id": "osm:node:8857456372",
+      "coordinates": [
+        -80.1956774,
+        25.7623611
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 924.5
+    },
+    {
+      "source_id": "osm:node:8857456375",
+      "coordinates": [
+        -80.1958766,
+        25.7623584
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 921.4
+    },
+    {
+      "source_id": "osm:node:8958173829",
+      "coordinates": [
+        -80.1899738,
+        25.7597443
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 944.8
+    },
+    {
+      "source_id": "osm:node:9586593656",
+      "coordinates": [
+        -80.1971178,
+        25.7595418
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 602.7
+    },
+    {
+      "source_id": "osm:node:9586593657",
+      "coordinates": [
+        -80.1969713,
+        25.7597125
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 621.6
+    },
+    {
+      "source_id": "osm:node:10736767178",
+      "coordinates": [
+        -80.1938957,
+        25.7607171
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 797.5
+    },
+    {
+      "source_id": "osm:node:10736767179",
+      "coordinates": [
+        -80.1939505,
+        25.7614482
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 870.4
+    },
+    {
+      "source_id": "osm:way:301894306",
+      "coordinates": [
+        -80.19650870357142,
+        25.756150082142856
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 233.9
+    },
+    {
+      "source_id": "osm:way:480909821",
+      "coordinates": [
+        -80.19555268181819,
+        25.754749681818183
+      ],
+      "tags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 166.0
+    },
+    {
+      "source_id": "osm:way:708550411",
+      "coordinates": [
+        -80.19535908333334,
+        25.7609281
+      ],
+      "tags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 774.5
+    },
+    {
+      "source_id": "osm:way:708550412",
+      "coordinates": [
+        -80.19657070000001,
+        25.760519415384614
+      ],
+      "tags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 712.3
+    },
+    {
+      "source_id": "osm:way:708550421",
+      "coordinates": [
+        -80.19592485,
+        25.761113566666666
+      ],
+      "tags": {
+        "amenity": "parking",
+        "fee": "no",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 784.4
+    },
+    {
+      "source_id": "osm:way:1005468267",
+      "coordinates": [
+        -80.19033383333334,
+        25.75900098
+      ],
+      "tags": {
+        "access": "private",
+        "amenity": "parking",
+        "building": "parking",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 864.1
+    },
+    {
+      "source_id": "osm:way:1033893768",
+      "coordinates": [
+        -80.19150878,
+        25.75967222
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "yes",
+        "parking": "multi-storey"
+      },
+      "nearest_fallback_candidate_meters": 829.6
+    },
+    {
+      "source_id": "osm:way:1040688772",
+      "coordinates": [
+        -80.19715884,
+        25.760690540000002
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 729.7
+    },
+    {
+      "source_id": "osm:way:1040688773",
+      "coordinates": [
+        -80.19715972,
+        25.76072756
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 733.8
+    },
+    {
+      "source_id": "osm:way:1040688774",
+      "coordinates": [
+        -80.19716548,
+        25.76087376
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 750.0
+    },
+    {
+      "source_id": "osm:way:1040688775",
+      "coordinates": [
+        -80.19716664,
+        25.7609144
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 754.5
+    },
+    {
+      "source_id": "osm:way:1040688776",
+      "coordinates": [
+        -80.1971768,
+        25.761173839999998
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 783.2
+    },
+    {
+      "source_id": "osm:way:1040688777",
+      "coordinates": [
+        -80.197178,
+        25.761215240000002
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 787.8
+    },
+    {
+      "source_id": "osm:way:1040688778",
+      "coordinates": [
+        -80.19717964,
+        25.761271979999997
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 794.0
+    },
+    {
+      "source_id": "osm:way:1040688780",
+      "coordinates": [
+        -80.19717689999999,
+        25.761214666666667
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "3",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 787.7
+    },
+    {
+      "source_id": "osm:way:1040688781",
+      "coordinates": [
+        -80.19716551428571,
+        25.7609017
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "2",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 753.1
+    },
+    {
+      "source_id": "osm:way:1040688782",
+      "coordinates": [
+        -80.19715504285715,
+        25.760702585714284
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "2",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 731.1
+    },
+    {
+      "source_id": "osm:way:1041288606",
+      "coordinates": [
+        -80.19780592,
+        25.75906748
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 555.6
+    },
+    {
+      "source_id": "osm:way:1041288607",
+      "coordinates": [
+        -80.19784778333333,
+        25.759109083333332
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 560.7
+    },
+    {
+      "source_id": "osm:way:1041288608",
+      "coordinates": [
+        -80.19756808,
+        25.75903164
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 548.8
+    },
+    {
+      "source_id": "osm:way:1041288609",
+      "coordinates": [
+        -80.19751482000001,
+        25.7590733
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 552.9
+    },
+    {
+      "source_id": "osm:way:1041288610",
+      "coordinates": [
+        -80.19746728,
+        25.75911744
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 557.4
+    },
+    {
+      "source_id": "osm:way:1041288611",
+      "coordinates": [
+        -80.19738022,
+        25.75918408
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 564.2
+    },
+    {
+      "source_id": "osm:way:1041288612",
+      "coordinates": [
+        -80.19732976,
+        25.75922842
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 568.8
+    },
+    {
+      "source_id": "osm:way:1041288613",
+      "coordinates": [
+        -80.1972491,
+        25.759300259999996
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 576.3
+    },
+    {
+      "source_id": "osm:way:1041288614",
+      "coordinates": [
+        -80.19719824,
+        25.759346999999998
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 581.3
+    },
+    {
+      "source_id": "osm:way:1041288615",
+      "coordinates": [
+        -80.19715366,
+        25.75939538
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 586.6
+    },
+    {
+      "source_id": "osm:way:1041288616",
+      "coordinates": [
+        -80.19682542000001,
+        25.75973626
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 624.5
+    },
+    {
+      "source_id": "osm:way:1041288617",
+      "coordinates": [
+        -80.1967832,
+        25.759786339999998
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 630.2
+    },
+    {
+      "source_id": "osm:way:1041288618",
+      "coordinates": [
+        -80.19674174000001,
+        25.75983704
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 636.0
+    },
+    {
+      "source_id": "osm:way:1041288619",
+      "coordinates": [
+        -80.1967003,
+        25.7598886
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 641.9
+    },
+    {
+      "source_id": "osm:way:1041288620",
+      "coordinates": [
+        -80.19684615999999,
+        25.76014988
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 670.2
+    },
+    {
+      "source_id": "osm:way:1041288621",
+      "coordinates": [
+        -80.19690505999999,
+        25.760183899999998
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 673.8
+    },
+    {
+      "source_id": "osm:way:1041288622",
+      "coordinates": [
+        -80.1969649,
+        25.7602186
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 677.5
+    },
+    {
+      "source_id": "osm:way:1041288623",
+      "coordinates": [
+        -80.19702536,
+        25.760253439999996
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 681.3
+    },
+    {
+      "source_id": "osm:way:1041288624",
+      "coordinates": [
+        -80.19708304,
+        25.760286960000002
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 685.0
+    },
+    {
+      "source_id": "osm:way:1041288625",
+      "coordinates": [
+        -80.19715246,
+        25.760328440000002
+      ],
+      "tags": {
+        "amenity": "parking_space",
+        "parking_space": "normal"
+      },
+      "nearest_fallback_candidate_meters": 689.7
+    },
+    {
+      "source_id": "osm:way:1041288626",
+      "coordinates": [
+        -80.19781853636363,
+        25.759076827272725
+      ],
+      "tags": {
+        "access": "permit",
+        "amenity": "parking",
+        "capacity": "2",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 556.8
+    },
+    {
+      "source_id": "osm:way:1041288627",
+      "coordinates": [
+        -80.19751372727272,
+        25.759075409090908
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "3",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 553.2
+    },
+    {
+      "source_id": "osm:way:1041288628",
+      "coordinates": [
+        -80.19735347777777,
+        25.759207399999998
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "2",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 566.6
+    },
+    {
+      "source_id": "osm:way:1041288629",
+      "coordinates": [
+        -80.19719683636363,
+        25.75934911818182
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "3",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 581.6
+    },
+    {
+      "source_id": "osm:way:1041288630",
+      "coordinates": [
+        -80.19675338333333,
+        25.759826908333334
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "4",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 634.8
+    },
+    {
+      "source_id": "osm:way:1041288631",
+      "coordinates": [
+        -80.19701240588235,
+        25.760244905882352
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "6",
+        "capacity:disabled": "0",
+        "fee": "yes",
+        "lit": "yes",
+        "orientation": "parallel",
+        "parking": "street_side",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 680.4
+    }
+  ]
+}

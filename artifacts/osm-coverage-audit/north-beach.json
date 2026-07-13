@@ -1,0 +1,395 @@
+{
+  "generated_at": "2026-07-10T15:16:19.604906+00:00",
+  "method": "bounded_live_osm_api_to_local_fallback_parking_poi_reconciliation",
+  "bbox": [
+    -80.126,
+    25.856,
+    -80.119,
+    25.862
+  ],
+  "match_radius_meters": 35,
+  "coverage_files": [
+    "data\\miami_parking_osm.geojson",
+    "data\\miami_beach_osm_basemap_candidates.geojson"
+  ],
+  "missing_coverage_files": [],
+  "coverage_metadata": [
+    {
+      "city": "miami",
+      "scope": "Miami + Miami Beach fallback",
+      "bbox": [
+        25.709,
+        -80.3198,
+        25.888,
+        -80.113
+      ],
+      "source": "OpenStreetMap Overpass",
+      "coverage_role": "candidate_coverage_baseline",
+      "complete": false,
+      "requested_top_level_tiles": 16,
+      "failed_bboxes": [],
+      "generated_at_unix": 1783695662,
+      "count": 486,
+      "point_count": 486,
+      "line_count": 0,
+      "polygon_count": 0,
+      "duration_seconds": 8.45
+    },
+    {
+      "scope": "bounded OSM basemap reconciliation candidates",
+      "source": "https://api.openstreetmap.org/api/0.6/map",
+      "bbox": [
+        -80.132,
+        25.8158,
+        -80.1288,
+        25.8195
+      ],
+      "complete": true,
+      "generated_at": "2026-07-10T15:09:57.077376+00:00",
+      "count": 2,
+      "review_only": true
+    }
+  ],
+  "osm_parking_pois": 21,
+  "local_osm_candidates": 488,
+  "missing_from_fallback": 21,
+  "missing": [
+    {
+      "source_id": "osm:node:3613012012",
+      "coordinates": [
+        -80.12038,
+        25.8569489
+      ],
+      "tags": {
+        "amenity": "parking_entrance",
+        "barrier": "gate"
+      },
+      "nearest_fallback_candidate_meters": 4472.6
+    },
+    {
+      "source_id": "osm:node:8701503992",
+      "coordinates": [
+        -80.1201647,
+        25.8562242
+      ],
+      "tags": {
+        "amenity": "parking_entrance"
+      },
+      "nearest_fallback_candidate_meters": 4399.7
+    },
+    {
+      "source_id": "osm:way:135298281",
+      "coordinates": [
+        -80.12602272000001,
+        25.856236000000003
+      ],
+      "tags": {
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Miami Beach Parking Lot (P90)",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 4300.9
+    },
+    {
+      "source_id": "osm:way:174864608",
+      "coordinates": [
+        -80.12028523333333,
+        25.863122373333333
+      ],
+      "tags": {
+        "addr:city": "Miami Beach",
+        "addr:housenumber": "7929",
+        "addr:postcode": "33141",
+        "addr:state": "FL",
+        "addr:street": "Atlantic Way",
+        "dog": "yes",
+        "ele": "3",
+        "gnis:feature_id": "277827",
+        "leisure": "park",
+        "name": "North Beach Oceanside Park",
+        "parking": "yes",
+        "parking:wheelchair": "yes",
+        "picnic_table": "yes",
+        "playground": "yes",
+        "toilets": "yes",
+        "toilets:wheelchair": "yes",
+        "website": "https://www.miamibeachfl.gov/city-hall/parks-and-recreation/parks-facilities-directory/north-beach-oceanside-park/",
+        "wheelchair": "yes",
+        "wikidata": "Q49532917",
+        "wikipedia": "ceb:North Shore Open Space Park"
+      },
+      "nearest_fallback_candidate_meters": 5141.5
+    },
+    {
+      "source_id": "osm:way:310318539",
+      "coordinates": [
+        -80.12154306,
+        25.857618679999998
+      ],
+      "tags": {
+        "access": "yes",
+        "addr:city": "Miami Beach",
+        "addr:housenumber": "299",
+        "addr:postcode": "33141",
+        "addr:state": "FL",
+        "addr:street": "72nd Street",
+        "amenity": "parking",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Miami Beach Parking Lot (P92)",
+        "operator:type": "public",
+        "parking": "surface",
+        "phone": "+1-305-673-7505",
+        "ref": "P92",
+        "surface": "asphalt",
+        "website": "https://www.miamibeachfl.gov/city-hall/parking/",
+        "wheelchair": "yes"
+      },
+      "nearest_fallback_candidate_meters": 4520.2
+    },
+    {
+      "source_id": "osm:way:310318541",
+      "coordinates": [
+        -80.12440585,
+        25.857224616666667
+      ],
+      "tags": {
+        "access": "yes",
+        "addr:city": "Miami Beach",
+        "addr:housenumber": "541",
+        "addr:postcode": "33141",
+        "addr:state": "FL",
+        "addr:street": "72nd Street",
+        "amenity": "parking",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Miami Beach Parking Lot (P91)",
+        "old_ref": "P90",
+        "parking": "surface",
+        "phone": "+1-305-673-7505",
+        "ref": "P91",
+        "surface": "asphalt",
+        "website": "https://www.miamibeachfl.gov/city-hall/parking/",
+        "wheelchair": "yes"
+      },
+      "nearest_fallback_candidate_meters": 4429.0
+    },
+    {
+      "source_id": "osm:way:313195344",
+      "coordinates": [
+        -80.12037417777778,
+        25.861021533333332
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Miami Beach Parking Lot (P106)",
+        "parking": "surface",
+        "surface": "asphalt",
+        "wheelchair": "yes"
+      },
+      "nearest_fallback_candidate_meters": 4912.3
+    },
+    {
+      "source_id": "osm:way:320448333",
+      "coordinates": [
+        -80.12189394285714,
+        25.86083388571429
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking",
+        "operator": "Bank of America",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 4862.7
+    },
+    {
+      "source_id": "osm:way:467853318",
+      "coordinates": [
+        -80.12384041538462,
+        25.857759184615382
+      ],
+      "tags": {
+        "leisure": "park",
+        "name": "North Shore Park & Youth Center",
+        "parking": "yes",
+        "parking:wheelchair": "yes",
+        "phone": "+1 305-861-3616",
+        "website": "https://www.miamibeachfl.gov/city-hall/parks-and-recreation/parks-facilities-directory/north-shore-park-youth-center/",
+        "wheelchair": "yes"
+      },
+      "nearest_fallback_candidate_meters": 4495.6
+    },
+    {
+      "source_id": "osm:way:742361017",
+      "coordinates": [
+        -80.12161647142857,
+        25.860930114285715
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking",
+        "operator": "Seaside Apartment Hotel",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 4878.2
+    },
+    {
+      "source_id": "osm:way:742361020",
+      "coordinates": [
+        -80.12163044,
+        25.8611045
+      ],
+      "tags": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 4896.9
+    },
+    {
+      "source_id": "osm:way:742361021",
+      "coordinates": [
+        -80.12118495714286,
+        25.8609472
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking",
+        "operator": "Seaside Apartment Hotel",
+        "parking": "surface"
+      },
+      "nearest_fallback_candidate_meters": 4888.1
+    },
+    {
+      "source_id": "osm:way:1302749580",
+      "coordinates": [
+        -80.12190552,
+        25.85993226
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking",
+        "name": "CVS Parking"
+      },
+      "nearest_fallback_candidate_meters": 4764.5
+    },
+    {
+      "source_id": "osm:way:1302749581",
+      "coordinates": [
+        -80.12187802,
+        25.859356459999997
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking",
+        "name": "Walgreens Parking Lot"
+      },
+      "nearest_fallback_candidate_meters": 4702.4
+    },
+    {
+      "source_id": "osm:way:1303719672",
+      "coordinates": [
+        -80.126182175,
+        25.860804962499998
+      ],
+      "tags": {
+        "amenity": "parking",
+        "name": "Biscayne Elementary Parking Lot"
+      },
+      "nearest_fallback_candidate_meters": 4802.1
+    },
+    {
+      "source_id": "osm:way:1303721381",
+      "coordinates": [
+        -80.12671632222224,
+        25.85895658148148
+      ],
+      "tags": {
+        "access": "private",
+        "amenity": "parking",
+        "name": "Parkview Point Condominium Parking Lot"
+      },
+      "nearest_fallback_candidate_meters": 4593.9
+    },
+    {
+      "source_id": "osm:way:1303919928",
+      "coordinates": [
+        -80.12533565,
+        25.857822270000003
+      ],
+      "tags": {
+        "access": "yes",
+        "addr:city": "Miami Beach",
+        "addr:housenumber": "7270",
+        "addr:postcode": "33141",
+        "addr:state": "FL",
+        "addr:street": "Dickens Avenue",
+        "amenity": "parking",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Miami Beach Parking Lot",
+        "parking": "surface",
+        "surface": "asphalt",
+        "wheelchair": "yes"
+      },
+      "nearest_fallback_candidate_meters": 4482.8
+    },
+    {
+      "source_id": "osm:way:1303970287",
+      "coordinates": [
+        -80.12524488,
+        25.861535420000003
+      ],
+      "tags": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "surface",
+        "surface": "asphalt"
+      },
+      "nearest_fallback_candidate_meters": 4891.7
+    },
+    {
+      "source_id": "osm:way:1306614653",
+      "coordinates": [
+        -80.12442238571428,
+        25.856258071428574
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 4323.0
+    },
+    {
+      "source_id": "osm:way:1306614654",
+      "coordinates": [
+        -80.12457864285714,
+        25.856430971428573
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking",
+        "name": "Navarro's Parking Lot"
+      },
+      "nearest_fallback_candidate_meters": 4339.8
+    },
+    {
+      "source_id": "osm:way:1494030794",
+      "coordinates": [
+        -80.12357236,
+        25.856195460000002
+      ],
+      "tags": {
+        "access": "customers",
+        "amenity": "parking",
+        "name": "USPS Parking"
+      },
+      "nearest_fallback_candidate_meters": 4329.0
+    }
+  ]
+}

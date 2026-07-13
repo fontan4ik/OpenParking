@@ -32,6 +32,8 @@ npm test
 npm run build
 ```
 
+Локальный frontend не требует запущенного PostGIS: при недоступном `DATABASE_URL` он использует GeoJSON fallback из `data/`. В этом режиме приложение делает одну проверку БД на 30 секунд и не печатает повторяющийся Prisma stack trace. Для DB mode сначала запустите Docker Desktop, затем выполните `docker compose up -d db` и `npm run db:migrate`.
+
 See `docs/QA_DEVOPS_BASELINE_RUNBOOK.md` for the current Mac mini baseline result, package-lock sync history, PostGIS/Docker notes, temporary process cleanup, and rollback notes.
 
 Routing MVP configuration:
@@ -221,6 +223,7 @@ npm run fetch:boundary:miami:dry-run
 npm run fetch:boundary:miami
 npm run fetch:boundary:miami-dade:dry-run
 npm run fetch:boundary:miami-dade
+npm run sanitize:osm-candidates:miami-beach
 npm run fetch:pbf:florida:dry-run
 npm run fetch:pbf:florida
 npm run import:osm:sf
@@ -294,6 +297,10 @@ For data import changes, verify idempotency and keep the San Francisco baseline 
 
 The app currently defaults to Miami. In DB mode, `city=miami` intentionally reads the `Miami + Miami-Dade` DB scope so the ParkingUSA layer includes OSM/Geofabrik parking candidates that OpenStreetMap renders as `P` icons, including Miami Beach/Muss Park candidates. Official fixtures are still merged as enrichment/fallback: `data/miami_parking_facilities.geojson`, `data/miami_beach_parking_wpgmza.geojson`, `data/miami_beach_parking_arcgis_facilities.geojson`, and 532 renderable official Miami Beach lot/zone polygons. `npm run fetch:miami-beach` refreshes the Miami Beach official marker fixture. `npm run fetch:miami-beach:arcgis` refreshes official ArcGIS meters, street spaces, lots, and zones for file fallback. `npm run connector:arcgis:import` is the DB-backed Miami Beach ArcGIS promotion path for canonical meters, lot centroids, and lot/zone polygons. `npm run fetch:osm:miami` and `npm run fetch:osm:sf` create optional mixed-geometry OSM coverage files (`data/miami_parking_osm.geojson`, `data/sf_parking_osm.geojson`) for file fallback only. Public Overpass may require retry/backoff and can be sparse; Geofabrik PBF through `osm2pgsql` is the preferred production path.
 
+The Miami fallback additionally loads `data/miami_beach_osm_basemap_candidates.geojson`. Run `npm run audit:osm-coverage:miami-beach` after a fallback refresh or whenever an OSM `P` is visible without an OpenParking candidate. The audit covers the full Miami Beach bbox using a 6x6 grid, reconciles exact OSM IDs (including ways/relations via `osmtogeojson`), and materializes unmatched parking objects as `needs_review` candidates. It is idempotent: repeated runs merge current missing objects with existing candidates and prune stale IDs; a run with failed tiles never replaces the previous candidate set. Unrelated objects such as cafes/nightclubs with an associated `parking=*` tag are excluded. It does not mark an untagged `amenity=parking` object as public parking: access, rules and price remain unknown until an official source, field report or review confirms them. Incomplete `review_only` candidates may still be displayed for discovery, but `complete: false` is surfaced in metadata and must not be presented as full coverage. `npm run fetch:osm:miami-beach` is the bounded Overpass refresh for the wider Miami Beach fallback; production baseline files are usable as coverage only when GeoJSON metadata reports `complete: true` and no `failed_bboxes`.
+
+When `Reliable` or `More options` hides a sub-60% OSM candidate, the map keeps an amber review-reference marker and, for parking areas, a translucent amber polygon with a dashed outline. This prevents a raster-basemap `P` or a visible parking lot footprint from being mistaken for a missing OpenParking record. The reference geometry opens the normal detail panel and remains explicitly `needs_review`; it is not counted as a trusted search result. Parking tagged `access=private/customers/permit/residents/employees/delivery/destination` is classified as a conflict for ordinary-driver views and appears only in the conflict workflow.
+
 For Miami curb-line correctness, run `npm run audit:parking-geometry:miami:refresh` after changing parking-space grouping or when the OSM road/building cache is stale; otherwise run `npm run audit:parking-geometry:miami`. The refresh command uses Overpass only to cache road centerlines and building polygons in `data/research/fetches/miami-osm-roads-buildings-cache.geojson`. The audit then checks generated curb rows locally against those roads/buildings plus official lot/garage polygons, and writes `data/research/miami-parking-geometry-quality-report.json`. Lines are trusted only if they are straight, parallel to the nearest road, offset from the road centerline, near the road, and do not cross buildings or parking-area interiors; failures stay in review/reference state or are suppressed.
 
 For the production-scale Florida/Miami OSM baseline, use the Geofabrik workflow instead of public Overpass:
@@ -337,6 +344,8 @@ npm run normalize:osm:pbf:miami-dade:boundary
 ```
 
 The boundary files are stored in `data/boundaries/` with Census provenance metadata. `--boundary-geojson` applies a PostGIS polygon `ST_Intersects` filter; the City of Miami command keeps the old bbox as a fast prefilter, while the Miami-Dade county command uses the county polygon directly.
+
+`npm run sanitize:osm-candidates:miami-beach` removes incidental parent objects such as parks, golf courses, hotels and ordinary buildings whose `parking=yes` tag only says that parking is available somewhere nearby. The selected Miami map scope exposes `data/boundaries/miami_dade_county_boundary.geojson` at `/api/geojson/boundary?city=miami` and renders it as a neutral unfilled administrative outline.
 
 The package-script real boundary import commands include `--replace-source` so an earlier bbox-only Geofabrik import does not leave stale OSM candidates outside the chosen boundary. Run the dry-run command first, compare counts, then run the real command only for the boundary scope you want to display as the current DB baseline. On 2026-06-13 the local ParkingUSA DB imported the Miami-Dade OSM baseline without replacing rows by running `node apps/backend/scripts/normalize_osm_raw_parking_to_db.mjs --city=Miami-Dade --state=FL --boundary-geojson=data/boundaries/miami_dade_county_boundary.geojson`; it imported 1,425 points, 185 lines, and 6,821 polygons.
 

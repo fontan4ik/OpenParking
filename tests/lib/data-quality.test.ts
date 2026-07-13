@@ -9,8 +9,34 @@ import {
   safePercentage,
   safeRatio,
   computeRecordCompleteness,
+  hasParkingConflict,
   isKnownPriceStatus,
+  matchesTrustFilter,
 } from '@/lib/data-quality';
+
+describe('parking access trust filters', () => {
+  it.each(['private', 'customers', 'permit', 'residents', 'employees', 'delivery'])(
+    'keeps %s parking out of ordinary candidate views',
+    (access) => {
+      const properties = { access, confidence: 0.9 };
+      expect(hasParkingConflict(properties)).toBe(true);
+      expect(matchesTrustFilter(properties, 'all')).toBe(false);
+      expect(matchesTrustFilter(properties, 'conflict')).toBe(true);
+    }
+  );
+
+  it('keeps unknown-access OSM candidates in review instead of conflicts', () => {
+    const properties = {
+      access: '',
+      confidence: 0.55,
+      enrichment_status: 'needs_review',
+      field_conflict_status: 'needs_field_review',
+    };
+    expect(hasParkingConflict(properties)).toBe(false);
+    expect(matchesTrustFilter(properties, 'likely')).toBe(false);
+    expect(matchesTrustFilter(properties, 'review')).toBe(true);
+  });
+});
 
 describe('isKnownPriceStatus', () => {
   it('treats only canonical priced and free statuses as known', () => {

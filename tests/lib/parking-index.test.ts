@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildParkingIndex, canonicalFeature, cityDbScope, curbSegmentWithLineGeometry, deriveParkingSpacePointLines, loadCurbSegments, loadFacilities, loadAllLayers, type GeoJSONCollection } from '@/lib/data-loader';
+import { buildParkingIndex, canonicalFeature, cityDbScope, curbSegmentWithLineGeometry, deriveParkingSpacePointLines, loadCityBoundary, loadCurbSegments, loadFacilities, loadAllLayers, loadZones, type GeoJSONCollection } from '@/lib/data-loader';
 import {
   curbSegmentFeatureFromDbRow,
   facilityFeatureFromDbRow,
@@ -46,6 +46,46 @@ describe('ParkingUSA Parking Index', () => {
     expect(cityDbScope('unknown-city')).toEqual([]);
     expect(cityDbScope('sf')).toEqual(['San Francisco']);
     expect(cityDbScope('nyc')).toEqual(['New York City', 'New York']);
+  });
+
+  it('keeps reconciled Miami Beach OSM basemap parking POIs as review candidates', async () => {
+    const facilities = await loadFacilities('miami');
+    const mussParkCandidates = facilities.features.filter((feature) =>
+      ['osm:way:1425673751', 'osm:way:1425673752'].includes(String(feature.properties.source_id))
+    );
+
+    expect(mussParkCandidates).toHaveLength(2);
+    for (const candidate of mussParkCandidates) {
+      expect(candidate.properties).toMatchObject({
+        existence_status: 'candidate',
+        enrichment_status: 'needs_review',
+        ordinary_parking_status: 'unknown_pending_access_rule_check',
+        field_conflict_status: 'needs_field_review',
+      });
+      expect(candidate.properties.access).toBe('');
+    }
+  });
+
+  it('does not promote parent features with parking=yes into parking facilities or zones', async () => {
+    const [facilities, zones] = await Promise.all([loadFacilities('miami'), loadZones('miami')]);
+    const incidentalIds = new Set([
+      'osm:way:25480974', // Miami Beach Golf Club
+      'osm:way:76684242', // Flamingo Park
+      'osm:way:258238120', // hotel with parking available
+    ]);
+
+    expect(facilities.features.some((feature) => incidentalIds.has(String(feature.properties.source_id)))).toBe(false);
+    expect(zones.features.some((feature) => incidentalIds.has(String(feature.properties.source_id)))).toBe(false);
+  });
+
+  it('loads the neutral Miami-Dade coverage boundary for the selected Miami scope', async () => {
+    const boundary = await loadCityBoundary('miami');
+    expect(boundary.features).toHaveLength(1);
+    expect(boundary.features[0].geometry.type).toBe('Polygon');
+    expect(boundary.metadata).toMatchObject({
+      boundary_available: true,
+      boundary_role: 'selected_city_coverage_outline',
+    });
   });
 
   it('keeps unsupported city ids empty instead of silently reusing Miami fallback data', async () => {

@@ -1,0 +1,275 @@
+{
+  "generated_at": "2026-07-10T15:16:15.604810+00:00",
+  "method": "bounded_live_osm_api_to_local_fallback_parking_poi_reconciliation",
+  "bbox": [
+    -80.134,
+    25.777,
+    -80.128,
+    25.783
+  ],
+  "match_radius_meters": 35,
+  "coverage_files": [
+    "data\\miami_parking_osm.geojson",
+    "data\\miami_beach_osm_basemap_candidates.geojson"
+  ],
+  "missing_coverage_files": [],
+  "coverage_metadata": [
+    {
+      "city": "miami",
+      "scope": "Miami + Miami Beach fallback",
+      "bbox": [
+        25.709,
+        -80.3198,
+        25.888,
+        -80.113
+      ],
+      "source": "OpenStreetMap Overpass",
+      "coverage_role": "candidate_coverage_baseline",
+      "complete": false,
+      "requested_top_level_tiles": 16,
+      "failed_bboxes": [],
+      "generated_at_unix": 1783695662,
+      "count": 486,
+      "point_count": 486,
+      "line_count": 0,
+      "polygon_count": 0,
+      "duration_seconds": 8.45
+    },
+    {
+      "scope": "bounded OSM basemap reconciliation candidates",
+      "source": "https://api.openstreetmap.org/api/0.6/map",
+      "bbox": [
+        -80.132,
+        25.8158,
+        -80.1288,
+        25.8195
+      ],
+      "complete": true,
+      "generated_at": "2026-07-10T15:09:57.077376+00:00",
+      "count": 2,
+      "review_only": true
+    }
+  ],
+  "osm_parking_pois": 7,
+  "local_osm_candidates": 488,
+  "missing_from_fallback": 7,
+  "missing": [
+    {
+      "source_id": "osm:node:903627370",
+      "coordinates": [
+        -80.1308877,
+        25.7829681
+      ],
+      "tags": {
+        "amenity": "parking"
+      },
+      "nearest_fallback_candidate_meters": 3816.7
+    },
+    {
+      "source_id": "osm:node:13891402801",
+      "coordinates": [
+        -80.1331963,
+        25.7827078
+      ],
+      "tags": {
+        "amenity": "parking",
+        "name": "SP+ Parking Miami Beach",
+        "opening_hours": "24/7",
+        "operator": "Miami Beach City"
+      },
+      "nearest_fallback_candidate_meters": 3855.5
+    },
+    {
+      "source_id": "osm:way:76677464",
+      "coordinates": [
+        -80.12968640965909,
+        25.77964173863636
+      ],
+      "tags": {
+        "addr:city": "Miami Beach",
+        "addr:postcode": "33139",
+        "addr:state": "FL",
+        "addr:street": "Ocean Drive",
+        "dog": "yes",
+        "gnis:feature_id": "286216",
+        "leisure": "park",
+        "name": "Lummus Park",
+        "parking": "yes",
+        "parking:wheelchair": "yes",
+        "picnic_table": "yes",
+        "playground": "yes",
+        "toilets": "yes",
+        "toilets:wheelchair": "yes",
+        "website": "https://www.miamibeachfl.gov/city-hall/parks-and-recreation/parks-facilities-directory/lummus-park/",
+        "wheelchair": "yes",
+        "wikidata": "Q13107165",
+        "wikimedia_commons": "Category:Lummus Park, Miami Beach",
+        "wikipedia": "en:Lummus Park, Miami Beach"
+      },
+      "nearest_fallback_candidate_meters": 4184.6
+    },
+    {
+      "source_id": "osm:way:255402041",
+      "coordinates": [
+        -80.13127836,
+        25.78123478
+      ],
+      "tags": {
+        "amenity": "parking",
+        "building": "yes",
+        "fee": "yes",
+        "name": "Pelican Garage Parking",
+        "parking": "multi-storey",
+        "source": "Bing"
+      },
+      "nearest_fallback_candidate_meters": 4009.0
+    },
+    {
+      "source_id": "osm:way:255402204",
+      "coordinates": [
+        -80.13119606000001,
+        25.779450580000002
+      ],
+      "tags": {
+        "access": "customers",
+        "addr:city": "Miami Beach",
+        "addr:housenumber": "900",
+        "addr:postcode": "33139",
+        "addr:state": "FL",
+        "addr:street": "Ocean Drive",
+        "alcohol": "yes",
+        "alt_name": "Mango's Tropical Cafe South Beach",
+        "alt_name:en": "Mango's Tropical Cafe South Beach",
+        "amenity": "nightclub",
+        "bar": "yes",
+        "brewery": "yes",
+        "building": "yes",
+        "cafe": "yes",
+        "contact:facebook": "MangosTropCafeMiami",
+        "contact:instagram": "mangosmiami",
+        "contact:twitter": "MiamiMangos",
+        "contact:youtube": "mangosmiami",
+        "dance:style": "salsa",
+        "dance:teaching": "yes",
+        "delivery": "yes",
+        "dinner": "yes",
+        "drink:beer": "yes",
+        "drink:cocktail": "yes",
+        "drink:distilled": "yes",
+        "drink:wine": "yes",
+        "email": "info@mangos.com",
+        "fee": "yes",
+        "food": "yes",
+        "indoor_seating": "yes",
+        "karaoke": "yes",
+        "leisure": "dance",
+        "lgbtq": "welcome",
+        "live_music": "yes",
+        "name": "Mango's Tropical Cafe Miami Beach",
+        "name:en": "Mango's Tropical Cafe Miami Beach",
+        "name:es": "mango discoteca",
+        "opening_hours": "Mo-Fr 12:00-05:00; Sa-Su 11:00-05:00",
+        "outdoor_seating": "yes",
+        "parking": "yes",
+        "parking:covered": "no",
+        "parking:fee": "yes",
+        "parking:wheelchair": "no",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "phone": "+1 305-673-4422",
+        "reservation": "yes",
+        "restaurant": "yes",
+        "short_name": "Mango's Tropical Cafe",
+        "short_name:en": "Mango's Tropical Cafe",
+        "source": "Bing",
+        "takeaway": "yes",
+        "toilets": "yes",
+        "toilets:wheelchair": "yes",
+        "website": "https://miami.mangos.com/",
+        "website:menu": "https://mangos.com/mangos-miami-beach/mangos-miami-beach-menu/",
+        "wheelchair": "yes"
+      },
+      "nearest_fallback_candidate_meters": 4206.0
+    },
+    {
+      "source_id": "osm:way:380861924",
+      "coordinates": [
+        -80.13142002857144,
+        25.778137700000002
+      ],
+      "tags": {
+        "addr:city": "Miami Beach",
+        "addr:housenumber": "800",
+        "addr:postcode": "33139",
+        "addr:state": "FL",
+        "addr:street": "Ocean Drive",
+        "alcohol": "yes",
+        "amenity": "cafe",
+        "bar": "yes",
+        "breakfast": "yes",
+        "brewery": "yes",
+        "building": "yes",
+        "cuisine": "international;italian;american;sandwich;salad;coffee_shop;tea;dessert;brunch",
+        "delivery": "yes",
+        "diet:vegetarian": "yes",
+        "dinner": "yes",
+        "dog": "outside",
+        "drink:beer": "yes",
+        "drink:cocktail": "yes",
+        "drink:coffee": "yes",
+        "drink:distilled": "yes",
+        "drink:wine": "yes",
+        "email": "hello@newscafesouthbeach.com",
+        "fast_food": "yes",
+        "founder": "Mark Soyka",
+        "highchair": "yes",
+        "image": "https://newscafesouthbeach.com/wp-content/uploads/2025/02/NEW-CAFE-WEB_13.1.jpg",
+        "indoor_seating": "yes",
+        "internet_access": "yes",
+        "internet_access:fee": "no",
+        "latino_owner": "yes",
+        "lgbtq": "welcome",
+        "lunch": "yes",
+        "mobile": "+1-786-644-6061",
+        "name": "News Cafe",
+        "old_email": "newscafe@gmail.com",
+        "old_opening_hours": "24/7",
+        "opening_hours": "Su-Th 08:00-22:45; Fr-Sa 08:00-23:45",
+        "outdoor_seating": "yes",
+        "parking": "yes",
+        "parking:covered": "no",
+        "parking:fee": "yes",
+        "parking:wheelchair": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "phone": "+1-305-538-6397",
+        "reservation": "yes",
+        "restaurant": "yes",
+        "self_service": "yes",
+        "source:geometry": "Bing",
+        "start_date": "1988",
+        "takeaway": "yes",
+        "toilets": "yes",
+        "toilets:wheelchair": "yes",
+        "website": "https://newscafesouthbeach.com/",
+        "website:menu": "https://newscafesouthbeach.com/menus/",
+        "wheelchair": "yes"
+      },
+      "nearest_fallback_candidate_meters": 4351.6
+    },
+    {
+      "source_id": "osm:way:1332905523",
+      "coordinates": [
+        -80.13322848,
+        25.78093904
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Miami Beach Parking Lot"
+      },
+      "nearest_fallback_candidate_meters": 4050.7
+    }
+  ]
+}

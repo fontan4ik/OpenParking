@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T04:57:53.628Z",
+  "generated_at": "2026-07-10T13:00:14.045Z",
   "method": "deterministic_road_parallel_area_intersection_check",
   "city": "miami",
   "bbox": [
@@ -8,7 +8,7 @@
     25.888,
     -80.113
   ],
-  "cache_path": "data/research/fetches/miami-osm-roads-buildings-cache.geojson",
+  "cache_path": "data\\research\\fetches\\miami-osm-roads-buildings-cache.geojson",
   "checked_count": 897,
   "total_generated_curb_candidates": 897,
   "osm_reference_counts": {
