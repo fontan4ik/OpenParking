@@ -1,0 +1,851 @@
+{
+  "nodes": [
+    {
+      "id": "codex_skills_banner_design_skill",
+      "label": "Banner Design Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "claudekit",
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_banner_design_references_banner_sizes_and_styles",
+      "label": "Banner Sizes and Styles Reference",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\references\\banner-sizes-and-styles.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_skill",
+      "label": "Brand Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "claudekit",
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_approval_checklist",
+      "label": "Brand Approval Checklist",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\approval-checklist.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_asset_organization",
+      "label": "Brand Asset Organization Guide",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\asset-organization.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_brand_guideline_template",
+      "label": "Brand Guideline Template",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\brand-guideline-template.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_color_palette_management",
+      "label": "Brand Color Palette Management",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\color-palette-management.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_consistency_checklist",
+      "label": "Brand Consistency Checklist",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\consistency-checklist.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_logo_usage_rules",
+      "label": "Brand Logo Usage Rules",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\logo-usage-rules.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_messaging_framework",
+      "label": "Brand Messaging Framework",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\messaging-framework.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_typography_specifications",
+      "label": "Brand Typography Specifications",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\typography-specifications.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_update",
+      "label": "Brand Update Workflow",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\update.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_visual_identity",
+      "label": "Brand Visual Identity Guide",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\visual-identity.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_references_voice_framework",
+      "label": "Brand Voice Framework",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\voice-framework.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_brand_templates_brand_guidelines_starter",
+      "label": "Brand Guidelines Starter Template",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\templates\\brand-guidelines-starter.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_design_system_skill",
+      "label": "Design System Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "claudekit",
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_design_system_references_component_specs",
+      "label": "Design System Component Specs",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\component-specs.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_design_system_references_states_and_variants",
+      "label": "Design System States and Variants",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\states-and-variants.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_design_system_references_tailwind_integration",
+      "label": "Design System Tailwind Integration",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\tailwind-integration.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_design_skill",
+      "label": "Design Skill (Unified)",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "claudekit",
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_design_references_banner_sizes_and_styles",
+      "label": "Design Banner Sizes and Styles",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\references\\banner-sizes-and-styles.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "codex_skills_design_references_cip_deliverable_guide",
+      "label": "Design CIP Deliverable Guide",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\references\\cip-deliverable-guide.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_three_layer_token_architecture",
+      "label": "Three-Layer Token Architecture",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_art_direction_styles",
+      "label": "22 Art Direction Styles",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_brand_voice_tone",
+      "label": "Brand Voice and Tone System",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\voice-framework.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_component_state_machine",
+      "label": "Component State Machine",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\states-and-variants.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_brand_asset_management",
+      "label": "Brand Asset Management System",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\asset-organization.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_slide_presentation_system",
+      "label": "Slide Presentation System",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_brand_update_pipeline",
+      "label": "Brand Update Pipeline",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\update.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_design_skill_umbrella",
+      "label": "Design Skill Umbrella",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_banner_design_principles",
+      "label": "Banner Design Principles",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_brand_color_system",
+      "label": "Brand Color System",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\color-palette-management.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_tailwind_css_variable_bridge",
+      "label": "Tailwind CSS Variable Bridge",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\tailwind-integration.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_shadcn_ui_compatibility",
+      "label": "shadcn/ui Compatibility Layer",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\tailwind-integration.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "codex_skills_banner_design_skill",
+      "target": "codex_skills_banner_design_references_banner_sizes_and_styles",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_banner_design_skill",
+      "target": "concept_art_direction_styles",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_banner_design_skill",
+      "target": "concept_banner_design_principles",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_voice_framework",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_visual_identity",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_messaging_framework",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_consistency_checklist",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_brand_guideline_template",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_asset_organization",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_color_palette_management",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_typography_specifications",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_logo_usage_rules",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_approval_checklist",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_references_update",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_skill",
+      "target": "codex_skills_brand_templates_brand_guidelines_starter",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_references_update",
+      "target": "concept_brand_update_pipeline",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\update.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_skill",
+      "target": "codex_skills_design_system_references_component_specs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_skill",
+      "target": "codex_skills_design_system_references_states_and_variants",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_skill",
+      "target": "codex_skills_design_system_references_tailwind_integration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_skill",
+      "target": "concept_three_layer_token_architecture",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_skill",
+      "target": "concept_slide_presentation_system",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_skill",
+      "target": "codex_skills_brand_skill",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_references_states_and_variants",
+      "target": "concept_component_state_machine",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\states-and-variants.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_references_tailwind_integration",
+      "target": "concept_tailwind_css_variable_bridge",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\tailwind-integration.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_references_tailwind_integration",
+      "target": "concept_shadcn_ui_compatibility",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\tailwind-integration.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_skill",
+      "target": "codex_skills_brand_skill",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_skill",
+      "target": "codex_skills_design_system_skill",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_skill",
+      "target": "codex_skills_banner_design_skill",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_skill",
+      "target": "codex_skills_design_references_banner_sizes_and_styles",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_skill",
+      "target": "codex_skills_design_references_cip_deliverable_guide",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_skill",
+      "target": "concept_design_skill_umbrella",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_references_color_palette_management",
+      "target": "concept_brand_color_system",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\color-palette-management.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_references_voice_framework",
+      "target": "concept_brand_voice_tone",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\voice-framework.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_references_asset_organization",
+      "target": "concept_brand_asset_management",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\asset-organization.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_system_references_component_specs",
+      "target": "concept_component_state_machine",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\references\\component-specs.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_three_layer_token_architecture",
+      "target": "concept_tailwind_css_variable_bridge",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_brand_color_system",
+      "target": "concept_three_layer_token_architecture",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\color-palette-management.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_brand_voice_tone",
+      "target": "concept_brand_asset_management",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_banner_design_principles",
+      "target": "concept_art_direction_styles",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_design_references_banner_sizes_and_styles",
+      "target": "codex_skills_banner_design_references_banner_sizes_and_styles",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design\\references\\banner-sizes-and-styles.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "codex_skills_brand_references_color_palette_management",
+      "target": "codex_skills_design_system_references_tailwind_integration",
+      "relation": "shares_data_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\color-palette-management.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_brand_update_pipeline",
+      "target": "concept_three_layer_token_architecture",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\references\\update.md",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "design_token_pipeline",
+      "label": "Design Token Pipeline: Brand → System → UI",
+      "nodes": [
+        "codex_skills_brand_skill",
+        "codex_skills_design_system_skill",
+        "concept_three_layer_token_architecture",
+        "concept_tailwind_css_variable_bridge",
+        "concept_shadcn_ui_compatibility"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\design-system\\SKILL.md"
+    },
+    {
+      "id": "banner_creation_pipeline",
+      "label": "Banner Creation Pipeline",
+      "nodes": [
+        "codex_skills_banner_design_skill",
+        "codex_skills_banner_design_references_banner_sizes_and_styles",
+        "concept_art_direction_styles",
+        "concept_banner_design_principles",
+        "codex_skills_design_skill"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\banner-design\\SKILL.md"
+    },
+    {
+      "id": "brand_identity_system",
+      "label": "Brand Identity System",
+      "nodes": [
+        "codex_skills_brand_skill",
+        "concept_brand_voice_tone",
+        "concept_brand_color_system",
+        "codex_skills_brand_references_logo_usage_rules",
+        "codex_skills_brand_references_typography_specifications",
+        "concept_brand_asset_management",
+        "codex_skills_brand_references_consistency_checklist"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.codex\\skills\\brand\\SKILL.md"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

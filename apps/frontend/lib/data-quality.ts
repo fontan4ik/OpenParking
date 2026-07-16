@@ -224,7 +224,9 @@ export function matchesTrustFilter(properties: Record<string, unknown>, trustFil
 
   if (!trustFilter || trustFilter === 'all') return !conflict;
   if (trustFilter === 'reliable') return !conflict && !needsParkingReview(properties) && confidence >= 0.75;
-  if (trustFilter === 'likely') return !conflict && confidence >= 0.6;
+  if (trustFilter === 'likely') {
+    return !conflict && (confidence >= 0.6 || (properties.review_only === true && needsParkingReview(properties)));
+  }
   if (trustFilter === 'review') return !conflict && needsParkingReview(properties);
   if (trustFilter === 'conflict') return conflict;
   return true;

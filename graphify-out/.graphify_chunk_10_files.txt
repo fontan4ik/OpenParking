@@ -1,0 +1,8 @@
+C:\AI\ParkingUSA\artifacts\miami-curb-lines-after.png
+C:\AI\ParkingUSA\artifacts\miami-curb-lines-comparison.png
+C:\AI\ParkingUSA\artifacts\miami-curb-lines-shared-axis.png
+C:\AI\ParkingUSA\artifacts\miami-dade-coverage-boundary.png
+C:\AI\ParkingUSA\artifacts\search-categories-mobile.png
+C:\AI\ParkingUSA\artifacts\search-results-sort-mobile.png
+C:\AI\ParkingUSA\browser\browser-capture-localhost-2026-07-10T10-47-24-861Z.png
+C:\AI\ParkingUSA\data\research\browser-parkchicago-rates.png

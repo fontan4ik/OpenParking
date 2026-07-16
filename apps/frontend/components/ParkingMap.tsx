@@ -18,6 +18,7 @@ import {
   safeUrl,
 } from '@/lib/data-quality';
 import { cityNameKey, type TranslationKey } from '@/lib/i18n';
+import { buildFacilitySearchHaystack } from '@/lib/facility-search';
 import { splitParkingSegments } from '@/lib/map-segment-classification';
 import { priceTextOrFallback } from '@/lib/price-utils';
 import type { RouteCoordinate } from '@/lib/routing';
@@ -191,16 +192,7 @@ function matchesFilters(
 
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
-    const haystack = [
-      properties.name,
-      properties.operator,
-      properties.source_id,
-      properties.street,
-      properties.neighborhood,
-    ]
-      .filter(Boolean)
-      .join(' ')
-      .toLowerCase();
+    const haystack = buildFacilitySearchHaystack(properties);
     if (!haystack.includes(q)) return false;
   }
 
@@ -1197,8 +1189,8 @@ export default function ParkingMap({
 
   const filteredSegments = useMemo(() => {
     if (!hasCityData) return EMPTY_COLLECTION;
-    return filterCollection(segments, '', '', sourceFilter, trustFilter, confidenceFilter, '');
-  }, [confidenceFilter, hasCityData, segments, sourceFilter, trustFilter]);
+    return filterCollection(segments, typeFilter, '', sourceFilter, trustFilter, confidenceFilter, searchQuery);
+  }, [confidenceFilter, hasCityData, searchQuery, segments, sourceFilter, trustFilter, typeFilter]);
 
   const splitSegments = useMemo(() => splitParkingSegments(filteredSegments), [filteredSegments]);
   const visibleSegments = splitSegments.ordinary;

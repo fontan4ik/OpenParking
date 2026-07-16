@@ -25,11 +25,49 @@ http://localhost:3000
 
 ## Если нужно обновить Miami fallback
 
+### Главное
+
+Обновление состоит из двух уровней:
+
+1. `data:refresh:miami` получает свежие официальные Miami Beach данные и сохраняет их в `data/*.geojson`. Это работает без PostGIS и сразу используется картой в fallback-режиме.
+2. `data:refresh:all` дополнительно запускает Docker/PostGIS, импортирует ArcGIS и OSM/Geofabrik в базу и выполняет проверки.
+
+Обычный порядок обновления:
+
+```powershell
+cd C:\AI\ParkingUSA
+npm run data:refresh:all:dry-run
+npm run data:refresh:all
+```
+
+Если нужен только быстрый fallback без базы:
+
+```powershell
+npm run data:refresh:miami
+```
+
+После обновления перезапустите `npm run dev` и проверьте:
+
+```powershell
+Invoke-RestMethod "http://localhost:3000/api/stats?city=miami"
+```
+
+Полная команда выполняется последовательно и останавливается на ошибке. Она обновляет официальный fallback, запускает Docker Desktop на Windows при необходимости, применяет миграции, импортирует ArcGIS и OSM, запускает geometry audit, validation, tests и build.
+
 Одна команда обновляет официальные Miami Beach WP Go Maps и ArcGIS fixtures:
 
 ```powershell
 npm run data:refresh:miami
 ```
+
+Если нужно полное обновление вместе с PostGIS, OSM/Geofabrik и проверками, сначала посмотрите план:
+
+```powershell
+npm run data:refresh:all:dry-run
+npm run data:refresh:all
+```
+
+Полная команда сначала обновляет официальный Miami Beach fallback и дату live snapshot. Затем на Windows она сама запускает установленный по стандартному пути Docker Desktop и ждёт готовности до 120 секунд. Команда принудительно заменяет локальный Florida PBF, поэтому это не быстрый refresh: нужны сеть и время на `osm2pgsql`, canonical normalization, тесты и build. При любой ошибке процесс останавливается на проблемном шаге. Без заданного `DATABASE_URL` используется локальная БД из `docker-compose.yml`.
 
 После обновления ожидаемые значения для Miami:
 
@@ -167,6 +205,8 @@ npm run build
 | `npm run dev` | Обычный локальный запуск на `localhost:3000`. |
 | `npm run dev:public` | Запуск на `0.0.0.0:3000` для LAN/zrok. |
 | `npm run data:refresh:miami` | Обновить Miami Beach WP Go Maps и ArcGIS fixtures. |
+| `npm run data:refresh:all:dry-run` | Показать полный план обновления без скачивания и изменений. |
+| `npm run data:refresh:all` | Обновить Miami/Miami-Dade источники, импортировать ArcGIS и OSM в PostGIS и выполнить проверки. |
 | `npm run zrok:enable` | Включить zrok environment: берёт `ZROK_ENABLE_TOKEN` или сохранённый `~\.zrok2\environment.json`. |
 | `npm run share:zrok` | Публичный zrok-туннель к `localhost:3000`; автоматически ищет `C:\zrok\zrok2.exe`. |
 | `npm run share:zrok:private` | Приватный zrok-туннель к `localhost:3000`; автоматически ищет `C:\zrok\zrok2.exe`. |

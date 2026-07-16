@@ -12,6 +12,8 @@
     "check:local": "npm run research:validate && npm run typecheck && npm test && npm run build",
     "typecheck": "tsc --noEmit --pretty false",
     "data:refresh:miami": "npm run fetch:miami-beach && npm run fetch:miami-beach:arcgis",
+    "data:refresh:all": "tsx apps/backend/scripts/run_data_refresh_all.ts",
+    "data:refresh:all:dry-run": "tsx apps/backend/scripts/run_data_refresh_all.ts --dry-run",
     "prisma": "prisma --schema apps/backend/prisma/schema.prisma",
     "db:generate": "prisma generate --schema apps/backend/prisma/schema.prisma",
     "db:migrate": "prisma migrate deploy --schema apps/backend/prisma/schema.prisma",

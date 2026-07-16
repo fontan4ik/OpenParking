@@ -1,6 +1,7 @@
 import { writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { currentSnapshotTimestamp } from './refresh_snapshot.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..', '..', '..');
@@ -12,6 +13,7 @@ const PAYMENT_PROVIDER = 'ParkMobile / PayByPhone';
 const PAYMENT_APP_URL = 'https://www2.paybyphone.com/park-in-miami-beach';
 const PAYMENT_NOTE =
   'Official Miami Beach source lists ParkMobile zones and PayByPhone/ParkMobile app support; ParkingUSA does not infer a per-record checkout URL.';
+const DATA_AS_OF = currentSnapshotTimestamp();
 const OUTPUT = path.join(root, 'data', 'miami_beach_parking_wpgmza.geojson');
 const RAW_OUTPUT = path.join(root, 'data', 'research', 'fetches', 'miami-beach-wpgmza-map17-markers.json');
 const DESCRIPTION_LABELS = [
@@ -135,7 +137,7 @@ function normalizeMarker(marker) {
       source_url: SOURCE_URL,
       api_url: API_URL,
       evidence_url: API_URL,
-      data_as_of: '2026-06-12',
+      data_as_of: DATA_AS_OF,
       existence_status: 'confirmed',
       price_status: status,
       rule_status: 'partial',

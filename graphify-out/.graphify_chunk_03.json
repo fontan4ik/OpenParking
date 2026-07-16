@@ -1,0 +1,1101 @@
+{
+  "nodes": [
+    {
+      "id": "_agents_skills_speckit_agent_context_update_SKILL_doc",
+      "label": "speckit-agent-context-update Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-agent-context-update\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_analyze_SKILL_doc",
+      "label": "speckit-analyze Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_checklist_SKILL_doc",
+      "label": "speckit-checklist Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-checklist\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_clarify_SKILL_doc",
+      "label": "speckit-clarify Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-clarify\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_constitution_SKILL_doc",
+      "label": "speckit-constitution Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-constitution\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_implement_SKILL_doc",
+      "label": "speckit-implement Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-implement\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_plan_SKILL_doc",
+      "label": "speckit-plan Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-plan\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_specify_SKILL_doc",
+      "label": "speckit-specify Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_tasks_SKILL_doc",
+      "label": "speckit-tasks Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-tasks\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_taskstoissues_SKILL_doc",
+      "label": "speckit-taskstoissues Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-taskstoissues\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "github-spec-kit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_SKILL_doc",
+      "label": "ui-styling Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "claudekit",
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_LICENSE_doc",
+      "label": "ui-styling Apache 2.0 License",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\LICENSE.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_references_shadcn_components_doc",
+      "label": "shadcn/ui Component Reference",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\shadcn-components.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_references_shadcn_theming_doc",
+      "label": "shadcn/ui Theming & Customization",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\shadcn-theming.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_references_shadcn_accessibility_doc",
+      "label": "shadcn/ui Accessibility Patterns",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\shadcn-accessibility.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_references_tailwind_utilities_doc",
+      "label": "Tailwind CSS Utility Reference",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\tailwind-utilities.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_references_tailwind_responsive_doc",
+      "label": "Tailwind CSS Responsive Design",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\tailwind-responsive.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_references_tailwind_customization_doc",
+      "label": "Tailwind CSS Customization",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\tailwind-customization.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_references_canvas_design_system_doc",
+      "label": "Canvas Design System",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\canvas-design-system.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_scripts_requirements_doc",
+      "label": "ui-styling Script Dependencies",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\scripts\\requirements.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_styling_scripts_tests_requirements_doc",
+      "label": "ui-styling Test Dependencies",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\scripts\\tests\\requirements.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_ui_ux_pro_max_SKILL_doc",
+      "label": "ui-ux-pro-max Skill",
+      "file_type": "document",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-ux-pro-max\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "label": "Spec Kit Workflow",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "The Spec Kit is a feature specification workflow system: specify → clarify → plan → tasks → analyze → implement, with supporting commands for constitution, checklist, agent-context-update, and tasks-to-issues. The workflow is gated by constitution compliance and checklist validation."
+    },
+    {
+      "id": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "label": "Extension Hooks Pattern",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Every speckit SKILL.md command implements the same extension hooks pattern: before_* / after_* hooks from .specify/extensions.yml. The hook system supports optional and mandatory hooks with dot-to-hyphen command name conversion and condition-skipping logic."
+    },
+    {
+      "id": "_agents_skills_speckit_constitution_SKILL_project_constitution",
+      "label": "Project Constitution",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-constitution\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Template-driven governance document at .specify/memory/constitution.md with placeholder tokens, semantic versioning (MAJOR/MINOR/PATCH), and consistency propagation across plan/spec/tasks templates. Constitution violations are automatically CRITICAL across all speckit commands."
+    },
+    {
+      "id": "_agents_skills_ui_styling_SKILL_shadcn_ui",
+      "label": "shadcn/ui",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "source_url": "https://ui.shadcn.com",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Pre-built accessible React components via Radix UI primitives, distributed as copy-paste code. CLI-based installation, TypeScript-first, composable primitives."
+    },
+    {
+      "id": "_agents_skills_ui_styling_SKILL_tailwind_css",
+      "label": "Tailwind CSS",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "source_url": "https://tailwindcss.com",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Utility-first CSS framework with build-time processing, zero runtime overhead, mobile-first responsive design, and consistent design tokens."
+    },
+    {
+      "id": "_agents_skills_ui_styling_SKILL_radix_ui",
+      "label": "Radix UI",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "source_url": "https://radix-ui.com",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Unstyled, accessible React primitives following WAI-ARIA design patterns. Foundation for shadcn/ui components providing keyboard navigation, screen reader support, and focus management."
+    },
+    {
+      "id": "_agents_skills_ui_styling_references_canvas_design_system_canvas_design",
+      "label": "Canvas Design Philosophy",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\canvas-design-system.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Two-phase design process: (1) Design Philosophy Creation with visual manifesto, (2) Visual Expression achieving 90% visual / 10% text. Includes design movements: Concrete Poetry, Chromatic Language, Analog Meditation, Organic Systems, Geometric Silence."
+    },
+    {
+      "id": "_agents_skills_ui_ux_pro_max_SKILL_design_system_generator",
+      "label": "Design System Generator",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-ux-pro-max\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Python-based design system generation tool with --design-system flag. Searches 11 domains (product, style, color, typography, landing, chart, ux, gsap, react, web, prompt) and 2 stacks (react-native, javafx). Supports design dials: --variance, --motion, --density."
+    },
+    {
+      "id": "_agents_skills_speckit_checklist_SKILL_unit_tests_for_english",
+      "label": "Unit Tests for English",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-checklist\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Checklists validate requirements quality (completeness, clarity, consistency, measurability, coverage) NOT implementation. Tests if requirements are well-written like unit tests for English prose. Each item uses question format asking about requirement quality."
+    },
+    {
+      "id": "_agents_skills_speckit_specify_SKILL_spec_quality_checklist",
+      "label": "Spec Quality Checklist",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Created at SPECIFY_FEATURE_DIRECTORY/checklists/requirements.md after each speckit-specify run. Validates content quality, requirement completeness, and feature readiness before proceeding to clarify/plan. Re-validated by speckit-clarify."
+    },
+    {
+      "id": "_agents_skills_speckit_implement_SKILL_implementation_executor",
+      "label": "Implementation Executor",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-implement\\SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Executes tasks.md in phases: Setup, Foundational, User Stories (priority order), Polish. TDD approach (tests before code), parallel task support [P], checklist gate (must pass before proceeding)."
+    }
+  ],
+  "edges": [
+    {
+      "source": "_agents_skills_speckit_specify_SKILL_doc",
+      "target": "_agents_skills_speckit_clarify_SKILL_doc",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-clarify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_clarify_SKILL_doc",
+      "target": "_agents_skills_speckit_plan_SKILL_doc",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-clarify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_plan_SKILL_doc",
+      "target": "_agents_skills_speckit_tasks_SKILL_doc",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-tasks\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_tasks_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_doc",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_tasks_SKILL_doc",
+      "target": "_agents_skills_speckit_taskstoissues_SKILL_doc",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-taskstoissues\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_analyze_SKILL_doc",
+      "target": "_agents_skills_speckit_implement_SKILL_doc",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_plan_SKILL_doc",
+      "target": "_agents_skills_speckit_agent_context_update_SKILL_doc",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-plan\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_constitution_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_doc",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_constitution_SKILL_doc",
+      "target": "_agents_skills_speckit_plan_SKILL_doc",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-plan\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_constitution_SKILL_doc",
+      "target": "_agents_skills_speckit_implement_SKILL_doc",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-implement\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_specify_SKILL_doc",
+      "target": "_agents_skills_speckit_checklist_SKILL_doc",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_checklist_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-checklist\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_clarify_SKILL_doc",
+      "target": "_agents_skills_speckit_checklist_SKILL_doc",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-clarify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_analyze_SKILL_doc",
+      "target": "_agents_skills_speckit_constitution_SKILL_project_constitution",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_specify_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_clarify_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-clarify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_plan_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-plan\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_tasks_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-tasks\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_analyze_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_implement_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-implement\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_checklist_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-checklist\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_constitution_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-constitution\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_agent_context_update_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-agent-context-update\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_taskstoissues_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_kit_workflow",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-taskstoissues\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_analyze_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_specify_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_plan_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-plan\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_constitution_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-constitution\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_tasks_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-tasks\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_implement_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-implement\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_clarify_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-clarify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_checklist_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-checklist\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_agent_context_update_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-agent-context-update\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_taskstoissues_SKILL_doc",
+      "target": "_agents_skills_speckit_analyze_SKILL_extension_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-taskstoissues\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_constitution_SKILL_doc",
+      "target": "_agents_skills_speckit_constitution_SKILL_project_constitution",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-constitution\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_specify_SKILL_doc",
+      "target": "_agents_skills_speckit_constitution_SKILL_project_constitution",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_specify_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_spec_quality_checklist",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_checklist_SKILL_doc",
+      "target": "_agents_skills_speckit_checklist_SKILL_unit_tests_for_english",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-checklist\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_implement_SKILL_doc",
+      "target": "_agents_skills_speckit_implement_SKILL_implementation_executor",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-implement\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_references_shadcn_components_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_references_shadcn_theming_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_references_shadcn_accessibility_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_references_tailwind_utilities_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_references_tailwind_responsive_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_references_tailwind_customization_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_references_canvas_design_system_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_LICENSE_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_scripts_requirements_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_SKILL_shadcn_ui",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_SKILL_tailwind_css",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_SKILL_radix_ui",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_references_shadcn_components_doc",
+      "target": "_agents_skills_ui_styling_SKILL_radix_ui",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\shadcn-components.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_references_shadcn_theming_doc",
+      "target": "_agents_skills_ui_styling_SKILL_tailwind_css",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\shadcn-theming.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_references_shadcn_accessibility_doc",
+      "target": "_agents_skills_ui_styling_SKILL_radix_ui",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\shadcn-accessibility.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_references_canvas_design_system_doc",
+      "target": "_agents_skills_ui_styling_references_canvas_design_system_canvas_design",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\references\\canvas-design-system.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_styling_references_canvas_design_system_canvas_design",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_ux_pro_max_SKILL_doc",
+      "target": "_agents_skills_ui_ux_pro_max_SKILL_design_system_generator",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-ux-pro-max\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_doc",
+      "target": "_agents_skills_ui_ux_pro_max_SKILL_doc",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_specify_SKILL_spec_quality_checklist",
+      "target": "_agents_skills_speckit_checklist_SKILL_unit_tests_for_english",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_tailwind_css",
+      "target": "_agents_skills_ui_styling_references_canvas_design_system_canvas_design",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_shadcn_ui",
+      "target": "_agents_skills_ui_styling_SKILL_tailwind_css",
+      "relation": "shares_data_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_ui_styling_SKILL_shadcn_ui",
+      "target": "_agents_skills_ui_styling_SKILL_radix_ui",
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_implement_SKILL_doc",
+      "target": "_agents_skills_speckit_checklist_SKILL_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-implement\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_implement_SKILL_doc",
+      "target": "_agents_skills_speckit_tasks_SKILL_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-implement\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_tasks_SKILL_doc",
+      "target": "_agents_skills_speckit_plan_SKILL_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-tasks\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "_agents_skills_speckit_plan_SKILL_doc",
+      "target": "_agents_skills_speckit_specify_SKILL_doc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-plan\\SKILL.md",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "speckit_workflow_pipeline",
+      "label": "Speckit Workflow Pipeline",
+      "nodes": [
+        "_agents_skills_speckit_specify_SKILL_doc",
+        "_agents_skills_speckit_clarify_SKILL_doc",
+        "_agents_skills_speckit_constitution_SKILL_doc",
+        "_agents_skills_speckit_checklist_SKILL_doc",
+        "_agents_skills_speckit_plan_SKILL_doc",
+        "_agents_skills_speckit_tasks_SKILL_doc",
+        "_agents_skills_speckit_taskstoissues_SKILL_doc",
+        "_agents_skills_speckit_analyze_SKILL_doc",
+        "_agents_skills_speckit_agent_context_update_SKILL_doc",
+        "_agents_skills_speckit_implement_SKILL_doc",
+        "_agents_skills_speckit_specify_SKILL_spec_kit_workflow"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-specify\\SKILL.md"
+    },
+    {
+      "id": "ui_styling_core_stack",
+      "label": "UI Styling Core Stack",
+      "nodes": [
+        "_agents_skills_ui_styling_SKILL_doc",
+        "_agents_skills_ui_styling_SKILL_shadcn_ui",
+        "_agents_skills_ui_styling_SKILL_tailwind_css",
+        "_agents_skills_ui_styling_SKILL_radix_ui",
+        "_agents_skills_ui_styling_references_canvas_design_system_canvas_design"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\ui-styling\\SKILL.md"
+    },
+    {
+      "id": "extension_hooks_system",
+      "label": "Extension Hooks System",
+      "nodes": [
+        "_agents_skills_speckit_analyze_SKILL_doc",
+        "_agents_skills_speckit_specify_SKILL_doc",
+        "_agents_skills_speckit_plan_SKILL_doc",
+        "_agents_skills_speckit_constitution_SKILL_doc",
+        "_agents_skills_speckit_tasks_SKILL_doc",
+        "_agents_skills_speckit_implement_SKILL_doc",
+        "_agents_skills_speckit_clarify_SKILL_doc",
+        "_agents_skills_speckit_checklist_SKILL_doc",
+        "_agents_skills_speckit_agent_context_update_SKILL_doc",
+        "_agents_skills_speckit_taskstoissues_SKILL_doc",
+        "_agents_skills_speckit_analyze_SKILL_extension_hooks"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\AI\\ParkingUSA\\.agents\\skills\\speckit-analyze\\SKILL.md"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

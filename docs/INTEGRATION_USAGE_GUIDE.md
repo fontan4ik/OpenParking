@@ -36,14 +36,15 @@ npm run build
 
 See `docs/QA_DEVOPS_BASELINE_RUNBOOK.md` for the current Mac mini baseline result, package-lock sync history, PostGIS/Docker notes, temporary process cleanup, and rollback notes.
 
-Routing MVP configuration:
+Routing MVP and geocoding configuration:
 
 ```powershell
 $env:VALHALLA_URL="http://127.0.0.1:8002"
+# Forward geocoding: add OPENCAGE_API_KEY in .env.local (see .env.example)
 npm run dev
 ```
 
-`POST /api/route` is a server-side Valhalla boundary. The browser should call only `/api/route`; do not expose Valhalla directly to frontend code. The MVP supports `costing: "auto"`, finite lat/lon validation, a 100 km direct-distance cap, a 5 second provider timeout, and GeoJSON `LineString` responses with Valhalla/OpenStreetMap attribution. The map UI uses the same endpoint for selected-parking navigation from map-picked/geolocation/manual starts, point-to-point routes from two clicked map points, and current-location to clicked-destination routes; it intentionally excludes geocoder/autocomplete, turn-by-turn, route history, and location persistence.
+`POST /api/route` is a server-side Valhalla boundary. The browser should call only `/api/route`; do not expose Valhalla directly to frontend code. The MVP supports `costing: "auto"`, finite lat/lon validation, a 100 km direct-distance cap, a 5 second provider timeout, and GeoJSON `LineString` responses with Valhalla/OpenStreetMap attribution. The map UI uses the same endpoint for selected-parking navigation from map-picked/geolocation/manual starts, point-to-point routes from two clicked map points, and current-location to clicked-destination routes; it intentionally excludes turn-by-turn, route history, and location persistence. Forward geocoding is available separately through `GET /api/geocode/forward` (see section 9).
 
 Check the installed agent/tooling health:
 
@@ -215,6 +216,8 @@ The Python repos have `TAVILY_API_KEY` configured in their `.env` files and `OPE
 Existing scripts:
 
 ```powershell
+npm run data:refresh:all:dry-run
+npm run data:refresh:all
 npm run import:sf
 npm run fetch:miami-beach
 npm run fetch:osm:miami
@@ -245,6 +248,10 @@ npm run tiles:dry-run
 npm run tiles:build
 npm run test:street-parking
 ```
+
+`npm run data:refresh:all` is the fail-fast production refresh for the current Miami/Miami-Dade scope. It refreshes official Miami Beach fallback fixtures first, records the live snapshot time in `data_as_of`, starts an installed Docker Desktop on Windows when its daemon is stopped, starts PostGIS, applies Prisma migrations, replaces the local Florida Geofabrik PBF with the current download, refreshes the Census county boundary, imports Miami Beach ArcGIS and parking-focused OSM data into PostGIS, and runs the Miami geometry audit plus research validation, typecheck, tests, and build. Run `npm run data:refresh:all:dry-run` first to print the exact 14-step plan without network, Docker, file, or database mutations. Prisma client generation is intentionally outside this workflow so a running Windows dev server cannot lock its query-engine DLL during data refresh.
+
+Prerequisites: Docker Desktop must be installed and official source endpoints must be reachable. On Windows the orchestrator launches the standard Docker Desktop installation and waits up to 120 seconds for the daemon; otherwise it prints an actionable error. If `DATABASE_URL` is unset, it uses the Docker Compose default `postgresql://parking:parking@localhost:5432/parkingusa?schema=public`; an explicitly configured `DATABASE_URL` wins. The workflow stops immediately on the first failed download, import, audit, test, or build. WP Go Maps data is refreshed as a file fallback; the current canonical DB promotion path covers Miami Beach ArcGIS plus OSM/Geofabrik because no WP Go Maps canonical importer exists yet.
 
 Connector commands:
 
@@ -438,3 +445,86 @@ Then:
 ```text
 Fix the duplicate import issue. Add or update a focused test. Run npm run build and the relevant import/test command.
 ```
+
+## 9. OpenCage Forward Geocoding
+
+`GET /api/geocode/forward` is a server-side proxy for the OpenCage Geocoding API. The API key stays server-only and is never sent to the browser. The frontend address search field uses this endpoint.
+
+### Setup
+
+Add your OpenCage API key to `apps/frontend/.env.local` (Next.js reads `.env` files from the app directory when `next.config.js` is in a subdirectory):
+
+```powershell
+# apps/frontend/.env.local
+OPENCAGE_API_KEY=your_key_here
+```
+
+Get a free key at https://opencagedata.com/pricing. The app works without the key: the endpoint returns `{ results: [], status: "unconfigured" }` and the frontend hides the address search field.
+
+### Endpoint
+
+```
+GET /api/geocode/forward?q=<query>&limit=<1-10>&language=en|ru
+```
+
+- `q` (required) - address or place name, 3-400 characters.
+- `limit` (optional, default 5, max 10) - max results.
+- `language` (optional, default `en`) - result language: `en` or `ru`.
+
+The response uses the GeocodingResponse type:
+
+```json
+{
+  "results": [
+    {
+      "formatted": "string",
+      "lat": 25.76,
+      "lng": -80.19,
+      "placeType": "address|street|postcode|city|state|country|unknown",
+      "confidence": 0.0,
+      "components": { "road": "...", "city": "...", ... }
+    }
+  ],
+  "status": "ok|unconfigured|error",
+  "error": "string (only present on error)"
+}
+```
+
+### Behavior
+
+- **Server-side key protection**: `OPENCAGE_API_KEY` is read from environment variables only inside `apps/frontend/lib/geocoding.ts` and never reaches the client bundle.
+- **Validation**: `q` length 3-400, `limit` 1-10, `language` must be `en` or `ru`. Invalid input returns `{ status: "error" }` with a 400 HTTP status.
+- **In-memory cache**: LRU cache with 5-minute TTL and 100-entry cap. Cache key is normalized (lowercased, collapsed whitespace) plus language.
+- **Timeout**: 5 seconds. On timeout the endpoint returns `status: "error"`.
+- **Browser cache**: 60-second `Cache-Control: public, max-age=60, stale-while-revalidate=300`.
+
+### What this slice does and does not
+
+**Does:**
+- Forward-address search: type a street, address, or place name. Pick a result and the map flies to its coordinates.
+- Full Russian language support: `language=ru` returns Russian names when OpenCage has them.
+- Works without a key: the endpoint gracefully returns `unconfigured` and the UI hides the address field.
+
+**Does not (yet):**
+- Radius-ranked nearby parking search. The geocoding endpoint returns OpenCage results and flies the map to the selected point, but it does not query or rank nearby parking facilities. That is a separate future feature.
+- Reverse geocoding (lat/lon to address). Only forward geocoding is implemented.
+
+### Verification
+
+With a valid `OPENCAGE_API_KEY`:
+
+```powershell
+curl "http://localhost:3000/api/geocode/forward?q=South+Beach&language=en"
+```
+
+Expected: `"status": "ok"` with a list of matching places in the `results` array.
+
+Without the key (or with `OPENCAGE_API_KEY` empty):
+
+```powershell
+curl "http://localhost:3000/api/geocode/forward?q=Miami"
+```
+
+Expected: `{ "results": [], "status": "unconfigured" }`.
+
+After verification, confirm that the address search field appears in the map UI when `OPENCAGE_API_KEY` is set and is hidden when it is not set.

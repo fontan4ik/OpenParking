@@ -224,7 +224,15 @@ async function loadGeoJSONFiles(filenames: string | string[] | undefined): Promi
     // Incomplete production extracts are excluded, but incomplete review-only
     // candidate layers remain visible with their needs-review provenance. This
     // preserves maximum discovery coverage without presenting it as complete.
-    features: collections.flatMap((collection) => (collection.metadata?.complete === false && !isReviewOnly(collection) ? [] : collection.features)),
+    features: collections.flatMap((collection) => {
+      if (collection.metadata?.complete === false && !isReviewOnly(collection)) return [];
+      const reviewOnly = isReviewOnly(collection);
+      return collection.features.map((feature) =>
+        reviewOnly
+          ? { ...feature, properties: { ...feature.properties, review_only: true } }
+          : feature
+      );
+    }),
   };
 }
 
@@ -599,7 +607,7 @@ function isPointFeature(feature: GeoJSONFeature) {
 }
 
 function isIncidentalOsmParkingFeature(feature: GeoJSONFeature) {
-  if (feature.properties.parking_evidence_kind !== 'parking_tag_candidate') return false;
+  if (feature.properties.parking_evidence_kind !== 'parking_tag_candidate' && feature.properties.review_only !== true) return false;
   const directTags = feature.properties.raw_tags;
   const rawProperties = feature.properties.raw_properties;
   const nestedTags = rawProperties && typeof rawProperties === 'object' && !Array.isArray(rawProperties)

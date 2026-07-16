@@ -1,0 +1,19 @@
+{
+  "chunks": [
+    ".graphify_chunk_01.json",
+    ".graphify_chunk_02.json",
+    ".graphify_chunk_03.json",
+    ".graphify_chunk_04.json",
+    ".graphify_chunk_05.json",
+    ".graphify_chunk_06.json",
+    ".graphify_chunk_07.json",
+    ".graphify_chunk_08.json",
+    ".graphify_chunk_09.json",
+    ".graphify_chunk_10.json"
+  ],
+  "entities": [],
+  "graph": {
+    "nodes": [],
+    "edges": []
+  }
+}

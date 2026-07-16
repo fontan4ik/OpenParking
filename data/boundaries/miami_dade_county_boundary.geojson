@@ -11467,7 +11467,7 @@
     "source_url": "https://tigerweb.geo.census.gov/",
     "api_url": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1/query?where=GEOID%3D%2712086%27&outFields=*&returnGeometry=true&outSR=4326&f=geojson",
     "license": "Public domain; cite U.S. Census Bureau",
-    "generated_at": "2026-06-12T17:04:13.200Z",
+    "generated_at": "2026-07-15T10:30:53.734Z",
     "feature_count": 1,
     "notes": "Census TIGERweb Counties layer, January 1 2025 vintage. Used for Miami-Dade county-wide coverage filtering."
   }

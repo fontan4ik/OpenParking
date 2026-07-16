@@ -12,6 +12,7 @@
     "source": "OpenStreetMap Overpass",
     "coverage_role": "candidate_coverage_baseline",
     "complete": false,
+    "review_only": true,
     "requested_top_level_tiles": 16,
     "failed_bboxes": [
       {

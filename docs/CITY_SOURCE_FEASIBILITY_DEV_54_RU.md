@@ -165,7 +165,7 @@ Best current components:
 
 - `City of Miami Beach Parking GIS FeatureServer`
   - `source_url` / `api_url`: https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer
-  - local counts: 535 facility points, 532 lot/zone polygons, 11,018 raw parking-space records.
+  - current local counts after the 2026-07-15 refresh: 535 facility points, 532 lot/zone polygons, 10,998 raw parking-space records.
 
 - `City of Miami Beach Parking Facilities WPGMZA`
   - `source_url`: https://www.miamibeachfl.gov/city-hall/parking/parking-garages-lot-locations/

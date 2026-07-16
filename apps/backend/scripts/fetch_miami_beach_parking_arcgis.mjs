@@ -1,13 +1,14 @@
 import { writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { currentSnapshotTimestamp } from './refresh_snapshot.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..', '..', '..');
 
 const SOURCE_URL = 'https://gis.miamibeachfl.gov/public/rest/services/mb/Parking/FeatureServer';
 const SOURCE_PAGE = 'https://www.miamibeachfl.gov/city-hall/parking/';
-const DATA_AS_OF = '2026-06-12';
+const DATA_AS_OF = currentSnapshotTimestamp();
 const SOURCE_NAME = 'City of Miami Beach Parking GIS';
 const MIAMI_BEACH_PAYMENT_PROVIDER = 'ParkMobile / PayByPhone';
 const MIAMI_BEACH_PAYMENT_APP_URL = 'https://www2.paybyphone.com/park-in-miami-beach';

@@ -25,7 +25,7 @@ describe('parking access trust filters', () => {
     }
   );
 
-  it('keeps unknown-access OSM candidates in review instead of conflicts', () => {
+  it('shows unknown-access OSM candidates in likely view for discovery, preserves review channel', () => {
     const properties = {
       access: '',
       confidence: 0.55,
@@ -34,6 +34,7 @@ describe('parking access trust filters', () => {
     };
     expect(hasParkingConflict(properties)).toBe(false);
     expect(matchesTrustFilter(properties, 'likely')).toBe(false);
+    expect(matchesTrustFilter({ ...properties, review_only: true }, 'likely')).toBe(true);
     expect(matchesTrustFilter(properties, 'review')).toBe(true);
   });
 });

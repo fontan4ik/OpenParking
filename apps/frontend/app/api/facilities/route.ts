@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DEFAULT_CITY_ID, loadFacilities } from '@/lib/data-loader';
 import { driverConfidence, matchesPriceFilter, matchesTrustFilter } from '@/lib/data-quality';
+import { buildFacilitySearchHaystack } from '@/lib/facility-search';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -55,8 +56,7 @@ export async function GET(request: NextRequest) {
 
   if (q) {
     features = features.filter((f) => {
-      const p = f.properties;
-      const hay = `${p.name || ''} ${p.operator || ''} ${p.source_id || ''} ${p.street || ''} ${p.neighborhood || ''}`.toLowerCase();
+      const hay = buildFacilitySearchHaystack(f.properties);
       return hay.includes(q);
     });
   }

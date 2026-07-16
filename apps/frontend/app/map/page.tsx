@@ -84,6 +84,12 @@ interface LinkDisplay {
   url: string;
 }
 
+interface GeocodeResult {
+  formatted: string;
+  lat: number;
+  lng: number;
+}
+
 function OpenParkingLogo() {
   return (
     <img 
@@ -206,6 +212,10 @@ export default function HomePage() {
   const [userLocation, setUserLocation] = useState<RouteCoordinate | null>(null);
   const [userLocationStatus, setUserLocationStatus] = useState<UserLocationStatus>('idle');
   const [droppedPin, setDroppedPin] = useState<RouteCoordinate | null>(null);
+  const [geocodeResults, setGeocodeResults] = useState<GeocodeResult[]>([]);
+  const [geocodeStatus, setGeocodeStatus] = useState<'idle' | 'loading' | 'ready' | 'unconfigured' | 'error'>('idle');
+  const [geocodeSuggestOpen, setGeocodeSuggestOpen] = useState(false);
+  const [geocodeActiveIndex, setGeocodeActiveIndex] = useState(-1);
   const [routeMode, setRouteMode] = useState<boolean>(false);
   const [routeOrigin, setRouteOrigin] = useState<RouteEndpoint>(null);
   const [routeDestination, setRouteDestination] = useState<RouteEndpoint>(null);
@@ -224,6 +234,9 @@ export default function HomePage() {
   const [mobileSheetDragOffset, setMobileSheetDragOffset] = useState(0);
   const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const routeAbortRef = useRef<AbortController | null>(null);
+  const geocodeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const geocodeAbortRef = useRef<AbortController | null>(null);
+  const geocodeCloseRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const facilityListRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -319,6 +332,69 @@ export default function HomePage() {
       .catch(console.error);
   }, [activeCity]);
 
+  // Debounced geocode address suggestions via /api/geocode/forward
+  useEffect(() => {
+    const trimmed = searchInput.trim();
+
+    if (geocodeTimeoutRef.current) {
+      clearTimeout(geocodeTimeoutRef.current);
+      geocodeTimeoutRef.current = null;
+    }
+    geocodeAbortRef.current?.abort();
+    geocodeAbortRef.current = null;
+
+    if (trimmed.length < 3) {
+      setGeocodeStatus('idle');
+      setGeocodeResults([]);
+      setGeocodeActiveIndex(-1);
+      setGeocodeSuggestOpen(false);
+      return;
+    }
+
+    geocodeTimeoutRef.current = setTimeout(async () => {
+      const controller = new AbortController();
+      geocodeAbortRef.current = controller;
+
+      setGeocodeStatus('loading');
+      setGeocodeSuggestOpen(true);
+
+      try {
+        const response = await fetch(
+          `/api/geocode/forward?q=${encodeURIComponent(trimmed)}&language=${locale}`,
+          { signal: controller.signal },
+        );
+        const data: { results?: GeocodeResult[]; status: string } = await response.json().catch(() => ({ status: 'error' }));
+
+        if (controller.signal.aborted) return;
+
+        if (data.status === 'ok' && data.results) {
+          setGeocodeResults(data.results);
+          setGeocodeStatus('ready');
+          setGeocodeActiveIndex(-1);
+        } else if (data.status === 'unconfigured') {
+          setGeocodeResults([]);
+          setGeocodeStatus('unconfigured');
+        } else {
+          setGeocodeResults([]);
+          setGeocodeStatus('error');
+        }
+      } catch (err: unknown) {
+        if (err instanceof DOMException && err.name === 'AbortError') return;
+        setGeocodeResults([]);
+        setGeocodeStatus('error');
+      }
+    }, 400);
+
+    return () => {
+      if (geocodeTimeoutRef.current) {
+        clearTimeout(geocodeTimeoutRef.current);
+        geocodeTimeoutRef.current = null;
+      }
+      geocodeAbortRef.current?.abort();
+      geocodeAbortRef.current = null;
+    };
+  }, [searchInput, locale]);
+
   const handleSearch = useCallback((value: string) => {
     setSearchInput(value);
     if (searchTimeout.current) clearTimeout(searchTimeout.current);
@@ -326,6 +402,43 @@ export default function HomePage() {
       setSearchQuery(value);
     }, 300);
   }, []);
+
+  const handleGeocodeSelect = useCallback((result: GeocodeResult) => {
+    if (geocodeCloseRef.current) clearTimeout(geocodeCloseRef.current);
+    if (geocodeTimeoutRef.current) clearTimeout(geocodeTimeoutRef.current);
+    geocodeAbortRef.current?.abort();
+    geocodeAbortRef.current = null;
+
+    setGeocodeSuggestOpen(false);
+    setGeocodeStatus('idle');
+    setGeocodeResults([]);
+    setGeocodeActiveIndex(-1);
+    setSearchInput(result.formatted);
+    setDroppedPin({ lat: result.lat, lon: result.lng });
+  }, []);
+
+  const handleGeocodeKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+    // Escape closes suggestions in any state — before the ready/results guard
+    if (event.key === 'Escape' && geocodeSuggestOpen) {
+      event.preventDefault();
+      setGeocodeSuggestOpen(false);
+      setGeocodeActiveIndex(-1);
+      return;
+    }
+
+    if (!geocodeSuggestOpen || geocodeStatus !== 'ready' || geocodeResults.length === 0) return;
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setGeocodeActiveIndex((prev) => (prev < geocodeResults.length - 1 ? prev + 1 : 0));
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setGeocodeActiveIndex((prev) => (prev > 0 ? prev - 1 : geocodeResults.length - 1));
+    } else if (event.key === 'Enter' && geocodeActiveIndex >= 0 && geocodeActiveIndex < geocodeResults.length) {
+      event.preventDefault();
+      handleGeocodeSelect(geocodeResults[geocodeActiveIndex]);
+    }
+  }, [geocodeSuggestOpen, geocodeStatus, geocodeResults, geocodeActiveIndex, handleGeocodeSelect]);
 
   const resetRouteState = useCallback(() => {
     routeAbortRef.current?.abort();
@@ -835,6 +948,9 @@ export default function HomePage() {
       action: () => {
         setTypeFilter('garage');
         setTrustFilter('likely');
+        setSearchInput(uiText('Garage', 'Гараж'));
+        setSearchQuery(uiText('Garage', 'Гараж'));
+        if (searchTimeout.current) clearTimeout(searchTimeout.current);
       },
     },
     {
@@ -854,6 +970,9 @@ export default function HomePage() {
       action: () => {
         setTypeFilter('surface_lot');
         setTrustFilter('likely');
+        setSearchInput(uiText('Lot', 'Площадка'));
+        setSearchQuery(uiText('Lot', 'Площадка'));
+        if (searchTimeout.current) clearTimeout(searchTimeout.current);
       },
     },
     {
@@ -872,6 +991,9 @@ export default function HomePage() {
       action: () => {
         setTypeFilter('street_meter');
         setTrustFilter('likely');
+        setSearchInput(uiText('Meter', 'Паркомат'));
+        setSearchQuery(uiText('Meter', 'Паркомат'));
+        if (searchTimeout.current) clearTimeout(searchTimeout.current);
       },
     },
     {
@@ -1241,9 +1363,26 @@ export default function HomePage() {
               value={searchInput}
               placeholder={uiText('Address, garage, zone, operator...', 'Адрес, гараж, зона, оператор...')}
               onChange={(event) => handleSearch(event.target.value)}
-              onFocus={() => setSearchExpanded(true)}
+              onFocus={() => {
+                setSearchExpanded(true);
+                if (geocodeCloseRef.current) clearTimeout(geocodeCloseRef.current);
+              }}
+              onBlur={() => {
+                geocodeCloseRef.current = setTimeout(() => {
+                  setGeocodeSuggestOpen(false);
+                  setGeocodeActiveIndex(-1);
+                }, 200);
+              }}
+              onKeyDown={handleGeocodeKeyDown}
               aria-expanded={searchExpanded}
               aria-controls="parking-search-panel"
+              aria-autocomplete="list"
+              aria-activedescendant={
+                geocodeSuggestOpen && geocodeActiveIndex >= 0
+                  ? `geocode-item-${geocodeActiveIndex}`
+                  : undefined
+              }
+              role="combobox"
             />
             <button
               className="search-clear-button"
@@ -1252,11 +1391,80 @@ export default function HomePage() {
               onClick={() => {
                 setSearchInput('');
                 setSearchQuery('');
+                setTypeFilter('');
                 setSearchExpanded(false);
+                setGeocodeResults([]);
+                setGeocodeStatus('idle');
+                setGeocodeSuggestOpen(false);
+                setGeocodeActiveIndex(-1);
+                if (geocodeCloseRef.current) clearTimeout(geocodeCloseRef.current);
+                if (geocodeTimeoutRef.current) clearTimeout(geocodeTimeoutRef.current);
+                geocodeAbortRef.current?.abort();
+                geocodeAbortRef.current = null;
+                if (searchTimeout.current) clearTimeout(searchTimeout.current);
               }}
             >
               ×
             </button>
+
+            {/* ── Geocode Address Suggestions ── */}
+            {geocodeSuggestOpen && (
+              <div
+                className="geocode-suggestions"
+                role="listbox"
+                aria-label={locale === 'ru' ? 'Подсказки адресов' : 'Address suggestions'}
+              >
+                {geocodeStatus === 'loading' && (
+                  <div className="geocode-suggestions-item geocode-suggestions-status" aria-disabled="true">
+                    <span className="geocode-suggestions-spinner" aria-hidden="true" />
+                    {locale === 'ru' ? 'Поиск адресов...' : 'Searching addresses...'}
+                  </div>
+                )}
+                {geocodeStatus === 'unconfigured' && (
+                  <div className="geocode-suggestions-item geocode-suggestions-status" aria-disabled="true">
+                    {locale === 'ru'
+                      ? 'Геокодирование не настроено'
+                      : 'Address search is not configured'}
+                  </div>
+                )}
+                {geocodeStatus === 'error' && (
+                  <div className="geocode-suggestions-item geocode-suggestions-status" aria-disabled="true">
+                    {locale === 'ru'
+                      ? 'Не удалось загрузить подсказки'
+                      : 'Could not load address suggestions'}
+                  </div>
+                )}
+                {geocodeStatus === 'ready' && geocodeResults.length === 0 && (
+                  <div className="geocode-suggestions-item geocode-suggestions-status" aria-disabled="true">
+                    {locale === 'ru' ? 'Адреса не найдены' : 'No addresses found'}
+                  </div>
+                )}
+                {geocodeStatus === 'ready' &&
+                  geocodeResults.map((result, idx) => (
+                    <button
+                      key={idx}
+                      id={`geocode-item-${idx}`}
+                      className={`geocode-suggestions-item ${geocodeActiveIndex === idx ? 'geocode-suggestions-active' : ''}`}
+                      role="option"
+                      aria-selected={geocodeActiveIndex === idx}
+                      type="button"
+                      onMouseDown={(event) => {
+                        event.preventDefault();
+                        if (geocodeCloseRef.current) clearTimeout(geocodeCloseRef.current);
+                        handleGeocodeSelect(result);
+                      }}
+                    >
+                      <span className="geocode-suggestions-marker" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                          <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                      </span>
+                      <span>{result.formatted}</span>
+                    </button>
+                  ))}
+              </div>
+            )}
           </div>
           {searchExpanded && (
             <div id="parking-search-panel" className="parking-search-panel">
@@ -1285,6 +1493,9 @@ export default function HomePage() {
                       onClick={() => {
                         setTypeFilter('valet');
                         setTrustFilter('likely');
+                        setSearchInput(uiText('Valet', 'Валет'));
+                        setSearchQuery(uiText('Valet', 'Валет'));
+                        if (searchTimeout.current) clearTimeout(searchTimeout.current);
                       }}
                       aria-pressed={typeFilter === 'valet'}
                     >
@@ -1300,6 +1511,9 @@ export default function HomePage() {
                         setTypeFilter('');
                         setPriceFilter('');
                         setWorkspaceMode('find');
+                        setSearchInput('');
+                        setSearchQuery('');
+                        if (searchTimeout.current) clearTimeout(searchTimeout.current);
                       }}
                       aria-pressed={!typeFilter && !priceFilter}
                     >

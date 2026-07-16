@@ -479,27 +479,7 @@ export async function persistConnectorReport(prisma: any, report: ConnectorRepor
   if (report.dry_run) return report;
 
   const source = report.source;
-  const run = await prisma.importRun.create({
-    data: {
-      sourceName: source.sourceName,
-      sourceKey: source.sourceKey,
-      connectorKey: report.connector_key,
-      dryRun: false,
-      status: 'running',
-      recordsSeen: report.counts.records_seen,
-      summary: {
-        mode: 'connector_foundation',
-        source,
-      },
-    },
-  });
-
-  let inserted = 0;
-  let updated = 0;
-  let errors = 0;
-
-  try {
-    await prisma.dataSource.upsert({
+  await prisma.dataSource.upsert({
       where: { name: source.sourceName },
       update: {
         sourceKey: source.sourceKey,
@@ -532,7 +512,28 @@ export async function persistConnectorReport(prisma: any, report: ConnectorRepor
         evidenceUrl: null,
         notes: connectorNotes(source),
       },
-    });
+  });
+
+  const run = await prisma.importRun.create({
+    data: {
+      sourceName: source.sourceName,
+      sourceKey: source.sourceKey,
+      connectorKey: report.connector_key,
+      dryRun: false,
+      status: 'running',
+      recordsSeen: report.counts.records_seen,
+      summary: {
+        mode: 'connector_foundation',
+        source,
+      },
+    },
+  });
+
+  let inserted = 0;
+  let updated = 0;
+  let errors = 0;
+
+  try {
 
     for (const record of report.records) {
       const existing = await prisma.sourceObservation.findUnique({

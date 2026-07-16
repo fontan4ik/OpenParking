@@ -1,0 +1,345 @@
+{
+  "nodes": [
+    {
+      "id": "artifacts_miami_curb_lines_after_curb_lines_state",
+      "label": "Miami Curb Lines After State",
+      "file_type": "image",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-after.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_miami_curb_lines_comparison_curb_lines_comparison",
+      "label": "Miami Curb Lines Before/After Comparison",
+      "file_type": "image",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-comparison.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_miami_curb_lines_shared_axis_shared_axis_visualization",
+      "label": "Miami Curb Lines Shared Axis Alignment",
+      "file_type": "image",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-shared-axis.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_miami_dade_coverage_boundary_coverage_boundary_map",
+      "label": "Miami-Dade Coverage Boundary Map",
+      "file_type": "image",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-dade-coverage-boundary.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_search_categories_mobile_search_categories_screenshot",
+      "label": "Mobile Search Categories UI Screenshot",
+      "file_type": "image",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\search-categories-mobile.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_search_results_sort_mobile_search_results_sort_screenshot",
+      "label": "Mobile Search Results Sort UI Screenshot",
+      "file_type": "image",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\search-results-sort-mobile.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_browser_browser_capture_localhost_2026_07_10t10_47_24_861z_localhost_dev_screenshot",
+      "label": "Localhost Dev Server Browser Capture",
+      "file_type": "image",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\browser\\browser-capture-localhost-2026-07-10T10-47-24-861Z.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": "2026-07-10T10:47:24.861Z",
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "data_research_browser_parkchicago_rates_parkchicago_rates_screenshot",
+      "label": "ParkChicago Rates Browser Capture",
+      "file_type": "image",
+      "source_file": "C:\\AI\\ParkingUSA\\data\\research\\browser-parkchicago-rates.png",
+      "source_location": null,
+      "source_url": "https://parkchicago.com/rates-hours",
+      "captured_at": "2026-06-10T10:44:15.726Z",
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_miami_curb_lines_after_miami_parking_geometry_qa",
+      "label": "Miami Parking Geometry QA",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-after.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_miami_curb_lines_shared_axis_shared_axis_method",
+      "label": "Miami Curb Line Shared Axis Alignment Method",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-shared-axis.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_miami_dade_coverage_boundary_miami_dade_coverage",
+      "label": "Miami-Dade Coverage Boundary",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-dade-coverage-boundary.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_search_categories_mobile_mobile_search_ui",
+      "label": "Mobile Search UI",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\search-categories-mobile.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "data_research_browser_parkchicago_rates_parkchicago_rates_data",
+      "label": "ParkChicago Rates Research Data",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\data\\research\\browser-parkchicago-rates.png",
+      "source_location": null,
+      "source_url": "https://parkchicago.com/rates-hours",
+      "captured_at": "2026-06-10T10:44:15.726Z",
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "artifacts_browser_browser_capture_localhost_2026_07_10t10_47_24_861z_dev_server",
+      "label": "Localhost Dev Server",
+      "file_type": "concept",
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\browser\\browser-capture-localhost-2026-07-10T10-47-24-861Z.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "artifacts_miami_curb_lines_after_curb_lines_state",
+      "target": "artifacts_miami_curb_lines_after_miami_parking_geometry_qa",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-after.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_miami_curb_lines_comparison_curb_lines_comparison",
+      "target": "artifacts_miami_curb_lines_after_miami_parking_geometry_qa",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-comparison.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_miami_curb_lines_shared_axis_shared_axis_visualization",
+      "target": "artifacts_miami_curb_lines_shared_axis_shared_axis_method",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-shared-axis.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_miami_dade_coverage_boundary_coverage_boundary_map",
+      "target": "artifacts_miami_dade_coverage_boundary_miami_dade_coverage",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-dade-coverage-boundary.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_search_categories_mobile_search_categories_screenshot",
+      "target": "artifacts_search_categories_mobile_mobile_search_ui",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\search-categories-mobile.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_search_results_sort_mobile_search_results_sort_screenshot",
+      "target": "artifacts_search_categories_mobile_mobile_search_ui",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\search-results-sort-mobile.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_browser_browser_capture_localhost_2026_07_10t10_47_24_861z_localhost_dev_screenshot",
+      "target": "artifacts_browser_browser_capture_localhost_2026_07_10t10_47_24_861z_dev_server",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\browser\\browser-capture-localhost-2026-07-10T10-47-24-861Z.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "data_research_browser_parkchicago_rates_parkchicago_rates_screenshot",
+      "target": "data_research_browser_parkchicago_rates_parkchicago_rates_data",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\AI\\ParkingUSA\\data\\research\\browser-parkchicago-rates.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_miami_curb_lines_after_curb_lines_state",
+      "target": "artifacts_miami_curb_lines_comparison_curb_lines_comparison",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-after.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_miami_curb_lines_after_curb_lines_state",
+      "target": "artifacts_miami_curb_lines_shared_axis_shared_axis_visualization",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-after.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_miami_curb_lines_comparison_curb_lines_comparison",
+      "target": "artifacts_miami_curb_lines_shared_axis_shared_axis_visualization",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-comparison.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_search_categories_mobile_search_categories_screenshot",
+      "target": "artifacts_search_results_sort_mobile_search_results_sort_screenshot",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\search-categories-mobile.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_miami_curb_lines_shared_axis_shared_axis_method",
+      "target": "artifacts_miami_curb_lines_after_miami_parking_geometry_qa",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-shared-axis.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "artifacts_miami_dade_coverage_boundary_miami_dade_coverage",
+      "target": "artifacts_miami_curb_lines_after_miami_parking_geometry_qa",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-dade-coverage-boundary.png",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "miami_curb_geometry_qa_visual_evidence",
+      "label": "Miami Curb Geometry QA Visual Evidence Set",
+      "nodes": [
+        "artifacts_miami_curb_lines_after_curb_lines_state",
+        "artifacts_miami_curb_lines_comparison_curb_lines_comparison",
+        "artifacts_miami_curb_lines_shared_axis_shared_axis_visualization",
+        "artifacts_miami_curb_lines_after_miami_parking_geometry_qa",
+        "artifacts_miami_curb_lines_shared_axis_shared_axis_method"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-curb-lines-after.png"
+    },
+    {
+      "id": "mobile_search_ui_screenshots",
+      "label": "Mobile Search UI Screenshot Set",
+      "nodes": [
+        "artifacts_search_categories_mobile_search_categories_screenshot",
+        "artifacts_search_results_sort_mobile_search_results_sort_screenshot",
+        "artifacts_search_categories_mobile_mobile_search_ui"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\search-categories-mobile.png"
+    },
+    {
+      "id": "miami_dade_parking_coverage_expansion",
+      "label": "Miami-Dade Parking Coverage Expansion",
+      "nodes": [
+        "artifacts_miami_curb_lines_after_miami_parking_geometry_qa",
+        "artifacts_miami_dade_coverage_boundary_miami_dade_coverage",
+        "artifacts_miami_curb_lines_shared_axis_shared_axis_method"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "C:\\AI\\ParkingUSA\\artifacts\\miami-dade-coverage-boundary.png"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
