@@ -1171,6 +1171,20 @@ function directionFromAngle(angle: number) {
   return { x: Math.cos(angle), y: Math.sin(angle) };
 }
 
+function parkingSpaceGroupingZone(feature: GeoJSONFeature) {
+  const properties = feature.properties;
+  const directZone = stringValue(properties.parkmobile_zone).trim() || stringValue(properties.ParkMobile).trim();
+  if (directZone) return directZone;
+
+  const rawProperties = properties.raw_properties;
+  if (rawProperties && typeof rawProperties === 'object' && !Array.isArray(rawProperties)) {
+    const rawZone = stringValue((rawProperties as Record<string, unknown>).ParkMobile).trim();
+    if (rawZone) return rawZone;
+  }
+
+  return '__unscoped__';
+}
+
 export function deriveParkingSpacePointLines(features: GeoJSONFeature[]): GeoJSONFeature[] {
   const points = features
     .map((feature, index) => {
@@ -1297,7 +1311,8 @@ export function deriveParkingSpacePointLines(features: GeoJSONFeature[]): GeoJSO
 
     const angleKey = Math.round((normalizeOrientationAngle(angle) * 180) / Math.PI / 5);
     const acrossKey = Math.round(point.across / rowBandMeters);
-    const key = `${angleKey}:${acrossKey}`;
+    const zoneKey = parkingSpaceGroupingZone(point.feature);
+    const key = `${zoneKey}:${angleKey}:${acrossKey}`;
     groups.set(key, [...(groups.get(key) ?? []), point]);
   }
 
@@ -1309,7 +1324,9 @@ export function deriveParkingSpacePointLines(features: GeoJSONFeature[]): GeoJSO
 
     for (const point of ordered) {
       const previous = chunk[chunk.length - 1];
-      if (previous && (point.along ?? 0) - (previous.along ?? 0) > maxRowGapMeters) {
+      const alongGap = previous ? (point.along ?? 0) - (previous.along ?? 0) : 0;
+      const directGap = previous ? Math.hypot(point.x - previous.x, point.y - previous.y) : 0;
+      if (previous && (alongGap > maxRowGapMeters || directGap > maxRowGapMeters)) {
         if (chunk.length >= 2) {
           rowFeatures.push(rowLineFeature(chunk, chunk[0].angle ?? 0, lngScale));
         } else {
@@ -1506,7 +1523,14 @@ export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSO
       ...roadLinesFromCollection(coverageLines),
       ...roadLinesFromCollection(geometryReference),
     ],
-    parkingAreas: parkingAreaCollections.flatMap((collection) => areasFromCollection(collection)),
+    parkingAreas: parkingAreaCollections.flatMap((collection) =>
+      collection
+        ? areasFromCollection({
+            ...collection,
+            features: collection.features.filter(isParkingAreaPolygonFeature),
+          })
+        : []
+    ),
     buildings: areasFromCollection(geometryReference),
   };
 
