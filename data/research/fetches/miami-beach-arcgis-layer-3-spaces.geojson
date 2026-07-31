@@ -144592,13 +144592,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "LX04011CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "7X",
-        "ParkMobile": "88525",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -144606,7 +144606,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1671626732000
+        "last_edited_date": 1784111142000
       }
     },
     {
@@ -151056,13 +151056,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "PA16030CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 16,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "3X",
-        "ParkMobile": "88507",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -151070,7 +151070,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1651244986000
+        "last_edited_date": 1784199833000
       }
     },
     {
@@ -161392,21 +161392,21 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "CL02023CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 5,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "7X",
-        "ParkMobile": "88525",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
         "Status": null,
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
-        "last_edited_user": "PINGCECS",
-        "last_edited_date": 1586972681000
+        "last_edited_user": "",
+        "last_edited_date": 1784111142000
       }
     },
     {
@@ -161424,21 +161424,21 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "CL02025CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 5,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "7X",
-        "ParkMobile": "88525",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
         "Status": null,
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
-        "last_edited_user": "PINGCECS",
-        "last_edited_date": 1586972677000
+        "last_edited_user": "",
+        "last_edited_date": 1784111142000
       }
     },
     {
@@ -162192,21 +162192,21 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "0607022CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 5,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "2X",
-        "ParkMobile": "88503",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
         "Status": 1,
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
-        "last_edited_user": null,
-        "last_edited_date": null
+        "last_edited_user": "",
+        "last_edited_date": 1784199724000
       }
     },
     {
@@ -162608,13 +162608,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "EU05003CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "2X",
-        "ParkMobile": "88503",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -162622,7 +162622,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1677685768000
+        "last_edited_date": 1784199724000
       }
     },
     {
@@ -162640,13 +162640,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "EU05005CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "2X",
-        "ParkMobile": "88503",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -162654,7 +162654,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1677685794000
+        "last_edited_date": 1784199724000
       }
     },
     {
@@ -162928,13 +162928,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "JF05004CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "2X",
-        "ParkMobile": "88503",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -162942,7 +162942,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1706795451000
+        "last_edited_date": 1784199724000
       }
     },
     {
@@ -190128,13 +190128,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "0202008CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "7X",
-        "ParkMobile": "88525",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": "City",
@@ -190142,7 +190142,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1706794799000
+        "last_edited_date": 1784111142000
       }
     },
     {
@@ -190160,13 +190160,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "0202006CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "7X",
-        "ParkMobile": "88525",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": "City",
@@ -190174,7 +190174,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1706794798000
+        "last_edited_date": 1784111142000
       }
     },
     {
@@ -190192,13 +190192,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "0202004CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "7X",
-        "ParkMobile": "88525",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": "City",
@@ -190206,7 +190206,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1706794798000
+        "last_edited_date": 1784111142000
       }
     },
     {
@@ -190384,13 +190384,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "0202010CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "7X",
-        "ParkMobile": "88525",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": "City",
@@ -190398,7 +190398,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1706794801000
+        "last_edited_date": 1784111142000
       }
     },
     {
@@ -197616,13 +197616,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "0702002CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 3,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "24hrs",
         "Num_Space": null,
         "MtrCollect": "1X",
-        "ParkMobile": "88901",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -197630,7 +197630,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1655894502000
+        "last_edited_date": 1784111270000
       }
     },
     {
@@ -247536,13 +247536,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "JF16031CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 5,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "4X",
-        "ParkMobile": "88509",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -247550,7 +247550,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1666695966000
+        "last_edited_date": 1784112624000
       }
     },
     {
@@ -248624,13 +248624,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "OD14015CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "24hrs",
         "Num_Space": null,
         "MtrCollect": "7A",
-        "ParkMobile": "88526",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -248638,7 +248638,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1727355387000
+        "last_edited_date": 1784111270000
       }
     },
     {
@@ -248656,13 +248656,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "OD14017CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "24hrs",
         "Num_Space": null,
         "MtrCollect": "7A",
-        "ParkMobile": "88526",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -248670,7 +248670,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
         "last_edited_user": "",
-        "last_edited_date": 1727355397000
+        "last_edited_date": 1784111270000
       }
     },
     {
@@ -287344,21 +287344,21 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "ES05001CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 5,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "2X",
-        "ParkMobile": "88503",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
         "Status": null,
         "created_user": "Samuel Cecere",
         "created_date": 1497398400000,
-        "last_edited_user": null,
-        "last_edited_date": null
+        "last_edited_user": "",
+        "last_edited_date": 1784111270000
       }
     },
     {
@@ -316080,13 +316080,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "EU05007CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "2X",
-        "ParkMobile": "88503",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -316094,7 +316094,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1511308800000,
         "last_edited_user": "",
-        "last_edited_date": 1677685815000
+        "last_edited_date": 1784199724000
       }
     },
     {
@@ -316112,13 +316112,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "EU05009CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "2X",
-        "ParkMobile": "88503",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -316126,7 +316126,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1511308800000,
         "last_edited_user": "",
-        "last_edited_date": 1677685828000
+        "last_edited_date": 1784199724000
       }
     },
     {
@@ -316144,13 +316144,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "EU05011CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "2X",
-        "ParkMobile": "88503",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -316158,7 +316158,7 @@
         "created_user": "Samuel Cecere",
         "created_date": 1511308800000,
         "last_edited_user": "",
-        "last_edited_date": 1677685840000
+        "last_edited_date": 1784199724000
       }
     },
     {
@@ -328619,13 +328619,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "PA16032CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 16,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "3X",
-        "ParkMobile": "88507",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -328633,7 +328633,7 @@
         "created_user": null,
         "created_date": null,
         "last_edited_user": "",
-        "last_edited_date": 1651244996000
+        "last_edited_date": 1784199833000
       }
     },
     {
@@ -328651,13 +328651,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "JF16033CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 5,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/hr",
         "ENFORCEMENT_TIME": "9am-3am",
         "Num_Space": null,
         "MtrCollect": "4X",
-        "ParkMobile": "88509",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -328665,7 +328665,7 @@
         "created_user": null,
         "created_date": null,
         "last_edited_user": "",
-        "last_edited_date": 1666695980000
+        "last_edited_date": 1784112624000
       }
     },
     {
@@ -340491,13 +340491,13 @@
         "TYPE": "COMMERCIAL LOAD",
         "SPACE_NUMBER": "LX04013CLZ",
         "RENTAL_TYPE": null,
-        "Zone_Time": 1,
+        "Zone_Time": 4,
         "METER_TYPE": 2,
         "METER_RATES": "$4/HR",
         "ENFORCEMENT_TIME": "9AM-3AM",
         "Num_Space": null,
         "MtrCollect": "7X",
-        "ParkMobile": "88525",
+        "ParkMobile": "88910",
         "HANDICAPPED_METERED": null,
         "MAXTIME": null,
         "Ownership": null,
@@ -340505,7 +340505,7 @@
         "created_user": "",
         "created_date": 1671626443000,
         "last_edited_user": "",
-        "last_edited_date": 1671626743000
+        "last_edited_date": 1784111142000
       }
     },
     {

@@ -1,0 +1,1403 @@
+{
+  "generatedAt": "2026-07-16T14:20:49.208Z",
+  "city": "Miami / Miami Beach / Miami-Dade fallback scope",
+  "method": "read_only_polygon_geometry_semantics_overlap_audit",
+  "thresholds": {
+    "nearZeroAreaM2": 1,
+    "unusuallyLargePolygonM2": 1000000,
+    "boundaryCheck": "all polygon vertices must be inside Miami-Dade boundary"
+  },
+  "sourceSummary": [
+    {
+      "path": "data/miami_beach_parking_arcgis_lots.geojson",
+      "featureCount": 75,
+      "polygonRecordCount": 75,
+      "geometryTypes": {
+        "Polygon": 75
+      },
+      "complete": null,
+      "reviewOnly": null,
+      "generatedAt": "2026-07-15T09:53:52.182Z"
+    },
+    {
+      "path": "data/miami_beach_parking_arcgis_zones.geojson",
+      "featureCount": 458,
+      "polygonRecordCount": 457,
+      "geometryTypes": {
+        "Polygon": 456,
+        "MultiPolygon": 1,
+        "null": 1
+      },
+      "complete": null,
+      "reviewOnly": null,
+      "generatedAt": "2026-07-15T09:53:56.149Z"
+    },
+    {
+      "path": "data/miami_beach_parking_arcgis_lots_zones.geojson",
+      "featureCount": 532,
+      "polygonRecordCount": 532,
+      "geometryTypes": {
+        "Polygon": 531,
+        "MultiPolygon": 1
+      },
+      "complete": null,
+      "reviewOnly": null,
+      "generatedAt": "2026-07-15T09:53:56.191Z"
+    },
+    {
+      "path": "data/miami_parking_osm.geojson",
+      "featureCount": 2076,
+      "polygonRecordCount": 0,
+      "geometryTypes": {
+        "Point": 2076
+      },
+      "complete": false,
+      "reviewOnly": true,
+      "generatedAt": null
+    }
+  ],
+  "semanticSummary": {
+    "physicalFacilityFootprints": 75,
+    "regulatoryResidentialZones": 457,
+    "osmPolygonCandidates": 0,
+    "note": "ArcGIS layer 7 is a regulatory/residential rule layer, not evidence that the whole polygon is parkable. OSM fallback currently contains points only, so polygon coverage is absent there."
+  },
+  "geometrySummary": {
+    "polygonRecords": 532,
+    "invalidOrDegenerate": 0,
+    "zeroOrNearZeroArea": 0,
+    "outsideBoundary": 0
+  },
+  "exportConsistency": {
+    "canonicalLayer5And7Records": 532,
+    "combinedExportRecords": 532,
+    "missingFromCombined": [],
+    "extraInCombined": []
+  },
+  "overlapSummary": {
+    "regulatoryZonesOverlappingPhysicalLots": 39,
+    "examples": [
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:163",
+        "lotSourceId": "miami-beach:arcgis:lots:13",
+        "zoneName": "Miami Beach Residential Zone-5",
+        "lotName": "P16",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 25578,
+        "lotAreaM2": 1941
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:175",
+        "lotSourceId": "miami-beach:arcgis:lots:13",
+        "zoneName": "Miami Beach Residential Zone-5",
+        "lotName": "P16",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 1953,
+        "lotAreaM2": 1941
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:177",
+        "lotSourceId": "miami-beach:arcgis:lots:14",
+        "zoneName": "Miami Beach Residential Zone-5",
+        "lotName": "G3",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 2469,
+        "lotAreaM2": 2063
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:177",
+        "lotSourceId": "miami-beach:arcgis:lots:74",
+        "zoneName": "Miami Beach Residential Zone-5",
+        "lotName": "P17",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 2469,
+        "lotAreaM2": 698
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:182",
+        "lotSourceId": "miami-beach:arcgis:lots:33",
+        "zoneName": "Miami Beach Residential Zone-6",
+        "lotName": "P55",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 759,
+        "lotAreaM2": 4307
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:211",
+        "lotSourceId": "miami-beach:arcgis:lots:36",
+        "zoneName": "Miami Beach Residential Zone-9",
+        "lotName": "P61",
+        "zoneTypeCode": 6,
+        "zoneAreaM2": 3913,
+        "lotAreaM2": 1339
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:259",
+        "lotSourceId": "miami-beach:arcgis:lots:21",
+        "zoneName": "Miami Beach Residential Zone-12",
+        "lotName": "P23",
+        "zoneTypeCode": 1,
+        "zoneAreaM2": 2945,
+        "lotAreaM2": 2117
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:280",
+        "lotSourceId": "miami-beach:arcgis:lots:62",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P109",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 522,
+        "lotAreaM2": 4664
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:284",
+        "lotSourceId": "miami-beach:arcgis:lots:65",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P112",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 371,
+        "lotAreaM2": 561
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:286",
+        "lotSourceId": "miami-beach:arcgis:lots:63",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P111",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 862,
+        "lotAreaM2": 4926
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:290",
+        "lotSourceId": "miami-beach:arcgis:lots:61",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P108",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 936,
+        "lotAreaM2": 4609
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:299",
+        "lotSourceId": "miami-beach:arcgis:lots:60",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P107",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 4245,
+        "lotAreaM2": 3668
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:300",
+        "lotSourceId": "miami-beach:arcgis:lots:61",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P108",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 4509,
+        "lotAreaM2": 4609
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:301",
+        "lotSourceId": "miami-beach:arcgis:lots:62",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P109",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 4722,
+        "lotAreaM2": 4664
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:302",
+        "lotSourceId": "miami-beach:arcgis:lots:63",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P111",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 4552,
+        "lotAreaM2": 4926
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:303",
+        "lotSourceId": "miami-beach:arcgis:lots:65",
+        "zoneName": "Miami Beach Residential Zone-15",
+        "lotName": "P112",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 582,
+        "lotAreaM2": 561
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:305",
+        "lotSourceId": "miami-beach:arcgis:lots:8",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "P11",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 727,
+        "lotAreaM2": 828
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:308",
+        "lotSourceId": "miami-beach:arcgis:lots:73",
+        "zoneName": "Miami Beach Residential Zone-3",
+        "lotName": "P10",
+        "zoneTypeCode": 7,
+        "zoneAreaM2": 2780,
+        "lotAreaM2": 4980
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:316",
+        "lotSourceId": "miami-beach:arcgis:lots:21",
+        "zoneName": "Miami Beach Residential Zone-12",
+        "lotName": "P23",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 1977,
+        "lotAreaM2": 2117
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:322",
+        "lotSourceId": "miami-beach:arcgis:lots:27",
+        "zoneName": "Miami Beach Residential Zone-17",
+        "lotName": "P33",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 1125,
+        "lotAreaM2": 1126
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:336",
+        "lotSourceId": "miami-beach:arcgis:lots:31",
+        "zoneName": "Miami Beach Residential Zone-4",
+        "lotName": "P48",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 1590,
+        "lotAreaM2": 1567
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:337",
+        "lotSourceId": "miami-beach:arcgis:lots:30",
+        "zoneName": "Miami Beach Residential Zone-4",
+        "lotName": "P49",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 5473,
+        "lotAreaM2": 15579
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:365",
+        "lotSourceId": "miami-beach:arcgis:lots:18",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "P20",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 1850,
+        "lotAreaM2": 2027
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:366",
+        "lotSourceId": "miami-beach:arcgis:lots:17",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "P19",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 1642,
+        "lotAreaM2": 662
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:367",
+        "lotSourceId": "miami-beach:arcgis:lots:16",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "P18",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 1638,
+        "lotAreaM2": 1440
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:371",
+        "lotSourceId": "miami-beach:arcgis:lots:11",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "G2",
+        "zoneTypeCode": 1,
+        "zoneAreaM2": 1009,
+        "lotAreaM2": 6189
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:381",
+        "lotSourceId": "miami-beach:arcgis:lots:73",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "P10",
+        "zoneTypeCode": 1,
+        "zoneAreaM2": 1056,
+        "lotAreaM2": 4980
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:385",
+        "lotSourceId": "miami-beach:arcgis:lots:13",
+        "zoneName": "Miami Beach Residential Zone-5",
+        "lotName": "P16",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 1941,
+        "lotAreaM2": 1941
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:386",
+        "lotSourceId": "miami-beach:arcgis:lots:14",
+        "zoneName": "Miami Beach Residential Zone-5",
+        "lotName": "G3",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 2063,
+        "lotAreaM2": 2063
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:388",
+        "lotSourceId": "miami-beach:arcgis:lots:27",
+        "zoneName": "Miami Beach Residential Zone-17",
+        "lotName": "P33",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 1536,
+        "lotAreaM2": 1126
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:389",
+        "lotSourceId": "miami-beach:arcgis:lots:73",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "P10",
+        "zoneTypeCode": 7,
+        "zoneAreaM2": 2780,
+        "lotAreaM2": 4980
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:390",
+        "lotSourceId": "miami-beach:arcgis:lots:73",
+        "zoneName": "Miami Beach Residential Zone-3",
+        "lotName": "P10",
+        "zoneTypeCode": 1,
+        "zoneAreaM2": 1056,
+        "lotAreaM2": 4980
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:391",
+        "lotSourceId": "miami-beach:arcgis:lots:12",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "P9",
+        "zoneTypeCode": 7,
+        "zoneAreaM2": 2292,
+        "lotAreaM2": 4564
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:392",
+        "lotSourceId": "miami-beach:arcgis:lots:12",
+        "zoneName": "Miami Beach Residential Zone-2",
+        "lotName": "P9",
+        "zoneTypeCode": 7,
+        "zoneAreaM2": 2292,
+        "lotAreaM2": 4564
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:395",
+        "lotSourceId": "miami-beach:arcgis:lots:5",
+        "zoneName": "Miami Beach Residential Zone 1A Ocean Drive",
+        "lotName": "P3",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 2643,
+        "lotAreaM2": 530
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:398",
+        "lotSourceId": "miami-beach:arcgis:lots:4",
+        "zoneName": "Miami Beach Residential Zone 1A Ocean Drive",
+        "lotName": "P4",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 17696,
+        "lotAreaM2": 1232
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:434",
+        "lotSourceId": "miami-beach:arcgis:lots:5",
+        "zoneName": "Miami Beach Residential Zone 1 South Pointe",
+        "lotName": "P3",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 2643,
+        "lotAreaM2": 530
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:437",
+        "lotSourceId": "miami-beach:arcgis:lots:4",
+        "zoneName": "Miami Beach Residential Zone 1 South Pointe",
+        "lotName": "P4",
+        "zoneTypeCode": 2,
+        "zoneAreaM2": 17696,
+        "lotAreaM2": 1232
+      },
+      {
+        "zoneSourceId": "miami-beach:arcgis:zones:457",
+        "lotSourceId": "miami-beach:arcgis:lots:22",
+        "zoneName": "Miami Beach Residential Zone-12",
+        "lotName": "P24",
+        "zoneTypeCode": 4,
+        "zoneAreaM2": 1957,
+        "lotAreaM2": 1957
+      }
+    ]
+  },
+  "findingSummary": {
+    "high": 0,
+    "medium": 83,
+    "low": 0,
+    "byCode": {
+      "regulatory_zone_missing_upstream_rule_field": 1,
+      "duplicate_geometry": 43,
+      "regulatory_zone_overlaps_physical_lot": 39
+    }
+  },
+  "findings": [
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_missing_upstream_rule_field",
+      "sourceId": "miami-beach:arcgis:zones:456",
+      "missingFields": [
+        "RESTRICTED_RES_TIME"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:lots:13",
+        "miami-beach:arcgis:zones:385"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_lots",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:lots:14",
+        "miami-beach:arcgis:zones:386"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_lots",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:308",
+        "miami-beach:arcgis:zones:389"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:381",
+        "miami-beach:arcgis:zones:390"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:1",
+        "miami-beach:arcgis:zones:412"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:2",
+        "miami-beach:arcgis:zones:413"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:3",
+        "miami-beach:arcgis:zones:414"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:4",
+        "miami-beach:arcgis:zones:415"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:5",
+        "miami-beach:arcgis:zones:416"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:6",
+        "miami-beach:arcgis:zones:417"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:7",
+        "miami-beach:arcgis:zones:420"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:8",
+        "miami-beach:arcgis:zones:421"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:9",
+        "miami-beach:arcgis:zones:422"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:10",
+        "miami-beach:arcgis:zones:423"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:219",
+        "miami-beach:arcgis:zones:426"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:220",
+        "miami-beach:arcgis:zones:427"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:309",
+        "miami-beach:arcgis:zones:428"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:310",
+        "miami-beach:arcgis:zones:429"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:332",
+        "miami-beach:arcgis:zones:430"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:373",
+        "miami-beach:arcgis:zones:431"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:393",
+        "miami-beach:arcgis:zones:432"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:394",
+        "miami-beach:arcgis:zones:433"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:395",
+        "miami-beach:arcgis:zones:434"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:396",
+        "miami-beach:arcgis:zones:435"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:397",
+        "miami-beach:arcgis:zones:436"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:398",
+        "miami-beach:arcgis:zones:437"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:399",
+        "miami-beach:arcgis:zones:438"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:400",
+        "miami-beach:arcgis:zones:439"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:401",
+        "miami-beach:arcgis:zones:440"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:402",
+        "miami-beach:arcgis:zones:441"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:403",
+        "miami-beach:arcgis:zones:442"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:404",
+        "miami-beach:arcgis:zones:443"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:405",
+        "miami-beach:arcgis:zones:444"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:406",
+        "miami-beach:arcgis:zones:445"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:407",
+        "miami-beach:arcgis:zones:446"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:408",
+        "miami-beach:arcgis:zones:447"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:409",
+        "miami-beach:arcgis:zones:448"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:410",
+        "miami-beach:arcgis:zones:449"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:411",
+        "miami-beach:arcgis:zones:450"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:418",
+        "miami-beach:arcgis:zones:451"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:419",
+        "miami-beach:arcgis:zones:452"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:424",
+        "miami-beach:arcgis:zones:453"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "duplicate_geometry",
+      "sourceIds": [
+        "miami-beach:arcgis:zones:425",
+        "miami-beach:arcgis:zones:454"
+      ],
+      "inputIds": [
+        "miami_beach_arcgis_zones",
+        "miami_beach_arcgis_zones"
+      ]
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:163",
+      "lotSourceId": "miami-beach:arcgis:lots:13",
+      "zoneName": "Miami Beach Residential Zone-5",
+      "lotName": "P16",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 25578,
+      "lotAreaM2": 1941
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:175",
+      "lotSourceId": "miami-beach:arcgis:lots:13",
+      "zoneName": "Miami Beach Residential Zone-5",
+      "lotName": "P16",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 1953,
+      "lotAreaM2": 1941
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:177",
+      "lotSourceId": "miami-beach:arcgis:lots:14",
+      "zoneName": "Miami Beach Residential Zone-5",
+      "lotName": "G3",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 2469,
+      "lotAreaM2": 2063
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:177",
+      "lotSourceId": "miami-beach:arcgis:lots:74",
+      "zoneName": "Miami Beach Residential Zone-5",
+      "lotName": "P17",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 2469,
+      "lotAreaM2": 698
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:182",
+      "lotSourceId": "miami-beach:arcgis:lots:33",
+      "zoneName": "Miami Beach Residential Zone-6",
+      "lotName": "P55",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 759,
+      "lotAreaM2": 4307
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:211",
+      "lotSourceId": "miami-beach:arcgis:lots:36",
+      "zoneName": "Miami Beach Residential Zone-9",
+      "lotName": "P61",
+      "zoneTypeCode": 6,
+      "zoneAreaM2": 3913,
+      "lotAreaM2": 1339
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:259",
+      "lotSourceId": "miami-beach:arcgis:lots:21",
+      "zoneName": "Miami Beach Residential Zone-12",
+      "lotName": "P23",
+      "zoneTypeCode": 1,
+      "zoneAreaM2": 2945,
+      "lotAreaM2": 2117
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:280",
+      "lotSourceId": "miami-beach:arcgis:lots:62",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P109",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 522,
+      "lotAreaM2": 4664
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:284",
+      "lotSourceId": "miami-beach:arcgis:lots:65",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P112",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 371,
+      "lotAreaM2": 561
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:286",
+      "lotSourceId": "miami-beach:arcgis:lots:63",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P111",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 862,
+      "lotAreaM2": 4926
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:290",
+      "lotSourceId": "miami-beach:arcgis:lots:61",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P108",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 936,
+      "lotAreaM2": 4609
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:299",
+      "lotSourceId": "miami-beach:arcgis:lots:60",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P107",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 4245,
+      "lotAreaM2": 3668
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:300",
+      "lotSourceId": "miami-beach:arcgis:lots:61",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P108",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 4509,
+      "lotAreaM2": 4609
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:301",
+      "lotSourceId": "miami-beach:arcgis:lots:62",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P109",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 4722,
+      "lotAreaM2": 4664
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:302",
+      "lotSourceId": "miami-beach:arcgis:lots:63",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P111",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 4552,
+      "lotAreaM2": 4926
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:303",
+      "lotSourceId": "miami-beach:arcgis:lots:65",
+      "zoneName": "Miami Beach Residential Zone-15",
+      "lotName": "P112",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 582,
+      "lotAreaM2": 561
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:305",
+      "lotSourceId": "miami-beach:arcgis:lots:8",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "P11",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 727,
+      "lotAreaM2": 828
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:308",
+      "lotSourceId": "miami-beach:arcgis:lots:73",
+      "zoneName": "Miami Beach Residential Zone-3",
+      "lotName": "P10",
+      "zoneTypeCode": 7,
+      "zoneAreaM2": 2780,
+      "lotAreaM2": 4980
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:316",
+      "lotSourceId": "miami-beach:arcgis:lots:21",
+      "zoneName": "Miami Beach Residential Zone-12",
+      "lotName": "P23",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 1977,
+      "lotAreaM2": 2117
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:322",
+      "lotSourceId": "miami-beach:arcgis:lots:27",
+      "zoneName": "Miami Beach Residential Zone-17",
+      "lotName": "P33",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 1125,
+      "lotAreaM2": 1126
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:336",
+      "lotSourceId": "miami-beach:arcgis:lots:31",
+      "zoneName": "Miami Beach Residential Zone-4",
+      "lotName": "P48",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 1590,
+      "lotAreaM2": 1567
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:337",
+      "lotSourceId": "miami-beach:arcgis:lots:30",
+      "zoneName": "Miami Beach Residential Zone-4",
+      "lotName": "P49",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 5473,
+      "lotAreaM2": 15579
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:365",
+      "lotSourceId": "miami-beach:arcgis:lots:18",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "P20",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 1850,
+      "lotAreaM2": 2027
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:366",
+      "lotSourceId": "miami-beach:arcgis:lots:17",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "P19",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 1642,
+      "lotAreaM2": 662
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:367",
+      "lotSourceId": "miami-beach:arcgis:lots:16",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "P18",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 1638,
+      "lotAreaM2": 1440
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:371",
+      "lotSourceId": "miami-beach:arcgis:lots:11",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "G2",
+      "zoneTypeCode": 1,
+      "zoneAreaM2": 1009,
+      "lotAreaM2": 6189
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:381",
+      "lotSourceId": "miami-beach:arcgis:lots:73",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "P10",
+      "zoneTypeCode": 1,
+      "zoneAreaM2": 1056,
+      "lotAreaM2": 4980
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:385",
+      "lotSourceId": "miami-beach:arcgis:lots:13",
+      "zoneName": "Miami Beach Residential Zone-5",
+      "lotName": "P16",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 1941,
+      "lotAreaM2": 1941
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:386",
+      "lotSourceId": "miami-beach:arcgis:lots:14",
+      "zoneName": "Miami Beach Residential Zone-5",
+      "lotName": "G3",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 2063,
+      "lotAreaM2": 2063
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:388",
+      "lotSourceId": "miami-beach:arcgis:lots:27",
+      "zoneName": "Miami Beach Residential Zone-17",
+      "lotName": "P33",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 1536,
+      "lotAreaM2": 1126
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:389",
+      "lotSourceId": "miami-beach:arcgis:lots:73",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "P10",
+      "zoneTypeCode": 7,
+      "zoneAreaM2": 2780,
+      "lotAreaM2": 4980
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:390",
+      "lotSourceId": "miami-beach:arcgis:lots:73",
+      "zoneName": "Miami Beach Residential Zone-3",
+      "lotName": "P10",
+      "zoneTypeCode": 1,
+      "zoneAreaM2": 1056,
+      "lotAreaM2": 4980
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:391",
+      "lotSourceId": "miami-beach:arcgis:lots:12",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "P9",
+      "zoneTypeCode": 7,
+      "zoneAreaM2": 2292,
+      "lotAreaM2": 4564
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:392",
+      "lotSourceId": "miami-beach:arcgis:lots:12",
+      "zoneName": "Miami Beach Residential Zone-2",
+      "lotName": "P9",
+      "zoneTypeCode": 7,
+      "zoneAreaM2": 2292,
+      "lotAreaM2": 4564
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:395",
+      "lotSourceId": "miami-beach:arcgis:lots:5",
+      "zoneName": "Miami Beach Residential Zone 1A Ocean Drive",
+      "lotName": "P3",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 2643,
+      "lotAreaM2": 530
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:398",
+      "lotSourceId": "miami-beach:arcgis:lots:4",
+      "zoneName": "Miami Beach Residential Zone 1A Ocean Drive",
+      "lotName": "P4",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 17696,
+      "lotAreaM2": 1232
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:434",
+      "lotSourceId": "miami-beach:arcgis:lots:5",
+      "zoneName": "Miami Beach Residential Zone 1 South Pointe",
+      "lotName": "P3",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 2643,
+      "lotAreaM2": 530
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:437",
+      "lotSourceId": "miami-beach:arcgis:lots:4",
+      "zoneName": "Miami Beach Residential Zone 1 South Pointe",
+      "lotName": "P4",
+      "zoneTypeCode": 2,
+      "zoneAreaM2": 17696,
+      "lotAreaM2": 1232
+    },
+    {
+      "severity": "medium",
+      "code": "regulatory_zone_overlaps_physical_lot",
+      "zoneSourceId": "miami-beach:arcgis:zones:457",
+      "lotSourceId": "miami-beach:arcgis:lots:22",
+      "zoneName": "Miami Beach Residential Zone-12",
+      "lotName": "P24",
+      "zoneTypeCode": 4,
+      "zoneAreaM2": 1957,
+      "lotAreaM2": 1957
+    }
+  ],
+  "limitations": [
+    "This audit checks local fallback fixtures and does not claim live PostGIS completeness.",
+    "The current Miami OSM fallback has zero polygon features and metadata complete=false with failed tiles; OSM zones outside official Miami Beach polygons remain unaudited.",
+    "Overlap detection is planar and conservative; it identifies intersections and duplicates but does not replace parcel-level or field verification."
+  ]
+}

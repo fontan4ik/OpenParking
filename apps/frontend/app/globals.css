@@ -3753,6 +3753,113 @@ body:has(.landing-page) {
   overflow: hidden;
 }
 
+.parking-assistant {
+  position: absolute;
+  right: 20px;
+  bottom: 22px;
+  z-index: 14;
+}
+
+.parking-assistant-trigger,
+.parking-assistant-voice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-accent);
+  border-radius: 50%;
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+.parking-assistant-trigger {
+  width: 44px;
+  height: 44px;
+  backdrop-filter: blur(14px);
+}
+
+.parking-assistant-trigger svg,
+.parking-assistant-voice svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.parking-assistant-trigger:hover,
+.parking-assistant-trigger:focus-visible,
+.parking-assistant-voice:hover,
+.parking-assistant-voice:focus-visible {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  outline: 3px solid var(--accent-blue-glow);
+  outline-offset: 2px;
+}
+
+.parking-assistant-panel {
+  width: min(344px, calc(100vw - 40px));
+  display: grid;
+  gap: 10px;
+  position: absolute;
+  right: 0;
+  bottom: 54px;
+  padding: 14px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--bg-secondary) 92%, transparent);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(18px);
+}
+
+.parking-assistant-heading,
+.parking-assistant-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.parking-assistant-heading { justify-content: space-between; }
+.parking-assistant-heading > div { display: grid; gap: 2px; }
+.parking-assistant-heading strong { font-size: 13px; }
+.parking-assistant-heading span { color: var(--text-muted); font-size: 10px; line-height: 1.35; }
+.parking-assistant-local { padding: 3px 6px; border-radius: 999px; background: color-mix(in srgb, var(--accent-emerald) 15%, transparent); color: var(--accent-emerald) !important; font-weight: 700; }
+
+.parking-assistant-form input {
+  min-width: 0;
+  flex: 1;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 12px;
+}
+
+.parking-assistant-form input:focus { border-color: var(--accent-blue); outline: none; }
+.parking-assistant-voice { width: 38px; height: 38px; flex: 0 0 auto; }
+.parking-assistant-send { min-height: 38px; padding: 0 10px; border: 0; border-radius: var(--radius-sm); background: var(--accent-blue); color: #fff; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; }
+.parking-assistant-send:disabled { cursor: wait; opacity: .65; }
+.parking-assistant-status, .parking-assistant-error, .parking-assistant-reply { margin: 0; font-size: 11px; line-height: 1.45; }
+.parking-assistant-status { color: var(--text-muted); }
+.parking-assistant-error { color: var(--accent-red); }
+.parking-assistant-reply { color: var(--text-secondary); }
+.parking-assistant-recommendations { display: grid; gap: 6px; }
+.parking-assistant-recommendations button { display: grid; gap: 2px; padding: 9px; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-primary); text-align: left; cursor: pointer; }
+.parking-assistant-recommendations button:hover, .parking-assistant-recommendations button:focus-visible { border-color: var(--border-accent); background: var(--bg-card-hover); outline: none; }
+.parking-assistant-recommendations strong { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.parking-assistant-recommendations span { color: var(--accent-emerald); font-size: 10px; }
+.parking-assistant-recommendations small { color: var(--text-muted); font-size: 9px; }
+
+@media (max-width: 900px) {
+  .parking-assistant { right: 14px; bottom: 18px; }
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;

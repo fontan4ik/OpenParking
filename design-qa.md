@@ -13,13 +13,13 @@
 **Full-View Comparison Evidence**
 
 - The source showed adjacent curb segments changing direction noticeably along Washington Avenue.
-- The implementation shows each curb segment as one two-point straight line, aligned with its nearby longitudinal street segment.
+- The implementation shows road-following multi-vertex curb polylines, aligned with their matched road geometry.
 - Layer controls, map tiles, labels, points, zones, and the existing sidebar remain rendered without overlap introduced by this change.
 
 **Focused Region Comparison Evidence**
 
 - Washington Avenue and the east-west streets around 5th-8th Street were inspected at street zoom.
-- Vertical curb segments remain straight and parallel to the avenue; horizontal segments remain straight and parallel to cross streets.
+- Curb polylines follow the avenue and cross-street road geometry, with each consecutive segment checked for parallelism and offset.
 - No focused typography or asset comparison was needed because this change does not alter UI text, fonts, icons, imagery, spacing, colors, or controls.
 
 **Findings**
@@ -43,11 +43,11 @@
 - Post-fix evidence: `Parking Spaces 10863` is no longer published as one 61-meter line. Valid pieces remain on either side as `10870`, `10867`, and `10865`; the former long Alton Road row is split into `7255` and `7260`. The audit checks 1,010 short candidates, accepts 177, and leaves 833 in review.
 - P1 iteration 4: The partial OSM cache hid roads/buildings, and the first named-street implementation used an entire street-wide axis. On curved Collins Avenue this could move official parking evidence roughly 190 meters.
 - Fix iteration 4: All 16 OSM tiles are now cached (`complete: true`, no failed tiles), named-street axes use only road geometry within 300 meters, and automatic alignment is capped at a 15-meter midpoint shift. Lines that still fail distance/intersection checks remain review-only or suppressed.
-- Final evidence: The live Miami API publishes 897 two-point curb lines: 780 accepted and 117 review-only, with zero malformed geometries. The complete reference contains 7,122 road lines and 15,012 building polygons.
+- Final evidence: The generated Miami geometry report checks 1,848 curb candidates: 1,794 accepted, 53 `needs_field_review`, and 1 suppressed. It includes 252 multi-vertex curb polylines following road centerlines, with each consecutive segment checked for parallelism, offset, distance, and intersections. The complete reference contains 7,122 road lines and 15,012 building polygons.
 
 **Implementation Checklist**
 
-- [x] Enforce exactly two coordinates for displayed Miami curb lines.
+- [x] Enforce road-following multi-vertex curb polylines with per-segment QA.
 - [x] Align generated lines to road orientation before geometry QA.
 - [x] Preserve building and parking-area intersection suppression.
 - [x] Run tests, typecheck, production build, and browser visual QA.

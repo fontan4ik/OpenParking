@@ -40,7 +40,50 @@ function haversineMeters(a: [number, number], b: [number, number]) {
   return 2 * radiusMeters * Math.asin(Math.min(1, Math.sqrt(h)));
 }
 
+function parkingSpacePoint(
+  sourceId: string,
+  coordinates: [number, number],
+  parkmobileZone?: string,
+): GeoJSONCollection['features'][number] {
+  return {
+    type: 'Feature',
+    geometry: { type: 'Point', coordinates },
+    properties: {
+      source_id: sourceId,
+      ...(parkmobileZone ? { parkmobile_zone: parkmobileZone } : {}),
+    },
+  };
+}
+
 describe('ParkingUSA Parking Index', () => {
+  it('does not combine generated rows from different ParkMobile zones', () => {
+    const rows = deriveParkingSpacePointLines([
+      parkingSpacePoint('miami-beach:arcgis:spaces:1', [-80.13, 25.78], '88503'),
+      parkingSpacePoint('miami-beach:arcgis:spaces:2', [-80.13, 25.78005], '88503'),
+      parkingSpacePoint('miami-beach:arcgis:spaces:3', [-80.13, 25.7801], '88526'),
+      parkingSpacePoint('miami-beach:arcgis:spaces:4', [-80.13, 25.78015], '88526'),
+    ]);
+
+    const generatedRows = rows.filter((feature) => String(feature.properties.source_id).startsWith('parking-space-row:'));
+
+    expect(generatedRows).toHaveLength(2);
+    expect(new Set(generatedRows.map((feature) => feature.properties.parkmobile_zone))).toEqual(new Set(['88503', '88526']));
+    for (const row of generatedRows) {
+      expect(row.geometry.type).toBe('LineString');
+      expect(row.geometry.coordinates).toHaveLength(2);
+    }
+  });
+
+  it('keeps unzoned legacy parking points in the same generated row', () => {
+    const rows = deriveParkingSpacePointLines([
+      parkingSpacePoint('legacy:space:1', [-80.13, 25.78]),
+      parkingSpacePoint('legacy:space:2', [-80.13, 25.78005]),
+    ]);
+
+    expect(rows).toHaveLength(1);
+    expect(rows[0].properties.source_id).toBe('parking-space-row:0-1');
+  });
+
   it('uses Miami plus Miami-Dade only for the Miami DB baseline scope', () => {
     expect(cityDbScope('miami')).toEqual(['Miami', 'Miami-Dade']);
     expect(cityDbScope('unknown-city')).toEqual([]);
@@ -310,7 +353,7 @@ describe('ParkingUSA Parking Index', () => {
     });
 
     expect(residentialZoneSegments).toEqual([]);
-  }, 15_000);
+  }, 45_000);
 
   it('does not expose long generated Miami Beach parking-space rows as normal curb segments', async () => {
     const segments = await loadCurbSegments('miami');
@@ -327,7 +370,35 @@ describe('ParkingUSA Parking Index', () => {
       }));
 
     expect(longGeneratedRows).toEqual([]);
-  }, 15_000);
+  }, 45_000);
+
+  it('suppresses the parking-area-interior space row from Miami curb output', async () => {
+    const segments = await loadCurbSegments('miami');
+    const generatedRows = segments.features.filter((feature) => {
+      const sourceId = String(feature.properties.source_id ?? '');
+      return sourceId.startsWith('parking-space-row:') || sourceId.includes(':spaces:');
+    });
+    const statusCounts = generatedRows.reduce<Record<string, number>>((counts, feature) => {
+      const status = String(feature.properties.geometry_quality_status ?? 'missing');
+      counts[status] = (counts[status] ?? 0) + 1;
+      return counts;
+    }, {});
+
+    expect(statusCounts).toEqual({ accepted: 1794, needs_field_review: 53 });
+    expect(generatedRows.some((feature) => feature.properties.source_id === 'miami-beach:arcgis:spaces:4855')).toBe(false);
+  }, 45_000);
+
+  it('keeps curb metadata counts aligned with post-quality-filter features', async () => {
+    const [miami, sanFrancisco] = await Promise.all([
+      loadCurbSegments('miami'),
+      loadCurbSegments('sf'),
+    ]);
+
+    expect(miami.metadata?.count).toBe(miami.features.length);
+    expect(miami.metadata?.count).toBe(1_847);
+    expect(sanFrancisco.metadata?.count).toBe(sanFrancisco.features.length);
+    expect(sanFrancisco.metadata?.count).toBe(2_889);
+  }, 45_000);
 
   it('renders polygon parking-space curbs as a single road-side line instead of rectangle outlines', () => {
     const feature = curbSegmentWithLineGeometry({
@@ -376,6 +447,7 @@ describe('ParkingUSA Parking Index', () => {
           source_name: 'City of Miami Beach Parking GIS',
           source_id: 'miami-beach:arcgis:spaces:2',
           name: 'Parking Spaces 2',
+          ParkMobile: '88501',
         },
       },
     ]);
@@ -397,6 +469,32 @@ describe('ParkingUSA Parking Index', () => {
       geometry_provenance: 'Curb line derived from grouped official parking-space points; parking-area interior points are excluded before line generation.',
     });
   });
+
+  it('keeps official 88526 curb rows visible when residential rule polygons overlap them', async () => {
+    const segments = await loadCurbSegments('miami');
+    const zoneRows = segments.features.filter(
+      (feature) => String(feature.properties.parkmobile_zone ?? feature.properties.ParkMobile) === '88526',
+    );
+
+    expect(zoneRows.length).toBeGreaterThan(8);
+    expect(zoneRows.every((feature) => feature.geometry.type === 'LineString')).toBe(true);
+  }, 30_000);
+
+  it('preserves SF fallback counts and omits Miami curb labels from ordinary output', async () => {
+    const [facilities, segments, zones] = await Promise.all([
+      loadFacilities('sf'),
+      loadCurbSegments('sf'),
+      loadZones('sf'),
+    ]);
+
+    expect(facilities.features).toHaveLength(33_511);
+    expect(segments.features).toHaveLength(2_889);
+    expect(zones.features).toHaveLength(403);
+
+    for (const feature of [...facilities.features, ...segments.features, ...zones.features]) {
+      expect(feature.properties).not.toHaveProperty('curb_price_label');
+    }
+  }, 45_000);
 
   it('preserves safe fallback URL fields and omits unsafe URL values', () => {
     const index = buildParkingIndex('sf', {

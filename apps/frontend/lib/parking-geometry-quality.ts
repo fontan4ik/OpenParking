@@ -46,6 +46,37 @@ function lineCoordinates(geometry: GeoJSONFeature['geometry']): Coordinate[] {
   return geometry.coordinates.map(numberPair).filter((item): item is Coordinate => item !== null);
 }
 
+function isGeneratedCurbRow(feature: GeoJSONFeature) {
+  const sourceId = typeof feature.properties.source_id === 'string'
+    ? feature.properties.source_id.toLowerCase()
+    : '';
+  const provenance = typeof feature.properties.geometry_provenance === 'string'
+    ? feature.properties.geometry_provenance.toLowerCase()
+    : '';
+  const sourceGeometryType = typeof feature.properties.source_geometry_type === 'string'
+    ? feature.properties.source_geometry_type.toLowerCase()
+    : '';
+  return (
+    sourceId.startsWith('parking-space-row:') ||
+    sourceId.includes(':spaces:') ||
+    sourceGeometryType === 'pointcluster' ||
+    provenance.includes('derived from grouped official parking-space points') ||
+    provenance.includes('derived from an official parking-space point')
+  );
+}
+
+function straightReferenceGeometry(feature: GeoJSONFeature): GeoJSONFeature {
+  const coordinates = lineCoordinates(feature.geometry);
+  if (coordinates.length <= 2) return feature;
+  return {
+    ...feature,
+    geometry: {
+      type: 'LineString',
+      coordinates: [coordinates[0], coordinates[coordinates.length - 1]],
+    },
+  };
+}
+
 function ringCoordinates(value: unknown): Coordinate[] {
   if (!Array.isArray(value)) return [];
   const positions = value.map(numberPair).filter((item): item is Coordinate => item !== null);
@@ -415,6 +446,212 @@ export function alignCurbLineToNearestRoad(
   };
 }
 
+function projectOntoPolyline(
+  point: Coordinate,
+  polyline: Coordinate[],
+  referenceLat: number
+): { segmentIndex: number; t: number } | null {
+  if (polyline.length < 2) return null;
+  const pt = project(point, referenceLat);
+  let bestDist = Infinity;
+  let bestIdx = -1;
+  let bestT = 0;
+
+  for (let i = 1; i < polyline.length; i++) {
+    const a = project(polyline[i - 1], referenceLat);
+    const b = project(polyline[i], referenceLat);
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const lenSq = dx * dx + dy * dy;
+    let t = 0;
+    if (lenSq > 0) {
+      t = Math.max(0, Math.min(1, ((pt.x - a.x) * dx + (pt.y - a.y) * dy) / lenSq));
+    }
+    const cx = a.x + t * dx;
+    const cy = a.y + t * dy;
+    const d = Math.hypot(pt.x - cx, pt.y - cy);
+    if (d < bestDist) {
+      bestDist = d;
+      bestIdx = i - 1;
+      bestT = t;
+    }
+  }
+
+  return bestIdx >= 0 ? { segmentIndex: bestIdx, t: bestT } : null;
+}
+
+export function alignCurbLineAlongRoad(
+  feature: GeoJSONFeature,
+  refs: CurbGeometryQualityRefs
+): GeoJSONFeature {
+  const coordinates = lineCoordinates(feature.geometry);
+  if (coordinates.length < 2 || !refs.roads || refs.roads.length === 0) return feature;
+
+  const roadMatch = nearestRoad(coordinates, refs.roads);
+  if (!roadMatch) return feature;
+
+  const start = coordinates[0];
+  const end = coordinates[coordinates.length - 1];
+  const referenceLat = (start[1] + end[1]) / 2;
+  const projectedStart = project(start, referenceLat);
+  const projectedEnd = project(end, referenceLat);
+  const midpoint = {
+    x: (projectedStart.x + projectedEnd.x) / 2,
+    y: (projectedStart.y + projectedEnd.y) / 2,
+  };
+  const sourceMidpoint: Coordinate = [(start[0] + end[0]) / 2, (start[1] + end[1]) / 2];
+
+  const roadLine = refs.roads.find((r) => {
+    const coords = r.coordinates;
+    for (let i = 1; i < coords.length; i++) {
+      if (
+        Math.abs(coords[i - 1][0] - roadMatch.segmentStart[0]) < 1e-10 &&
+        Math.abs(coords[i - 1][1] - roadMatch.segmentStart[1]) < 1e-10 &&
+        Math.abs(coords[i][0] - roadMatch.segmentEnd[0]) < 1e-10 &&
+        Math.abs(coords[i][1] - roadMatch.segmentEnd[1]) < 1e-10
+      ) {
+        return true;
+      }
+    }
+    return false;
+  });
+
+  if (!roadLine || roadLine.coordinates.length < 3) {
+    return alignCurbLineToNearestRoad(feature, refs);
+  }
+
+  const roadCoords = roadLine.coordinates;
+
+  const projStart = projectOntoPolyline(start, roadCoords, referenceLat);
+  const projEnd = projectOntoPolyline(end, roadCoords, referenceLat);
+
+  if (!projStart || !projEnd) {
+    return alignCurbLineToNearestRoad(feature, refs);
+  }
+
+  const streetAxis = roadMatch.name
+    ? namedRoadAxis(roadMatch.name, refs.roads, sourceMidpoint)
+    : null;
+  const roadStartProj = project(roadMatch.segmentStart, referenceLat);
+  const roadEndProj = project(roadMatch.segmentEnd, referenceLat);
+  const localRoadAngle = Math.atan2(
+    roadEndProj.y - roadStartProj.y,
+    roadEndProj.x - roadStartProj.x
+  );
+  const alignmentAngle =
+    streetAxis !== null && angleDeltaDegrees(localRoadAngle, streetAxis.angle) <= 12
+      ? streetAxis.angle
+      : localRoadAngle;
+  const ux = Math.cos(alignmentAngle);
+  const uy = Math.sin(alignmentAngle);
+  const normalX = -uy;
+  const normalY = ux;
+  const localSide =
+    (midpoint.x - roadStartProj.x) * normalX + (midpoint.y - roadStartProj.y) * normalY;
+  const side = localSide < 0 ? -1 : 1;
+  const curbOffsetMeters = 4;
+
+  const rawPoints: { x: number; y: number; segIndex: number }[] = [];
+
+  if (projStart.segmentIndex === projEnd.segmentIndex) {
+    const a = project(roadCoords[projStart.segmentIndex], referenceLat);
+    const b = project(roadCoords[projStart.segmentIndex + 1], referenceLat);
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const t1 = Math.min(projStart.t, projEnd.t);
+    const t2 = Math.max(projStart.t, projEnd.t);
+    rawPoints.push({ x: a.x + t1 * dx, y: a.y + t1 * dy, segIndex: projStart.segmentIndex });
+    rawPoints.push({ x: a.x + t2 * dx, y: a.y + t2 * dy, segIndex: projStart.segmentIndex });
+  } else if (projStart.segmentIndex < projEnd.segmentIndex) {
+    const aStart = project(roadCoords[projStart.segmentIndex], referenceLat);
+    const bStart = project(roadCoords[projStart.segmentIndex + 1], referenceLat);
+    rawPoints.push({
+      x: aStart.x + projStart.t * (bStart.x - aStart.x),
+      y: aStart.y + projStart.t * (bStart.y - aStart.y),
+      segIndex: projStart.segmentIndex,
+    });
+    for (let i = projStart.segmentIndex + 1; i <= projEnd.segmentIndex; i++) {
+      const v = project(roadCoords[i], referenceLat);
+      rawPoints.push({ x: v.x, y: v.y, segIndex: i - 1 });
+    }
+    const aEnd = project(roadCoords[projEnd.segmentIndex], referenceLat);
+    const bEnd = project(roadCoords[projEnd.segmentIndex + 1], referenceLat);
+    rawPoints.push({
+      x: aEnd.x + projEnd.t * (bEnd.x - aEnd.x),
+      y: aEnd.y + projEnd.t * (bEnd.y - aEnd.y),
+      segIndex: projEnd.segmentIndex,
+    });
+  } else {
+    const aStart = project(roadCoords[projEnd.segmentIndex], referenceLat);
+    const bStart = project(roadCoords[projEnd.segmentIndex + 1], referenceLat);
+    rawPoints.push({
+      x: aStart.x + projEnd.t * (bStart.x - aStart.x),
+      y: aStart.y + projEnd.t * (bStart.y - aStart.y),
+      segIndex: projEnd.segmentIndex,
+    });
+    for (let i = projEnd.segmentIndex + 1; i <= projStart.segmentIndex; i++) {
+      const v = project(roadCoords[i], referenceLat);
+      rawPoints.push({ x: v.x, y: v.y, segIndex: i - 1 });
+    }
+    const aEnd = project(roadCoords[projStart.segmentIndex], referenceLat);
+    const bEnd = project(roadCoords[projStart.segmentIndex + 1], referenceLat);
+    rawPoints.push({
+      x: aEnd.x + projStart.t * (bEnd.x - aEnd.x),
+      y: aEnd.y + projStart.t * (bEnd.y - aEnd.y),
+      segIndex: projStart.segmentIndex,
+    });
+  }
+
+  if (rawPoints.length < 2) return alignCurbLineToNearestRoad(feature, refs);
+
+  const deduped: typeof rawPoints = [rawPoints[0]];
+  for (let i = 1; i < rawPoints.length; i++) {
+    const prev = deduped[deduped.length - 1];
+    if (Math.hypot(rawPoints[i].x - prev.x, rawPoints[i].y - prev.y) > 0.01) {
+      deduped.push(rawPoints[i]);
+    }
+  }
+
+  const offsetPoints = deduped.map((pt) => {
+    const roadA = project(roadCoords[pt.segIndex], referenceLat);
+    const roadB = project(
+      roadCoords[Math.min(pt.segIndex + 1, roadCoords.length - 1)],
+      referenceLat
+    );
+    const tanAngle = Math.atan2(roadB.y - roadA.y, roadB.x - roadA.x);
+    const nx = -Math.sin(tanAngle);
+    const ny = Math.cos(tanAngle);
+    return {
+      x: pt.x + side * curbOffsetMeters * nx,
+      y: pt.y + side * curbOffsetMeters * ny,
+    };
+  });
+
+  const alignedMidX = offsetPoints.reduce((s, p) => s + p.x, 0) / offsetPoints.length;
+  const alignedMidY = offsetPoints.reduce((s, p) => s + p.y, 0) / offsetPoints.length;
+  if (Math.hypot(alignedMidX - midpoint.x, alignedMidY - midpoint.y) > 15) {
+    return alignCurbLineToNearestRoad(feature, refs);
+  }
+
+  const toLngLat = (x: number, y: number): Coordinate => [
+    x / metersPerLngDegree(referenceLat),
+    y / 110_540,
+  ];
+
+  return {
+    ...feature,
+    geometry: {
+      type: 'LineString',
+      coordinates: offsetPoints.map((p) => toLngLat(p.x, p.y)),
+    },
+    properties: {
+      ...feature.properties,
+      geometry_alignment_method: 'road_centerline_following_polyline',
+      geometry_alignment_road_name: roadMatch.name ?? feature.properties.geometry_alignment_road_name,
+    },
+  };
+}
+
 function lineIntersectsAnyArea(coordinates: Coordinate[], areas: PolygonArea[] | undefined) {
   if (!areas || areas.length === 0) return false;
   const bbox = lineBbox(coordinates);
@@ -423,18 +660,23 @@ function lineIntersectsAnyArea(coordinates: Coordinate[], areas: PolygonArea[] |
 
 function lineCrossesIntersectingRoad(coordinates: Coordinate[], roads: RoadLine[] | undefined) {
   if (!roads || roads.length === 0) return false;
-  const curbStart = coordinates[0];
-  const curbEnd = coordinates[coordinates.length - 1];
-  const curbAngle = segmentAngle(curbStart, curbEnd);
+  if (coordinates.length < 2) return false;
   const curbBbox = lineBbox(coordinates);
 
   return roads.some((road) => {
     if (!bboxExpandedIntersects(curbBbox, lineBbox(road.coordinates), 0)) return false;
-    return road.coordinates.slice(1).some((end, index) => {
-      const start = road.coordinates[index];
-      if (angleDeltaDegrees(curbAngle, segmentAngle(start, end)) <= 30) return false;
-      return segmentsIntersect(curbStart, curbEnd, start, end);
-    });
+    for (let i = 1; i < coordinates.length; i++) {
+      const curbStart = coordinates[i - 1];
+      const curbEnd = coordinates[i];
+      const curbAngle = segmentAngle(curbStart, curbEnd);
+      for (let j = 1; j < road.coordinates.length; j++) {
+        const roadStart = road.coordinates[j - 1];
+        const roadEnd = road.coordinates[j];
+        if (angleDeltaDegrees(curbAngle, segmentAngle(roadStart, roadEnd)) <= 30) continue;
+        if (segmentsIntersect(curbStart, curbEnd, roadStart, roadEnd)) return true;
+      }
+    }
+    return false;
   });
 }
 
@@ -454,17 +696,43 @@ export function assessCurbGeometryQuality(
     };
   }
 
-  const road = refs.roads && refs.roads.length > 0 ? nearestRoad(coordinates, refs.roads) : null;
   const maxRoadDistance = refs.maxRoadDistanceMeters ?? DEFAULT_MAX_ROAD_DISTANCE_METERS;
   const minRoadOffset = refs.minRoadOffsetMeters ?? DEFAULT_MIN_ROAD_OFFSET_METERS;
   const maxParallelAngle = refs.maxParallelAngleDegrees ?? DEFAULT_MAX_PARALLEL_ANGLE_DEGREES;
 
-  if (!road) {
+  let overallRoad: ReturnType<typeof nearestRoad> = null;
+  let anyRoadFound = false;
+
+  if (refs.roads && refs.roads.length > 0) {
+    for (let i = 1; i < coordinates.length; i++) {
+      const pair: Coordinate[] = [coordinates[i - 1], coordinates[i]];
+      const pairRoad = nearestRoad(pair, refs.roads);
+      if (pairRoad) {
+        anyRoadFound = true;
+        if (!overallRoad || pairRoad.score < overallRoad.score) {
+          overallRoad = pairRoad;
+        }
+        if (pairRoad.distanceMeters > maxRoadDistance && !reasons.includes('too_far_from_road')) {
+          reasons.push('too_far_from_road');
+        }
+        if (
+          pairRoad.distanceMeters < minRoadOffset &&
+          !reasons.includes('on_road_centerline_or_too_close')
+        ) {
+          reasons.push('on_road_centerline_or_too_close');
+        }
+        if (
+          pairRoad.angleDeltaDegrees > maxParallelAngle &&
+          !reasons.includes('not_parallel_to_road')
+        ) {
+          reasons.push('not_parallel_to_road');
+        }
+      }
+    }
+  }
+
+  if (!anyRoadFound) {
     reasons.push('missing_road_reference');
-  } else {
-    if (road.distanceMeters > maxRoadDistance) reasons.push('too_far_from_road');
-    if (road.distanceMeters < minRoadOffset) reasons.push('on_road_centerline_or_too_close');
-    if (road.angleDeltaDegrees > maxParallelAngle) reasons.push('not_parallel_to_road');
   }
 
   if (lineIntersectsAnyArea(coordinates, refs.buildings)) reasons.push('intersects_building');
@@ -486,9 +754,11 @@ export function assessCurbGeometryQuality(
   return {
     status,
     reasons,
-    nearestRoadDistanceMeters: road ? Math.round(road.distanceMeters * 10) / 10 : null,
-    nearestRoadAngleDeltaDegrees: road ? Math.round(road.angleDeltaDegrees * 10) / 10 : null,
-    nearestRoadSourceId: road?.sourceId ?? null,
+    nearestRoadDistanceMeters: overallRoad ? Math.round(overallRoad.distanceMeters * 10) / 10 : null,
+    nearestRoadAngleDeltaDegrees: overallRoad
+      ? Math.round(overallRoad.angleDeltaDegrees * 10) / 10
+      : null,
+    nearestRoadSourceId: overallRoad?.sourceId ?? null,
   };
 }
 
@@ -512,8 +782,9 @@ export function withCurbGeometryQuality(
   }
 
   if (result.status === 'needs_field_review') {
+    const referenceFeature = isGeneratedCurbRow(feature) ? straightReferenceGeometry(feature) : feature;
     return {
-      ...feature,
+      ...referenceFeature,
       properties: {
         ...properties,
         ordinary_parking_status: 'unknown_pending_snap_conflict_check',

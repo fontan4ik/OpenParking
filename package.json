@@ -51,6 +51,7 @@
     "normalize:street-parking:db": "tsx apps/backend/scripts/normalize_street_parking.ts --db",
     "audit:parking-geometry:miami": "tsx apps/backend/scripts/audit_miami_parking_geometry.ts",
     "audit:parking-geometry:miami:refresh": "tsx apps/backend/scripts/audit_miami_parking_geometry.ts --refresh-osm",
+    "audit:parking-zones:miami": "node apps/backend/scripts/audit_miami_parking_zones.mjs",
     "derive:heuristics": "tsx apps/backend/scripts/derive_parking_heuristics.ts",
     "derive:heuristics:db": "tsx apps/backend/scripts/derive_parking_heuristics.ts --db",
     "research:manifests": "node apps/backend/scripts/generate_research_city_manifests.mjs",
@@ -95,6 +96,7 @@
     "tunnel:zrok:private": "node apps/backend/scripts/zrok_share.mjs private"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.2.0",
     "@prisma/client": "^6.19.3",
     "@xmldom/xmldom": "^0.9.10",
     "lodash": "^4.18.1",

@@ -12,6 +12,7 @@ import { useLanguage } from '@/components/LanguageProvider';
 import { LOCALE_LABELS, LOCALES, cityNameKey, type Locale } from '@/lib/i18n';
 import { FlagIcon } from '@/components/FlagIcon';
 import { useAdminMode } from '@/components/AdminModeContext';
+import { ParkingAssistant } from '@/components/ParkingAssistant';
 import {
   driverConfidence,
   matchesTrustFilter,
@@ -539,7 +540,7 @@ export default function HomePage() {
       if (field === 'origin') setRouteOrigin(endpoint);
       else setRouteDestination(endpoint);
     } else {
-      const endpoint = { type: 'my_location' as const, coordinate: null as any, label };
+      const endpoint: Exclude<RouteEndpoint, null> = { type: 'my_location', coordinate: null, label };
       if (field === 'origin') setRouteOrigin(endpoint);
       else setRouteDestination(endpoint);
       showMyLocation();
@@ -621,7 +622,8 @@ export default function HomePage() {
       setRouteOrigin(orig => {
         if (orig?.type === 'my_location') {
           setRouteStatus('error');
-          setRouteError(uiText('Geolocation failed or permission denied.', 'Не удалось определить местоположение.'));
+          setRouteError(uiText('Location is unavailable. Choose the start point on the map.', 'Местоположение недоступно. Выберите точку отправления на карте.'));
+          setEditingField('origin');
           return null;
         }
         return orig;
@@ -629,7 +631,8 @@ export default function HomePage() {
       setRouteDestination(dest => {
         if (dest?.type === 'my_location') {
           setRouteStatus('error');
-          setRouteError(uiText('Geolocation failed or permission denied.', 'Не удалось определить местоположение.'));
+          setRouteError(uiText('Location is unavailable. Choose the destination on the map.', 'Местоположение недоступно. Выберите точку назначения на карте.'));
+          setEditingField('destination');
           return null;
         }
         return dest;
@@ -1945,6 +1948,10 @@ export default function HomePage() {
           onLayerCountsChange={setMapLayerCounts}
           onLayerStatusChange={setMapLayerStatus}
         />
+        <ParkingAssistant city={activeCity} onRecommendationSelect={(sourceId) => {
+          const facility = facilities.find((candidate) => candidate.properties.source_id === sourceId);
+          if (facility) handleFacilityClick(facility);
+        }} />
 
         {/* ── Dropped Pin Card ── */}
         {droppedPin && (

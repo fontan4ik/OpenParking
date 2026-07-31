@@ -160,6 +160,24 @@ describe('parking geometry quality', () => {
     expect(result.reasons).toContain('not_parallel_to_road');
   });
 
+  it('uses a straight two-coordinate reference geometry for generated review rows', () => {
+    const coordinates: [number, number][] = [
+      [-80.12997, 25.7802],
+      [-80.12997, 25.7806],
+      [-80.1298, 25.781],
+      [-80.12997, 25.7814],
+      [-80.12997, 25.7818],
+    ];
+    const feature = line(coordinates);
+
+    const result = withCurbGeometryQuality(feature, { roads: [road] });
+
+    expect(result?.properties.geometry_quality_status).toBe('needs_field_review');
+    expect(result?.properties.geometry_quality_reasons).toContain('not_parallel_to_road');
+    expect(result?.geometry.type).toBe('LineString');
+    expect(result?.geometry.coordinates).toEqual([coordinates[0], coordinates[4]]);
+  });
+
   it('requires field review when road reference is missing instead of promoting generated rows', () => {
     const result = withCurbGeometryQuality(
       line([

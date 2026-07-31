@@ -1,7 +1,13 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { loadCurbSegments, loadZones, type GeoJSONCollection, type GeoJSONFeature } from '../../frontend/lib/data-loader';
+import {
+  isParkingAreaGeometryReferenceFeature,
+  loadCurbSegments,
+  loadZones,
+  type GeoJSONCollection,
+  type GeoJSONFeature,
+} from '../../frontend/lib/data-loader';
 import {
   areasFromCollection,
   assessCurbGeometryQuality,
@@ -238,6 +244,27 @@ function generatedKind(feature: GeoJSONFeature) {
   return 'other_line';
 }
 
+function loaderGeometryQualityResult(feature: GeoJSONFeature): CurbGeometryQualityResult | null {
+  const status = feature.properties.geometry_quality_status;
+  if (status !== 'accepted' && status !== 'needs_field_review' && status !== 'suppressed') return null;
+
+  const reasonsValue = feature.properties.geometry_quality_reasons;
+  const reasons = Array.isArray(reasonsValue)
+    ? reasonsValue.filter((reason): reason is string => typeof reason === 'string')
+    : [];
+  const distanceValue = feature.properties.nearest_road_distance_meters;
+  const angleValue = feature.properties.nearest_road_angle_delta_degrees;
+  const sourceId = feature.properties.matched_road_source_id;
+
+  return {
+    status,
+    reasons,
+    nearestRoadDistanceMeters: typeof distanceValue === 'number' ? distanceValue : null,
+    nearestRoadAngleDeltaDegrees: typeof angleValue === 'number' ? angleValue : null,
+    nearestRoadSourceId: typeof sourceId === 'string' ? sourceId : null,
+  };
+}
+
 function summarize(results: Array<{ feature: GeoJSONFeature; result: CurbGeometryQualityResult }>) {
   const byStatus: Record<string, number> = {};
   const byReason: Record<string, number> = {};
@@ -263,29 +290,42 @@ async function main() {
   const limit = Number(argValue('--limit', '0'));
   const refresh = hasFlag('--refresh-osm');
   const osmReference = await loadOrFetchOsmReference(bbox, rows, cols, refresh);
-  const [segments, zones] = await Promise.all([loadCurbSegments('miami'), loadZones('miami')]);
+  const [segments, zones] = await Promise.all([
+    loadCurbSegments('miami', { parkingAreaEligibility: 'physical' }),
+    loadZones('miami'),
+  ]);
   const roads = roadLinesFromCollection(osmReference);
   const buildings = areasFromCollection({
     ...osmReference,
     features: osmReference.features.filter((feature) => feature.geometry.type === 'Polygon'),
   });
-  const parkingAreas = areasFromCollection(zones);
+  const parkingAreas = areasFromCollection({
+    ...zones,
+    features: zones.features.filter(isParkingAreaGeometryReferenceFeature),
+  });
   const candidates = segments.features
     .filter((feature) => feature.geometry.type === 'LineString')
     .filter(isGeneratedCurb);
   const sampled = limit > 0 ? candidates.slice(0, limit) : candidates;
 
-  const results = sampled.map((feature) => ({
-    feature,
-    result: assessCurbGeometryQuality(feature, {
+  const results = sampled.map((feature) => {
+    const auditedResult = assessCurbGeometryQuality(feature, {
       roads,
       buildings,
       parkingAreas,
       maxRoadDistanceMeters: 12,
       minRoadOffsetMeters: 0.8,
       maxParallelAngleDegrees: 18,
-    }),
-  }));
+    });
+    const loaderResult = loaderGeometryQualityResult(feature);
+    const result = auditedResult.status === 'suppressed'
+      ? auditedResult
+      : loaderResult?.status === 'needs_field_review'
+        ? loaderResult
+        : auditedResult;
+
+    return { feature, result };
+  });
 
   const worst = results
     .filter((item) => item.result.status !== 'accepted')

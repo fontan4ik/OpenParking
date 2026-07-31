@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T13:00:14.045Z",
+  "generated_at": "2026-07-21T09:49:35.875Z",
   "method": "deterministic_road_parallel_area_intersection_check",
   "city": "miami",
   "bbox": [
@@ -9,8 +9,8 @@
     -80.113
   ],
   "cache_path": "data\\research\\fetches\\miami-osm-roads-buildings-cache.geojson",
-  "checked_count": 897,
-  "total_generated_curb_candidates": 897,
+  "checked_count": 1848,
+  "total_generated_curb_candidates": 1848,
   "osm_reference_counts": {
     "source": "OpenStreetMap Overpass roads/buildings for parking geometry QA",
     "bbox": [
@@ -28,197 +28,105 @@
     "road_count": 7122,
     "building_count": 15012
   },
-  "zone_parking_area_count": 75,
+  "zone_parking_area_count": 217,
   "byStatus": {
-    "accepted": 780,
-    "needs_field_review": 117
+    "accepted": 1794,
+    "needs_field_review": 53,
+    "suppressed": 1
   },
   "byReason": {
-    "on_road_centerline_or_too_close": 46,
-    "too_far_from_road": 71
+    "too_far_from_road": 48,
+    "on_road_centerline_or_too_close": 4,
+    "intersects_parking_area_interior": 1,
+    "not_parallel_to_road": 1
   },
   "byKind": {
     "parking_space_row": {
-      "accepted": 523,
-      "needs_field_review": 48
+      "accepted": 1103,
+      "needs_field_review": 11
     },
     "single_space_line": {
-      "accepted": 257,
-      "needs_field_review": 69
+      "accepted": 691,
+      "needs_field_review": 42,
+      "suppressed": 1
     }
   },
   "worst_examples": [
     {
-      "source_id": "parking-space-row:4064-4068",
-      "name": "Parking Spaces 7220",
+      "source_id": "parking-space-row:982-731",
+      "name": "Miami Beach Residential Parking Spaces 1561",
       "status": "needs_field_review",
       "reasons": [
-        "on_road_centerline_or_too_close"
+        "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 0.5,
-      "nearest_road_angle_delta_degrees": 1.5,
-      "matched_road_source_id": "osm:way:1202386119",
+      "nearest_road_distance_meters": 13.3,
+      "nearest_road_angle_delta_degrees": 8.3,
+      "matched_road_source_id": "osm:way:1058620632",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14114668457617,
-            25.789804885070513
+            -80.12423509058667,
+            25.812071797757362
           ],
           [
-            -80.14113684513568,
-            25.789525189282138
+            -80.12421141011319,
+            25.81220900050927
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:546-547",
-      "name": "Parking Spaces 547",
+      "source_id": "parking-space-row:1588-1589",
+      "name": "Miami Beach Residential Parking Spaces 2608",
       "status": "needs_field_review",
       "reasons": [
-        "on_road_centerline_or_too_close"
+        "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 0.7,
-      "nearest_road_angle_delta_degrees": 1,
-      "matched_road_source_id": "osm:way:828443513",
+      "nearest_road_distance_meters": 22.1,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1185237181",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13224667781361,
-            25.783860514184838
+            -80.12453958443102,
+            25.80660197819841
           ],
           [
-            -80.13222532823534,
-            25.78398070324949
+            -80.12461022750101,
+            25.8067181468026
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:523-530",
-      "name": "Parking Spaces 524",
+      "source_id": "parking-space-row:4240-4241",
+      "name": "Miami Beach Residential Parking Spaces 7636",
       "status": "needs_field_review",
       "reasons": [
         "on_road_centerline_or_too_close"
       ],
       "nearest_road_distance_meters": 0.1,
-      "nearest_road_angle_delta_degrees": 0.6,
-      "matched_road_source_id": "osm:way:828443513",
+      "nearest_road_angle_delta_degrees": 0.1,
+      "matched_road_source_id": "osm:way:1364243160",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13213037910057,
-            25.78455736740558
+            -80.12933721254093,
+            25.81330802681584
           ],
           [
-            -80.13207177386842,
-            25.784981815164357
+            -80.12931800475758,
+            25.813416382273818
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:5510-5515",
-      "name": "Parking Spaces 9889",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.7,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:190659958",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13199963045969,
-            25.793066630786598
-          ],
-          [
-            -80.13198732105987,
-            25.792718737277582
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:6271-500",
-      "name": "Parking Spaces 10756",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.5,
-      "nearest_road_angle_delta_degrees": 1.8,
-      "matched_road_source_id": "osm:way:585387647",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1318682137115,
-            25.787704783227454
-          ],
-          [
-            -80.13186139896168,
-            25.788952715785292
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:4305-4311",
-      "name": "Parking Spaces 7681",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 17.1,
-      "nearest_road_angle_delta_degrees": 7,
-      "matched_road_source_id": "osm:way:11148927",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13156688857806,
-            25.81406464070432
-          ],
-          [
-            -80.13147456286153,
-            25.814431271724537
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:4334-4336",
-      "name": "Parking Spaces 7710",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.2,
-      "nearest_road_angle_delta_degrees": 10.9,
-      "matched_road_source_id": "osm:way:11136536",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13170564876599,
-            25.813460610456875
-          ],
-          [
-            -80.13167063368255,
-            25.813606999545208
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:2313-2314",
-      "name": "Parking Spaces 4842",
+      "source_id": "parking-space-row:2307-2308",
+      "name": "Miami Beach Residential Parking Spaces 4842",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -241,800 +149,128 @@
       }
     },
     {
-      "source_id": "parking-space-row:553-558",
-      "name": "Parking Spaces 554",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.7,
-      "nearest_road_angle_delta_degrees": 0.2,
-      "matched_road_source_id": "osm:way:828443513",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13281036133138,
-            25.78095650976379
-          ],
-          [
-            -80.13273943801765,
-            25.781297825013738
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:559-565",
-      "name": "Parking Spaces 560",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.6,
-      "nearest_road_angle_delta_degrees": 0.2,
-      "matched_road_source_id": "osm:way:828443513",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13273883147025,
-            25.78129938004954
-          ],
-          [
-            -80.13266030214128,
-            25.78167902093616
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5505-5511",
-      "name": "Parking Spaces 9884",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.7,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:190659958",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13199119098518,
-            25.792828113460377
-          ],
-          [
-            -80.13197828724843,
-            25.792463421787538
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:548-550",
-      "name": "Parking Spaces 549",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.8,
-      "nearest_road_angle_delta_degrees": 1.7,
-      "matched_road_source_id": "osm:way:828443513",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13256801990994,
-            25.782149780704653
-          ],
-          [
-            -80.13253641209766,
-            25.782312735285238
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:686-689",
-      "name": "Parking Spaces 1114",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.1,
-      "nearest_road_angle_delta_degrees": 2.1,
-      "matched_road_source_id": "osm:way:432827220",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12415059604717,
-            25.855606313061923
-          ],
-          [
-            -80.12415006070552,
-            25.8558100067291
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:1749-1752",
-      "name": "Parking Spaces 2768",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.7,
-      "nearest_road_angle_delta_degrees": 5.6,
-      "matched_road_source_id": "osm:way:1002164712",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12968314871992,
-            25.801393790977798
-          ],
-          [
-            -80.12965031070085,
-            25.80151266499739
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:986-733",
-      "name": "Parking Spaces 1561",
+      "source_id": "parking-space-row:2357-2352",
+      "name": "Miami Beach Residential Parking Spaces 4892",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 13.3,
-      "nearest_road_angle_delta_degrees": 8.3,
-      "matched_road_source_id": "osm:way:1058620632",
+      "nearest_road_distance_meters": 24,
+      "nearest_road_angle_delta_degrees": 0.1,
+      "matched_road_source_id": "osm:way:855875287",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12423509058668,
-            25.812071797757344
+            -80.14223406268144,
+            25.788940003771224
           ],
           [
-            -80.12421141011318,
-            25.812209000509277
+            -80.14186533321927,
+            25.788949443319975
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:867-873",
-      "name": "Parking Spaces 1425",
+      "source_id": "parking-space-row:2358-2363",
+      "name": "Miami Beach Residential Parking Spaces 4893",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 16.6,
-      "nearest_road_angle_delta_degrees": 8.3,
-      "matched_road_source_id": "osm:way:190557164",
+      "nearest_road_distance_meters": 22.3,
+      "nearest_road_angle_delta_degrees": 0.1,
+      "matched_road_source_id": "osm:way:855875287",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12439764797729,
-            25.810642298541463
+            -80.1422212565305,
+            25.788867930769907
           ],
           [
-            -80.1243391307983,
-            25.81105251736377
+            -80.14185968031731,
+            25.78887718720315
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:4146-4148",
-      "name": "Parking Spaces 7417",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.7,
-      "nearest_road_angle_delta_degrees": 2,
-      "matched_road_source_id": "osm:way:1001919261",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12887302777328,
-            25.813841746727668
-          ],
-          [
-            -80.12868688781462,
-            25.81383420529376
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:3915-3916",
-      "name": "Parking Spaces 7023",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.1,
-      "nearest_road_angle_delta_degrees": 1.6,
-      "matched_road_source_id": "osm:way:432736341",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13034219259879,
-            25.81306161110419
-          ],
-          [
-            -80.13021935307093,
-            25.81305091362246
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:3917-3922",
-      "name": "Parking Spaces 7025",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.4,
-      "nearest_road_angle_delta_degrees": 1.5,
-      "matched_road_source_id": "osm:way:432736341",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13021631190495,
-            25.813049332087026
-          ],
-          [
-            -80.12985267761464,
-            25.813017205998303
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:6081-985",
-      "name": "Parking Spaces 10562",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 15.7,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:1154293534",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12320324386101,
-            25.817232638055255
-          ],
-          [
-            -80.12321110087373,
-            25.817125654777357
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:1028-1027",
-      "name": "Parking Spaces 1603",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 14.4,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:190659812",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12671706978492,
-            25.800703673771213
-          ],
-          [
-            -80.12678907978336,
-            25.80061668973099
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:1178-1189",
-      "name": "Parking Spaces 1867",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.2,
-      "nearest_road_angle_delta_degrees": 2,
-      "matched_road_source_id": "osm:way:190675437",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12103869273183,
-            25.86049453680019
-          ],
-          [
-            -80.12097911386174,
-            25.85978772515194
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:1224-5490",
-      "name": "Parking Spaces 1918",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 19.8,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:313195333",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12203486888919,
-            25.858200696679987
-          ],
-          [
-            -80.12211173729219,
-            25.857993151992286
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:1418-1426",
-      "name": "Parking Spaces 2112",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.8,
-      "nearest_road_angle_delta_degrees": 1.1,
-      "matched_road_source_id": "osm:way:1103218035",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12123838195423,
-            25.868769389885056
-          ],
-          [
-            -80.12121944565466,
-            25.86842864271979
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5958-5960",
-      "name": "Parking Spaces 10405",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.5,
-      "nearest_road_angle_delta_degrees": 0.4,
-      "matched_road_source_id": "osm:way:190675457",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13491159986228,
-            25.792716191646655
-          ],
-          [
-            -80.13490493980242,
-            25.792518540943046
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:1716-1717",
-      "name": "Parking Spaces 2733",
+      "source_id": "parking-space-row:5316-2768",
+      "name": "Miami Beach Residential Parking Spaces 9688",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
       "nearest_road_distance_meters": 12.9,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:11130452",
+      "matched_road_source_id": "osm:way:564833129",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13483553325025,
-            25.81290944370345
+            -80.13532459777933,
+            25.769561183237148
           ],
           [
-            -80.13486628612107,
-            25.813011123089673
+            -80.13532603356708,
+            25.769757567095606
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:2836-5831",
-      "name": "Parking Spaces 5831",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.2,
-      "nearest_road_angle_delta_degrees": 0.9,
-      "matched_road_source_id": "osm:way:680799851",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13405896596741,
-            25.76827814066017
-          ],
-          [
-            -80.13353778796387,
-            25.76829046199758
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5178-5177",
-      "name": "Parking Spaces 9510",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.6,
-      "nearest_road_angle_delta_degrees": 0.3,
-      "matched_road_source_id": "osm:way:425092073",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13876960528837,
-            25.79080465733372
-          ],
-          [
-            -80.13876618031728,
-            25.790692535205743
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5913-5915",
-      "name": "Parking Spaces 10360",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 13.5,
-      "nearest_road_angle_delta_degrees": 3.5,
-      "matched_road_source_id": "osm:way:1001919263",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12902290539972,
-            25.814326555615274
-          ],
-          [
-            -80.12900833183433,
-            25.814385787188606
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5122-2598",
-      "name": "Parking Spaces 9452",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 12.5,
-      "nearest_road_angle_delta_degrees": 3.6,
-      "matched_road_source_id": "osm:way:660377261",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13250505115347,
-            25.78405881009644
-          ],
-          [
-            -80.13239153277266,
-            25.784055693203506
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:2833-2837",
-      "name": "Parking Spaces 5828",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.3,
-      "nearest_road_angle_delta_degrees": 1.7,
-      "matched_road_source_id": "osm:way:680799851",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13422444994741,
-            25.768271423386427
-          ],
-          [
-            -80.13391710796228,
-            25.768274781202162
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:2848-5215",
-      "name": "Parking Spaces 5843",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.8,
-      "nearest_road_angle_delta_degrees": 0.6,
-      "matched_road_source_id": "osm:way:293376009",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1325003547013,
-            25.768325255099587
-          ],
-          [
-            -80.13225982587107,
-            25.768332200115307
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:3231-3232",
-      "name": "Parking Spaces 6227",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 14.2,
-      "nearest_road_angle_delta_degrees": 8.2,
-      "matched_road_source_id": "osm:way:565483660",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1328019468821,
-            25.779336592962796
-          ],
-          [
-            -80.13269202650217,
-            25.779331794907737
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:3505-3504",
-      "name": "Parking Spaces 6501",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.4,
-      "nearest_road_angle_delta_degrees": 3.4,
-      "matched_road_source_id": "osm:way:11125340",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13013077979501,
-            25.785198722566278
-          ],
-          [
-            -80.12999310249869,
-            25.78518859675733
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:3663-3657",
-      "name": "Parking Spaces 6659",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.1,
-      "nearest_road_angle_delta_degrees": 0.3,
-      "matched_road_source_id": "osm:way:425042826",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1305035685882,
-            25.79075378172046
-          ],
-          [
-            -80.13013523382074,
-            25.79076196911727
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:3668-3658",
-      "name": "Parking Spaces 6664",
+      "source_id": "parking-space-row:3136-3133",
+      "name": "Miami Beach Residential Parking Spaces 6152",
       "status": "needs_field_review",
       "reasons": [
         "on_road_centerline_or_too_close"
       ],
       "nearest_road_distance_meters": 0,
-      "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:190675473",
+      "nearest_road_angle_delta_degrees": 0.6,
+      "matched_road_source_id": "osm:way:475940184",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13055846270024,
-            25.790680167788548
+            -80.1355024817203,
+            25.79229907590452
           ],
           [
-            -80.13019244341804,
-            25.790688303727304
+            -80.13522778333122,
+            25.792304538156003
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:6464-5083",
-      "name": "Parking Spaces 10954",
+      "source_id": "parking-space-row:3999-3998",
+      "name": "Miami Beach Residential Parking Spaces 7175",
       "status": "needs_field_review",
       "reasons": [
         "on_road_centerline_or_too_close"
       ],
-      "nearest_road_distance_meters": 0.2,
-      "nearest_road_angle_delta_degrees": 0.2,
-      "matched_road_source_id": "osm:way:190659832",
+      "nearest_road_distance_meters": 0.5,
+      "nearest_road_angle_delta_degrees": 1.9,
+      "matched_road_source_id": "osm:way:86626726",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12982153358364,
-            25.79069654837343
+            -80.14075159679159,
+            25.77766277988049
           ],
           [
-            -80.12939097388956,
-            25.790706118926973
+            -80.1407519146466,
+            25.77779335471936
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:5923-5926",
-      "name": "Parking Spaces 10370",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 12.4,
-      "nearest_road_angle_delta_degrees": 4.6,
-      "matched_road_source_id": "osm:way:398361540",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1290549149864,
-            25.804054514345175
-          ],
-          [
-            -80.12904932030034,
-            25.804158234280003
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5914-4266",
-      "name": "Parking Spaces 10361",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 13.6,
-      "nearest_road_angle_delta_degrees": 3.5,
-      "matched_road_source_id": "osm:way:1001919263",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12903035425326,
-            25.81429628107951
-          ],
-          [
-            -80.12899396398836,
-            25.814444182593107
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:4494-4495",
-      "name": "Parking Spaces 7870",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.2,
-      "nearest_road_angle_delta_degrees": 3.2,
-      "matched_road_source_id": "osm:way:11118830",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13178944676754,
-            25.854995459351553
-          ],
-          [
-            -80.13165160447214,
-            25.855022165659012
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:6057-4557",
-      "name": "Parking Spaces 10538",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 15.6,
-      "nearest_road_angle_delta_degrees": 2.7,
-      "matched_road_source_id": "osm:way:129195282",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1294057407604,
-            25.854983260813075
-          ],
-          [
-            -80.12928624628115,
-            25.85501515326016
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:4554-4551",
-      "name": "Parking Spaces 7930",
+      "source_id": "parking-space-row:4534-4531",
+      "name": "Miami Beach Residential Parking Spaces 7930",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1046,19 +282,19 @@
         "type": "LineString",
         "coordinates": [
           [
-            -80.1291246827931,
-            25.855043171879238
+            -80.1291246827921,
+            25.855043171879558
           ],
           [
-            -80.12891903715237,
-            25.85511273319629
+            -80.12891903715328,
+            25.855112733195952
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:4556-4555",
-      "name": "Parking Spaces 7932",
+      "source_id": "parking-space-row:4536-4535",
+      "name": "Miami Beach Residential Parking Spaces 7932",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1070,163 +306,19 @@
         "type": "LineString",
         "coordinates": [
           [
-            -80.12918113990602,
-            25.85498055735816
+            -80.12918113990439,
+            25.854980557358708
           ],
           [
-            -80.12910826524312,
-            25.85500520780789
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:4881-4876",
-      "name": "Parking Spaces 9123",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 15.5,
-      "nearest_road_angle_delta_degrees": 3.6,
-      "matched_road_source_id": "osm:way:475940177",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13946172541095,
-            25.79549197475798
-          ],
-          [
-            -80.13925114787105,
-            25.79521496879338
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5219-5220",
-      "name": "Parking Spaces 9557",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.3,
-      "nearest_road_angle_delta_degrees": 0.3,
-      "matched_road_source_id": "osm:way:535443472",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12976943702694,
-            25.790770100097106
-          ],
-          [
-            -80.12939716816793,
-            25.79077837494007
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5591-5580",
-      "name": "Parking Spaces 10010",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 14,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:812391240",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12328615619495,
-            25.808085433123377
-          ],
-          [
-            -80.12288480194594,
-            25.808081849603333
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:5751-5750",
-      "name": "Parking Spaces 10173",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.3,
-      "nearest_road_angle_delta_degrees": 7.4,
-      "matched_road_source_id": "osm:way:11161932",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1398301339794,
-            25.85360285778539
-          ],
-          [
-            -80.13954741189603,
-            25.853644539450382
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:6052-6049",
-      "name": "Parking Spaces 10533",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.8,
-      "nearest_road_angle_delta_degrees": 1.2,
-      "matched_road_source_id": "osm:way:425042116",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.130724484063,
-            25.789190261213367
-          ],
-          [
-            -80.13048281971928,
-            25.789192995515716
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:10188",
-      "name": "Parking Spaces 10188",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 30,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:1002815870",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.14128414378612,
-            25.8508435851393
-          ],
-          [
-            -80.14128081563787,
-            25.85093399983233
+            -80.12910826524477,
+            25.85500520780734
           ]
         ]
       }
     },
     {
       "source_id": "miami-beach:arcgis:spaces:20",
-      "name": "Parking Spaces 20",
+      "name": "Miami Beach Residential Parking Spaces 20",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1249,104 +341,32 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:7688",
-      "name": "Parking Spaces 7688",
+      "source_id": "miami-beach:arcgis:spaces:81",
+      "name": "Miami Beach Residential Parking Spaces 81",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 17.1,
+      "nearest_road_distance_meters": 39.5,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:319440748",
+      "matched_road_source_id": "osm:way:565483663",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13154126798659,
-            25.814742102868852
+            -80.1324247256612,
+            25.777338284849858
           ],
           [
-            -80.13154630894522,
-            25.81465175337971
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:567",
-      "name": "Parking Spaces 567",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.3,
-      "nearest_road_angle_delta_degrees": 0.6,
-      "matched_road_source_id": "osm:way:828443513",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1326654377147,
-            25.78166395154259
-          ],
-          [
-            -80.13264762533727,
-            25.781752962846323
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:556",
-      "name": "Parking Spaces 556",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.7,
-      "nearest_road_angle_delta_degrees": 0.2,
-      "matched_road_source_id": "osm:way:828443513",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13279164613961,
-            25.78104936103603
-          ],
-          [
-            -80.13277315834729,
-            25.7811382590013
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:576",
-      "name": "Parking Spaces 576",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.5,
-      "nearest_road_angle_delta_degrees": 0.7,
-      "matched_road_source_id": "osm:way:1376924991",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1329501123913,
-            25.780338185828377
-          ],
-          [
-            -80.13293110308118,
-            25.780426993282784
+            -80.13252035797298,
+            25.777312537689
           ]
         ]
       }
     },
     {
       "source_id": "miami-beach:arcgis:spaces:1098",
-      "name": "Parking Spaces 1098",
+      "name": "Miami Beach Residential Parking Spaces 1098",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1369,128 +389,32 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:1261",
-      "name": "Parking Spaces 1261",
+      "source_id": "miami-beach:arcgis:spaces:1326",
+      "name": "Miami Beach Residential Parking Spaces 1326",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 18.6,
+      "nearest_road_distance_meters": 34,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:447041974",
+      "matched_road_source_id": "osm:way:960111664",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12270889485303,
-            25.819655691722026
+            -80.12301687859421,
+            25.81451108063787
           ],
           [
-            -80.12270950868358,
-            25.819746155000697
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:1262",
-      "name": "Parking Spaces 1262",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 17.2,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:447041974",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12269572492659,
-            25.819743376637348
-          ],
-          [
-            -80.12269633875715,
-            25.819833839916026
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:1394",
-      "name": "Parking Spaces 1394",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 16.9,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:441800757",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1232916188277,
-            25.809644635261805
-          ],
-          [
-            -80.12338639845812,
-            25.80961634283482
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:7022",
-      "name": "Parking Spaces 7022",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.3,
-      "nearest_road_angle_delta_degrees": 1.6,
-      "matched_road_source_id": "osm:way:432736341",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13042205713228,
-            25.81306916544629
-          ],
-          [
-            -80.13032271875768,
-            25.813060586792
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:10155",
-      "name": "Parking Spaces 10155",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 41,
-      "nearest_road_angle_delta_degrees": 0.7,
-      "matched_road_source_id": "osm:way:1002881116",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12288445003107,
-            25.85706158224605
-          ],
-          [
-            -80.12288029836317,
-            25.856971195527613
+            -80.12292498992828,
+            25.814546359322115
           ]
         ]
       }
     },
     {
       "source_id": "miami-beach:arcgis:spaces:1506",
-      "name": "Parking Spaces 1506",
+      "name": "Miami Beach Residential Parking Spaces 1506",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1513,80 +437,32 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:1559",
-      "name": "Parking Spaces 1559",
+      "source_id": "miami-beach:arcgis:spaces:1530",
+      "name": "Miami Beach Residential Parking Spaces 1530",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 12.1,
-      "nearest_road_angle_delta_degrees": 1.2,
-      "matched_road_source_id": "osm:way:447042001",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12315006576651,
-            25.817203801854053
-          ],
-          [
-            -80.1231346430062,
-            25.817293179907644
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:1579",
-      "name": "Parking Spaces 1579",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 18.6,
+      "nearest_road_distance_meters": 25.4,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:565581120",
+      "matched_road_source_id": "osm:way:190557164",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12570242502778,
-            25.802327008452735
+            -80.12430756413659,
+            25.80918752758906
           ],
           [
-            -80.1258021751202,
-            25.802324832087084
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:1583",
-      "name": "Parking Spaces 1583",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 24,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:565581120",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12538632415472,
-            25.8020723223231
-          ],
-          [
-            -80.12540796349558,
-            25.802160634227835
+            -80.12428964706024,
+            25.809098532880267
           ]
         ]
       }
     },
     {
       "source_id": "miami-beach:arcgis:spaces:1584",
-      "name": "Parking Spaces 1584",
+      "name": "Miami Beach Residential Parking Spaces 1584",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1609,32 +485,8 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:1605",
-      "name": "Parking Spaces 1605",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 13.7,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:190659812",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12682563631135,
-            25.800580375060324
-          ],
-          [
-            -80.12690685233709,
-            25.80052782351425
-          ]
-        ]
-      }
-    },
-    {
       "source_id": "miami-beach:arcgis:spaces:9480",
-      "name": "Parking Spaces 9480",
+      "name": "Miami Beach Residential Parking Spaces 9480",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1657,56 +509,8 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10132",
-      "name": "Parking Spaces 10132",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 20.9,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:566214127",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12940301856571,
-            25.85663744663441
-          ],
-          [
-            -80.1294971642193,
-            25.856607368581766
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:10474",
-      "name": "Parking Spaces 10474",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 21.7,
-      "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:534853693",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12441824913014,
-            25.857008962228267
-          ],
-          [
-            -80.12441614735447,
-            25.856918517291817
-          ]
-        ]
-      }
-    },
-    {
       "source_id": "miami-beach:arcgis:spaces:1892",
-      "name": "Parking Spaces 1892",
+      "name": "Miami Beach Residential Parking Spaces 1892",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1729,56 +533,8 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:1906",
-      "name": "Parking Spaces 1906",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 20.8,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:566214135",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12509279119892,
-            25.857834706696902
-          ],
-          [
-            -80.1250312700769,
-            25.857763463426995
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:10127",
-      "name": "Parking Spaces 10127",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.6,
-      "nearest_road_angle_delta_degrees": 3.7,
-      "matched_road_source_id": "osm:way:856269327",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1222232740096,
-            25.860085611584804
-          ],
-          [
-            -80.12222108190113,
-            25.86017605476139
-          ]
-        ]
-      }
-    },
-    {
       "source_id": "miami-beach:arcgis:spaces:2175",
-      "name": "Parking Spaces 2175",
+      "name": "Miami Beach Residential Parking Spaces 2175",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1801,128 +557,104 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:2630",
-      "name": "Parking Spaces 2630",
+      "source_id": "miami-beach:arcgis:spaces:2245",
+      "name": "Miami Beach Residential Parking Spaces 2245",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 12.7,
-      "nearest_road_angle_delta_degrees": 9.5,
-      "matched_road_source_id": "osm:way:206777795",
+      "nearest_road_distance_meters": 12.5,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:566224862",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12551809157637,
-            25.806720798623157
+            -80.12170928100903,
+            25.86514983871817
           ],
           [
-            -80.12548070108534,
-            25.80680467218922
+            -80.12161046262455,
+            25.865162697013986
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:2751",
-      "name": "Parking Spaces 2751",
+      "source_id": "miami-beach:arcgis:spaces:2568",
+      "name": "Miami Beach Residential Parking Spaces 2568",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 13.1,
-      "nearest_road_angle_delta_degrees": 9.8,
-      "matched_road_source_id": "osm:way:1001919274",
+      "nearest_road_distance_meters": 34.1,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:618178489",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13532682300641,
-            25.81331081006476
+            -80.12397872341992,
+            25.80780943471223
           ],
           [
-            -80.13523044550037,
-            25.81333425963239
+            -80.1240239595223,
+            25.807890069475864
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:7637",
-      "name": "Parking Spaces 7637",
+      "source_id": "miami-beach:arcgis:spaces:2631",
+      "name": "Miami Beach Residential Parking Spaces 2631",
       "status": "needs_field_review",
       "reasons": [
-        "on_road_centerline_or_too_close"
+        "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 0.1,
-      "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:1364243160",
+      "nearest_road_distance_meters": 19.7,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1381415213",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12933069606989,
-            25.81334478762761
+            -80.12581924229656,
+            25.80648237811001
           ],
           [
-            -80.12931486281244,
-            25.813434106599644
+            -80.12572567679396,
+            25.80645094517013
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:7636",
-      "name": "Parking Spaces 7636",
+      "source_id": "miami-beach:arcgis:spaces:2668",
+      "name": "Miami Beach Residential Parking Spaces 2668",
       "status": "needs_field_review",
       "reasons": [
-        "on_road_centerline_or_too_close"
+        "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 0.5,
-      "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:1364243160",
+      "nearest_road_distance_meters": 26.1,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:206777826",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12934385034288,
-            25.81329109822007
+            -80.12529578725662,
+            25.805081500386258
           ],
           [
-            -80.12932843553753,
-            25.813380477329346
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:2767",
-      "name": "Parking Spaces 2767",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.2,
-      "nearest_road_angle_delta_degrees": 4.7,
-      "matched_road_source_id": "osm:way:1002164712",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12969957864634,
-            25.801331219697822
-          ],
-          [
-            -80.12967686923191,
-            25.80141931042928
+            -80.12524075932623,
+            25.80500603590335
           ]
         ]
       }
     },
     {
       "source_id": "miami-beach:arcgis:spaces:3276",
-      "name": "Parking Spaces 3276",
+      "name": "Miami Beach Residential Parking Spaces 3276",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -1945,56 +677,32 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:5989",
-      "name": "Parking Spaces 5989",
+      "source_id": "miami-beach:arcgis:spaces:4572",
+      "name": "Miami Beach Residential Parking Spaces 4572",
       "status": "needs_field_review",
       "reasons": [
-        "on_road_centerline_or_too_close"
+        "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 0.5,
-      "nearest_road_angle_delta_degrees": 5,
-      "matched_road_source_id": "osm:way:258423127",
+      "nearest_road_distance_meters": 48.9,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:319274849",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1370223383966,
-            25.76967194664563
+            -80.13545205630344,
+            25.768904692014814
           ],
           [
-            -80.13701349191739,
-            25.769581838114437
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:4667",
-      "name": "Parking Spaces 4667",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.8,
-      "nearest_road_angle_delta_degrees": 0.2,
-      "matched_road_source_id": "osm:way:810267461",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13358263442834,
-            25.76836712708507
-          ],
-          [
-            -80.13348293927892,
-            25.768370138746757
+            -80.13552589244925,
+            25.768965518934962
           ]
         ]
       }
     },
     {
       "source_id": "miami-beach:arcgis:spaces:4752",
-      "name": "Parking Spaces 4752",
+      "name": "Miami Beach Residential Parking Spaces 4752",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -2017,32 +725,8 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:5351",
-      "name": "Parking Spaces 5351",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 15.7,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:1295748799",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13666084234426,
-            25.77618961828056
-          ],
-          [
-            -80.13665764318091,
-            25.776099199822198
-          ]
-        ]
-      }
-    },
-    {
       "source_id": "miami-beach:arcgis:spaces:4844",
-      "name": "Parking Spaces 4844",
+      "name": "Miami Beach Residential Parking Spaces 4844",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -2065,56 +749,60 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10190",
-      "name": "Parking Spaces 10190",
-      "status": "needs_field_review",
+      "source_id": "miami-beach:arcgis:spaces:4855",
+      "name": "Miami Beach Residential Parking Spaces 4855",
+      "status": "suppressed",
       "reasons": [
-        "on_road_centerline_or_too_close"
+        "intersects_parking_area_interior"
       ],
-      "nearest_road_distance_meters": 0.6,
-      "nearest_road_angle_delta_degrees": 6.6,
-      "matched_road_source_id": "osm:way:1000519225",
+      "nearest_road_distance_meters": 4,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:565567675",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14438760386341,
-            25.852327042634236
+            -80.13996203870423,
+            25.789755664163952
           ],
           [
-            -80.14432293710027,
-            25.852258127519708
+            -80.1400326796056,
+            25.78975402583472
+          ],
+          [
+            -80.1400565657461,
+            25.78975348665673
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:5209",
-      "name": "Parking Spaces 5209",
+      "source_id": "miami-beach:arcgis:spaces:5208",
+      "name": "Miami Beach Residential Parking Spaces 5208",
       "status": "needs_field_review",
       "reasons": [
-        "too_far_from_road"
+        "not_parallel_to_road"
       ],
-      "nearest_road_distance_meters": 15.4,
+      "nearest_road_distance_meters": 4,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:564844883",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14395624232529,
-            25.79345717153982
+            -80.14423953274536,
+            25.793417549520694
           ],
           [
-            -80.14396079779367,
-            25.79354754218251
+            -80.14415186699688,
+            25.793489147783834
           ]
         ]
       }
     },
     {
       "source_id": "miami-beach:arcgis:spaces:5220",
-      "name": "Parking Spaces 5220",
+      "name": "Miami Beach Residential Parking Spaces 5220",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -2137,32 +825,8 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:5244",
-      "name": "Parking Spaces 5244",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 13.8,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:565567694",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.14253864619816,
-            25.79338258683269
-          ],
-          [
-            -80.14263838345184,
-            25.793380218769403
-          ]
-        ]
-      }
-    },
-    {
       "source_id": "miami-beach:arcgis:spaces:5254",
-      "name": "Parking Spaces 5254",
+      "name": "Miami Beach Residential Parking Spaces 5254",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -2185,176 +849,80 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:7775",
-      "name": "Parking Spaces 7775",
+      "source_id": "miami-beach:arcgis:spaces:6044",
+      "name": "Miami Beach Residential Parking Spaces 6044",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 16.1,
+      "nearest_road_distance_meters": 23.8,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:586224931",
+      "matched_road_source_id": "osm:way:565581119",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13445148407105,
-            25.814068851249132
+            -80.1267528680669,
+            25.80400771246234
           ],
           [
-            -80.1344540917825,
-            25.814159285344807
+            -80.12678519984891,
+            25.80392212833345
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10193",
-      "name": "Parking Spaces 10193",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 71.1,
-      "nearest_road_angle_delta_degrees": 3,
-      "matched_road_source_id": "osm:way:11136505",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.14219599608529,
-            25.853626052943298
-          ],
-          [
-            -80.14213570941027,
-            25.85355394969363
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:10976",
-      "name": "Parking Spaces 10976",
+      "source_id": "miami-beach:arcgis:spaces:6151",
+      "name": "Miami Beach Residential Parking Spaces 6151",
       "status": "needs_field_review",
       "reasons": [
         "on_road_centerline_or_too_close"
       ],
       "nearest_road_distance_meters": 0.1,
-      "nearest_road_angle_delta_degrees": 1.7,
-      "matched_road_source_id": "osm:way:535443303",
+      "nearest_road_angle_delta_degrees": 0.6,
+      "matched_road_source_id": "osm:way:475940184",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12927963762846,
-            25.790708593724453
+            -80.13545034674098,
+            25.792300112584673
           ],
           [
-            -80.12917989843864,
-            25.790710810743683
+            -80.13535062414591,
+            25.792302095522736
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:6731",
-      "name": "Parking Spaces 6731",
+      "source_id": "miami-beach:arcgis:spaces:6513",
+      "name": "Miami Beach Residential Parking Spaces 6513",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 20.7,
-      "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:11125049",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12713903766246,
-            25.79710245759081
-          ],
-          [
-            -80.12704584118838,
-            25.797070153632028
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:10184",
-      "name": "Parking Spaces 10184",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 17.7,
+      "nearest_road_distance_meters": 34.9,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:222381207",
+      "matched_road_source_id": "osm:way:11144187",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12686847408477,
-            25.854512063145823
+            -80.1297713370615,
+            25.787602170053546
           ],
           [
-            -80.12684167921665,
-            25.854424918141962
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:6797",
-      "name": "Parking Spaces 6797",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.7,
-      "nearest_road_angle_delta_degrees": 1.8,
-      "matched_road_source_id": "osm:way:83070583",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.130438065964,
-            25.81478414100984
-          ],
-          [
-            -80.1304285870647,
-            25.814874196946807
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:7021",
-      "name": "Parking Spaces 7021",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.5,
-      "nearest_road_angle_delta_degrees": 1.6,
-      "matched_road_source_id": "osm:way:432736341",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13048271090477,
-            25.81307440337566
-          ],
-          [
-            -80.13038337252586,
-            25.81306582472137
+            -80.12967712051683,
+            25.787572417460463
           ]
         ]
       }
     },
     {
       "source_id": "miami-beach:arcgis:spaces:7217",
-      "name": "Parking Spaces 7217",
+      "name": "Miami Beach Residential Parking Spaces 7217",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -2377,8 +945,320 @@
       }
     },
     {
+      "source_id": "miami-beach:arcgis:spaces:9053",
+      "name": "Miami Beach Residential Parking Spaces 9053",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 18.3,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1240913639",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14134286972093,
+            25.795408249187634
+          ],
+          [
+            -80.14133012485007,
+            25.79549797307857
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:9154",
+      "name": "Miami Beach Residential Parking Spaces 9154",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 31.8,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:618178491",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12415467440367,
+            25.807972317751616
+          ],
+          [
+            -80.12405498445311,
+            25.80796839669277
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:9676",
+      "name": "Miami Beach Residential Parking Spaces 9676",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 30.8,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1499810707",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14153902097542,
+            25.775610414495443
+          ],
+          [
+            -80.14163257917144,
+            25.775641805732313
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10087",
+      "name": "Miami Beach Residential Parking Spaces 10087",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 20.3,
+      "nearest_road_angle_delta_degrees": 0.2,
+      "matched_road_source_id": "osm:way:424896111",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13394101003007,
+            25.78546002111801
+          ],
+          [
+            -80.13393821058287,
+            25.785369591750626
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10107",
+      "name": "Miami Beach Residential Parking Spaces 10107",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 21.3,
+      "nearest_road_angle_delta_degrees": 0.1,
+      "matched_road_source_id": "osm:way:308936829",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13559750916336,
+            25.789152398752833
+          ],
+          [
+            -80.1355947106986,
+            25.78906196935823
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10108",
+      "name": "Miami Beach Residential Parking Spaces 10108",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 19.8,
+      "nearest_road_angle_delta_degrees": 0.2,
+      "matched_road_source_id": "osm:way:425038432",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13671657932323,
+            25.789011494672053
+          ],
+          [
+            -80.13671376271013,
+            25.7889210657408
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10136",
+      "name": "Miami Beach Residential Parking Spaces 10136",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 24.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:566200619",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12707906797561,
+            25.85330840784258
+          ],
+          [
+            -80.12707465935516,
+            25.85321803112313
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10150",
+      "name": "Miami Beach Residential Parking Spaces 10150",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 36.1,
+      "nearest_road_angle_delta_degrees": 0.2,
+      "matched_road_source_id": "osm:way:585439099",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12810200232298,
+            25.863403241693987
+          ],
+          [
+            -80.12809930710867,
+            25.863312809679364
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10154",
+      "name": "Miami Beach Residential Parking Spaces 10154",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 20.6,
+      "nearest_road_angle_delta_degrees": 1.5,
+      "matched_road_source_id": "osm:way:11143282",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12482880868669,
+            25.859421843185906
+          ],
+          [
+            -80.12482624871146,
+            25.859331407946527
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10155",
+      "name": "Miami Beach Residential Parking Spaces 10155",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 41,
+      "nearest_road_angle_delta_degrees": 0.7,
+      "matched_road_source_id": "osm:way:1002881116",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12288445003107,
+            25.85706158224605
+          ],
+          [
+            -80.12288029836317,
+            25.856971195527613
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10188",
+      "name": "Miami Beach Residential Parking Spaces 10188",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 30,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1002815870",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14128414378612,
+            25.8508435851393
+          ],
+          [
+            -80.14128081563787,
+            25.85093399983233
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10193",
+      "name": "Miami Beach Residential Parking Spaces 10193",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 71.1,
+      "nearest_road_angle_delta_degrees": 3,
+      "matched_road_source_id": "osm:way:11136505",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14219599608529,
+            25.853626052943298
+          ],
+          [
+            -80.14213570941027,
+            25.85355394969363
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10204",
+      "name": "Miami Beach Residential Parking Spaces 10204",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 36.5,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:566223525",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1274257852392,
+            25.86423670827774
+          ],
+          [
+            -80.12742329199484,
+            25.86414627150501
+          ]
+        ]
+      }
+    },
+    {
       "source_id": "miami-beach:arcgis:spaces:10363",
-      "name": "Parking Spaces 10363",
+      "name": "Miami Beach Residential Parking Spaces 10363",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
@@ -2401,49 +1281,73 @@
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:7452",
-      "name": "Parking Spaces 7452",
+      "source_id": "miami-beach:arcgis:spaces:10458",
+      "name": "Miami Beach Residential Parking Spaces 10458",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 22.5,
+      "nearest_road_distance_meters": 23.6,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:802389648",
+      "matched_road_source_id": "osm:way:11152410",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12726021345249,
-            25.81273495652043
+            -80.14440050981135,
+            25.790354111791125
           ],
           [
-            -80.1271669231646,
-            25.812767066619525
+            -80.14439763910958,
+            25.790263684257525
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:7453",
-      "name": "Parking Spaces 7453",
+      "source_id": "miami-beach:arcgis:spaces:10474",
+      "name": "Miami Beach Residential Parking Spaces 10474",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 20.4,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:802389647",
+      "nearest_road_distance_meters": 21.7,
+      "nearest_road_angle_delta_degrees": 0.1,
+      "matched_road_source_id": "osm:way:534853693",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12755507452358,
-            25.812818712764685
+            -80.12441824913014,
+            25.857008962228267
           ],
           [
-            -80.12749006646533,
-            25.81275007875896
+            -80.12441614735447,
+            25.856918517291817
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10708",
+      "name": "Miami Beach Residential Parking Spaces 10708",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 41.9,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:441800757",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12360918731892,
+            25.80921889719364
+          ],
+          [
+            -80.12370396664205,
+            25.809190604858387
           ]
         ]
       }

@@ -56,6 +56,7 @@ The DB-backed OSM/Geofabrik Miami baseline has been run locally: Florida PBF was
 | `USER_FIELD_EVIDENCE_INGESTION_FLOW_RU.md` | DEV-52 design/backlog: пользовательские фото/скрины/голос/точки на карте -> OCR/metadata/manual review -> `SourceObservation`/correction -> confidence update. |
 | `SOUTH_BEACH_FALSE_POSITIVE_AUDIT_DEV-49_RU.md` | DEV-49 data audit: почему South Beach/Ocean Drive/Collins/Lincoln слои дают false positives, какие source IDs затронуты и какие правила фильтрации/confidence применять. |
 | `ROAD_CURB_ENTRANCE_SNAPPING_HEURISTICS_DEV_55.md` | DEV-55 design/reference pack: road/curb/entrance snapping heuristics, side-of-street offsets, intersection/crosswalk/hydrant/driveway/loading/valet/no-parking cuts, entrance association, confidence gates and reusable reference data/tools before implementation. |
+| `MIAMI_ZONE_QUALITY_AUDIT_2026-07-16_RU.md` | Read-only аудит геометрии, дублей, пересечений и семантики Miami parking zones. |
 | `AGENTS.md` | Project instructions for agents and implementation constraints. |
 | `CODEX.md` | Codex-specific operating guide that points back to `AGENTS.md`. |
 | `CLAUDE.md` | Claude-compatible agent entry point. |

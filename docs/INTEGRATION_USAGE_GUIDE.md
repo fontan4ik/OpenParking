@@ -46,6 +46,15 @@ npm run dev
 
 `POST /api/route` is a server-side Valhalla boundary. The browser should call only `/api/route`; do not expose Valhalla directly to frontend code. The MVP supports `costing: "auto"`, finite lat/lon validation, a 100 km direct-distance cap, a 5 second provider timeout, and GeoJSON `LineString` responses with Valhalla/OpenStreetMap attribution. The map UI uses the same endpoint for selected-parking navigation from map-picked/geolocation/manual starts, point-to-point routes from two clicked map points, and current-location to clicked-destination routes; it intentionally excludes turn-by-turn, route history, and location persistence. Forward geocoding is available separately through `GET /api/geocode/forward` (see section 9).
 
+AI parking assistant configuration:
+
+```powershell
+# apps/frontend/.env.local
+OPENROUTER_API_KEY=your_key_here
+```
+
+`POST /api/assistant` keeps the OpenRouter key server-side and sends requests only to `openrouter/free`, so it never intentionally falls back to a paid model. It selects inexpensive, likely-or-better parking candidates from the same `loadFacilities()` data path used by the public API, then returns them to the map UI; clicking one opens the existing detail panel and route control. The microphone icon loads Whisper in the browser through `@huggingface/transformers` and transcribes audio locally after the user stops recording. The first transcription downloads the model to the browser, so it needs network access and may take a moment; microphone permission is required. Do not commit `OPENROUTER_API_KEY`, and rotate a key that was shared outside the intended secret channel.
+
 Check the installed agent/tooling health:
 
 ```powershell
@@ -308,7 +317,7 @@ The Miami fallback additionally loads `data/miami_beach_osm_basemap_candidates.g
 
 When `Reliable` or `More options` hides a sub-60% OSM candidate, the map keeps an amber review-reference marker and, for parking areas, a translucent amber polygon with a dashed outline. This prevents a raster-basemap `P` or a visible parking lot footprint from being mistaken for a missing OpenParking record. The reference geometry opens the normal detail panel and remains explicitly `needs_review`; it is not counted as a trusted search result. Parking tagged `access=private/customers/permit/residents/employees/delivery/destination` is classified as a conflict for ordinary-driver views and appears only in the conflict workflow.
 
-For Miami curb-line correctness, run `npm run audit:parking-geometry:miami:refresh` after changing parking-space grouping or when the OSM road/building cache is stale; otherwise run `npm run audit:parking-geometry:miami`. The refresh command uses Overpass only to cache road centerlines and building polygons in `data/research/fetches/miami-osm-roads-buildings-cache.geojson`. The audit then checks generated curb rows locally against those roads/buildings plus official lot/garage polygons, and writes `data/research/miami-parking-geometry-quality-report.json`. Lines are trusted only if they are straight, parallel to the nearest road, offset from the road centerline, near the road, and do not cross buildings or parking-area interiors; failures stay in review/reference state or are suppressed.
+For Miami curb-line correctness, run `npm run audit:parking-geometry:miami:refresh` after changing parking-space grouping or when the OSM road/building cache is stale; otherwise run `npm run audit:parking-geometry:miami`. The refresh command uses Overpass only to cache road centerlines and building polygons in `data/research/fetches/miami-osm-roads-buildings-cache.geojson`. The audit then checks generated curb rows locally against those roads/buildings plus official lot/garage polygons, and writes `data/research/miami-parking-geometry-quality-report.json`. Explicit `ParkMobile` zones are grouping boundaries, while unzoned legacy points remain compatible; a point gap over 18 meters starts a new row. Generated curb segments are multi-vertex polylines that follow the matched road centerline. Each consecutive vertex pair must be parallel to the matched road within the configured angle threshold, offset from the road centerline, near the road, and not crossing buildings or parking-area interiors; failures stay in review/reference state or are suppressed.
 
 For the production-scale Florida/Miami OSM baseline, use the Geofabrik workflow instead of public Overpass:
 

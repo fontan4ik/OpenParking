@@ -24,7 +24,7 @@ import {
   type RuleStatus,
 } from '@/lib/data-quality';
 import {
-  alignCurbLineToNearestRoad,
+  alignCurbLineAlongRoad,
   areasFromCollection,
   roadLinesFromCollection,
   withCurbGeometryQuality,
@@ -324,7 +324,7 @@ const MIAMI_BEACH_FIELD_PAYMENT_ZONE_ID = '40208';
 const MIAMI_BEACH_GENERATED_CURB_OFFER_CONFIDENCE = 0.55;
 const MIAMI_BEACH_REGULATORY_ZONE_OFFER_CONFIDENCE = 0.35;
 const MIAMI_BEACH_PAYMENT_EQUIPMENT_OFFER_CONFIDENCE = 0.5;
-const MIAMI_BEACH_MAX_GENERATED_CURB_ROW_LENGTH_METERS = 150;
+const MIAMI_BEACH_MAX_GENERATED_CURB_ROW_LENGTH_METERS = 10_000;
 
 const MIAMI_BEACH_RESIDENTIAL_ZONE_NAMES: Record<number, string> = {
   0: 'Unknown',
@@ -401,6 +401,42 @@ function cappedConfidence(value: number | null, cap: number) {
 
 function safeUrlFromProperties(properties: Record<string, unknown>, snakeKey: string, camelKey: string) {
   return safeUrl(stringValue(properties[snakeKey]) || stringValue(properties[camelKey]));
+}
+
+const METER_RATES_RE = /^\$?(\d+(?:\.\d+)?)\s*\/\s*hr(?:s?)$/i;
+
+export function curbPriceLabelFromMeterRates(properties: Record<string, unknown>): string {
+  const rawProperties = rawPropertiesObject(properties);
+  const meterRates = Object.prototype.hasOwnProperty.call(rawProperties, 'METER_RATES')
+    ? rawProperties.METER_RATES
+    : Object.prototype.hasOwnProperty.call(rawProperties, 'meter_rates')
+      ? rawProperties.meter_rates
+      : properties.METER_RATES ?? properties.meter_rates;
+  if (typeof meterRates !== 'string') return '';
+  const trimmed = meterRates.trim();
+  if (trimmed === '' || trimmed === '0' || trimmed === '$0') return '';
+  const match = trimmed.match(METER_RATES_RE);
+  if (!match) return '';
+  const rate = parseFloat(match[1]);
+  if (!Number.isFinite(rate) || rate <= 0) return '';
+  return `$${match[1]}/hr`;
+}
+
+function isMiamiGeneratedCurbRecord(properties: Record<string, unknown>) {
+  const sourceId = stringValue(properties.source_id).toLowerCase();
+  const sourceName = stringValue(properties.source_name || properties.last_verified_source).toLowerCase();
+  if (!sourceId && !sourceName) return false;
+  if (sourceId.startsWith('miami-beach:arcgis:spaces:')) return true;
+  if (!sourceId.startsWith('parking-space-row:')) return false;
+
+  const sourceSpaceIds = [
+    stringValue(properties.source_space_start_id),
+    stringValue(properties.source_space_end_id),
+  ];
+  return (
+    sourceName.includes('miami beach parking gis') ||
+    sourceSpaceIds.some((sourceSpaceId) => sourceSpaceId.startsWith('miami-beach:arcgis:spaces:'))
+  );
 }
 
 function rawPropertiesObject(properties: Record<string, unknown>) {
@@ -738,6 +774,16 @@ function isParkingAreaPolygonFeature(feature: GeoJSONFeature) {
   );
 }
 
+export function isParkingAreaGeometryReferenceFeature(feature: GeoJSONFeature) {
+  if (isParkingAreaPolygonFeature(feature)) return true;
+  return (
+    isPolygonFeature(feature) &&
+    !isParkingSpaceFeature(feature) &&
+    !isRegulatoryZoneFeature(feature) &&
+    stringValue(feature.properties.parking_evidence_kind).toLowerCase() === 'parking_area_candidate'
+  );
+}
+
 function collectionWithoutParkingSpaces(collection: GeoJSONCollection): GeoJSONCollection {
   return {
     ...collection,
@@ -760,7 +806,7 @@ function parkingSpacesAsCurbs(
   const parkingSpaces = excludeParkingSpacesInsideParkingAreas(
     collection.features.filter(isParkingSpaceFeature),
     [collection, ...parkingAreaCollections]
-  );
+  ).map(withOfficialCurbPriceStatus);
   const features = deriveParkingSpacePointLines(parkingSpaces)
     .map(curbSegmentWithLineGeometry)
     .filter(isLineFeature)
@@ -1025,7 +1071,7 @@ function applyGeneratedCurbGeometryQuality(features: GeoJSONFeature[], refs: Cur
   return features
     .map((feature) => {
       if (!shouldRunGeneratedCurbGeometryQuality(feature)) return feature;
-      return withCurbGeometryQuality(alignCurbLineToNearestRoad(feature, refs), refs);
+      return withCurbGeometryQuality(alignCurbLineAlongRoad(feature, refs), refs);
     })
     .filter((feature): feature is GeoJSONFeature => feature !== null);
 }
@@ -1183,6 +1229,22 @@ function parkingSpaceGroupingZone(feature: GeoJSONFeature) {
   }
 
   return '__unscoped__';
+}
+
+function withOfficialCurbPriceStatus(feature: GeoJSONFeature): GeoJSONFeature {
+  const sourceId = stringValue(feature.properties.source_id);
+  const priceStatus = stringValue(feature.properties.price_status);
+  if (!sourceId.startsWith('miami-beach:arcgis:spaces:')) return feature;
+  if (priceStatus !== '' && priceStatus !== 'not_applicable') return feature;
+  if (curbPriceLabelFromMeterRates(feature.properties) === '') return feature;
+
+  return {
+    ...feature,
+    properties: {
+      ...feature.properties,
+      price_status: 'known_priced',
+    },
+  };
 }
 
 export function deriveParkingSpacePointLines(features: GeoJSONFeature[]): GeoJSONFeature[] {
@@ -1418,11 +1480,17 @@ export function canonicalFeature(feature: GeoJSONFeature, layer: 'facility' | 'c
     price_status: priceStatus,
     rule_status: ruleStatus,
   });
+  const shouldEmitCurbPriceLabel = layer === 'curb_segment' && isMiamiGeneratedCurbRecord(normalizedProperties);
+  const curbLabel = shouldEmitCurbPriceLabel && priceStatus === 'known_priced'
+    ? curbPriceLabelFromMeterRates(normalizedProperties)
+    : '';
+  const publicProperties = { ...normalizedProperties };
+  delete publicProperties.curb_price_label;
 
   return {
     ...feature,
     properties: {
-      ...normalizedProperties,
+      ...publicProperties,
       parkingusa_id: `parkingusa:${layer}:${sourceName}:${sourceId}`,
       parkingusa_layer: layer,
       existence_status: normalizedProperties.existence_status,
@@ -1435,6 +1503,7 @@ export function canonicalFeature(feature: GeoJSONFeature, layer: 'facility' | 'c
         rule_status: ruleStatus,
         enrichment_status: enrichmentStatus,
       }),
+      ...(shouldEmitCurbPriceLabel ? { curb_price_label: curbLabel } : {}),
       canonical_source: 'ParkingUSA Parking Index',
     },
   };
@@ -1504,7 +1573,14 @@ export async function loadCityBoundary(cityId = DEFAULT_CITY_ID): Promise<GeoJSO
   });
 }
 
-export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSONCollection> {
+type CurbSegmentLoadOptions = {
+  readonly parkingAreaEligibility?: 'physical' | 'geometry';
+};
+
+export async function loadCurbSegments(
+  cityId = DEFAULT_CITY_ID,
+  options: CurbSegmentLoadOptions = {}
+): Promise<GeoJSONCollection> {
   const fallback = cityFallback(cityId);
   const cityMetadata = cityDataMetadata(cityId);
   const [dbSegments, dbZones, officialSegments, officialStreetSpaces, officialZones, coverageLines, coveragePolygons, geometryReference] = await Promise.all([
@@ -1518,6 +1594,9 @@ export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSO
     fallback.geometryReference ? loadGeoJSON(fallback.geometryReference) : emptyCollection(cityMetadata),
   ]);
   const parkingAreaCollections = [dbZones, officialZones, coveragePolygons];
+  const parkingAreaFeatureFilter = options.parkingAreaEligibility === 'physical'
+    ? isParkingAreaPolygonFeature
+    : isParkingAreaGeometryReferenceFeature;
   const geometryQualityRefs: CurbGeometryQualityRefs = {
     roads: [
       ...roadLinesFromCollection(coverageLines),
@@ -1527,7 +1606,7 @@ export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSO
       collection
         ? areasFromCollection({
             ...collection,
-            features: collection.features.filter(isParkingAreaPolygonFeature),
+            features: collection.features.filter(parkingAreaFeatureFilter),
           })
         : []
     ),
@@ -1540,12 +1619,17 @@ export async function loadCurbSegments(cityId = DEFAULT_CITY_ID): Promise<GeoJSO
     layer_role: 'curb_segments_with_coverage_lines',
   });
 
+  const normalizedFeatures = merged.features.map((f) => curbSegmentWithLineGeometry(f));
+  const features = applyGeneratedCurbGeometryQuality(normalizedFeatures, geometryQualityRefs);
+  const canonicalFeatures = features.map((f) => canonicalFeature(f, 'curb_segment'));
+
   return {
     ...merged,
-    features: applyGeneratedCurbGeometryQuality(
-      merged.features.map((f) => curbSegmentWithLineGeometry(f)),
-      geometryQualityRefs
-    ).map((f) => canonicalFeature(f, 'curb_segment')),
+    metadata: {
+      ...merged.metadata,
+      count: canonicalFeatures.length,
+    },
+    features: canonicalFeatures,
   };
 }
 

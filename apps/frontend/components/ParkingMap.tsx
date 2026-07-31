@@ -532,11 +532,11 @@ export default function ParkingMap({
         type: 'line',
         source: 'segments',
         layout: {
-          'line-cap': 'round',
+          'line-cap': 'butt',
           'line-join': 'round',
         },
         paint: {
-          'line-color': '#312bdc',
+          'line-color': '#1e293b',
           'line-width': [
             'interpolate',
             ['linear'],
@@ -559,11 +559,11 @@ export default function ParkingMap({
         type: 'line',
         source: 'segments',
         layout: {
-          'line-cap': 'round',
+          'line-cap': 'butt',
           'line-join': 'round',
         },
         paint: {
-          'line-color': '#93c5fd',
+          'line-color': statusColorExpression(),
           'line-width': [
             'interpolate',
             ['linear'],
@@ -589,12 +589,7 @@ export default function ParkingMap({
         layout: {
           'symbol-placement': 'line-center',
           'symbol-spacing': 120,
-          'text-field': [
-            'coalesce',
-            ['get', 'parkmobile_zone'],
-            ['get', 'field_payment_zone_location_id'],
-            '',
-          ],
+          'text-field': ['coalesce', ['get', 'curb_price_label'], ''],
           'text-size': [
             'interpolate',
             ['linear'],
@@ -614,7 +609,7 @@ export default function ParkingMap({
         },
         paint: {
           'text-color': '#ffffff',
-          'text-halo-color': '#312bdc',
+          'text-halo-color': '#1e293b',
           'text-halo-width': 5,
           'text-halo-blur': 0.2,
         },
