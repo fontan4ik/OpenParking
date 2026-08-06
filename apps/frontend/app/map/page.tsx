@@ -1277,7 +1277,7 @@ export default function HomePage() {
 
   return (
     <div
-      className={`app-layout ${mobileSheetCollapsed ? 'mobile-sheet-collapsed' : ''} ${mobileSheetMapPeeking ? 'mobile-sheet-map-peek' : ''} ${mobileSheetDragOffset !== 0 ? 'mobile-sheet-dragging' : ''}`}
+      className={`app-layout ${selectedFacility ? 'detail-open' : ''} ${mobileSheetCollapsed ? 'mobile-sheet-collapsed' : ''} ${mobileSheetMapPeeking ? 'mobile-sheet-map-peek' : ''} ${mobileSheetDragOffset !== 0 ? 'mobile-sheet-dragging' : ''}`}
       style={mobileSheetStyle}
     >
       {/* ── Sidebar ── */}

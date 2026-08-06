@@ -9,6 +9,8 @@ The current web application lives in `apps/frontend`: `/` is the OpenParking lan
 The project currently includes:
 
 - an OpenParking landing page plus a full-screen MapLibre map shell with premium glass UI and light/dark theme support;
+- optional street/satellite basemap switching, OpenFreeMap 3D building extrusion, and an angled active-route view on the map;
+- MapLibre-native facility clustering through neighborhood zoom, keeping review candidates separate and expanding clusters on click;
 - public API routes for stats, facilities, and GeoJSON layers;
 - additive `POST /api/route` routing MVP backed by server-side Valhalla, including selected-parking routes and map-picked point-to-point routes;
 - `GET /api/geocode/forward` forward-geocoding proxy for OpenCage, server-side key only, with `language=en|ru`, optional/unconfigured mode, and LRU cache;
@@ -45,6 +47,7 @@ The DB-backed OSM/Geofabrik Miami baseline has been run locally: Florida PBF was
 
 | Document | Purpose |
 | --- | --- |
+| `../DESIGN.md` | OpenParking Atlas visual contract: semantic color, typography, map clusters, panel/sheet anatomy, responsive behavior, motion, and accessibility constraints. |
 | `PROJECT_OVERVIEW_RU.md` | Главный продуктовый и архитектурный источник правды: что строим, как работают данные/API, какие источники используются и какие поля нужно показывать пользователю. |
 | `UI_DATA_TRUST_PROPOSAL_RU.md` | DEV-50 UX proposal/backlog: как честно показывать unknown price/source/payment/confidence, layer filters, evidence panel и anti-false-offer states. |
 | `LOCAL_TESTING_AND_ZROK_GUIDE_RU.md` | Короткий русский guide для локального запуска, обновления Miami fixtures, проверки API и zrok-шаринга. |

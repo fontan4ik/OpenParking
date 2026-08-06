@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 /* ═══════════════════════════════════════════════════════════════
    ParkingUSA — Premium Dark Design System
@@ -1577,6 +1577,71 @@ html[data-theme="light"] .geocode-suggestions-item:focus-visible {
   flex-wrap: wrap;
 }
 
+.map-visual-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--border-medium);
+  border-radius: 14px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-sm);
+}
+
+.map-visual-segmented {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--bg-card) 72%, transparent);
+}
+
+.map-visual-controls button {
+  min-height: 30px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 9px;
+  color: var(--text-secondary);
+  background: transparent;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.map-visual-controls button:hover,
+.map-visual-controls button:focus-visible,
+.map-visual-controls button.active {
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+  outline: none;
+}
+
+.map-visual-controls button:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent-blue);
+}
+
+@media (max-width: 720px) {
+  .map-visual-controls {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    justify-content: space-between;
+    gap: 4px;
+    overflow-x: auto;
+  }
+
+  .map-visual-controls button {
+    padding: 0 7px;
+  }
+}
+
 .layer-toggle {
   padding: 7px 14px;
   border-radius: 20px;
@@ -2598,12 +2663,12 @@ html[data-theme="light"] .geocode-suggestions-item:focus-visible {
    soft blue elevation, product-first map surface.
    ═══════════════════════════════════════════════════════════════ */
 :root {
-  --bg-primary: #f6f9fc;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #edf4fb;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-card-hover: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.76);
+  --bg-primary: #f4f7fb;
+  --bg-secondary: #edf2f7;
+  --bg-tertiary: #e3ebf4;
+  --bg-card: rgba(255, 255, 255, 0.94);
+  --bg-card-hover: #f2f6fb;
+  --bg-glass: rgba(255, 255, 255, 0.82);
 
   --accent-blue: #2563eb;
   --accent-blue-glow: rgba(37, 99, 235, 0.16);
@@ -2620,24 +2685,32 @@ html[data-theme="light"] .geocode-suggestions-item:focus-visible {
   --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(239, 246, 255, 0.82) 100%);
   --gradient-sidebar: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 249, 252, 0.98) 100%);
 
-  --text-primary: #061b31;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --text-accent: #2563eb;
+  --text-primary: #132033;
+  --text-secondary: #52647a;
+  --text-muted: #718197;
+  --text-accent: #1769e0;
 
-  --border-subtle: rgba(148, 163, 184, 0.24);
-  --border-medium: rgba(100, 116, 139, 0.28);
-  --border-accent: rgba(37, 99, 235, 0.32);
+  --border-subtle: rgba(61, 83, 110, 0.12);
+  --border-medium: rgba(61, 83, 110, 0.22);
+  --border-accent: rgba(23, 105, 224, 0.34);
 
   --shadow-card: rgba(50, 50, 93, 0.18) 0px 22px 44px -28px, rgba(15, 23, 42, 0.08) 0px 10px 24px -16px;
   --shadow-glow-blue: rgba(37, 99, 235, 0.18) 0px 20px 45px -24px, rgba(15, 23, 42, 0.08) 0px 10px 24px -16px;
   --shadow-glow-emerald: rgba(5, 150, 105, 0.18) 0px 18px 36px -24px;
 
-  --sidebar-width: 408px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --sidebar-width: clamp(336px, 28vw, 392px);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
 }
 
 html,
@@ -2647,7 +2720,7 @@ body {
     radial-gradient(circle at 72% -8%, rgba(8, 145, 178, 0.1), transparent 30%),
     #f6f9fc;
   color: var(--text-primary);
-  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 ::selection {
@@ -3024,19 +3097,19 @@ html {
 }
 
 html[data-theme="dark"] {
-  --bg-primary: #070912;
-  --bg-secondary: #0d1220;
-  --bg-tertiary: #141b2f;
-  --bg-card: rgba(13, 18, 32, 0.78);
-  --bg-card-hover: rgba(20, 27, 47, 0.88);
-  --bg-glass: rgba(8, 12, 24, 0.68);
+  --bg-primary: #070b13;
+  --bg-secondary: #0d1420;
+  --bg-tertiary: #131d2b;
+  --bg-card: rgba(15, 23, 34, 0.94);
+  --bg-card-hover: #172233;
+  --bg-glass: rgba(10, 17, 28, 0.82);
 
-  --accent-blue: #60a5fa;
-  --accent-blue-glow: rgba(96, 165, 250, 0.26);
-  --accent-cyan: #2dd4bf;
+  --accent-blue: #63a2ff;
+  --accent-blue-glow: rgba(99, 162, 255, 0.26);
+  --accent-cyan: #22d3ee;
   --accent-emerald: #34d399;
-  --accent-amber: #f59e0b;
-  --accent-red: #f87171;
+  --accent-amber: #fbbf24;
+  --accent-red: #fb7185;
   --accent-purple: #a78bfa;
   --accent-pink: #f472b6;
 
@@ -3046,14 +3119,14 @@ html[data-theme="dark"] {
   --gradient-card: linear-gradient(145deg, rgba(45, 212, 191, 0.1) 0%, rgba(96, 165, 250, 0.06) 100%);
   --gradient-sidebar: linear-gradient(180deg, rgba(23, 29, 42, 0.94) 0%, rgba(16, 21, 31, 0.98) 100%);
 
-  --text-primary: #f8fbff;
-  --text-secondary: #b6c3d6;
-  --text-muted: #8290a6;
-  --text-accent: #93c5fd;
+  --text-primary: #f4f7fb;
+  --text-secondary: #a8b6c8;
+  --text-muted: #74849a;
+  --text-accent: #8cb9ff;
 
-  --border-subtle: rgba(203, 213, 225, 0.12);
-  --border-medium: rgba(203, 213, 225, 0.2);
-  --border-accent: rgba(96, 165, 250, 0.42);
+  --border-subtle: rgba(159, 177, 199, 0.12);
+  --border-medium: rgba(159, 177, 199, 0.22);
+  --border-accent: rgba(99, 162, 255, 0.42);
 
   --shadow-card: 0 24px 58px rgba(0, 0, 0, 0.34), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
   --shadow-glow-blue: 0 22px 60px rgba(45, 212, 191, 0.12), 0 18px 48px rgba(96, 165, 250, 0.1);
@@ -4107,6 +4180,11 @@ html[data-theme="light"] .search-clear-button {
 }
 
 @media (max-width: 900px) {
+  .app-layout.detail-open .sidebar {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
   .sidebar {
     max-height: 56dvh;
   }
@@ -5837,12 +5915,12 @@ html[data-theme="light"] {
   --bg-card: rgba(255, 255, 255, 0.94);
   --bg-card-hover: #f8fbff;
   --bg-glass: rgba(255, 255, 255, 0.86);
-  --accent-blue: #2563eb;
+  --accent-blue: #1769e0;
   --accent-blue-glow: rgba(37, 99, 235, 0.16);
-  --accent-cyan: #0891b2;
-  --accent-emerald: #059669;
-  --accent-amber: #d97706;
-  --accent-red: #dc2626;
+  --accent-cyan: #087e9b;
+  --accent-emerald: #087f63;
+  --accent-amber: #b75f09;
+  --accent-red: #c83b3b;
   --accent-purple: #7c3aed;
   --accent-pink: #db2777;
   --gradient-primary: linear-gradient(135deg, #2563eb 0%, #059669 100%);
@@ -8058,6 +8136,308 @@ html[data-theme="dark"] .landing-video-stage::after {
 @media (max-width: 900px) {
   .sidebar.mobile-sheet-collapsed.search-expanded .facility-list {
     display: none;
+  }
+}
+
+/* OpenParking Atlas: map-first product shell. */
+.sidebar,
+.detail-panel,
+.map-visual-controls,
+.parking-assistant-panel,
+.route-sheet,
+.dropped-pin-card {
+  color: var(--text-primary);
+}
+
+.sidebar-header,
+.map-command-panel,
+.city-summary-panel,
+.filters-section,
+.legend {
+  flex: 0 0 auto;
+}
+
+.sidebar-header {
+  padding-block: var(--space-3);
+}
+
+.sidebar-logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+}
+
+.sidebar-logo h1 {
+  font-size: 17px;
+  letter-spacing: -0.035em;
+}
+
+.sidebar-subtitle {
+  max-width: 24ch;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.map-command-panel,
+.city-summary-panel,
+.filters-section {
+  padding-inline: var(--space-4);
+}
+
+.search-command-input {
+  min-height: 48px;
+  border-color: var(--border-medium);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.42) inset;
+}
+
+.parking-search-panel,
+.geocode-suggestions {
+  border-color: var(--border-medium);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  box-shadow: 0 18px 42px rgba(26, 45, 70, 0.16);
+}
+
+.city-selector.compact,
+.filter-chip-row {
+  scrollbar-width: none;
+}
+
+.city-selector.compact::-webkit-scrollbar,
+.filter-chip-row::-webkit-scrollbar {
+  display: none;
+}
+
+.city-chip,
+.filter-chip,
+.trust-option {
+  border-color: var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-card) 88%, transparent);
+  box-shadow: none;
+}
+
+.city-chip:hover,
+.filter-chip:hover,
+.trust-option:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+}
+
+.city-chip.active,
+.filter-chip.active,
+.trust-option.active {
+  border-color: color-mix(in srgb, var(--accent-blue) 48%, transparent);
+  background: color-mix(in srgb, var(--accent-blue) 12%, var(--bg-card));
+  color: var(--accent-blue);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-blue) 8%, transparent) inset;
+}
+
+.trust-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.trust-option {
+  min-height: 40px;
+  padding: 8px 9px;
+  border-radius: var(--radius-sm);
+}
+
+.advanced-filter-details,
+.data-health-details,
+.dataset-summary-details {
+  border-color: var(--border-subtle);
+}
+
+.facility-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--space-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: transparent;
+}
+
+.facility-card {
+  margin-bottom: var(--space-2);
+  padding: var(--space-3);
+  border-color: transparent;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--bg-card) 90%, var(--bg-secondary));
+  box-shadow: none;
+}
+
+.facility-card:hover,
+.facility-card:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  box-shadow: 0 12px 30px rgba(26, 45, 70, 0.1);
+  outline: none;
+}
+
+.facility-card:active {
+  transform: translateY(0);
+}
+
+.facility-name {
+  font-size: 13px;
+  line-height: 1.3;
+  text-wrap: pretty;
+}
+
+.facility-quality-row {
+  gap: 5px;
+}
+
+.quality-chip,
+.source-badge,
+.freshness-chip {
+  border-radius: 6px;
+}
+
+.legend {
+  border-top: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-card) 84%, transparent);
+}
+
+.map-visual-controls {
+  border-color: var(--border-medium);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 46%),
+    var(--bg-glass);
+  box-shadow: 0 12px 32px rgba(20, 38, 62, 0.16), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+  backdrop-filter: blur(18px) saturate(135%);
+}
+
+.map-visual-controls button {
+  transition: color 140ms ease-out, background-color 140ms ease-out, transform 140ms ease-out;
+}
+
+.map-visual-controls button:active {
+  transform: translateY(1px);
+}
+
+.detail-panel {
+  overflow: hidden;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-card);
+  box-shadow: 0 26px 70px rgba(15, 30, 50, 0.22);
+  backdrop-filter: blur(20px) saturate(130%);
+}
+
+.detail-header {
+  background: color-mix(in srgb, var(--bg-card) 94%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.detail-primary-card {
+  border-color: color-mix(in srgb, var(--accent-blue) 20%, var(--border-subtle));
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent-blue) 11%, transparent), transparent 42%),
+    color-mix(in srgb, var(--accent-blue) 5%, var(--bg-card));
+}
+
+.detail-section {
+  border-color: var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-card) 92%, var(--bg-secondary));
+  box-shadow: none;
+}
+
+@media (min-width: 901px) {
+  :root,
+  html[data-theme="light"],
+  html[data-theme="dark"] {
+    --sidebar-width: clamp(336px, 28vw, 392px);
+  }
+
+  .sidebar {
+    border-right-color: var(--border-medium);
+    background: var(--bg-card);
+    box-shadow: 12px 0 34px rgba(22, 40, 64, 0.1);
+  }
+
+  .detail-panel {
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: min(424px, calc(100vw - var(--sidebar-width) - 36px));
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: var(--bg-card);
+    box-shadow: 0 -20px 48px rgba(15, 30, 50, 0.2);
+  }
+
+  .map-command-panel,
+  .city-summary-panel,
+  .filters-section {
+    padding-inline: var(--space-3);
+  }
+
+  .trust-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .trust-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .trust-option {
+    min-width: 116px;
+    scroll-snap-align: start;
+  }
+
+  .map-visual-controls {
+    right: 10px;
+    left: auto;
+    width: min(274px, calc(100vw - 20px));
+    justify-content: flex-end;
+  }
+
+  .detail-panel {
+    inset: auto 8px 8px;
+    z-index: 60;
+    width: auto;
+    max-width: none;
+    height: min(72dvh, 680px);
+    border-radius: var(--radius-lg);
+    background: var(--bg-primary);
+    transform: translateY(0);
+  }
+
+  .detail-header {
+    min-height: 56px;
+  }
+
+  .detail-body {
+    min-height: 0;
+    overscroll-behavior: contain;
+  }
+
+  .parking-assistant {
+    right: 12px;
+    bottom: 74px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .facility-card,
+  .map-visual-controls button,
+  .detail-panel,
+  .sidebar {
+    transition-duration: 1ms !important;
   }
 }
 

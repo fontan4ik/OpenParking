@@ -27,9 +27,11 @@ City / OSM / operator sources
 - React.
 - MapLibre GL JS.
 - `/` OpenParking landing page.
-- `/map` full-screen map UI as the working shell, with premium glass panels and light/dark theme switching.
+- `/map` full-screen map UI as the working shell, with the `OpenParking Atlas` map-first design contract from root `DESIGN.md`, light/dark themes, a bounded desktop context panel, mobile bottom sheets, and restrained floating controls.
 - GeoJSON mode for MVP, debugging, and fixture fallback.
 - Vector tile mode for large city/state/national layers.
+- Facility points use MapLibre's built-in GeoJSON/Supercluster path through zoom 14 (`clusterRadius: 56`) to reduce point noise. Clusters are presentation-only aggregates: they do not merge canonical records, change API counts, or mix the separate review-facility source into the normal driver layer. Clicking a cluster moves to its MapLibre expansion zoom; individual points retain price/trust semantic colors.
+- Optional visual basemaps remain separate from parking data: the map supports an OSM street raster, EOX Sentinel-2 cloudless satellite imagery, and OpenFreeMap building vector tiles for opt-in 3D extrusion. An active driving route moves the map into an angled view; these external sources are presentation layers only and must retain provider attribution. They do not replace the canonical parking source/provenance path.
 
 ### API
 

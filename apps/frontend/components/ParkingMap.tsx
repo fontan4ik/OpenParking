@@ -19,6 +19,10 @@ import {
 } from '@/lib/data-quality';
 import { cityNameKey, type TranslationKey } from '@/lib/i18n';
 import { buildFacilitySearchHaystack } from '@/lib/facility-search';
+import {
+  FACILITY_CLUSTER_SOURCE_OPTIONS,
+  getFacilityClusterId,
+} from '@/lib/map-clustering';
 import { splitParkingSegments } from '@/lib/map-segment-classification';
 import { priceTextOrFallback } from '@/lib/price-utils';
 import type { RouteCoordinate } from '@/lib/routing';
@@ -72,6 +76,16 @@ const MAP_STYLE = {
       tileSize: 256,
       attribution: '&copy; OpenStreetMap contributors',
     },
+    satellite: {
+      type: 'raster',
+      tiles: ['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2025_3857/default/g/{z}/{y}/{x}.jpg'],
+      tileSize: 256,
+      attribution: '&copy; EOX IT Services GmbH, Sentinel-2 cloudless',
+    },
+    buildings: {
+      type: 'vector',
+      url: 'https://tiles.openfreemap.org/planet',
+    },
   },
   layers: [
     {
@@ -86,6 +100,13 @@ const MAP_STYLE = {
         'raster-hue-rotate': 0,
       },
     },
+    {
+      id: 'satellite',
+      type: 'raster',
+      source: 'satellite',
+      layout: { visibility: 'none' },
+      paint: { 'raster-opacity': 1 },
+    },
   ],
 } as maplibregl.StyleSpecification;
 
@@ -97,9 +118,9 @@ function applyRasterTheme(map: maplibregl.Map, theme: 'light' | 'dark') {
   const paint =
     theme === 'dark'
       ? {
-          'raster-saturation': -0.18,
+          'raster-saturation': -0.28,
           'raster-brightness-min': 0.01,
-          'raster-brightness-max': 0.82,
+          'raster-brightness-max': 0.72,
           'raster-contrast': 0.08,
           'raster-hue-rotate': 0,
         }
@@ -118,6 +139,18 @@ function applyRasterTheme(map: maplibregl.Map, theme: 'light' | 'dark') {
   if (map.getLayer('city-boundary-casing') && map.getLayer('city-boundary-line')) {
     map.setPaintProperty('city-boundary-casing', 'line-color', theme === 'dark' ? '#111827' : '#ffffff');
     map.setPaintProperty('city-boundary-line', 'line-color', theme === 'dark' ? '#f8fafc' : '#1f2937');
+  }
+}
+
+function applyMapVisualSettings(
+  map: maplibregl.Map,
+  basemap: 'street' | 'satellite',
+  buildingsEnabled: boolean
+) {
+  if (map.getLayer('osm')) map.setLayoutProperty('osm', 'visibility', basemap === 'street' ? 'visible' : 'none');
+  if (map.getLayer('satellite')) map.setLayoutProperty('satellite', 'visibility', basemap === 'satellite' ? 'visible' : 'none');
+  if (map.getLayer('openparking-buildings')) {
+    map.setLayoutProperty('openparking-buildings', 'visibility', buildingsEnabled ? 'visible' : 'none');
   }
 }
 
@@ -399,6 +432,8 @@ export default function ParkingMap({
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [loadAttempt, setLoadAttempt] = useState(0);
+  const [basemap, setBasemap] = useState<'street' | 'satellite'>('street');
+  const [buildingsEnabled, setBuildingsEnabled] = useState(false);
   const [layerLoadStatus, setLayerLoadStatus] = useState<Record<'facilities' | 'segments' | 'zones', LayerLoadStatus>>({
     facilities: 'loading',
     segments: 'loading',
@@ -475,7 +510,11 @@ export default function ParkingMap({
       map.addSource('city-boundary', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('segments', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('reference-segments', { type: 'geojson', data: EMPTY_COLLECTION });
-      map.addSource('facilities', { type: 'geojson', data: EMPTY_COLLECTION });
+      map.addSource('facilities', {
+        type: 'geojson',
+        data: EMPTY_COLLECTION,
+        ...FACILITY_CLUSTER_SOURCE_OPTIONS,
+      });
       map.addSource('review-facilities', { type: 'geojson', data: EMPTY_COLLECTION });
       map.addSource('parkingusa-route-source', {
         type: 'geojson',
@@ -496,6 +535,22 @@ export default function ParkingMap({
       map.addSource('parkingusa-dropped-pin-source', {
         type: 'geojson',
         data: { type: 'FeatureCollection', features: [] },
+      });
+
+      map.addLayer({
+        id: 'openparking-buildings',
+        type: 'fill-extrusion',
+        source: 'buildings',
+        'source-layer': 'building',
+        minzoom: 13,
+        layout: { visibility: 'none' },
+        filter: ['!=', ['get', 'hide_3d'], true],
+        paint: {
+          'fill-extrusion-color': theme === 'dark' ? '#94a3b8' : '#64748b',
+          'fill-extrusion-height': ['coalesce', ['get', 'render_height'], 8],
+          'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0],
+          'fill-extrusion-opacity': 0.62,
+        },
       });
 
       map.addLayer({
@@ -645,9 +700,57 @@ export default function ParkingMap({
       });
 
       map.addLayer({
+        id: 'facilities-clusters',
+        type: 'circle',
+        source: 'facilities',
+        filter: ['has', 'point_count'],
+        paint: {
+          'circle-color': [
+            'step',
+            ['get', 'point_count'],
+            '#1769e0',
+            25,
+            '#1258bd',
+            100,
+            '#0e438f',
+          ],
+          'circle-radius': [
+            'step',
+            ['get', 'point_count'],
+            17,
+            25,
+            22,
+            100,
+            28,
+          ],
+          'circle-opacity': 0.9,
+          'circle-stroke-color': 'rgba(255, 255, 255, 0.9)',
+          'circle-stroke-width': 2,
+        },
+      });
+
+      map.addLayer({
+        id: 'facilities-cluster-count',
+        type: 'symbol',
+        source: 'facilities',
+        filter: ['has', 'point_count'],
+        layout: {
+          'text-field': ['get', 'point_count_abbreviated'],
+          'text-font': ['Noto Sans Bold'],
+          'text-size': 12,
+        },
+        paint: {
+          'text-color': '#ffffff',
+          'text-halo-color': 'rgba(15, 32, 51, 0.3)',
+          'text-halo-width': 1,
+        },
+      });
+
+      map.addLayer({
         id: 'facilities-circle',
         type: 'circle',
         source: 'facilities',
+        filter: ['!', ['has', 'point_count']],
         paint: {
           'circle-radius': [
             'interpolate',
@@ -788,6 +891,7 @@ export default function ParkingMap({
           id: 'facilities-glow',
           type: 'circle',
           source: 'facilities',
+          filter: ['!', ['has', 'point_count']],
           paint: {
             'circle-radius': [
               'interpolate',
@@ -848,6 +952,7 @@ export default function ParkingMap({
       });
 
       applyRasterTheme(map, theme);
+      applyMapVisualSettings(map, basemap, buildingsEnabled);
 
       map.addLayer({
         id: 'parkingusa-user-location-layer',
@@ -985,6 +1090,29 @@ export default function ParkingMap({
         onMapPointPickRef.current?.({ lat: event.lngLat.lat, lon: event.lngLat.lng });
       });
 
+      map.on('mouseenter', 'facilities-clusters', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+      map.on('mouseleave', 'facilities-clusters', () => {
+        map.getCanvas().style.cursor = '';
+      });
+      map.on('click', 'facilities-clusters', async (event: MapLayerMouseEvent) => {
+        if (mapPickModeRef.current !== 'none') return;
+
+        const feature = event.features?.[0];
+        const clusterId = getFacilityClusterId(feature?.properties);
+        if (clusterId === null || feature?.geometry.type !== 'Point') return;
+
+        const [longitude, latitude] = feature.geometry.coordinates;
+        if (typeof longitude !== 'number' || typeof latitude !== 'number') return;
+
+        const source = map.getSource('facilities');
+        if (!(source instanceof maplibregl.GeoJSONSource)) return;
+
+        const zoom = await source.getClusterExpansionZoom(clusterId);
+        map.easeTo({ center: [longitude, latitude], zoom, duration: 520, essential: true });
+      });
+
       const clickableLayers = ['facilities-circle', 'review-facilities-circle', 'zones-fill', 'review-zones-fill', 'segments-line', 'reference-segments-line'];
       clickableLayers.forEach((layerId) => {
         map.on('mouseenter', layerId, () => {
@@ -1053,6 +1181,23 @@ export default function ParkingMap({
     if (!map || !isReady) return;
     applyRasterTheme(map, theme);
   }, [isReady, theme]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !isReady) return;
+    applyMapVisualSettings(map, basemap, buildingsEnabled);
+
+    if (buildingsEnabled) {
+      map.easeTo({
+        zoom: Math.max(map.getZoom(), 15),
+        pitch: Math.max(map.getPitch(), 52),
+        duration: 550,
+        essential: true,
+      });
+      return;
+    }
+
+  }, [basemap, buildingsEnabled, isReady]);
 
   useEffect(() => {
     if (isReady) return;
@@ -1271,6 +1416,8 @@ export default function ParkingMap({
     setVisibility(map, 'zones-outline', showZones);
     setVisibility(map, 'review-zones-fill', showZones);
     setVisibility(map, 'review-zones-outline', showZones);
+    setVisibility(map, 'facilities-clusters', showPoints);
+    setVisibility(map, 'facilities-cluster-count', showPoints);
     setVisibility(map, 'facilities-circle', showPoints);
     setVisibility(map, 'facilities-glow', showPoints);
     setVisibility(map, 'review-facilities-circle', showPoints);
@@ -1288,6 +1435,20 @@ export default function ParkingMap({
         : { type: 'FeatureCollection', features: [] }
     );
   }, [isReady, routeGeometry]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !isReady) return;
+
+    if (routeGeometry) {
+      map.easeTo({ pitch: Math.max(map.getPitch(), 52), duration: 550, essential: true });
+      return;
+    }
+
+    if (!buildingsEnabled && map.getPitch() > 0) {
+      map.easeTo({ pitch: 0, duration: 350, essential: true });
+    }
+  }, [buildingsEnabled, isReady, routeGeometry]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -1345,6 +1506,37 @@ export default function ParkingMap({
 
   return (
     <div ref={containerRef} className="parking-map">
+      <div
+        className="map-visual-controls"
+        aria-label={localText(t, 'Map display controls', 'Настройки отображения карты')}
+      >
+        <div className="map-visual-segmented" role="group" aria-label={localText(t, 'Basemap', 'Подложка')}>
+          <button
+            className={basemap === 'street' ? 'active' : ''}
+            type="button"
+            aria-pressed={basemap === 'street'}
+            onClick={() => setBasemap('street')}
+          >
+            {localText(t, 'Street', 'Улицы')}
+          </button>
+          <button
+            className={basemap === 'satellite' ? 'active' : ''}
+            type="button"
+            aria-pressed={basemap === 'satellite'}
+            onClick={() => setBasemap('satellite')}
+          >
+            {localText(t, 'Satellite', 'Спутник')}
+          </button>
+        </div>
+        <button
+          className={`map-visual-toggle ${buildingsEnabled ? 'active' : ''}`}
+          type="button"
+          aria-pressed={buildingsEnabled}
+          onClick={() => setBuildingsEnabled((enabled) => !enabled)}
+        >
+          {localText(t, '3D buildings', '3D здания')}
+        </button>
+      </div>
       {showLoadingState && (
         <div className="loading-overlay">
           <div className="map-skeleton" aria-hidden="true">
