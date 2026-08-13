@@ -89,6 +89,13 @@
     "frontend:build": "next build apps/frontend",
     "frontend:start": "next start apps/frontend",
     "frontend:start:public": "next start apps/frontend -H 0.0.0.0 -p 3000",
+    "qa:server:start": "node apps/frontend/scripts/qa-server.cjs start",
+    "qa:server:stop": "node apps/frontend/scripts/qa-server.cjs stop",
+    "qa:server:status": "node apps/frontend/scripts/qa-server.cjs status",
+    "qa:visual": "node apps/frontend/scripts/visual-qa.cjs --mode=quick",
+    "qa:visual:quick": "node apps/frontend/scripts/visual-qa.cjs --mode=quick",
+    "qa:visual:full": "node apps/frontend/scripts/visual-qa.cjs --mode=full",
+    "qa:visual:check": "node apps/frontend/scripts/visual-qa.cjs --check-only",
     "zrok:enable": "node apps/backend/scripts/zrok_enable.mjs",
     "share:zrok": "node apps/backend/scripts/zrok_share.mjs public",
     "share:zrok:private": "node apps/backend/scripts/zrok_share.mjs private",
@@ -98,6 +105,8 @@
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
     "@prisma/client": "^6.19.3",
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
     "@xmldom/xmldom": "^0.9.10",
     "lodash": "^4.18.1",
     "maplibre-gl": "^4.7.1",
@@ -106,6 +115,7 @@
     "osmtogeojson": "^3.0.0-beta.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "three": "^0.185.1",
     "toad-scheduler": "^4.0.1"
   },
   "devDependencies": {

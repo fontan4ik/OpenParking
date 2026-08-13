@@ -34,6 +34,21 @@ npm run build
 
 Локальный frontend не требует запущенного PostGIS: при недоступном `DATABASE_URL` он использует GeoJSON fallback из `data/`. В этом режиме приложение делает одну проверку БД на 30 секунд и не печатает повторяющийся Prisma stack trace. Для DB mode сначала запустите Docker Desktop, затем выполните `docker compose up -d db` и `npm run db:migrate`.
 
+### Быстрый visual QA frontend
+
+После production build запускайте один управляемый QA-сервер и переиспользуйте его между проверками:
+
+```powershell
+npm run frontend:build
+npm run qa:server:start
+npm run qa:visual:quick
+npm run qa:visual:full
+npm run qa:visual:check
+npm run qa:server:stop
+```
+
+`qa:visual:quick` проверяет два репрезентативных состояния (desktop landing и mobile map); используйте его во время итераций. `qa:visual:full` один раз снимает финальную матрицу из восьми dark/light desktop/mobile кадров с параллелизмом 2. Карта ожидается по видимому MapLibre canvas, а не по `networkidle`, поэтому долгоживущие tile/polling-запросы не создают минутные таймауты. Результаты, ошибки консоли и HTTP 4xx/5xx сохраняются в `artifacts/iris-shots/results.json`; `qa:visual:check` перечитывает этот файл без запуска браузера и повторных скриншотов. Менеджер сервера переиспользует здоровый процесс на `127.0.0.1:3021` и останавливает только PID, который запустил сам.
+
 See `docs/QA_DEVOPS_BASELINE_RUNBOOK.md` for the current Mac mini baseline result, package-lock sync history, PostGIS/Docker notes, temporary process cleanup, and rollback notes.
 
 Routing MVP and geocoding configuration:

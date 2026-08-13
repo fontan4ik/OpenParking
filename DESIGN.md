@@ -20,21 +20,21 @@ usable in bright outdoor light, one-handed mobile use, keyboard navigation,
 
 | Role | Token | Light | Dark | Usage |
 | --- | --- | --- | --- | --- |
-| Canvas | `--bg-primary` | `#f4f7fb` | `#070b13` | App and loading background |
-| Surface | `--bg-secondary` | `#edf2f7` | `#0d1420` | Secondary regions |
-| Panel | `--bg-card` | `rgba(255,255,255,.94)` | `rgba(15,23,34,.94)` | Sidebar, sheets, cards |
-| Panel hover | `--bg-card-hover` | `#f2f6fb` | `#172233` | Interactive hover |
-| Glass | `--bg-glass` | `rgba(255,255,255,.82)` | `rgba(10,17,28,.82)` | Floating map controls |
-| Text primary | `--text-primary` | `#132033` | `#f4f7fb` | Headings and body |
-| Text secondary | `--text-secondary` | `#52647a` | `#a8b6c8` | Supporting copy |
-| Text muted | `--text-muted` | `#718197` | `#74849a` | Metadata and disabled text |
-| Border subtle | `--border-subtle` | `rgba(61,83,110,.12)` | `rgba(159,177,199,.12)` | Internal separation |
-| Border medium | `--border-medium` | `rgba(61,83,110,.22)` | `rgba(159,177,199,.22)` | Control outlines |
-| Action / known price | `--accent-blue` | `#1769e0` | `#63a2ff` | Primary actions, priced parking |
-| Free | `--accent-emerald` | `#087f63` | `#34d399` | Known free parking |
-| Uncertain | `--accent-amber` | `#b75f09` | `#fbbf24` | Unknown amount, review |
-| Conflict | `--accent-red` | `#c83b3b` | `#fb7185` | Conflicts and stale facts |
-| Curb | `--accent-cyan` | `#087e9b` | `#22d3ee` | Route and curb emphasis |
+| Canvas | `--bg-primary` | `#f3f6f7` | `#0a111a` | App and loading background |
+| Surface | `--bg-secondary` | `#fbfcfc` | `#101a26` | Secondary regions |
+| Panel | `--bg-card` | `rgba(255,255,255,.92)` | `rgba(17,28,41,.94)` | Sidebar, sheets, cards |
+| Panel hover | `--bg-card-hover` | `#f5f9fb` | `#172535` | Interactive hover |
+| Glass | `--bg-glass` | `rgba(255,255,255,.82)` | `rgba(13,23,34,.84)` | Floating map controls |
+| Text primary | `--text-primary` | `#102033` | `#f2f7fb` | Headings and body |
+| Text secondary | `--text-secondary` | `#4e6378` | `#b5c3d1` | Supporting copy |
+| Text muted | `--text-muted` | `#6e8193` | `#8295a8` | Metadata and disabled text |
+| Border subtle | `--border-subtle` | `rgba(47,75,98,.14)` | `rgba(169,193,214,.13)` | Internal separation |
+| Border medium | `--border-medium` | `rgba(47,75,98,.26)` | `rgba(169,193,214,.22)` | Control outlines |
+| Action / known price | `--accent-blue` | `#0b63ce` | `#6aa9ff` | Primary actions, priced parking |
+| Free | `--accent-emerald` | `#08795b` | `#47d7a6` | Known free parking |
+| Uncertain | `--accent-amber` | `#a85a04` | `#ffc466` | Unknown amount, review |
+| Conflict | `--accent-red` | `#bd3e4e` | `#ff8290` | Conflicts and stale facts |
+| Curb | `--accent-cyan` | `#087d9a` | `#55d7e5` | Route and curb emphasis |
 
 Rules:
 
@@ -45,6 +45,9 @@ Rules:
 - Regulatory zones must not look like verified parking offers.
 - MapLibre paint values mirror these semantic roles even though WebGL styles
   cannot consume CSS custom properties directly.
+- Palette source: Radix Colors semantic-scale guidance, retrieved 2026-08-06
+  (`https://www.radix-ui.com/colors/docs/overview/usage`). The app owns the
+  translated semantic tokens above; no runtime dependency is added.
 
 ## 3. Typography
 
@@ -152,6 +155,14 @@ The base unit is 4px. Existing spacing tokens are `--space-1` through
 - **States**: default, selected, hover, focus, disabled while map initializes.
 - **Motion**: controls do not animate layout; 3D camera easing communicates the
   view change.
+
+### Component source map
+
+| Surface | Source | Decision |
+| --- | --- | --- |
+| Map shell, search, filters, sheets, cards | Existing project CSS | Reused and normalized around Atlas tokens. |
+| Theme switch | Existing project `ThemeSwitch` | Retained: it already supports controlled `data-theme` state. Magic UI `animated-theme-toggler` was inspected but rejected because it adds `lucide-react` and a separate class-based theme flow. |
+| Structural primitives | shadcn registry | No configured registry was available; no dependency added. |
 
 ## 6. Motion & Interaction
 

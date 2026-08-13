@@ -87,7 +87,7 @@ const CITY_FALLBACKS: Record<string, CityFallbackConfig> = {
     boundary: 'boundaries/miami_dade_county_boundary.geojson',
     geometryReference: 'research/fetches/miami-osm-roads-buildings-cache.geojson',
     dataStatus: 'ready',
-    supportMessage: 'Miami has imported/local fallback coverage from official Miami/Miami Beach sources plus OSM baseline data.',
+    supportMessage: 'Miami shows official City of Miami Beach and Miami Parking Authority spots, with extra coverage from community sources.',
   },
   sf: {
     dbCities: ['San Francisco'],
@@ -96,14 +96,14 @@ const CITY_FALLBACKS: Record<string, CityFallbackConfig> = {
     zones: 'sf_parking_zones_osm.geojson',
     coverage: 'sf_parking_osm.geojson',
     dataStatus: 'ready',
-    supportMessage: 'San Francisco has benchmark DataSF meter fixtures plus OSM fallback zones.',
+    supportMessage: 'San Francisco meter network is the price baseline, with extra coverage from community sources.',
   },
   nyc: {
     dbCities: ['New York City', 'New York'],
     facilities: 'nyc_garage_tariff_evidence.geojson',
     dataStatus: 'research_fixture',
     supportMessage:
-      'NYC currently exposes a narrow garage/tariff evidence fixture for review; citywide NYC coverage is not imported yet.',
+      'New York is in preparation. A small set of garage and tariff evidence is available for review; citywide coverage is not live yet.',
   },
   la: {
     dbCities: ['Los Angeles'],
@@ -144,7 +144,7 @@ function cityFallback(cityId = DEFAULT_CITY_ID): CityFallbackConfig & { cityId: 
     cityId: normalized,
     dbCities: [],
     dataStatus: 'unsupported',
-    supportMessage: `City "${normalized}" is not configured in ParkingUSA yet; no Miami fallback data is reused for this request.`,
+    supportMessage: `Parking data for "${normalized}" is not available yet. Miami and San Francisco are fully live.`,
   };
 }
 

@@ -1,0 +1,35 @@
+{
+  "articles": [
+    {
+      "class": "magic-bento__tile magic-bento__tile--facilities",
+      "height": 240,
+      "width": 390,
+      "top": 3679.546875,
+      "bottom": 3919.546875
+    },
+    {
+      "class": "magic-bento__tile magic-bento__tile--curb",
+      "height": 240,
+      "width": 390,
+      "top": 3933.546875,
+      "bottom": 4173.546875
+    },
+    {
+      "class": "magic-bento__tile magic-bento__tile--confidence",
+      "height": 240,
+      "width": 390,
+      "top": 4187.546875,
+      "bottom": 4427.546875
+    },
+    {
+      "class": "magic-bento__tile magic-bento__tile--sources",
+      "height": 240,
+      "width": 390,
+      "top": 4441.546875,
+      "bottom": 4681.546875
+    }
+  ],
+  "beamElements": [],
+  "heroVeilCandidates": [],
+  "heroHeadingText": "Реальные цены, ссылки на оплату и место на карте."
+}

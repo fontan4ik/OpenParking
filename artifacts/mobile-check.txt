@@ -1,0 +1,11 @@
+{
+  "mobilePointerRule": ".landing-page .hero-composition__car { right: 2%; top: 52%; width: min(58%, 720px); height: min(76%, 540px); transform: translate3d(0px, -50%, 0px); pointer-events: auto; }",
+  "carElementComputed": {
+    "pointerEvents": "auto",
+    "display": "block",
+    "visibility": "visible",
+    "opacity": "1"
+  },
+  "viewportWidth": 1440,
+  "viewportHeight": 900
+}

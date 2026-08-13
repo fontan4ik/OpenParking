@@ -1,0 +1,104 @@
+{
+  "protocol": "VISUAL_QA_V1",
+  "mode": "full",
+  "baseUrl": "http://127.0.0.1:3021",
+  "createdAt": "2026-08-13T05:29:38.591Z",
+  "results": [
+    {
+      "name": "landing-desktop-dark-1440x900",
+      "route": "/",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "ok": true,
+      "durationMs": 2009,
+      "file": "C:\\AI\\ParkingUSA\\artifacts\\iris-shots\\landing-desktop-dark-1440x900.png",
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "landing-desktop-light-1440x900",
+      "route": "/",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "ok": true,
+      "durationMs": 1395,
+      "file": "C:\\AI\\ParkingUSA\\artifacts\\iris-shots\\landing-desktop-light-1440x900.png",
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "landing-mobile-dark-390x844",
+      "route": "/",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "ok": true,
+      "durationMs": 1666,
+      "file": "C:\\AI\\ParkingUSA\\artifacts\\iris-shots\\landing-mobile-dark-390x844.png",
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "landing-mobile-light-390x844",
+      "route": "/",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "ok": true,
+      "durationMs": 1007,
+      "file": "C:\\AI\\ParkingUSA\\artifacts\\iris-shots\\landing-mobile-light-390x844.png",
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "map-desktop-dark-1440x900",
+      "route": "/map",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "ok": true,
+      "durationMs": 1798,
+      "file": "C:\\AI\\ParkingUSA\\artifacts\\iris-shots\\map-desktop-dark-1440x900.png",
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "map-desktop-light-1440x900",
+      "route": "/map",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "ok": true,
+      "durationMs": 1316,
+      "file": "C:\\AI\\ParkingUSA\\artifacts\\iris-shots\\map-desktop-light-1440x900.png",
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "map-mobile-dark-390x844",
+      "route": "/map",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "ok": true,
+      "durationMs": 1149,
+      "file": "C:\\AI\\ParkingUSA\\artifacts\\iris-shots\\map-mobile-dark-390x844.png",
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "map-mobile-light-390x844",
+      "route": "/map",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "ok": true,
+      "durationMs": 604,
+      "file": "C:\\AI\\ParkingUSA\\artifacts\\iris-shots\\map-mobile-light-390x844.png",
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ]
+}

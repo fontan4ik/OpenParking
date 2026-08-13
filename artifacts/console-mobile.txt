@@ -1,0 +1,52 @@
+Total messages: 12 (Errors: 0, Warnings: 12)
+Returning 49 messages for level "warning"
+
+[WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] layers.zones-fill.paint.fill-color[2]: Could not parse color from value 'oklch(0.60 0.20 27)' @ http://127.0.0.1:3021/_next/static/chunks/558.70f8634e842673c9.js:0
+[WARNING] layers.segments-line.paint.line-color[2]: Could not parse color from value 'oklch(0.60 0.20 27)' @ http://127.0.0.1:3021/_next/static/chunks/558.70f8634e842673c9.js:0
+[WARNING] layers.facilities-circle.paint.circle-color[2]: Could not parse color from value 'oklch(0.60 0.20 27)' @ http://127.0.0.1:3021/_next/static/chunks/558.70f8634e842673c9.js:0
+[WARNING] layers.facilities-glow.paint.circle-color[2]: Could not parse color from value 'oklch(0.60 0.20 27)' @ http://127.0.0.1:3021/_next/static/chunks/558.70f8634e842673c9.js:0
+[WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] layers.zones-fill.paint.fill-color[2]: Could not parse color from value 'oklch(0.60 0.20 27)' @ http://127.0.0.1:3021/_next/static/chunks/558.70f8634e842673c9.js:0
+[WARNING] layers.segments-line.paint.line-color[2]: Could not parse color from value 'oklch(0.60 0.20 27)' @ http://127.0.0.1:3021/_next/static/chunks/558.70f8634e842673c9.js:0
+[WARNING] layers.facilities-circle.paint.circle-color[2]: Could not parse color from value 'oklch(0.60 0.20 27)' @ http://127.0.0.1:3021/_next/static/chunks/558.70f8634e842673c9.js:0
+[WARNING] layers.facilities-glow.paint.circle-color[2]: Could not parse color from value 'oklch(0.60 0.20 27)' @ http://127.0.0.1:3021/_next/static/chunks/558.70f8634e842673c9.js:0
+[WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0
+[WARNING] THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead. @ http://127.0.0.1:3021/_next/static/chunks/63d2ba32.a3aa7bd1c8e978d7.js:0

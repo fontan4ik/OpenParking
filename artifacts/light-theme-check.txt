@@ -1,0 +1,6 @@
+{
+  "dataTheme": "light",
+  "themeCheckbox": false,
+  "bodyBg": "rgb(243, 246, 247)",
+  "rootBg": "#f3f6f7"
+}

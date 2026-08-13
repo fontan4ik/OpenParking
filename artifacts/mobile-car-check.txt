@@ -1,0 +1,33 @@
+{
+  "carElement": {
+    "pointerEvents": "auto",
+    "display": "block",
+    "visibility": "visible",
+    "opacity": "0.88",
+    "zIndex": "3",
+    "position": "absolute",
+    "width": "720px",
+    "height": "404.953px",
+    "right": "-28.1562px",
+    "top": "573.672px"
+  },
+  "canvas": {
+    "pointerEvents": "auto",
+    "width": "720px",
+    "height": "404.953px"
+  },
+  "viewportWidth": 390,
+  "viewportHeight": 844,
+  "mediaQueries": [
+    "(min-width: 760px)",
+    "(min-width: 1180px)",
+    "(max-width: 900px)",
+    "(max-width: 390px)",
+    "(prefers-reduced-motion: reduce)",
+    "(max-width: 900px)",
+    "(max-width: 720px)",
+    "(max-width: 900px)",
+    "(max-width: 900px)",
+    "(max-width: 900px)"
+  ]
+}

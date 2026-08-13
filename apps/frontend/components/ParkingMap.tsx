@@ -136,6 +136,22 @@ function applyRasterTheme(map: maplibregl.Map, theme: 'light' | 'dark') {
     map.setPaintProperty('osm', property, value);
   });
 
+  // Redesign 2026-08-10: re-apply parking colors on theme change.
+  // statusColorExpression() reads --pk-* via getComputedStyle(), so a fresh
+  // build gives us the dark/light OKLCH tokens from globals.css.
+  if (map.getLayer('parking-state-fill')) {
+    map.setPaintProperty('parking-state-fill', 'fill-color', statusColorExpression());
+  }
+  if (map.getLayer('parking-state-stroke')) {
+    map.setPaintProperty('parking-state-stroke', 'line-color', statusColorExpression());
+  }
+  if (map.getLayer('parking-points')) {
+    map.setPaintProperty('parking-points', 'circle-color', statusColorExpression());
+  }
+  if (map.getLayer('curb-segments')) {
+    map.setPaintProperty('curb-segments', 'circle-color', statusColorExpression());
+  }
+
   if (map.getLayer('city-boundary-casing') && map.getLayer('city-boundary-line')) {
     map.setPaintProperty('city-boundary-casing', 'line-color', theme === 'dark' ? '#111827' : '#ffffff');
     map.setPaintProperty('city-boundary-line', 'line-color', theme === 'dark' ? '#f8fafc' : '#1f2937');
@@ -158,30 +174,50 @@ function localText(t: (key: TranslationKey) => string, en: string, ru: string) {
   return t('app.subtitle') === 'Все парковки Америки на одной карте' ? ru : en;
 }
 
+function readCssVar(name: string, fallback: string): string {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return fallback;
+  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return value || fallback;
+}
+
+/**
+ * statusColorExpression — single source of truth is the OKLCH `--pk-*` tokens
+ * in apps/frontend/app/globals.css. We read them at runtime via getComputedStyle
+ * so the map engine always matches the design tokens (theme-aware: dark + light).
+ *
+ * The fallback hexes are the legacy values — kept here only for SSR and for
+ * tests that run without a DOM.
+ */
 function statusColorExpression(): ExpressionSpecification {
+  const conflict   = readCssVar('--pk-conflict', '#ef4444');
+  const priced     = readCssVar('--pk-priced',   '#3b82f6');
+  const free       = readCssVar('--pk-free',     '#10b981');
+  const unpriced   = readCssVar('--pk-unpriced', '#64748b');
+  const unknown    = readCssVar('--pk-unknown',  '#f59e0b');
+  const fallback   = readCssVar('--pk-default',  '#94a3b8');
   return [
     'case',
     ['==', ['get', 'enrichment_status'], 'conflict'],
-    '#ef4444',
+    conflict,
     ['==', ['get', 'price_status'], 'stale'],
-    '#ef4444',
+    conflict,
     ['==', ['get', 'rule_status'], 'stale'],
-    '#ef4444',
+    conflict,
     ['==', ['get', 'enrichment_status'], 'stale'],
-    '#ef4444',
+    conflict,
     ['==', ['get', 'price_status'], 'known_priced'],
-    '#3b82f6',
+    priced,
     ['==', ['get', 'price_status'], 'known_free'],
-    '#10b981',
+    free,
     ['==', ['get', 'price_status'], 'known_unpriced'],
-    '#64748b',
+    unpriced,
     ['==', ['get', 'price_status'], 'paid_unknown'],
-    '#f59e0b',
+    unknown,
     ['==', ['get', 'price_status'], 'variable'],
-    '#f59e0b',
+    unknown,
     ['==', ['get', 'enrichment_status'], 'needs_review'],
-    '#f59e0b',
-    '#94a3b8',
+    unknown,
+    fallback,
   ] as ExpressionSpecification;
 }
 
@@ -576,9 +612,9 @@ export default function ParkingMap({
         type: 'line',
         source: 'zones',
         paint: {
-          'line-color': '#93c5fd',
-          'line-width': 1.2,
-          'line-opacity': 0.65,
+          'line-color': '#60a5fa',
+          'line-width': 1.4,
+          'line-opacity': 0.55,
         },
       });
 
@@ -723,9 +759,10 @@ export default function ParkingMap({
             100,
             28,
           ],
-          'circle-opacity': 0.9,
-          'circle-stroke-color': 'rgba(255, 255, 255, 0.9)',
+          'circle-opacity': 0.92,
+          'circle-stroke-color': 'rgba(255, 255, 255, 0.95)',
           'circle-stroke-width': 2,
+          'circle-blur': 0.08,
         },
       });
 
@@ -778,8 +815,8 @@ export default function ParkingMap({
             2,
             1,
           ],
-          'circle-opacity': 0.86,
-          'circle-blur': 0.05,
+          'circle-opacity': 0.9,
+          'circle-blur': 0.12,
         },
       });
 

@@ -1,0 +1,17 @@
+{
+  "heroVeil": null,
+  "heroComposition": {
+    "class": "hero-composition",
+    "style": "",
+    "pointerEvents": "auto"
+  },
+  "glbElements": [
+    {
+      "tag": "CANVAS",
+      "class": "",
+      "pointerEvents": "auto",
+      "visibility": "visible",
+      "opacity": "1"
+    }
+  ]
+}

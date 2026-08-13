@@ -1,0 +1,75 @@
+{
+  "docWidth": 390,
+  "bodyWidth": 390,
+  "viewportWidth": 390,
+  "hasHorizontalOverflow": false,
+  "overlayElements": [
+    {
+      "class": "landing-cta__backdrop",
+      "opacity": "1",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "class": "landing-cta__backdrop-frame",
+      "opacity": "1",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "class": "landing-cta__backdrop-mask",
+      "opacity": "1",
+      "bg": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "heroSemiTransparentChildren": 2,
+  "heroSemiTransparentDetails": [
+    {
+      "tag": "DIV",
+      "class": "hero-composition__car",
+      "opacity": "0.88",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "svg",
+      "class": {},
+      "opacity": "0.6",
+      "bg": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "bentoBeamPresent": false,
+  "bentoTileHeights": [
+    240,
+    266.416015625,
+    180.5,
+    14,
+    27,
+    46.5,
+    16,
+    240,
+    266.416015625,
+    180.5,
+    14,
+    27,
+    46.5,
+    16,
+    240,
+    266.416015625,
+    180.5,
+    14,
+    27,
+    46.5,
+    16,
+    240,
+    266.416015625,
+    180.5,
+    14,
+    27,
+    46.5,
+    16
+  ],
+  "allTilesEqualHeight": false,
+  "bentoContainerBeamCheck": {
+    "class": "landing-platform",
+    "beforeContent": "none",
+    "beforeDisplay": "block"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "viewportWidth": 1440,
+  "viewportHeight": 900,
+  "carPointerEvents": "auto",
+  "canvasPointerEvents": "auto",
+  "carZIndex": "3",
+  "ctaLink": {
+    "rect": {
+      "x": 125,
+      "y": 966.625,
+      "width": 175,
+      "height": 52,
+      "top": 966.625,
+      "right": 300,
+      "bottom": 1018.625,
+      "left": 125
+    },
+    "pointerEvents": "auto",
+    "zIndex": "auto"
+  },
+  "carRect": {
+    "x": 667.203125,
+    "y": 423.671875,
+    "width": 720,
+    "height": 540,
+    "top": 423.671875,
+    "right": 1387.203125,
+    "bottom": 963.671875,
+    "left": 667.203125
+  },
+  "overlaps": false,
+  "heroHeading": {
+    "color": "rgb(6, 27, 49)",
+    "textShadow": "oklch(1 0 0 / 0.5) 0px 1px 0px, oklch(1 0 0 / 0.6) 0px 4px 32px, oklch(1 0 0 / 0.55) 0px 12px 64px",
+    "parentBg": "rgba(0, 0, 0, 0)",
+    "parentOpacity": "1"
+  }
+}

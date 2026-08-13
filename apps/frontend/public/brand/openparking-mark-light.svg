@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="OpenParking">
+  <title>OpenParking</title>
+  <rect x="0" y="0" width="32" height="32" rx="7" ry="7" fill="#1F4FFF"/>
+  <g fill="#ffffff">
+    <circle cx="7" cy="7" r="1.7" opacity="0.38"/>
+    <circle cx="25" cy="7" r="1.7" opacity="0.38"/>
+    <circle cx="7" cy="25" r="1.7" opacity="0.38"/>
+    <circle cx="25" cy="25" r="1.7" opacity="0.38"/>
+    <circle cx="16" cy="7" r="2.3" opacity="0.68"/>
+    <circle cx="7" cy="16" r="2.3" opacity="0.68"/>
+    <circle cx="25" cy="16" r="2.3" opacity="0.68"/>
+    <circle cx="16" cy="25" r="2.3" opacity="0.68"/>
+    <circle cx="16" cy="16" r="4.4"/>
+  </g>
+</svg>

@@ -13,6 +13,9 @@ import { LOCALE_LABELS, LOCALES, cityNameKey, type Locale } from '@/lib/i18n';
 import { FlagIcon } from '@/components/FlagIcon';
 import { useAdminMode } from '@/components/AdminModeContext';
 import { ParkingAssistant } from '@/components/ParkingAssistant';
+import { PkChip, type PkStatus } from '@/components/parking/PkChip';
+import { LayerToggles, type LayerOption } from '@/components/parking/LayerToggles';
+import { MobileFilterSheet } from '@/components/parking/MobileFilterSheet';
 import {
   driverConfidence,
   matchesTrustFilter,
@@ -21,6 +24,7 @@ import {
   trustRank,
   type TrustFilter,
 } from '@/lib/data-quality';
+import { friendlySourceLabel } from '@/lib/source-labels';
 import {
   formatRouteSummary,
   resolveParkingDestination,
@@ -94,7 +98,7 @@ interface GeocodeResult {
 function OpenParkingLogo() {
   return (
     <img 
-      src="/brand/openparking-mark.svg" 
+          src="/logo.png"
       className="openparking-logo-mark" 
       alt="OpenParking" 
       width="42" 
@@ -183,10 +187,10 @@ type RouteEndpoint = {
 export default function HomePage() {
   const adminMode = useAdminMode();
   const [theme, setTheme] = useState<ThemeMode>('light');
-  const [themeHydrated, setThemeHydrated] = useState(false);
+const [themeHydrated, setThemeHydrated] = useState(false);
   const [activeCity, setActiveCity] = useState('miami');
-  // Keep every map layer visible. The user-facing filters refine records, not the map canvas.
-  const displayMode: DisplayMode = 'all';
+  // Keep every map layer visible by default. The user-facing filters refine records, not the map canvas.
+  const [displayMode, setDisplayMode] = useState<DisplayMode>('all');
   const [typeFilter, setTypeFilter] = useState('');
   const [priceFilter, setPriceFilter] = useState('');
   const [sourceFilter, setSourceFilter] = useState('');
@@ -779,16 +783,20 @@ export default function HomePage() {
 
   const getSourceBadgeClass = (source: string) => {
     const normalizedSource = source.toLowerCase();
-    if (normalizedSource.includes('openstreetmap') || normalizedSource.includes('osm')) return 'osm';
+    if (normalizedSource.includes('openstreetmap') || normalizedSource.includes('osm') || normalizedSource.includes('community')) return 'community';
     if (
       normalizedSource.includes('datasf') ||
       normalizedSource.includes('city') ||
       normalizedSource.includes('ladot') ||
       normalizedSource.includes('nyc') ||
-      normalizedSource.includes('miami')
+      normalizedSource.includes('miami') ||
+      normalizedSource.includes('mpa') ||
+      normalizedSource.includes('authority') ||
+      normalizedSource.includes('official')
     ) {
-      return 'city';
+      return 'official';
     }
+    if (normalizedSource.includes('parkingusa') || normalizedSource.includes('openparking')) return 'openparking';
     return '';
   };
 
@@ -1590,13 +1598,13 @@ export default function HomePage() {
           <div className="data-status-panel" role="status">
             <strong>
               {stats.data_status === 'unsupported'
-                ? uiText('Unsupported city', 'Город не поддерживается')
-                : uiText('Research-only data', 'Данные только для исследования')}
+                ? uiText('Not available yet', 'Пока недоступно')
+                : uiText('Coming soon', 'Скоро появится')}
             </strong>
             <span>
               {stats.support_message || uiText(
-                'No imported OpenParking layer is available for this city yet.',
-                'Для этого города пока нет импортированного слоя OpenParking.'
+                'Parking for this city is not available yet. Miami and San Francisco are live.',
+                'Парковки в этом городе пока нет. Майами и Сан-Франциско уже доступны.'
               )}
             </span>
           </div>
@@ -1681,7 +1689,7 @@ export default function HomePage() {
           )}
           </div>}
 
-          <div className="filter-group">
+<div className="filter-group">
             <div className="filter-heading-row">
               <label className="filter-label">{uiText('Step 2 · Choose confidence', 'Шаг 2 · Выберите надёжность')}</label>
               <span className="filter-hint">{uiText('We never hide uncertainty', 'Не скрываем неопределённость')}</span>
@@ -1700,6 +1708,22 @@ export default function HomePage() {
                 </button>
               ))}
             </div>
+          </div>
+
+          <div className="filter-group layer-toggles-row">
+            <label className="filter-label">{t('filters.displayMode')}</label>
+            <LayerToggles
+              ariaLabel={t('filters.displayMode')}
+              value={displayMode}
+              onChange={(v) => setDisplayMode(v as DisplayMode)}
+              options={[
+                { value: 'all',      label: t('display.all') },
+                { value: 'segments', label: t('display.segments') },
+                { value: 'zones',    label: t('display.zones') },
+                { value: 'points',   label: t('display.points') },
+                { value: 'both',     label: t('display.both') },
+              ]}
+            />
           </div>
 
           <details className="advanced-filter-details">
@@ -1735,17 +1759,7 @@ export default function HomePage() {
                   </button>
                 ))}
               </div>
-            </div>
-
-            <div className="filter-group">
-              <div>
-                <label className="filter-label">{t('filters.displayMode')}</label>
-                <div className="display-mode-fixed" role="status">
-                  <span className="display-mode-fixed-dot" aria-hidden="true" />
-                  {t('display.all')}
-                </div>
-              </div>
-            </div>
+</div>
 
             <div className="advanced-filter-grid">
               <div className="filter-group">
@@ -1756,11 +1770,14 @@ export default function HomePage() {
                   onChange={(event) => setSourceFilter(event.target.value)}
                 >
                   <option value="">{t('source.all')}</option>
-                  {sourceNames.map((source) => (
-                    <option key={source} value={source}>
-                      {source}
-                    </option>
-                  ))}
+                  {sourceNames.map((source) => {
+                    const friendly = friendlySourceLabel(source);
+                    return (
+                      <option key={source} value={source}>
+                        {friendly || source}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="filter-group">
@@ -1864,11 +1881,12 @@ export default function HomePage() {
                     {trust.text}
                   </span>
                   <span className={`source-badge ${getSourceBadgeClass(source)}`}>
-                    {source || t('facility.unknownSource')}
+                    {friendlySourceLabel(source) || t('facility.unknownSource')}
                   </span>
-                  <span className={`quality-chip ${getConfidenceClass(confidence)}`}>
-                    {getConfidenceLabel(confidence)} {Math.round(confidence * 100)}%
-                  </span>
+                  <PkChip
+                    status={(confidence >= 0.75 ? 'free' : confidence >= 0.5 ? 'priced' : confidence >= 0.3 ? 'unknown' : 'conflict') as PkStatus}
+                    label={`${getConfidenceLabel(confidence)} ${Math.round(confidence * 100)}%`}
+                  />
                   <span className={`quality-chip price-status-${priceDisplay.tone}`}>
                     {priceDisplay.statusLabel}
                   </span>
@@ -2196,12 +2214,13 @@ export default function HomePage() {
                   <div className="detail-body" tabIndex={0}>
                     <div className="detail-primary-card">
                       <div className="detail-primary-copy">
-                        <span className={`quality-chip trust-chip trust-${trustDisplay.label}`}>
+<span className={`quality-chip trust-chip trust-${trustDisplay.label}`}>
                           {trustDisplay.text}
                         </span>
-                        <div className={`popup-price price-${priceDisplay.tone}`}>
-                          {priceDisplay.label}
-                        </div>
+                        <PkChip
+                          status={(priceDisplay.tone as PkStatus) || 'unknown'}
+                          label={priceDisplay.label}
+                        />
                         <small>{uiText('Check the terms below before parking', 'Перед парковкой проверьте условия ниже')}</small>
                       </div>
                       {selectedDestinationResult?.ok ? (
@@ -2224,10 +2243,11 @@ export default function HomePage() {
                     </div>
                     <div className="detail-section">
                       <div className="detail-section-title">{uiText('Price and parking terms', 'Цена и условия парковки')}</div>
-                      <div className="status-chip-row">
-                        <span className={`quality-chip price-status-${priceDisplay.tone}`}>
-                          {priceDisplay.statusLabel}
-                        </span>
+<div className="status-chip-row">
+                        <PkChip
+                          status={(priceDisplay.tone as PkStatus) || 'unknown'}
+                          label={priceDisplay.statusLabel}
+                        />
                       </div>
                       {baseHourlyRate !== null && (
                         <div className="detail-field">
@@ -2385,7 +2405,7 @@ export default function HomePage() {
                         <div className="detail-field" style={{ marginTop: '8px' }}>
                           <span className="detail-field-label">{t('detail.source')}</span>
                           <span className={`source-badge ${getSourceBadgeClass(source)}`}>
-                            {source}
+                            {friendlySourceLabel(source) || source}
                           </span>
                         </div>
                       )}
@@ -2510,9 +2530,46 @@ export default function HomePage() {
                 </>
               );
             })()}
-          </div>
+</div>
         )}
       </main>
+      <MobileFilterSheet
+        title={uiText('Filters', 'Фильтры')}
+        badge={confidenceFilter ? '1' : undefined}
+      >
+        <div className="filter-group">
+          <label className="filter-label">{t('filters.confidence')}</label>
+          <select
+            className="filter-select"
+            value={confidenceFilter}
+            onChange={(event) => setConfidenceFilter(event.target.value as ConfidenceFilter)}
+          >
+            <option value="">{t('confidence.all')}</option>
+            <option value="high">{t('confidence.highWithThreshold')}</option>
+            <option value="medium">{t('confidence.mediumWithThreshold')}</option>
+            <option value="low">{t('confidence.lowWithThreshold')}</option>
+            <option value="review">{t('confidence.reviewWithThreshold')}</option>
+          </select>
+        </div>
+        <div className="filter-group">
+          <label className="filter-label">{t('filters.source')}</label>
+          <select
+            className="filter-select"
+            value={sourceFilter}
+            onChange={(event) => setSourceFilter(event.target.value)}
+          >
+            <option value="">{t('source.all')}</option>
+            {sourceNames.map((source) => {
+              const friendly = friendlySourceLabel(source);
+              return (
+                <option key={source} value={source}>
+                  {friendly || source}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      </MobileFilterSheet>
     </div>
   );
 }

@@ -1,0 +1,237 @@
+- generic [active] [ref=f3e1] [box=0,0,1440,6821]:
+  - main [ref=f3e2] [box=0,0,1440,6821]:
+    - generic [ref=f3e4] [box=100,18,1240,44]:
+      - link "OpenParking" [ref=f3e5] [cursor=pointer] [box=100,22,159,36]:
+        - /url: /
+      - navigation "OpenParking primary" [ref=f3e19] [box=1008,18,332,44]:
+        - generic "Переключить тему" [ref=f3e375] [box=1008,18,62,44]:
+          - checkbox "Переключить тему" [box=1032,34,13,13]
+        - generic "Язык" [ref=f3e376] [box=1080,23,119,35]:
+          - button "Переключить язык на English" [ref=f3e377] [cursor=pointer] [box=1084,27,53,27]:
+            - generic [ref=f3e58] [box=1114,33,15,15]: EN
+          - button "Переключить язык на Русский" [pressed] [ref=f3e378] [cursor=pointer] [box=1140,27,54,27]:
+            - generic [ref=f3e64] [box=1170,33,16,15]: RU
+        - link "Открыть карту" [ref=f3e379] [cursor=pointer] [box=1208,20,132,40]:
+          - /url: /map
+    - region [ref=f3e380] [box=0,81,1440,1191]:
+      - generic [ref=f3e68] [box=24,137,1392,1071]:
+        - img "Сигнатурная машина OpenParking" [ref=f3e381] [box=667,424,720,540]
+        - generic [ref=f3e73] [box=125,262,488,821]:
+          - paragraph [ref=f3e74] [box=125,262,163,29]:
+            - generic "Найдите парковку" [ref=f3e385] [box=150,269,125,15]
+          - heading "Реальные цены, ссылки на оплату и место на карте." [level=1] [ref=f3e386] [box=125,291,488,539]
+          - paragraph [ref=f3e78] [box=125,830,488,107]: Введите адрес — увидите все ближайшие гаражи, площадки и паркоматы с настоящей ценой, часами работы и прямой ссылкой на оплату или бронь. Без догадок и тарифов, спрятанных за регистрацией.
+          - paragraph [ref=f3e79] [box=125,937,488,22]: Живые данные, каждый источник проверен.
+          - generic [ref=f3e80] [box=125,967,488,116]:
+            - link "Открыть карту" [ref=f3e387] [cursor=pointer] [box=125,967,175,52]:
+              - /url: /map
+            - link "Что можно найти" [ref=f3e388] [cursor=pointer] [box=312,967,161,52]:
+              - /url: "#landing-platform"
+            - link "Как мы проверяем данные" [ref=f3e389] [cursor=pointer] [box=125,1031,194,52]:
+              - /url: /map
+    - region "Лента городов и операторов" [ref=f3e390] [box=0,1272,1440,43]:
+      - generic "Marquee of cities and operators" [ref=f3e91] [box=0,1272,1440,43]:
+        - generic [ref=f3e92] [box=-599,1272,3848,43]:
+          - generic [ref=f3e93] [box=-599,1272,46,43]: ●
+          - generic [ref=f3e95] [box=-496,1272,213,43]: Майами · 621 парковка
+          - generic [ref=f3e96] [box=-228,1272,46,43]: ●
+          - generic [ref=f3e98] [box=-125,1272,338,43]: Сан-Франциско · 33,5 тыс. паркоматов
+          - generic [ref=f3e99] [box=268,1272,46,43]: ●
+          - generic [ref=f3e101] [box=371,1272,121,43]: PayByPhone
+          - generic [ref=f3e102] [box=548,1272,46,43]: ●
+          - generic [ref=f3e104] [box=650,1272,121,43]: ParkMobile
+          - generic [ref=f3e105] [box=827,1272,46,43]: ●
+          - generic [ref=f3e107] [box=930,1272,105,43]: SpotHero
+          - generic [ref=f3e108] [box=1090,1272,46,43]: ●
+          - generic [ref=f3e110] [box=1193,1272,105,43]: Passport
+          - generic [ref=f3e111] [box=1353,1272,46,43]: ●
+          - generic [ref=f3e113] [box=1456,1272,213,43]: Майами · 621 парковка
+          - generic [ref=f3e114] [box=1724,1272,46,43]: ●
+          - generic [ref=f3e116] [box=1827,1272,338,43]: Сан-Франциско · 33,5 тыс. паркоматов
+          - generic [ref=f3e117] [box=2220,1272,46,43]: ●
+          - generic [ref=f3e119] [box=2322,1272,121,43]: PayByPhone
+          - generic [ref=f3e120] [box=2500,1272,46,43]: ●
+          - generic [ref=f3e122] [box=2602,1272,121,43]: ParkMobile
+          - generic [ref=f3e123] [box=2779,1272,46,43]: ●
+          - generic [ref=f3e125] [box=2882,1272,105,43]: SpotHero
+          - generic [ref=f3e126] [box=3042,1272,46,43]: ●
+          - generic [ref=f3e128] [box=3144,1272,105,43]: Passport
+    - region [ref=f3e391] [box=0,1315,1440,734]:
+      - generic [ref=f3e130] [box=24,1348,459,609]:
+        - paragraph [ref=f3e131] [box=186,1348,134,14]: Что мы покрываем
+        - heading "Цены, часы и оплата — всё готово." [level=2] [ref=f3e392] [box=24,1374,459,159]
+      - generic [ref=f3e134] [box=491,1348,459,645]:
+        - generic [ref=f3e135] [box=491,1358,101,645]:
+          - generic [ref=f3e136] [box=518,1387,47,32]: "621"
+          - strong [ref=f3e137] [box=518,1443,47,110]: парковка в Майами
+          - paragraph [ref=f3e138] [box=518,1573,47,313]: Гаражи, площадки и паркоматы с актуальными ценами и часами работы.
+        - generic [ref=f3e139] [box=610,1358,101,645]:
+          - generic [ref=f3e140] [box=637,1387,47,32]: 33,5 тыс.
+          - strong [ref=f3e141] [box=637,1443,47,88]: паркоматов в SF
+          - paragraph [ref=f3e142] [box=637,1551,47,269]: Сеть паркоматов Сан-Франциско как городской ориентир по ценам.
+        - generic [ref=f3e143] [box=729,1358,101,645]:
+          - generic [ref=f3e144] [box=756,1387,47,32]: 2 889
+          - strong [ref=f3e145] [box=756,1443,47,110]: бордюрных правила
+          - paragraph [ref=f3e146] [box=756,1573,47,381]: Часы, тарифы и ограничения на уличной парковке, которые можно проверить на знаке.
+        - generic [ref=f3e147] [box=848,1358,101,645]:
+          - generic [ref=f3e148] [box=875,1387,47,32]: "6"
+          - strong [ref=f3e149] [box=875,1443,47,110]: городов готовится
+          - paragraph [ref=f3e150] [box=875,1573,47,403]: Майами, Сан-Франциско, Нью-Йорк, Лос-Анджелес, Сиэтл и Чикаго — добавляем по очереди.
+    - region [ref=f3e393] [box=0,2049,1440,642]:
+      - generic [ref=f3e152] [box=360,2081,720,79]:
+        - paragraph [ref=f3e153] [box=653,2081,134,14]: Что вы получаете
+        - heading "Цена, часы и способ оплаты." [level=2] [ref=f3e394] [box=372,2107,695,53]
+      - generic [ref=f3e155] [box=100,2196,1240,439]:
+        - generic [ref=f3e156] [box=100,2206,403,439]:
+          - img "Miami Beach curb with a single chrome parking meter in the foreground" [ref=f3e159] [box=118,2224,195,244]
+          - heading "Настоящие цены, не оценки" [level=3] [ref=f3e395] [box=117,2496,369,27]
+          - paragraph [ref=f3e166] [box=117,2535,369,65]: Видно часовой или фиксированный тариф ещё до приезда. Бесплатные места, платные паркоматы и гаражи с бронированием чётко подписаны.
+        - generic [ref=f3e167] [box=519,2206,403,439]:
+          - img "San Francisco SoMa curb with yellow and white paint markings and a meter post" [ref=f3e170] [box=537,2224,195,244]
+          - heading "Часы и правила, которым можно доверять" [level=3] [ref=f3e396] [box=536,2496,369,54]
+          - paragraph [ref=f3e176] [box=536,2562,369,65]: Ограничения по времени, знаки эвакуации и зоны только для жителей отмечены, чтобы вы не получили штраф.
+        - generic [ref=f3e177] [box=937,2206,403,439]:
+          - img "Close-up of a modern parking pay station on a city sidewalk" [ref=f3e180] [box=955,2224,195,244]
+          - heading "Оплата и бронь в один тап" [level=3] [ref=f3e397] [box=954,2496,369,27]
+          - paragraph [ref=f3e188] [box=954,2535,369,65]: Откройте страницу оператора, приложение для оплаты паркомата или бронь прямо из карточки места. Без поиска нужного сервиса.
+    - region [ref=f3e398] [box=0,2691,1440,1145]:
+      - generic [ref=f3e190] [box=360,2835,720,79]:
+        - paragraph [ref=f3e191] [box=653,2835,134,14]: Что мы покрываем
+        - heading "Цена, часы и способ оплаты." [level=2] [ref=f3e399] [box=372,2861,695,53]
+      - generic [ref=f3e193] [box=0,2950,1440,742]:
+        - article [ref=f3e194] [box=0,2950,699,360]:
+          - img "Miami Beach curb with a single chrome parking meter in the foreground" [ref=f3e197] [box=-9,2944,718,479]
+          - generic [ref=f3e198] [box=1,3120,697,189]:
+            - generic [ref=f3e199] [box=33,3134,633,14]: Слой 01 · Парковки
+            - heading "Гаражи, площадки и паркоматы" [level=3] [ref=f3e400] [box=33,3156,633,35]
+            - paragraph [ref=f3e201] [box=33,3197,348,47]: Одна точка — одно место с реальной ценой, часами и прямой ссылкой на оплату.
+            - link "Открыть карту" [ref=f3e401] [cursor=pointer] [box=33,3260,106,16]:
+              - /url: /map?layer=facilities
+        - article [ref=f3e204] [box=721,2950,719,360]:
+          - img "San Francisco SoMa curb with yellow and white paint markings and a meter post" [ref=f3e207] [box=712,2943,738,492]
+          - generic [ref=f3e208] [box=722,3120,717,189]:
+            - generic [ref=f3e209] [box=754,3134,653,14]: Слой 02 · Бордюр
+            - heading "Правила на уличной парковке" [level=3] [ref=f3e402] [box=754,3156,653,35]
+            - paragraph [ref=f3e211] [box=754,3197,348,47]: Часы, тарифы, окна эвакуации и зоны только для жителей — из открытых городских данных.
+            - link "Открыть карту" [ref=f3e403] [cursor=pointer] [box=754,3260,106,16]:
+              - /url: /map?layer=curb
+        - article [ref=f3e214] [box=0,3332,845,360]:
+          - img "Close-up of a modern parking pay station on a city sidewalk" [ref=f3e217] [box=-12,3324,868,579]
+          - generic [ref=f3e218] [box=1,3502,843,189]:
+            - generic [ref=f3e219] [box=33,3516,779,14]: Слой 03 · Доверие
+            - heading "У каждой записи есть источник" [level=3] [ref=f3e404] [box=33,3538,779,35]
+            - paragraph [ref=f3e221] [box=33,3579,348,47]: Происхождение, свежесть и уверенность указаны в карточке каждого места.
+            - link "Как мы проверяем данные" [ref=f3e405] [cursor=pointer] [box=33,3642,188,16]:
+              - /url: /admin
+        - article [ref=f3e224] [box=867,3332,573,360]:
+          - img "Aerial view of mapped parking coverage" [ref=f3e227] [box=860,3327,588,392]
+          - generic [ref=f3e228] [box=868,3502,571,189]:
+            - generic [ref=f3e229] [box=900,3516,507,14]: Слой 04 · Источники
+            - heading "Проверенные внешние каналы" [level=3] [ref=f3e406] [box=900,3538,507,35]
+            - paragraph [ref=f3e231] [box=900,3579,348,47]: Miami-Dade GIS, OSM, SFMTA и выгрузки операторов — никаких анонимных агрегатов.
+            - link "Как мы проверяем данные" [ref=f3e407] [cursor=pointer] [box=900,3642,188,16]:
+              - /url: /map
+    - region [ref=f3e408] [box=0,3836,1440,466]:
+      - generic [ref=f3e235] [box=360,3868,720,132]:
+        - paragraph [ref=f3e236] [box=653,3868,134,14]: Как это работает
+        - heading "От поиска до парковки — три шага." [level=2] [ref=f3e409] [box=360,3894,720,106]
+      - list [ref=f3e238] [box=180,4036,1080,210]:
+        - listitem [ref=f3e239] [box=180,4046,348,210]:
+          - generic [ref=f3e240] [box=207,4075,294,18]: "01"
+          - generic [ref=f3e241] [box=207,4105,294,100]:
+            - heading "Введите адрес" [level=3] [ref=f3e410] [box=207,4105,294,27]
+            - paragraph [ref=f3e243] [box=207,4140,294,65]: Укажите, куда вы едете. Мы покажем все гаражи, паркоматы и площадки рядом с реальной ценой, которую вы заплатите.
+        - listitem [ref=f3e244] [box=546,4046,348,210]:
+          - generic [ref=f3e245] [box=573,4075,294,18]: "02"
+          - generic [ref=f3e246] [box=573,4105,294,122]:
+            - heading "Выберите лучший вариант" [level=3] [ref=f3e411] [box=573,4105,294,27]
+            - paragraph [ref=f3e248] [box=573,4140,294,87]: Сравните по цене, расстоянию, часам работы и возможности оплаты через приложение. Откройте карточку — там полные детали и ссылка на оплату.
+        - listitem [ref=f3e249] [box=912,4046,348,210]:
+          - generic [ref=f3e250] [box=939,4075,294,18]: "03"
+          - generic [ref=f3e251] [box=939,4105,294,100]:
+            - heading "Оплатите и поезжайте" [level=3] [ref=f3e412] [box=939,4105,294,27]
+            - paragraph [ref=f3e253] [box=939,4140,294,65]: Откройте ссылку на оплату или бронь, а затем следуйте пошаговому маршруту. Место уже отмечено на карте.
+    - region [ref=f3e413] [box=0,4301,1440,759]:
+      - generic [ref=f3e255] [box=360,4333,720,191]:
+        - paragraph [ref=f3e256] [box=670,4333,100,14]: Как оплатить
+        - heading "У каждого места — реальный способ оплаты." [level=2] [ref=f3e414] [box=360,4359,720,106]
+        - paragraph [ref=f3e258] [box=464,4477,512,47]: Нажмите на любое место на карте, чтобы увидеть оператора, приложение для оплаты и ссылку на паркомат или бронь.
+      - generic [ref=f3e259] [box=180,4560,1080,444]:
+        - link [ref=f3e415] [cursor=pointer] [box=181,4571,530,212]:
+          - /url: https://www.paybyphone.com/
+          - generic [ref=f3e262] [box=199,4589,180,120]:
+            - img "Phone screen showing a parking meter payment confirmation" [ref=f3e264] [box=199,4589,180,120]
+            - generic [ref=f3e265] [box=209,4599,36,28]: PB
+          - heading "PayByPhone" [level=3] [ref=f3e266] [box=399,4635,109,22]
+          - paragraph [ref=f3e267] [box=528,4600,165,98]: Оплата паркоматов и уличной парковки через приложение или SMS в большинстве городов США.
+        - link [ref=f3e416] [cursor=pointer] [box=729,4571,530,212]:
+          - /url: https://www.parkmobile.com/
+          - generic [ref=f3e274] [box=747,4589,180,120]:
+            - img "Person paying for parking from a phone at a city meter" [ref=f3e276] [box=747,4589,180,120]
+            - generic [ref=f3e277] [box=757,4599,36,28]: PM
+          - heading "ParkMobile" [level=3] [ref=f3e278] [box=947,4635,98,22]
+          - paragraph [ref=f3e279] [box=1065,4620,176,59]: Бронирование и оплата паркоматов в более чем 450 городах по всей стране.
+        - link [ref=f3e417] [cursor=pointer] [box=181,4801,530,212]:
+          - /url: https://www.spothero.com/
+          - generic [ref=f3e286] [box=199,4819,180,120]:
+            - img "Booking screen showing a reserved garage spot with the address and rate" [ref=f3e288] [box=199,4819,180,120]
+            - generic [ref=f3e289] [box=209,4829,36,28]: SH
+          - heading "SpotHero и ParkWhiz" [level=3] [ref=f3e418] [box=399,4842,82,68]
+          - paragraph [ref=f3e291] [box=501,4850,192,59]: Бронируйте гаражи и площадки заранее — часто дешевле, чем в день приезда.
+        - link [ref=f3e419] [cursor=pointer] [box=729,4801,530,212]:
+          - /url: https://www.ppprk.com/
+          - generic [ref=f3e298] [box=747,4819,180,120]:
+            - img "Modern parking pay station on a city sidewalk" [ref=f3e300] [box=747,4819,180,120]
+            - generic [ref=f3e301] [box=757,4829,36,28]: PP
+          - heading "Passport Parking" [level=3] [ref=f3e302] [box=947,4854,78,44]
+          - paragraph [ref=f3e303] [box=1045,4850,196,59]: Оплата через приложение для муниципальных гаражей и уличных паркоматов.
+    - region [ref=f3e420] [box=0,5060,1440,459]:
+      - generic [ref=f3e309] [box=360,5092,720,191]:
+        - paragraph [ref=f3e310] [box=695,5092,50,14]: Города
+        - heading "Доступно сейчас и скоро появится." [level=2] [ref=f3e421] [box=360,5118,720,106]
+        - paragraph [ref=f3e312] [box=464,5236,512,47]: Нажмите на доступный город, чтобы открыть карту. Остальные готовятся и появятся с проверенными ценами.
+      - generic [ref=f3e313] [box=180,5319,1080,144]:
+        - link "Майами Доступно" [ref=f3e422] [cursor=pointer] [box=181,5330,350,64]:
+          - /url: /map?city=miami
+          - generic [ref=f3e316] [box=199,5350,66,23]: Майами
+          - generic [ref=f3e317] [box=426,5350,87,23]: Доступно
+        - link "Сан-Франциско Доступно" [ref=f3e423] [cursor=pointer] [box=545,5330,350,64]:
+          - /url: /map?city=sf
+          - generic [ref=f3e320] [box=563,5350,131,23]: Сан-Франциско
+          - generic [ref=f3e321] [box=790,5350,87,23]: Доступно
+        - link "Нью-Йорк Скоро" [ref=f3e424] [cursor=pointer] [box=909,5330,350,64]:
+          - /url: /map
+          - generic [ref=f3e324] [box=927,5350,83,23]: Нью-Йорк
+          - generic [ref=f3e325] [box=1186,5350,55,23]: Скоро
+        - link "Лос-Анджелес Скоро" [ref=f3e425] [cursor=pointer] [box=181,5408,350,64]:
+          - /url: /map
+          - generic [ref=f3e328] [box=199,5428,122,23]: Лос-Анджелес
+          - generic [ref=f3e329] [box=458,5428,55,23]: Скоро
+        - link "Сиэтл Скоро" [ref=f3e426] [cursor=pointer] [box=545,5408,350,64]:
+          - /url: /map
+          - generic [ref=f3e332] [box=563,5428,51,23]: Сиэтл
+          - generic [ref=f3e333] [box=822,5428,55,23]: Скоро
+        - link "Чикаго Скоро" [ref=f3e427] [cursor=pointer] [box=909,5408,350,64]:
+          - /url: /map
+          - generic [ref=f3e336] [box=927,5428,58,23]: Чикаго
+          - generic [ref=f3e337] [box=1186,5428,55,23]: Скоро
+    - region [ref=f3e428] [box=440,5519,560,984]:
+      - generic [ref=f3e342] [box=440,5519,560,984]:
+        - paragraph [ref=f3e343] [box=496,5583,134,14]: Что мы покрываем
+        - heading "Введите адрес — увидите все ближайшие гаражи, площадки и паркоматы с настоящей ценой, часами работы и прямой ссылкой на оплату или бронь. Без догадок и тарифов, спрятанных за регистрацией." [level=2] [ref=f3e429] [box=496,5615,448,742]
+        - generic [ref=f3e345] [box=496,6387,367,52]:
+          - link "Открыть карту" [ref=f3e430] [cursor=pointer] [box=496,6387,175,52]:
+            - /url: /map
+          - link "Как мы проверяем данные" [ref=f3e431] [cursor=pointer] [box=687,6387,176,52]:
+            - /url: /map
+    - generic "OpenParking site footer" [ref=f3e351] [box=0,6583,1440,238]:
+      - generic [ref=f3e352] [box=100,6640,1240,84]:
+        - generic [ref=f3e353] [box=100,6640,360,84]:
+          - link "OpenParking" [ref=f3e354] [cursor=pointer] [box=100,6640,360,32]:
+            - /url: /
+          - paragraph [ref=f3e368] [box=100,6684,360,40]: Реальные цены на парковку, реальные ссылки на оплату — на одной карте.
+        - navigation "Footer" [ref=f3e369] [box=837,6658,503,48]:
+          - link "Открыть карту" [ref=f3e432] [cursor=pointer] [box=837,6658,152,48]:
+            - /url: /map
+      - paragraph [ref=f3e373] [box=100,6760,1240,33]: © 2026 OpenParking. Цены из официальных городских источников и данных операторов.
+  - alert [ref=f3e374] [box=-1,6820,1,1]

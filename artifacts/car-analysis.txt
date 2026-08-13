@@ -1,0 +1,42 @@
+{
+  "carElement": {
+    "class": "hero-composition__car",
+    "pointerEvents": "auto",
+    "visibility": "visible",
+    "opacity": "1",
+    "position": "absolute",
+    "zIndex": "3",
+    "display": "block",
+    "width": "720px",
+    "height": "540px"
+  },
+  "canvas": {
+    "pointerEvents": "auto",
+    "visibility": "visible",
+    "opacity": "1",
+    "zIndex": "auto",
+    "position": "static",
+    "width": "720px",
+    "height": "540px"
+  },
+  "allCarElements": [
+    {
+      "tag": "DIV",
+      "class": "hero-composition__car",
+      "pointerEvents": "auto",
+      "zIndex": "3"
+    },
+    {
+      "tag": "DIV",
+      "class": "car-3d",
+      "pointerEvents": "auto",
+      "zIndex": "auto"
+    },
+    {
+      "tag": "DIV",
+      "class": "car-3d__fallback",
+      "pointerEvents": "auto",
+      "zIndex": "auto"
+    }
+  ]
+}

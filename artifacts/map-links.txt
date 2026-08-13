@@ -1,0 +1,25 @@
+{
+  "totalMapLinks": 11,
+  "primaryCTA": {
+    "href": "http://127.0.0.1:3021/map",
+    "text": "Открыть карту",
+    "className": "landing-primary"
+  },
+  "firstLinks": [
+    {
+      "href": "http://127.0.0.1:3021/map",
+      "text": "Открыть карту",
+      "className": "landing-nav-link"
+    },
+    {
+      "href": "http://127.0.0.1:3021/map",
+      "text": "Открыть карту",
+      "className": "landing-primary"
+    },
+    {
+      "href": "http://127.0.0.1:3021/map",
+      "text": "Как мы проверяем данные",
+      "className": "landing-tertiary"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "htmlClass": "landing-active",
+  "bodyClass": "landing-active",
+  "htmlDataTheme": "dark",
+  "bodyDataTheme": null,
+  "themeCheckbox": {
+    "checked": true,
+    "id": "",
+    "class": "theme-switch__checkbox"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "htmlBg": "rgb(10, 17, 26)",
+  "rootBg": "#0a111a"
+}
