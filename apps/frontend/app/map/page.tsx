@@ -211,6 +211,7 @@ const [themeHydrated, setThemeHydrated] = useState(false);
   const [suggestionComment, setSuggestionComment] = useState('');
   const [suggestionStatus, setSuggestionStatus] = useState<'idle' | 'submitting' | 'submitted' | 'error'>('idle');
   const [suggestionMessage, setSuggestionMessage] = useState('');
+  const [copiedPaymentZone, setCopiedPaymentZone] = useState('');
   const [routeStatus, setRouteStatus] = useState<RouteStatus>('idle');
   const [routeResult, setRouteResult] = useState<RouteSuccessResponse | null>(null);
   const [routeError, setRouteError] = useState('');
@@ -266,6 +267,10 @@ const [themeHydrated, setThemeHydrated] = useState(false);
     () => (selectedFacility ? resolveParkingDestination(selectedFacility.geometry) : null),
     [selectedFacility]
   );
+
+  useEffect(() => {
+    setCopiedPaymentZone('');
+  }, [selectedFacility]);
 
   useEffect(() => {
     const stored = window.localStorage.getItem('openparking-theme');
@@ -2179,11 +2184,31 @@ const [themeHydrated, setThemeHydrated] = useState(false);
               const priceStatus = getText(p, 'price_status', 'unknown');
               const ruleStatus = getText(p, 'rule_status', 'unknown');
               const enrichmentStatus = getText(p, 'enrichment_status', 'needs_review');
+              const geometryQualityStatus = getText(p, 'geometry_quality_status');
+              const geometryAccuracyClass = getText(p, 'geometry_accuracy_class');
+              const geometryAlignmentDisplacement =
+                typeof p.geometry_alignment_displacement_meters === 'number'
+                  ? p.geometry_alignment_displacement_meters
+                  : null;
+              const geometrySourceRoadDistance =
+                typeof p.geometry_source_road_distance_meters === 'number'
+                  ? p.geometry_source_road_distance_meters
+                  : null;
+              const officialPointFitMax =
+                typeof p.official_point_fit_max_meters === 'number'
+                  ? p.official_point_fit_max_meters
+                  : null;
               const trustDisplay = getTrustDisplay(p);
               const sourceLink = getSafeLink(p, 'source_url', uiText('Open source', 'Открыть источник'));
               const evidenceLink = getSafeLink(p, 'evidence_url', uiText('Open evidence', 'Открыть доказательство'));
               const paymentLink = getSafeLink(p, 'payment_url', uiText('Open payment', 'Открыть оплату'));
-              const paymentAppLink = getSafeLink(p, 'payment_app_url', uiText('Open payment app', 'Открыть приложение оплаты'));
+              const paymentAppLink = getSafeLink(
+                p,
+                'payment_app_url',
+                parkmobileZone
+                  ? uiText(`Pay with PayByPhone · zone ${parkmobileZone}`, `Оплатить через PayByPhone · зона ${parkmobileZone}`)
+                  : uiText('Open official payment app', 'Открыть официальное приложение оплаты')
+              );
               const bookingLink = getSafeLink(p, 'booking_url', uiText('Open booking', 'Открыть бронь'));
 
               return (
@@ -2284,7 +2309,26 @@ const [themeHydrated, setThemeHydrated] = useState(false);
                       {parkmobileZone && (
                         <div className="detail-field">
                           <span className="detail-field-label">{uiText('ParkMobile zone', 'Зона ParkMobile')}</span>
-                          <span className="detail-field-value">{parkmobileZone}</span>
+                          <span className="payment-zone-action">
+                            <strong>{parkmobileZone}</strong>
+                            <button
+                              className="payment-zone-copy"
+                              type="button"
+                              onClick={async () => {
+                                try {
+                                  await navigator.clipboard.writeText(parkmobileZone);
+                                  setCopiedPaymentZone(parkmobileZone);
+                                } catch {
+                                  setCopiedPaymentZone('');
+                                }
+                              }}
+                              aria-label={uiText(`Copy payment zone ${parkmobileZone}`, `Скопировать зону оплаты ${parkmobileZone}`)}
+                            >
+                              {copiedPaymentZone === parkmobileZone
+                                ? uiText('Copied', 'Скопировано')
+                                : uiText('Copy', 'Копировать')}
+                            </button>
+                          </span>
                         </div>
                       )}
                       {paymentProvider && (
@@ -2449,7 +2493,7 @@ const [themeHydrated, setThemeHydrated] = useState(false);
                           { key: 'source', label: uiText('Source', 'Источник'), link: sourceLink },
                           { key: 'evidence', label: uiText('Evidence', 'Доказательство'), link: evidenceLink },
                           { key: 'payment', label: uiText('Payment', 'Оплата'), link: paymentLink },
-                          { key: 'payment-app', label: uiText('Payment app', 'Приложение оплаты'), link: paymentAppLink },
+                          { key: 'payment-app', label: uiText('Official zone payment', 'Официальная оплата по зоне'), link: paymentAppLink },
                           { key: 'booking', label: uiText('Booking', 'Бронь'), link: bookingLink },
                         ].filter((item) => item.link).map((item) => (
                           <div className="detail-field" key={item.key}>
@@ -2467,6 +2511,36 @@ const [themeHydrated, setThemeHydrated] = useState(false);
                           </div>
                         ))}
                       </div>
+                      {geometryQualityStatus && (
+                        <div className="detail-field">
+                          <span className="detail-field-label">{uiText('Geometry quality', 'Точность геометрии')}</span>
+                          <span className="detail-field-value">
+                            {geometryQualityStatus === 'accepted'
+                              ? geometryAccuracyClass === 'official_point_derived_road_oriented'
+                                ? uiText('Official points, road-oriented', 'Официальные точки, ориентация по дороге')
+                                : uiText('Road-aligned estimate', 'Расчётная привязка к дороге')
+                              : getStatusDisplay(geometryQualityStatus, geometryQualityStatus)}
+                          </span>
+                        </div>
+                      )}
+                      {(geometryAccuracyClass === 'estimated_road_aligned' || geometryAccuracyClass === 'official_point_derived_road_oriented') && geometrySourceRoadDistance !== null && (
+                        <div className="detail-field">
+                          <span className="detail-field-label">{uiText('Source-to-road distance', 'Исходное расстояние до дороги')}</span>
+                          <span className="detail-field-value">{geometrySourceRoadDistance.toFixed(1)} m</span>
+                        </div>
+                      )}
+                      {(geometryAccuracyClass === 'estimated_road_aligned' || geometryAccuracyClass === 'official_point_derived_road_oriented') && geometryAlignmentDisplacement !== null && (
+                        <div className="detail-field">
+                          <span className="detail-field-label">{uiText('Automatic alignment shift', 'Автоматический сдвиг')}</span>
+                          <span className="detail-field-value">{geometryAlignmentDisplacement.toFixed(1)} m</span>
+                        </div>
+                      )}
+                      {geometryAccuracyClass === 'official_point_derived_road_oriented' && officialPointFitMax !== null && (
+                        <div className="detail-field">
+                          <span className="detail-field-label">{uiText('Max fit to official points', 'Макс. отклонение от официальных точек')}</span>
+                          <span className="detail-field-value">{officialPointFitMax.toFixed(1)} m</span>
+                        </div>
+                      )}
                       {!sourceLink && !evidenceLink && !paymentLink && !paymentAppLink && !bookingLink && (
                         <p className="detail-help-text">{uiText('No external links are available for this record yet.', 'Для этой записи внешние ссылки пока недоступны.')}</p>
                       )}
@@ -2535,7 +2609,7 @@ const [themeHydrated, setThemeHydrated] = useState(false);
       </main>
       <MobileFilterSheet
         title={uiText('Filters', 'Фильтры')}
-        badge={confidenceFilter ? '1' : undefined}
+        badge={confidenceFilter || sourceFilter ? '1' : undefined}
       >
         <div className="filter-group">
           <label className="filter-label">{t('filters.confidence')}</label>

@@ -77,6 +77,12 @@ function straightReferenceGeometry(feature: GeoJSONFeature): GeoJSONFeature {
   };
 }
 
+function sourcePointDerivedAccuracyClass(feature: GeoJSONFeature) {
+  return isGeneratedCurbRow(feature)
+    ? 'official_point_derived_road_oriented'
+    : 'estimated_road_aligned';
+}
+
 function ringCoordinates(value: unknown): Coordinate[] {
   if (!Array.isArray(value)) return [];
   const positions = value.map(numberPair).filter((item): item is Coordinate => item !== null);
@@ -290,16 +296,23 @@ function nearestRoad(coordinates: Coordinate[], roads: RoadLine[]) {
   const first = coordinates[0];
   const last = coordinates[coordinates.length - 1];
   const midpoint: Coordinate = [(first[0] + last[0]) / 2, (first[1] + last[1]) / 2];
+  const anchors = [first, midpoint, last];
 
   for (const road of roads) {
     if (!bboxExpandedIntersects(curbBbox, lineBbox(road.coordinates), 40)) continue;
     for (let index = 1; index < road.coordinates.length; index += 1) {
       const a = road.coordinates[index - 1];
       const b = road.coordinates[index];
-      const distanceMeters = distancePointToSegmentMeters(midpoint, a, b);
+      const anchorDistances = anchors.map((point) => distancePointToSegmentMeters(point, a, b));
+      const distanceMeters = anchorDistances.reduce((sum, value) => sum + value, 0) / anchorDistances.length;
+      const maxAnchorDistanceMeters = Math.max(...anchorDistances);
       const angle = segmentAngle(a, b);
       const delta = angleDeltaDegrees(curbAngle, angle);
-      const score = distanceMeters + delta * 1.5;
+      // A crossing or short side street can be closest to the midpoint while being far
+      // from the row endpoints. Penalize that shape so the selected road explains the
+      // whole curb row, not one convenient point near an intersection.
+      const endpointSpreadPenalty = Math.max(0, maxAnchorDistanceMeters - distanceMeters);
+      const score = distanceMeters + endpointSpreadPenalty * 1.5 + delta * 1.5;
       if (!best || score < best.score) {
         best = {
           distanceMeters,
@@ -404,18 +417,28 @@ export function alignCurbLineToNearestRoad(
   const ux = Math.cos(alignmentAngle);
   const uy = Math.sin(alignmentAngle);
   let alignedMidpoint = midpoint;
+  let lateralPositionSource = isGeneratedCurbRow(feature)
+    ? 'official_parking_space_points'
+    : 'source_geometry';
+  let lateralAdjustmentMeters = 0;
 
   if (streetAxis && alignmentAngle === streetAxis.angle) {
-    const axisCenter = project(streetAxis.center, referenceLat);
-    const along = (midpoint.x - axisCenter.x) * ux + (midpoint.y - axisCenter.y) * uy;
     const normalX = -uy;
     const normalY = ux;
-    const localSide = (midpoint.x - roadStart.x) * normalX + (midpoint.y - roadStart.y) * normalY;
-    const curbOffsetMeters = 4;
-    const side = localSide < 0 ? -1 : 1;
+    // Official parking-space points carry the best available lateral position.
+    // Use OSM for direction, without replacing that evidence with a synthetic
+    // fixed curb offset from the road centerline.
+    const sourceLateralOffsetMeters =
+      (midpoint.x - roadStart.x) * normalX + (midpoint.y - roadStart.y) * normalY;
+    const effectiveLateralOffsetMeters =
+      isGeneratedCurbRow(feature) && Math.abs(sourceLateralOffsetMeters) >= DEFAULT_MIN_ROAD_OFFSET_METERS
+        ? sourceLateralOffsetMeters
+        : (sourceLateralOffsetMeters < 0 ? -1 : 1) * 4;
+    lateralAdjustmentMeters = Math.abs(effectiveLateralOffsetMeters - sourceLateralOffsetMeters);
+    if (lateralAdjustmentMeters > 0) lateralPositionSource = 'minimum_curb_offset_guard';
     alignedMidpoint = {
-      x: axisCenter.x + along * ux + side * curbOffsetMeters * normalX,
-      y: axisCenter.y + along * uy + side * curbOffsetMeters * normalY,
+      x: midpoint.x + (effectiveLateralOffsetMeters - sourceLateralOffsetMeters) * normalX,
+      y: midpoint.y + (effectiveLateralOffsetMeters - sourceLateralOffsetMeters) * normalY,
     };
     if (Math.hypot(alignedMidpoint.x - midpoint.x, alignedMidpoint.y - midpoint.y) > 15) {
       alignedMidpoint = midpoint;
@@ -425,6 +448,10 @@ export function alignCurbLineToNearestRoad(
     x / metersPerLngDegree(referenceLat),
     y / 110_540,
   ];
+  const alignmentDisplacementMeters = Math.hypot(
+    alignedMidpoint.x - midpoint.x,
+    alignedMidpoint.y - midpoint.y,
+  );
 
   return {
     ...feature,
@@ -442,6 +469,12 @@ export function alignCurbLineToNearestRoad(
           ? 'named_street_shared_axis'
           : 'nearest_road_segment_exact_parallel',
       geometry_alignment_road_name: road.name ?? feature.properties.geometry_alignment_road_name,
+      geometry_alignment_road_source_id: road.sourceId ?? feature.properties.geometry_alignment_road_source_id,
+      geometry_source_road_distance_meters: Math.round(road.distanceMeters * 10) / 10,
+      geometry_alignment_displacement_meters: Math.round(alignmentDisplacementMeters * 10) / 10,
+      geometry_lateral_position_source: lateralPositionSource,
+      geometry_lateral_adjustment_meters: Math.round(lateralAdjustmentMeters * 10) / 10,
+      geometry_accuracy_class: sourcePointDerivedAccuracyClass(feature),
     },
   };
 }
@@ -549,7 +582,13 @@ export function alignCurbLineAlongRoad(
   const localSide =
     (midpoint.x - roadStartProj.x) * normalX + (midpoint.y - roadStartProj.y) * normalY;
   const side = localSide < 0 ? -1 : 1;
-  const curbOffsetMeters = 4;
+  const sourceLateralOffsetMeters = Math.abs(localSide);
+  const preserveOfficialLateralPosition =
+    isGeneratedCurbRow(feature) && sourceLateralOffsetMeters >= DEFAULT_MIN_ROAD_OFFSET_METERS;
+  const effectiveLateralOffsetMeters = preserveOfficialLateralPosition
+    ? sourceLateralOffsetMeters
+    : 4;
+  const lateralAdjustmentMeters = Math.abs(effectiveLateralOffsetMeters - sourceLateralOffsetMeters);
 
   const rawPoints: { x: number; y: number; segIndex: number }[] = [];
 
@@ -612,7 +651,7 @@ export function alignCurbLineAlongRoad(
     }
   }
 
-  const offsetPoints = deduped.map((pt) => {
+  let offsetPoints = deduped.map((pt) => {
     const roadA = project(roadCoords[pt.segIndex], referenceLat);
     const roadB = project(
       roadCoords[Math.min(pt.segIndex + 1, roadCoords.length - 1)],
@@ -622,14 +661,28 @@ export function alignCurbLineAlongRoad(
     const nx = -Math.sin(tanAngle);
     const ny = Math.cos(tanAngle);
     return {
-      x: pt.x + side * curbOffsetMeters * nx,
-      y: pt.y + side * curbOffsetMeters * ny,
+      x: pt.x + side * effectiveLateralOffsetMeters * nx,
+      y: pt.y + side * effectiveLateralOffsetMeters * ny,
     };
   });
 
   const alignedMidX = offsetPoints.reduce((s, p) => s + p.x, 0) / offsetPoints.length;
   const alignedMidY = offsetPoints.reduce((s, p) => s + p.y, 0) / offsetPoints.length;
-  if (Math.hypot(alignedMidX - midpoint.x, alignedMidY - midpoint.y) > 15) {
+  const targetMidpoint = {
+    x: midpoint.x + side * lateralAdjustmentMeters * normalX,
+    y: midpoint.y + side * lateralAdjustmentMeters * normalY,
+  };
+  const translateX = targetMidpoint.x - alignedMidX;
+  const translateY = targetMidpoint.y - alignedMidY;
+  offsetPoints = offsetPoints.map((point) => ({
+    x: point.x + translateX,
+    y: point.y + translateY,
+  }));
+  const alignmentDisplacementMeters = Math.hypot(
+    targetMidpoint.x - midpoint.x,
+    targetMidpoint.y - midpoint.y,
+  );
+  if (alignmentDisplacementMeters > 15) {
     return alignCurbLineToNearestRoad(feature, refs);
   }
 
@@ -648,6 +701,14 @@ export function alignCurbLineAlongRoad(
       ...feature.properties,
       geometry_alignment_method: 'road_centerline_following_polyline',
       geometry_alignment_road_name: roadMatch.name ?? feature.properties.geometry_alignment_road_name,
+      geometry_alignment_road_source_id: roadMatch.sourceId ?? feature.properties.geometry_alignment_road_source_id,
+      geometry_source_road_distance_meters: Math.round(roadMatch.distanceMeters * 10) / 10,
+      geometry_alignment_displacement_meters: Math.round(alignmentDisplacementMeters * 10) / 10,
+      geometry_lateral_position_source: preserveOfficialLateralPosition
+        ? 'official_parking_space_points'
+        : 'minimum_curb_offset_guard',
+      geometry_lateral_adjustment_meters: Math.round(lateralAdjustmentMeters * 10) / 10,
+      geometry_accuracy_class: sourcePointDerivedAccuracyClass(feature),
     },
   };
 }
@@ -775,6 +836,12 @@ export function withCurbGeometryQuality(
     nearest_road_angle_delta_degrees: result.nearestRoadAngleDeltaDegrees,
     matched_road_source_id: result.nearestRoadSourceId ?? feature.properties.matched_road_source_id,
     geometry_quality_method: 'deterministic_road_parallel_area_intersection_check',
+    geometry_accuracy_class:
+      result.status === 'accepted'
+        ? feature.properties.geometry_accuracy_class ?? sourcePointDerivedAccuracyClass(feature)
+        : result.status === 'needs_field_review'
+          ? 'needs_field_review'
+          : 'suppressed',
   };
 
   if (result.status === 'suppressed') {

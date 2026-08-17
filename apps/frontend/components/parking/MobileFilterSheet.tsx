@@ -46,6 +46,7 @@ export function MobileFilterSheet({ title, children, badge }: MobileFilterSheetP
         role="dialog"
         aria-label={title}
         aria-hidden={!open}
+        inert={!open ? true : undefined}
       >
         <button
           type="button"

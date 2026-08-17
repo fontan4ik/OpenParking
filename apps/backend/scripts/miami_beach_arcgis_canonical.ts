@@ -7,7 +7,7 @@ export const MIAMI_BEACH_ARCGIS_SOURCE_URL = 'https://gis.miamibeachfl.gov/publi
 export const MIAMI_BEACH_ARCGIS_SOURCE_PAGE = 'https://www.miamibeachfl.gov/city-hall/parking/';
 
 const MIAMI_BEACH_PAYMENT_PROVIDER = 'ParkMobile / PayByPhone';
-const MIAMI_BEACH_PAYMENT_APP_URL = 'https://www2.paybyphone.com/park-in-miami-beach';
+const MIAMI_BEACH_PAYMENT_APP_URL = 'https://www.paybyphone.com/park-in-miami-beach';
 const MIAMI_BEACH_PAYMENT_NOTE =
   'Official Miami Beach source lists ParkMobile zones and PayByPhone/ParkMobile app support; ParkingUSA does not infer a per-record checkout URL.';
 const MIAMI_BEACH_FIELD_EVIDENCE_SOURCE_ID = 'dev-47:field-feedback:south-beach:valet-dropoff-no-ordinary-parking';

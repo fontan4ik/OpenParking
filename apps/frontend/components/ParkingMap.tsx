@@ -189,12 +189,12 @@ function readCssVar(name: string, fallback: string): string {
  * tests that run without a DOM.
  */
 function statusColorExpression(): ExpressionSpecification {
-  const conflict   = readCssVar('--pk-conflict', '#ef4444');
-  const priced     = readCssVar('--pk-priced',   '#3b82f6');
-  const free       = readCssVar('--pk-free',     '#10b981');
+  const conflict   = readCssVar('--pk-conflict', '#0b0d10');
+  const priced     = readCssVar('--pk-priced',   '#155eef');
+  const free       = readCssVar('--pk-free',     '#6f9ff5');
   const unpriced   = readCssVar('--pk-unpriced', '#64748b');
-  const unknown    = readCssVar('--pk-unknown',  '#f59e0b');
-  const fallback   = readCssVar('--pk-default',  '#94a3b8');
+  const unknown    = readCssVar('--pk-unknown',  '#405064');
+  const fallback   = readCssVar('--pk-default',  '#718096');
   return [
     'case',
     ['==', ['get', 'enrichment_status'], 'conflict'],
@@ -301,6 +301,51 @@ function parkingAreaZonesOnly(data: FeatureCollection): FeatureCollection {
   };
 }
 
+function curbProxyFromFeature(
+  feature: Feature<Geometry, Record<string, unknown>>,
+  index: number,
+): Feature<GeoJSON.Point, Record<string, unknown>> | null {
+  const geometry = feature.geometry;
+  const coordinates = geometry.type === 'LineString'
+    ? geometry.coordinates
+    : geometry.type === 'MultiLineString'
+      ? geometry.coordinates.flat()
+      : [];
+  if (coordinates.length === 0) return null;
+
+  const midpoint = coordinates[Math.floor(coordinates.length / 2)];
+  if (!midpoint || typeof midpoint[0] !== 'number' || typeof midpoint[1] !== 'number') return null;
+
+  const properties = feature.properties || {};
+  return {
+    type: 'Feature',
+    geometry: { type: 'Point', coordinates: [midpoint[0], midpoint[1]] },
+    properties: {
+      __kind: 'curb_proxy',
+      __source_segment_index: index,
+      facility_type: 'street_side',
+      name: properties.street_sample || properties.street || 'Road-side parking row',
+      price_status: properties.price_status || 'known_unpriced',
+      confidence: properties.confidence,
+      enrichment_status: properties.enrichment_status,
+    },
+  };
+}
+
+function withCurbClusterProxies(
+  facilities: FeatureCollection,
+  segments: FeatureCollection,
+  includeSegments: boolean,
+): FeatureCollection {
+  if (!includeSegments) return facilities;
+
+  const proxies = segments.features
+    .map((feature, index) => curbProxyFromFeature(feature, index))
+    .filter((feature): feature is Feature<GeoJSON.Point, Record<string, unknown>> => feature !== null);
+
+  return { type: 'FeatureCollection', features: [...facilities.features, ...proxies] };
+}
+
 function htmlEscape(value: string) {
   return value
     .replace(/&/g, '&amp;')
@@ -401,7 +446,13 @@ function popupHtml(feature: GeoJSON.Feature, t: (key: TranslationKey) => string)
     }
     <div class="popup-row"><b>${localText(t, 'Source link', 'Ссылка источника')}</b>${linkHtml(localText(t, 'Open source', 'Открыть источник'), p.source_url, localText(t, 'Not available', 'Недоступно'))}</div>
     <div class="popup-row"><b>${localText(t, 'Payment link', 'Ссылка оплаты')}</b>${linkHtml(localText(t, 'Open payment', 'Открыть оплату'), p.payment_url, localText(t, 'Not available', 'Недоступно'))}</div>
-    <div class="popup-row"><b>${localText(t, 'Payment app', 'Приложение оплаты')}</b>${linkHtml(localText(t, 'Open app info', 'Открыть оплату'), p.payment_app_url, localText(t, 'Not available', 'Недоступно'))}</div>
+    <div class="popup-row"><b>${localText(t, 'Official payment', 'Официальная оплата')}</b>${linkHtml(
+      parkmobileZone
+        ? localText(t, `Pay with PayByPhone · zone ${parkmobileZone}`, `Оплатить через PayByPhone · зона ${parkmobileZone}`)
+        : localText(t, 'Open official payment app', 'Открыть официальное приложение оплаты'),
+      p.payment_app_url,
+      localText(t, 'Not available', 'Недоступно')
+    )}</div>
   `;
 }
 
@@ -612,7 +663,7 @@ export default function ParkingMap({
         type: 'line',
         source: 'zones',
         paint: {
-          'line-color': '#60a5fa',
+          'line-color': '#6f9ff5',
           'line-width': 1.4,
           'line-opacity': 0.55,
         },
@@ -627,7 +678,7 @@ export default function ParkingMap({
           'line-join': 'round',
         },
         paint: {
-          'line-color': '#1e293b',
+          'line-color': '#0b0d10',
           'line-width': [
             'interpolate',
             ['linear'],
@@ -700,7 +751,7 @@ export default function ParkingMap({
         },
         paint: {
           'text-color': '#ffffff',
-          'text-halo-color': '#1e293b',
+          'text-halo-color': '#0b0d10',
           'text-halo-width': 5,
           'text-halo-blur': 0.2,
         },
@@ -716,7 +767,7 @@ export default function ParkingMap({
           visibility: 'none',
         },
         paint: {
-          'line-color': '#f59e0b',
+          'line-color': '#155eef',
           'line-width': [
             'interpolate',
             ['linear'],
@@ -744,11 +795,11 @@ export default function ParkingMap({
           'circle-color': [
             'step',
             ['get', 'point_count'],
-            '#1769e0',
+            '#155eef',
             25,
-            '#1258bd',
+            '#315f9f',
             100,
-            '#0e438f',
+            '#0b2f68',
           ],
           'circle-radius': [
             'step',
@@ -787,7 +838,7 @@ export default function ParkingMap({
         id: 'facilities-circle',
         type: 'circle',
         source: 'facilities',
-        filter: ['!', ['has', 'point_count']],
+        filter: ['all', ['!', ['has', 'point_count']], ['!=', ['get', '__kind'], 'curb_proxy']],
         paint: {
           'circle-radius': [
             'interpolate',
@@ -804,9 +855,9 @@ export default function ParkingMap({
           'circle-stroke-color': [
             'case',
             ['==', ['get', 'enrichment_status'], 'conflict'],
-            '#ef4444',
+            '#0b0d10',
             ['==', ['get', 'enrichment_status'], 'needs_review'],
-            '#f59e0b',
+            '#667085',
             '#0f172a',
           ],
           'circle-stroke-width': [
@@ -847,7 +898,7 @@ export default function ParkingMap({
         type: 'line',
         source: 'city-boundary',
         paint: {
-          'line-color': '#1f2937',
+          'line-color': '#0b0d10',
           'line-width': [
             'interpolate',
             ['linear'],
@@ -870,7 +921,7 @@ export default function ParkingMap({
         source: 'review-zones',
         minzoom: 12,
         paint: {
-          'fill-color': '#f59e0b',
+          'fill-color': '#667085',
           'fill-opacity': 0.16,
         },
       });
@@ -881,7 +932,7 @@ export default function ParkingMap({
         source: 'review-zones',
         minzoom: 12,
         paint: {
-          'line-color': '#d97706',
+          'line-color': '#667085',
           'line-width': [
             'interpolate',
             ['linear'],
@@ -915,9 +966,9 @@ export default function ParkingMap({
             19,
             10,
           ],
-          'circle-color': '#f59e0b',
+          'circle-color': '#667085',
           'circle-opacity': 0.28,
-          'circle-stroke-color': '#f59e0b',
+          'circle-stroke-color': '#667085',
           'circle-stroke-width': 2.4,
           'circle-stroke-opacity': 0.9,
         },
@@ -928,7 +979,7 @@ export default function ParkingMap({
           id: 'facilities-glow',
           type: 'circle',
           source: 'facilities',
-          filter: ['!', ['has', 'point_count']],
+        filter: ['all', ['!', ['has', 'point_count']], ['!=', ['get', '__kind'], 'curb_proxy']],
           paint: {
             'circle-radius': [
               'interpolate',
@@ -966,7 +1017,7 @@ export default function ParkingMap({
           'line-join': 'round',
         },
         paint: {
-          'line-color': '#22d3ee',
+          'line-color': '#6f9ff5',
           'line-width': 11,
           'line-opacity': 0.2,
           'line-blur': 4,
@@ -982,7 +1033,7 @@ export default function ParkingMap({
           'line-join': 'round',
         },
         paint: {
-          'line-color': '#38bdf8',
+          'line-color': '#155eef',
           'line-width': 5,
           'line-opacity': 0.92,
         },
@@ -997,7 +1048,7 @@ export default function ParkingMap({
         source: 'parkingusa-user-location-source',
         paint: {
           'circle-radius': 7,
-          'circle-color': '#22d3ee',
+          'circle-color': '#155eef',
           'circle-stroke-color': '#f8fafc',
           'circle-stroke-width': 2,
           'circle-opacity': 0.95,
@@ -1010,8 +1061,8 @@ export default function ParkingMap({
         source: 'parkingusa-picked-start-source',
         paint: {
           'circle-radius': 8,
-          'circle-color': '#10b981',
-          'circle-stroke-color': '#ecfeff',
+          'circle-color': '#6f9ff5',
+          'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2,
           'circle-opacity': 0.96,
         },
@@ -1023,8 +1074,8 @@ export default function ParkingMap({
         source: 'parkingusa-picked-destination-source',
         paint: {
           'circle-radius': 8,
-          'circle-color': '#f59e0b',
-          'circle-stroke-color': '#fff7ed',
+          'circle-color': '#667085',
+          'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2,
           'circle-opacity': 0.96,
         },
@@ -1036,10 +1087,10 @@ export default function ParkingMap({
         source: 'parkingusa-dropped-pin-source',
         paint: {
           'circle-radius': 16,
-          'circle-color': '#ef4444',
+          'circle-color': '#0b0d10',
           'circle-opacity': 0.3,
           'circle-stroke-width': 1,
-          'circle-stroke-color': '#ef4444',
+          'circle-stroke-color': '#0b0d10',
         },
       });
 
@@ -1049,7 +1100,7 @@ export default function ParkingMap({
         source: 'parkingusa-dropped-pin-source',
         paint: {
           'circle-radius': 8,
-          'circle-color': '#ef4444',
+          'circle-color': '#0b0d10',
           'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2,
           'circle-opacity': 0.95,
@@ -1371,6 +1422,14 @@ export default function ParkingMap({
 
   const splitSegments = useMemo(() => splitParkingSegments(filteredSegments), [filteredSegments]);
   const visibleSegments = splitSegments.ordinary;
+  const clusteredFacilities = useMemo(
+    () => withCurbClusterProxies(
+      filteredFacilities,
+      { type: 'FeatureCollection', features: [...splitSegments.ordinary.features, ...splitSegments.reference.features] },
+      true,
+    ),
+    [filteredFacilities, splitSegments],
+  );
   const layerStatusItems = [
     {
       key: 'facilities',
@@ -1419,7 +1478,7 @@ export default function ParkingMap({
     if (!map || !isReady) return;
 
     const sourceUpdates = [
-      ['facilities', filteredFacilities],
+      ['facilities', clusteredFacilities],
       ['review-facilities', reviewReferenceFacilities],
       ['segments', splitSegments.ordinary],
       ['reference-segments', splitSegments.reference],
@@ -1434,7 +1493,7 @@ export default function ParkingMap({
         (source as GeoJSONSource).setData(data);
       }
     }
-  }, [cityBoundary, filteredFacilities, isReady, reviewReferenceFacilities, reviewReferenceZones, splitSegments, visibleZones]);
+  }, [cityBoundary, clusteredFacilities, isReady, reviewReferenceFacilities, reviewReferenceZones, splitSegments, visibleZones]);
 
   useEffect(() => {
     const map = mapRef.current;

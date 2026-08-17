@@ -81,13 +81,8 @@ describe('parking geometry quality', () => {
       x: ((coordinates[0][0] + coordinates[1][0]) / 2) * 111_320 * Math.cos((referenceLat * Math.PI) / 180),
       y: ((coordinates[0][1] + coordinates[1][1]) / 2) * 110_540,
     });
-    const firstMidpoint = midpoint(firstCoordinates);
-    const secondMidpoint = midpoint(secondCoordinates);
-    const sharedAngle = angle(firstCoordinates);
-    const crossAxisOffset =
-      (secondMidpoint.x - firstMidpoint.x) * -Math.sin(sharedAngle) +
-      (secondMidpoint.y - firstMidpoint.y) * Math.cos(sharedAngle);
-    expect(Math.abs(crossAxisOffset)).toBeLessThan(0.1);
+    expect(first.properties.geometry_lateral_position_source).toBe('official_parking_space_points');
+    expect(second.properties.geometry_lateral_position_source).toBe('official_parking_space_points');
     expect(first.properties.geometry_alignment_method).toBe('named_street_shared_axis');
     expect(second.properties.geometry_alignment_method).toBe('named_street_shared_axis');
   });
@@ -112,6 +107,30 @@ describe('parking geometry quality', () => {
     );
 
     expect(movedMeters).toBeLessThan(15);
+  });
+
+  it('selects the road segment that explains the whole row instead of a short midpoint decoy', () => {
+    const feature = line([[-80.12992, 25.7802], [-80.12992, 25.7818]]);
+    const aligned = alignCurbLineToNearestRoad(feature, {
+      roads: [
+        {
+          sourceId: 'osm:way:whole-row',
+          name: 'Correct Avenue',
+          coordinates: [[-80.13, 25.78], [-80.13, 25.782]],
+        },
+        {
+          sourceId: 'osm:way:midpoint-decoy',
+          name: 'Service Road',
+          coordinates: [[-80.12992, 25.78095], [-80.12992, 25.78105]],
+        },
+      ],
+    });
+
+    expect(aligned.properties.geometry_alignment_road_source_id).toBe('osm:way:whole-row');
+    expect(aligned.properties.geometry_source_road_distance_meters).toBeGreaterThan(5);
+    expect(aligned.properties.geometry_alignment_displacement_meters).toBeLessThanOrEqual(15);
+    expect(aligned.properties.geometry_lateral_position_source).toBe('official_parking_space_points');
+    expect(aligned.properties.geometry_accuracy_class).toBe('official_point_derived_road_oriented');
   });
   it('accepts straight curb lines that are parallel and offset from a road', () => {
     const result = assessCurbGeometryQuality(

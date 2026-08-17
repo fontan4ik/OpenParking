@@ -78,6 +78,7 @@ Gate checks:
   - [ ] derived curb segments
   - [ ] OSM parking zones
 - [ ] Validate geometry quality and provenance fields for all imported records.
+  - [~] Miami Beach official parking-space rows preserve the official point center/lateral position and use OSM only for road orientation/shape plus safety QA; current audit is 1,825 accepted / 81 review-only, with P95 automatic movement 0 m and P95 point-to-line fit 3.3 m. Remaining review rows require curb-edge imagery or field evidence.
 
 Gate checks:
 
@@ -339,7 +340,7 @@ Gate checks:
   - [ ] browser-agent extraction recipes for JavaScript-heavy pages
 - [ ] Add city-level data quality dashboards.
 - [ ] Bring Miami fixtures to SF-level status/provenance parity, including explicit granular statuses and source/API/evidence fields where evidence exists; do not fabricate payment/booking links.
-- [~] Add first Miami Beach complete-record slice from official WPGMZA/ArcGIS data: rates, event rates, max time, capacity, ParkMobile zones, EV notes, source/API/evidence links, and payment-provider evidence are exposed without fabricating per-record checkout URLs.
+- [~] Add first Miami Beach complete-record slice from official WPGMZA/ArcGIS data: rates, event rates, max time, capacity, ParkMobile zones, EV notes, source/API/evidence links, and payment-provider evidence are exposed without fabricating per-record checkout URLs. The map now opens the canonical official PayByPhone flow with the exact zone code and copy action; stable per-record checkout URLs remain an enrichment task.
 - [ ] Prioritize payment/booking source enrichment for MPA commerce, MIA/airport parking, PortMiami, Parking.com/SP+, ABM, and Premium after parser/ToS review.
   - [ ] Build external payment-link parsers instead of relying on static backend fetch: use Playwright/Chrome network extraction for JavaScript/payment flows, provider deep-link parsing for ParkMobile/PayByPhone zones, or partner/API feeds when scraping is unstable or prohibited.
   - [ ] Require every external parser to dry-run first, classify candidate links (`direct_checkout`, `facility_page`, `app_zone`, `operator_search`), store `SourceObservation` evidence, and promote to canonical `payment_url` / `booking_url` only after stable direct checkout proof and ToS/legal review.

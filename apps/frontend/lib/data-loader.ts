@@ -316,7 +316,8 @@ const ENRICHMENT_STATUSES = new Set<EnrichmentStatus>([
 ]);
 
 const MIAMI_BEACH_PAYMENT_PROVIDER = 'ParkMobile / PayByPhone';
-const MIAMI_BEACH_PAYMENT_APP_URL = 'https://www2.paybyphone.com/park-in-miami-beach';
+const MIAMI_BEACH_PAYMENT_APP_URL = 'https://www.paybyphone.com/park-in-miami-beach';
+const MIAMI_BEACH_LEGACY_PAYMENT_APP_HOST = 'www2.paybyphone.com';
 const MIAMI_BEACH_PAYMENT_NOTE =
   'Official Miami Beach source lists ParkMobile zones and PayByPhone/ParkMobile app support; ParkingUSA does not infer a per-record checkout URL.';
 const MIAMI_BEACH_FIELD_EVIDENCE_SOURCE_ID = 'dev-47:field-feedback:south-beach:valet-dropoff-no-ordinary-parking';
@@ -494,11 +495,23 @@ function withPaymentProviderEvidence(properties: Record<string, unknown>) {
 
   if (!parkmobileZone || !isMiamiBeach) return properties;
 
+  const sourcePaymentAppUrl = safeUrl(stringValue(properties.payment_app_url));
+  const paymentAppUrl = (() => {
+    if (!sourcePaymentAppUrl) return MIAMI_BEACH_PAYMENT_APP_URL;
+    try {
+      return new URL(sourcePaymentAppUrl).hostname.toLowerCase() === MIAMI_BEACH_LEGACY_PAYMENT_APP_HOST
+        ? MIAMI_BEACH_PAYMENT_APP_URL
+        : sourcePaymentAppUrl;
+    } catch {
+      return MIAMI_BEACH_PAYMENT_APP_URL;
+    }
+  })();
+
   return {
     ...properties,
     parkmobile_zone: parkmobileZone,
     payment_provider: stringValue(properties.payment_provider) || MIAMI_BEACH_PAYMENT_PROVIDER,
-    payment_app_url: safeUrl(stringValue(properties.payment_app_url)) || MIAMI_BEACH_PAYMENT_APP_URL,
+    payment_app_url: paymentAppUrl,
     payment_note: stringValue(properties.payment_note) || MIAMI_BEACH_PAYMENT_NOTE,
   };
 }
@@ -1153,6 +1166,9 @@ function rowLineFeature(
   const gaps = sorted.slice(1).map((point, index) => Math.max(0, (point.along ?? 0) - (sorted[index].along ?? 0)));
   const padding = Math.max(2, Math.min(6, gaps.length > 0 ? median(gaps) / 2 : 4));
   const across = median(sorted.map((point) => point.across ?? 0));
+  const officialPointFitMaxMeters = Math.max(
+    ...sorted.map((point) => Math.abs((point.across ?? across) - across)),
+  );
   const startAlong = minAlong - padding;
   const endAlong = maxAlong + padding;
 
@@ -1178,6 +1194,7 @@ function rowLineFeature(
       source_id: `parking-space-row:${first.index}-${last.index}`,
       source_space_start_id: firstSourceId,
       source_space_end_id: lastSourceId,
+      official_point_fit_max_meters: Math.round(officialPointFitMaxMeters * 10) / 10,
       facility_type: 'curb_segment',
       meter_count: sorted.length,
       source_confidence: firstNumberValue(first.feature.properties.source_confidence, first.feature.properties.sourceConfidence, first.feature.properties.confidence) ?? 0.9,
@@ -1191,7 +1208,7 @@ function rowLineFeature(
       enrichment_status: 'needs_review',
       source_geometry_type: 'PointCluster',
       geometry_provenance:
-        'Curb line derived from grouped official parking-space points; parking-area interior points are excluded before line generation.',
+        'Curb line centered on grouped official parking-space points and road-oriented without replacing their lateral position; parking-area interior points are excluded before line generation.',
     },
   };
 }

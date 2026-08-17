@@ -1,7 +1,8 @@
 export const FACILITY_CLUSTER_SOURCE_OPTIONS = {
   cluster: true,
-  clusterMaxZoom: 14,
-  clusterRadius: 56,
+  // Keep mixed parking/curb density legible through neighborhood zooms.
+  clusterMaxZoom: 16,
+  clusterRadius: 64,
 } as const;
 
 export function getFacilityClusterId(

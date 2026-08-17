@@ -42,6 +42,12 @@ describe('alignCurbLineAlongRoad', () => {
     expect(aligned.properties.geometry_alignment_method).toBe(
       'road_centerline_following_polyline'
     );
+    expect(aligned.properties.geometry_lateral_position_source).toBe(
+      'official_parking_space_points'
+    );
+    expect(aligned.properties.geometry_accuracy_class).toBe(
+      'official_point_derived_road_oriented'
+    );
 
     const result = assessCurbGeometryQuality(aligned, { roads: [road] });
     expect(result.status).toBe('accepted');
@@ -67,6 +73,26 @@ describe('alignCurbLineAlongRoad', () => {
     const coords = aligned.geometry.coordinates as [number, number][];
 
     expect(coords).toHaveLength(2);
+  });
+
+  it('preserves the official point-row lateral offset instead of forcing a synthetic 4 m curb', () => {
+    const road: RoadLine = {
+      name: 'Official Point Street',
+      coordinates: [
+        [-80.13, 25.78],
+        [-80.13, 25.782],
+      ],
+    };
+    const feature = line([
+      [-80.12993, 25.7805],
+      [-80.12993, 25.7815],
+    ]);
+    const aligned = alignCurbLineAlongRoad(feature, { roads: [road] });
+    const coords = aligned.geometry.coordinates as [number, number][];
+
+    expect(coords[0][0]).toBeCloseTo(-80.12993, 6);
+    expect(coords[1][0]).toBeCloseTo(-80.12993, 6);
+    expect(aligned.properties.geometry_alignment_displacement_meters).toBeLessThan(0.2);
   });
 
   it('falls back to straight line and yields needs_field_review when road is far', () => {

@@ -6,8 +6,9 @@ OpenParking is a calm geospatial command surface: the map is always the primary
 object, while controls feel like precise instruments placed above it. The
 signature is **Atlas focus**: parking density begins as quiet blue clusters and
 resolves into semantic points, curb lines, and zones as the user moves closer.
-Surfaces use cool graphite, restrained translucency, and one consistent light
-direction. Data quality is communicated before decoration.
+The visual language is deliberately limited to white, black, and one blue ramp;
+state differences are carried by labels, icons, line style, and weight before
+they are carried by hue. Data quality is communicated before decoration.
 
 Primary users are drivers comparing nearby options, contributors checking an
 uncertain record, and reviewers inspecting conflicts. The design must remain
@@ -20,28 +21,27 @@ usable in bright outdoor light, one-handed mobile use, keyboard navigation,
 
 | Role | Token | Light | Dark | Usage |
 | --- | --- | --- | --- | --- |
-| Canvas | `--bg-primary` | `#f3f6f7` | `#0a111a` | App and loading background |
-| Surface | `--bg-secondary` | `#fbfcfc` | `#101a26` | Secondary regions |
-| Panel | `--bg-card` | `rgba(255,255,255,.92)` | `rgba(17,28,41,.94)` | Sidebar, sheets, cards |
-| Panel hover | `--bg-card-hover` | `#f5f9fb` | `#172535` | Interactive hover |
-| Glass | `--bg-glass` | `rgba(255,255,255,.82)` | `rgba(13,23,34,.84)` | Floating map controls |
-| Text primary | `--text-primary` | `#102033` | `#f2f7fb` | Headings and body |
-| Text secondary | `--text-secondary` | `#4e6378` | `#b5c3d1` | Supporting copy |
-| Text muted | `--text-muted` | `#6e8193` | `#8295a8` | Metadata and disabled text |
-| Border subtle | `--border-subtle` | `rgba(47,75,98,.14)` | `rgba(169,193,214,.13)` | Internal separation |
-| Border medium | `--border-medium` | `rgba(47,75,98,.26)` | `rgba(169,193,214,.22)` | Control outlines |
-| Action / known price | `--accent-blue` | `#0b63ce` | `#6aa9ff` | Primary actions, priced parking |
-| Free | `--accent-emerald` | `#08795b` | `#47d7a6` | Known free parking |
-| Uncertain | `--accent-amber` | `#a85a04` | `#ffc466` | Unknown amount, review |
-| Conflict | `--accent-red` | `#bd3e4e` | `#ff8290` | Conflicts and stale facts |
-| Curb | `--accent-cyan` | `#087d9a` | `#55d7e5` | Route and curb emphasis |
+| Canvas | `--bg-primary` | `#ffffff` | `#0b0d10` | App and loading background |
+| Surface | `--bg-secondary` | `#f5f7fa` | `#14181e` | Secondary regions |
+| Panel | `--bg-card` | `rgba(255,255,255,.96)` | `rgba(20,24,30,.96)` | Sidebar, sheets, cards |
+| Panel hover | `--bg-card-hover` | `#eef4ff` | `#1b2533` | Interactive hover |
+| Glass | `--bg-glass` | `rgba(255,255,255,.88)` | `rgba(11,13,16,.88)` | Floating map controls |
+| Text primary | `--text-primary` | `#0b0d10` | `#ffffff` | Headings and body |
+| Text secondary | `--text-secondary` | `#405064` | `#c5ceda` | Supporting copy |
+| Text muted | `--text-muted` | `#718096` | `#8e9bab` | Metadata and disabled text |
+| Border subtle | `--border-subtle` | `rgba(11,13,16,.10)` | `rgba(255,255,255,.12)` | Internal separation |
+| Border medium | `--border-medium` | `rgba(11,13,16,.22)` | `rgba(255,255,255,.22)` | Control outlines |
+| Action / known price | `--accent-blue` | `#155eef` | `#72a7ff` | Primary actions and known data |
+| Blue shade | `--accent-blue-soft` | `#6f9ff5` | `#315f9f` | Secondary states and aggregation |
+| Neutral state | `--accent-neutral` | `#667085` | `#aab6c5` | Unknown/review text and icon |
 
 Rules:
 
 - Blue is reserved for actions, focus, selected state, and known priced data.
-- Green means explicitly known free, never merely inexpensive.
-- Amber means uncertainty or review, not decoration.
-- Red means conflict, stale data, or destructive action.
+- The secondary blue shade is used for curb aggregation, secondary emphasis, and
+  known-free data; icons and labels distinguish its meaning.
+- Unknown/review/conflict states use neutral surfaces, iconography, dashed lines,
+  and explicit copy instead of introducing more hues.
 - Regulatory zones must not look like verified parking offers.
 - MapLibre paint values mirror these semantic roles even though WebGL styles
   cannot consume CSS custom properties directly.
@@ -137,6 +137,10 @@ The base unit is 4px. Existing spacing tokens are `--space-1` through
   MapLibre provides it.
 - **Interaction**: click zooms to MapLibre expansion zoom. Clusters disappear
   after zoom 14; individual points retain semantic colors.
+- **Aggregation**: filtered curb-segment midpoint proxies join the same native
+  GeoJSON cluster source as facilities. At neighborhood zoom the cluster count
+  represents parking places plus nearby road-side rows; proxies are hidden once
+  the map resolves into close-up lines.
 - **Accessibility**: cluster count is text, not color-only meaning.
 
 ### Detail sheet
@@ -162,6 +166,7 @@ The base unit is 4px. Existing spacing tokens are `--space-1` through
 | --- | --- | --- |
 | Map shell, search, filters, sheets, cards | Existing project CSS | Reused and normalized around Atlas tokens. |
 | Theme switch | Existing project `ThemeSwitch` | Retained: it already supports controlled `data-theme` state. Magic UI `animated-theme-toggler` was inspected but rejected because it adds `lucide-react` and a separate class-based theme flow. |
+| Map aggregation | MapLibre GeoJSON clustering + project midpoint proxies | Reused native clustering; one proxy per filtered curb row, no data mutation or API count changes. |
 | Structural primitives | shadcn registry | No configured registry was available; no dependency added. |
 
 ## 6. Motion & Interaction
@@ -180,7 +185,7 @@ The base unit is 4px. Existing spacing tokens are `--space-1` through
 
 ## 7. Depth & Surface
 
-Strategy: **mixed, restrained**.
+Strategy: **mixed, restrained** with a monochrome-blue palette.
 
 - Fixed context panels use tonal separation and one structural border.
 - Floating controls use translucent tint, subtle backdrop blur, a rim border,

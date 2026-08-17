@@ -28,7 +28,7 @@ Local fixture examples already exist in:
 Concrete examples:
 
 - `miami-beach:arcgis:lot:1` / G1, `200 7th St`: `HOURLY_RATE = "0-4hrs $2/hr; 4-15hrs $8+$1/hr; 15-24hrs $20"`, `EVENT_RATE = "$15/vehicle Fri, Sat & Sun 8PM-5AM"`, `ParkMobile = "88001"`, `SPACES = 659`.
-- `miami-beach:wpgmza:138` / P2 Parking Lot, `1 Ocean Drive`: `Hourly Rate = "$2.hr"`, `Maximum Time = "10 hours"`, `Park Mobile = "88502"`, and canonical fields already set `payment_provider = "ParkMobile / PayByPhone"`, `payment_app_url = "https://www2.paybyphone.com/park-in-miami-beach"`.
+- `miami-beach:wpgmza:138` / P2 Parking Lot, `1 Ocean Drive`: `Hourly Rate = "$2.hr"`, `Maximum Time = "10 hours"`, `Park Mobile = "88502"`, and canonical fields set `payment_provider = "ParkMobile / PayByPhone"`, `payment_app_url = "https://www.paybyphone.com/park-in-miami-beach"`; legacy `www2` values are normalized at load time.
 - Official Miami Beach mobile-app page states that PayByPhone is supported in Miami Beach and that ParkMobile payment by call is available; this supports modeling app/web/call channels as provider/payment facts, not direct per-stall checkout links.
 
 Requested South Beach zone example `40208` is included below as a low-confidence fixture shape until a source/API/browser observation verifies provider, geography, rates, and allowed methods.

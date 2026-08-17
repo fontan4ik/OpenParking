@@ -82,6 +82,7 @@ describe('ParkingUSA Parking Index', () => {
 
     expect(rows).toHaveLength(1);
     expect(rows[0].properties.source_id).toBe('parking-space-row:0-1');
+    expect(rows[0].properties.official_point_fit_max_meters).toBe(0);
   });
 
   it('uses Miami plus Miami-Dade only for the Miami DB baseline scope', () => {
@@ -384,7 +385,7 @@ describe('ParkingUSA Parking Index', () => {
       return counts;
     }, {});
 
-    expect(statusCounts).toEqual({ accepted: 1794, needs_field_review: 53 });
+    expect(statusCounts).toEqual({ accepted: 1825, needs_field_review: 81 });
     expect(generatedRows.some((feature) => feature.properties.source_id === 'miami-beach:arcgis:spaces:4855')).toBe(false);
   }, 45_000);
 
@@ -395,7 +396,7 @@ describe('ParkingUSA Parking Index', () => {
     ]);
 
     expect(miami.metadata?.count).toBe(miami.features.length);
-    expect(miami.metadata?.count).toBe(1_847);
+    expect(miami.metadata?.count).toBe(1_906);
     expect(sanFrancisco.metadata?.count).toBe(sanFrancisco.features.length);
     expect(sanFrancisco.metadata?.count).toBe(2_889);
   }, 45_000);
@@ -466,7 +467,7 @@ describe('ParkingUSA Parking Index', () => {
       field_conflict_status: 'needs_field_review',
       field_payment_zone_location_id: '40208',
       enrichment_status: 'needs_review',
-      geometry_provenance: 'Curb line derived from grouped official parking-space points; parking-area interior points are excluded before line generation.',
+      geometry_provenance: 'Curb line centered on grouped official parking-space points and road-oriented without replacing their lateral position; parking-area interior points are excluded before line generation.',
     });
   });
 
@@ -647,6 +648,7 @@ describe('ParkingUSA Parking Index', () => {
           city: 'Miami Beach',
           charge: '$2/hr',
           parkmobile_zone: '88602',
+          payment_app_url: 'https://www2.paybyphone.com/park-in-miami-beach',
           source_url: 'https://www.miamibeachfl.gov/city-hall/parking/parking-garages-lot-locations/',
           evidence_url: 'https://www.miamibeachfl.gov/wp-json/wpgmza/v1/markers?map_id=17',
           confidence: 0.88,
@@ -658,7 +660,7 @@ describe('ParkingUSA Parking Index', () => {
     expect(result.properties).toMatchObject({
       parkmobile_zone: '88602',
       payment_provider: 'ParkMobile / PayByPhone',
-      payment_app_url: 'https://www2.paybyphone.com/park-in-miami-beach',
+      payment_app_url: 'https://www.paybyphone.com/park-in-miami-beach',
       payment_url: '',
       price_status: 'known_priced',
     });

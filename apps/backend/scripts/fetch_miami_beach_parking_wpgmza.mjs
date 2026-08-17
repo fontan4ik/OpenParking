@@ -10,7 +10,7 @@ const SOURCE_URL =
   'https://www.miamibeachfl.gov/city-hall/parking/parking-garages-lot-locations/';
 const API_URL = 'https://www.miamibeachfl.gov/wp-json/wpgmza/v1/markers?map_id=17';
 const PAYMENT_PROVIDER = 'ParkMobile / PayByPhone';
-const PAYMENT_APP_URL = 'https://www2.paybyphone.com/park-in-miami-beach';
+const PAYMENT_APP_URL = 'https://www.paybyphone.com/park-in-miami-beach';
 const PAYMENT_NOTE =
   'Official Miami Beach source lists ParkMobile zones and PayByPhone/ParkMobile app support; ParkingUSA does not infer a per-record checkout URL.';
 const DATA_AS_OF = currentSnapshotTimestamp();

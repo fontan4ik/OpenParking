@@ -269,6 +269,10 @@ function summarize(results: Array<{ feature: GeoJSONFeature; result: CurbGeometr
   const byStatus: Record<string, number> = {};
   const byReason: Record<string, number> = {};
   const byKind: Record<string, Record<string, number>> = {};
+  const sourceRoadDistances: number[] = [];
+  const alignmentDisplacements: number[] = [];
+  const lateralAdjustments: number[] = [];
+  const officialPointFitResiduals: number[] = [];
 
   for (const item of results) {
     byStatus[item.result.status] = (byStatus[item.result.status] ?? 0) + 1;
@@ -278,9 +282,38 @@ function summarize(results: Array<{ feature: GeoJSONFeature; result: CurbGeometr
     for (const reason of item.result.reasons) {
       byReason[reason] = (byReason[reason] ?? 0) + 1;
     }
+    const sourceRoadDistance = item.feature.properties.geometry_source_road_distance_meters;
+    const alignmentDisplacement = item.feature.properties.geometry_alignment_displacement_meters;
+    const lateralAdjustment = item.feature.properties.geometry_lateral_adjustment_meters;
+    const officialPointFit = item.feature.properties.official_point_fit_max_meters;
+    if (typeof sourceRoadDistance === 'number') sourceRoadDistances.push(sourceRoadDistance);
+    if (typeof alignmentDisplacement === 'number') alignmentDisplacements.push(alignmentDisplacement);
+    if (typeof lateralAdjustment === 'number') lateralAdjustments.push(lateralAdjustment);
+    if (typeof officialPointFit === 'number') officialPointFitResiduals.push(officialPointFit);
   }
 
-  return { byStatus, byReason, byKind };
+  const distribution = (values: number[]) => {
+    if (values.length === 0) return { sample_count: 0, p95: null, max: null };
+    const sorted = [...values].sort((a, b) => a - b);
+    const p95Index = Math.min(sorted.length - 1, Math.ceil(sorted.length * 0.95) - 1);
+    return {
+      sample_count: sorted.length,
+      p95: Math.round(sorted[p95Index] * 10) / 10,
+      max: Math.round(sorted[sorted.length - 1] * 10) / 10,
+    };
+  };
+
+  return {
+    byStatus,
+    byReason,
+    byKind,
+    alignment_metrics: {
+      source_to_matched_road_meters: distribution(sourceRoadDistances),
+      automatic_alignment_shift_meters: distribution(alignmentDisplacements),
+      official_lateral_position_adjustment_meters: distribution(lateralAdjustments),
+      official_point_to_generated_line_max_meters: distribution(officialPointFitResiduals),
+    },
+  };
 }
 
 async function main() {
@@ -338,6 +371,12 @@ async function main() {
       nearest_road_distance_meters: item.result.nearestRoadDistanceMeters,
       nearest_road_angle_delta_degrees: item.result.nearestRoadAngleDeltaDegrees,
       matched_road_source_id: item.result.nearestRoadSourceId,
+      source_to_matched_road_meters: item.feature.properties.geometry_source_road_distance_meters ?? null,
+      automatic_alignment_shift_meters: item.feature.properties.geometry_alignment_displacement_meters ?? null,
+      lateral_position_source: item.feature.properties.geometry_lateral_position_source ?? null,
+      lateral_adjustment_meters: item.feature.properties.geometry_lateral_adjustment_meters ?? null,
+      official_point_fit_max_meters: item.feature.properties.official_point_fit_max_meters ?? null,
+      geometry_accuracy_class: item.feature.properties.geometry_accuracy_class ?? null,
       geometry: item.feature.geometry,
     }));
 
@@ -351,6 +390,12 @@ async function main() {
     total_generated_curb_candidates: candidates.length,
     osm_reference_counts: osmReference.metadata,
     zone_parking_area_count: parkingAreas.length,
+    quality_thresholds: {
+      max_road_distance_meters: 12,
+      min_road_offset_meters: 0.8,
+      max_parallel_angle_degrees: 18,
+      max_automatic_alignment_shift_meters: 15,
+    },
     ...summarize(results),
     worst_examples: worst,
   };

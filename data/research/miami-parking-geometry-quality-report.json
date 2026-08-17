@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21T09:49:35.875Z",
+  "generated_at": "2026-08-13T17:41:37.077Z",
   "method": "deterministic_road_parallel_area_intersection_check",
   "city": "miami",
   "bbox": [
@@ -9,8 +9,8 @@
     -80.113
   ],
   "cache_path": "data\\research\\fetches\\miami-osm-roads-buildings-cache.geojson",
-  "checked_count": 1848,
-  "total_generated_curb_candidates": 1848,
+  "checked_count": 1906,
+  "total_generated_curb_candidates": 1906,
   "osm_reference_counts": {
     "source": "OpenStreetMap Overpass roads/buildings for parking geometry QA",
     "bbox": [
@@ -29,49 +29,380 @@
     "building_count": 15012
   },
   "zone_parking_area_count": 217,
+  "quality_thresholds": {
+    "max_road_distance_meters": 12,
+    "min_road_offset_meters": 0.8,
+    "max_parallel_angle_degrees": 18,
+    "max_automatic_alignment_shift_meters": 15
+  },
   "byStatus": {
-    "accepted": 1794,
-    "needs_field_review": 53,
-    "suppressed": 1
+    "needs_field_review": 81,
+    "accepted": 1825
   },
   "byReason": {
-    "too_far_from_road": 48,
-    "on_road_centerline_or_too_close": 4,
-    "intersects_parking_area_interior": 1,
-    "not_parallel_to_road": 1
+    "too_far_from_road": 67,
+    "on_road_centerline_or_too_close": 13,
+    "not_parallel_to_road": 3
   },
   "byKind": {
     "parking_space_row": {
-      "accepted": 1103,
-      "needs_field_review": 11
+      "needs_field_review": 42,
+      "accepted": 1131
     },
     "single_space_line": {
-      "accepted": 691,
-      "needs_field_review": 42,
-      "suppressed": 1
+      "accepted": 694,
+      "needs_field_review": 39
+    }
+  },
+  "alignment_metrics": {
+    "source_to_matched_road_meters": {
+      "sample_count": 1906,
+      "p95": 14.1,
+      "max": 66.6
+    },
+    "automatic_alignment_shift_meters": {
+      "sample_count": 1906,
+      "p95": 0,
+      "max": 4
+    },
+    "official_lateral_position_adjustment_meters": {
+      "sample_count": 1906,
+      "p95": 0,
+      "max": 4
+    },
+    "official_point_to_generated_line_max_meters": {
+      "sample_count": 1173,
+      "p95": 3.3,
+      "max": 6.5
     }
   },
   "worst_examples": [
     {
-      "source_id": "parking-space-row:982-731",
-      "name": "Miami Beach Residential Parking Spaces 1561",
+      "source_id": "parking-space-row:4176-4184",
+      "name": "Miami Beach Residential Parking Spaces 7568",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 13.3,
-      "nearest_road_angle_delta_degrees": 8.3,
-      "matched_road_source_id": "osm:way:1058620632",
+      "nearest_road_distance_meters": 14,
+      "nearest_road_angle_delta_degrees": 0.6,
+      "matched_road_source_id": "osm:way:1307211050",
+      "source_to_matched_road_meters": 13.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.9,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12423509058667,
-            25.812071797757362
+            -80.14106636909663,
+            25.78253027975541
           ],
           [
-            -80.12421141011319,
-            25.81220900050927
+            -80.14105032263761,
+            25.78203247897626
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:4027-4040",
+      "name": "Miami Beach Residential Parking Spaces 7203",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 17.7,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:565491778",
+      "source_to_matched_road_meters": 17.7,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.5,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1410687330902,
+            25.788458513676147
+          ],
+          [
+            -80.14105129167628,
+            25.787818036187645
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:14-18",
+      "name": "Miami Beach Residential Parking Spaces 15",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 12.9,
+      "nearest_road_angle_delta_degrees": 0.2,
+      "matched_road_source_id": "osm:way:1307189194",
+      "source_to_matched_road_meters": 12.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.7,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14122573254657,
+            25.787127728609708
+          ],
+          [
+            -80.14121575408804,
+            25.786850528058167
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:29-6033",
+      "name": "Miami Beach Residential Parking Spaces 30",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 12.1,
+      "nearest_road_angle_delta_degrees": 0.1,
+      "matched_road_source_id": "osm:way:1202386119",
+      "source_to_matched_road_meters": 24.5,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.6,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14130709485546,
+            25.789283915002198
+          ],
+          [
+            -80.14135305910307,
+            25.78994146144789
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:339-6244",
+      "name": "Miami Beach Residential Parking Spaces 340",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 14.9,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1024445106",
+      "source_to_matched_road_meters": 14.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 3.2,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13328899248253,
+            25.77814515712949
+          ],
+          [
+            -80.13336881366227,
+            25.777775772603036
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:895-894",
+      "name": "Miami Beach Residential Parking Spaces 1455",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 12.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1381415192",
+      "source_to_matched_road_meters": 12.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.1,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12442326487229,
+            25.81178115517607
+          ],
+          [
+            -80.12437520072034,
+            25.811775071799936
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:6029-981",
+      "name": "Miami Beach Residential Parking Spaces 10562",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 15.7,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1154293534",
+      "source_to_matched_road_meters": 16,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.3,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12320499445987,
+            25.817208801412885
+          ],
+          [
+            -80.1232093502749,
+            25.81714949141973
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:3861-3869",
+      "name": "Miami Beach Residential Parking Spaces 6929",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 5.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:432719099",
+      "source_to_matched_road_meters": 5.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.3,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1303822579604,
+            25.798265838221067
+          ],
+          [
+            -80.130931300418,
+            25.79843933053738
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:1321-1333",
+      "name": "Miami Beach Residential Parking Spaces 2019",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 17.5,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:566224862",
+      "source_to_matched_road_meters": 21,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.6,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12119674143604,
+            25.86532421235612
+          ],
+          [
+            -80.12123507305091,
+            25.865932026403275
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:1344-1334",
+      "name": "Miami Beach Residential Parking Spaces 2042",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 12.8,
+      "nearest_road_angle_delta_degrees": 3.3,
+      "matched_road_source_id": "osm:way:190675453",
+      "source_to_matched_road_meters": 31.7,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.9,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12108506105858,
+            25.865312652860226
+          ],
+          [
+            -80.12106485918878,
+            25.865874264914318
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:1408-1426",
+      "name": "Miami Beach Residential Parking Spaces 2106",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 5.7,
+      "nearest_road_angle_delta_degrees": 0.5,
+      "matched_road_source_id": "osm:way:1103218035",
+      "source_to_matched_road_meters": 22.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 2.3,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12131057117593,
+            25.868802269932427
+          ],
+          [
+            -80.12129226614232,
+            25.86834281299291
           ]
         ]
       }
@@ -83,115 +414,205 @@
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 22.1,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:1185237181",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12453958443102,
-            25.80660197819841
-          ],
-          [
-            -80.12461022750101,
-            25.8067181468026
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:4240-4241",
-      "name": "Miami Beach Residential Parking Spaces 7636",
-      "status": "needs_field_review",
-      "reasons": [
-        "on_road_centerline_or_too_close"
-      ],
-      "nearest_road_distance_meters": 0.1,
-      "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:1364243160",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12933721254093,
-            25.81330802681584
-          ],
-          [
-            -80.12931800475758,
-            25.813416382273818
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:2307-2308",
-      "name": "Miami Beach Residential Parking Spaces 4842",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 24.1,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:425041203",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.1331486014737,
-            25.790269416930542
-          ],
-          [
-            -80.13314494534936,
-            25.790156024634282
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:2357-2352",
-      "name": "Miami Beach Residential Parking Spaces 4892",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 24,
-      "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:855875287",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.14223406268144,
-            25.788940003771224
-          ],
-          [
-            -80.14186533321927,
-            25.788949443319975
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "parking-space-row:2358-2363",
-      "name": "Miami Beach Residential Parking Spaces 4893",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
       "nearest_road_distance_meters": 22.3,
-      "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:855875287",
+      "nearest_road_angle_delta_degrees": 9.3,
+      "matched_road_source_id": "osm:way:1185237181",
+      "source_to_matched_road_meters": 22.7,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 2.8,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1422212565305,
-            25.788867930769907
+            -80.12456248821786,
+            25.806623842928282
           ],
           [
-            -80.14185968031731,
-            25.78887718720315
+            -80.12458732371417,
+            25.80669628207273
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:1732-1756",
+      "name": "Miami Beach Residential Parking Spaces 2755",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 14.5,
+      "nearest_road_angle_delta_degrees": 2.4,
+      "matched_road_source_id": "osm:way:565580329",
+      "source_to_matched_road_meters": 15.7,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.8,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12939866775581,
+            25.80336049650278
+          ],
+          [
+            -80.12937814186944,
+            25.80351758157306
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:1754-1733",
+      "name": "Miami Beach Residential Parking Spaces 2781",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 13.6,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:565580329",
+      "source_to_matched_road_meters": 13.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 4.4,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12947469071057,
+            25.802875259607788
+          ],
+          [
+            -80.12938988970785,
+            25.8033519524574
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:1787-1783",
+      "name": "Miami Beach Residential Parking Spaces 2909",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 12.7,
+      "nearest_road_angle_delta_degrees": 6.5,
+      "matched_road_source_id": "osm:way:1001919269",
+      "source_to_matched_road_meters": 12.5,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.4,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13232716872348,
+            25.81375136660028
+          ],
+          [
+            -80.13201544420063,
+            25.813780470975477
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:1818-1828",
+      "name": "Miami Beach Residential Parking Spaces 2973",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 15.9,
+      "nearest_road_angle_delta_degrees": 2.8,
+      "matched_road_source_id": "osm:way:1154182804",
+      "source_to_matched_road_meters": 15.8,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 2.1,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13529178105199,
+            25.814122181478158
+          ],
+          [
+            -80.13488031881269,
+            25.814286904142328
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:6451-6449",
+      "name": "Miami Beach Residential Parking Spaces 12194",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 15.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:467853322",
+      "source_to_matched_road_meters": 15.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1.3,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12385780696026,
+            25.85712566131913
+          ],
+          [
+            -80.1245741497947,
+            25.857103353064772
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:2567-5275",
+      "name": "Miami Beach Residential Parking Spaces 5142",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 8.4,
+      "nearest_road_angle_delta_degrees": 1.7,
+      "matched_road_source_id": "osm:way:1001922688",
+      "source_to_matched_road_meters": 14.4,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1.3,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14448150914836,
+            25.79347012687788
+          ],
+          [
+            -80.14445056242504,
+            25.79269459166478
           ]
         ]
       }
@@ -206,6 +627,12 @@
       "nearest_road_distance_meters": 12.9,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:564833129",
+      "source_to_matched_road_meters": 12.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1.8,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -221,73 +648,511 @@
       }
     },
     {
-      "source_id": "parking-space-row:3136-3133",
-      "name": "Miami Beach Residential Parking Spaces 6152",
+      "source_id": "parking-space-row:2786-2769",
+      "name": "Miami Beach Residential Parking Spaces 5633",
       "status": "needs_field_review",
       "reasons": [
-        "on_road_centerline_or_too_close"
+        "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 0,
-      "nearest_road_angle_delta_degrees": 0.6,
-      "matched_road_source_id": "osm:way:475940184",
+      "nearest_road_distance_meters": 15.6,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:293376009",
+      "source_to_matched_road_meters": 15.8,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1355024817203,
-            25.79229907590452
+            -80.13297534586472,
+            25.768451388808263
           ],
           [
-            -80.13522778333122,
-            25.792304538156003
+            -80.1323670995479,
+            25.76846838369576
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:3999-3998",
-      "name": "Miami Beach Residential Parking Spaces 7175",
+      "source_id": "parking-space-row:2839-2842",
+      "name": "Miami Beach Residential Parking Spaces 5854",
       "status": "needs_field_review",
       "reasons": [
         "on_road_centerline_or_too_close"
       ],
       "nearest_road_distance_meters": 0.5,
-      "nearest_road_angle_delta_degrees": 1.9,
-      "matched_road_source_id": "osm:way:86626726",
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:424831371",
+      "source_to_matched_road_meters": 3.4,
+      "automatic_alignment_shift_meters": 4,
+      "lateral_position_source": "minimum_curb_offset_guard",
+      "lateral_adjustment_meters": 4,
+      "official_point_fit_max_meters": 1.6,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14075159679159,
-            25.77766277988049
+            -80.13471451455419,
+            25.76989177666466
           ],
           [
-            -80.1407519146466,
-            25.77779335471936
+            -80.13491232366837,
+            25.76992745539865
           ]
         ]
       }
     },
     {
-      "source_id": "parking-space-row:4534-4531",
-      "name": "Miami Beach Residential Parking Spaces 7930",
+      "source_id": "parking-space-row:2903-2904",
+      "name": "Miami Beach Residential Parking Spaces 5918",
       "status": "needs_field_review",
       "reasons": [
-        "too_far_from_road"
+        "on_road_centerline_or_too_close"
       ],
-      "nearest_road_distance_meters": 25.1,
+      "nearest_road_distance_meters": 0.3,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:566214113",
+      "matched_road_source_id": "osm:way:424827764",
+      "source_to_matched_road_meters": 3.9,
+      "automatic_alignment_shift_meters": 3.6,
+      "lateral_position_source": "minimum_curb_offset_guard",
+      "lateral_adjustment_meters": 3.6,
+      "official_point_fit_max_meters": 0.5,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1291246827921,
-            25.855043171879558
+            -80.13353616613438,
+            25.770952374800665
           ],
           [
-            -80.12891903715328,
-            25.855112733195952
+            -80.13363968306913,
+            25.770972010137243
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:3088-3079",
+      "name": "Miami Beach Residential Parking Spaces 6104",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.7,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:11169534",
+      "source_to_matched_road_meters": 2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 2.8,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1330360328298,
+            25.772147343767216
+          ],
+          [
+            -80.133367295506,
+            25.77220568555198
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:3173-5969",
+      "name": "Miami Beach Residential Parking Spaces 6189",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:11149056",
+      "source_to_matched_road_meters": 1.5,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 3.8,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1334111989745,
+            25.77709022369748
+          ],
+          [
+            -80.13312042327928,
+            25.77703589727755
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:3181-3180",
+      "name": "Miami Beach Residential Parking Spaces 6197",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:11149056",
+      "source_to_matched_road_meters": 4.1,
+      "automatic_alignment_shift_meters": 3.9,
+      "lateral_position_source": "minimum_curb_offset_guard",
+      "lateral_adjustment_meters": 3.9,
+      "official_point_fit_max_meters": 0.8,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13322391582508,
+            25.777058608133384
+          ],
+          [
+            -80.13309458768718,
+            25.777034445402986
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:6241-3188",
+      "name": "Miami Beach Residential Parking Spaces 10778",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:660377281",
+      "source_to_matched_road_meters": 4.1,
+      "automatic_alignment_shift_meters": 3.8,
+      "lateral_position_source": "minimum_curb_offset_guard",
+      "lateral_adjustment_meters": 3.8,
+      "official_point_fit_max_meters": 0.2,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13264945808533,
+            25.77821229549703
+          ],
+          [
+            -80.13273390153302,
+            25.77822681738083
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:3250-3249",
+      "name": "Miami Beach Residential Parking Spaces 6266",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.1,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:660377264",
+      "source_to_matched_road_meters": 3.5,
+      "automatic_alignment_shift_meters": 3.6,
+      "lateral_position_source": "minimum_curb_offset_guard",
+      "lateral_adjustment_meters": 3.6,
+      "official_point_fit_max_meters": 0.7,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1317752230384,
+            25.781843682629475
+          ],
+          [
+            -80.13191483610593,
+            25.781867982948267
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:3373-3388",
+      "name": "Miami Beach Residential Parking Spaces 6389",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.1,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:11165548",
+      "source_to_matched_road_meters": 1.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 4,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13134814483384,
+            25.777984734750138
+          ],
+          [
+            -80.13164969555423,
+            25.778038820434663
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:3683-3684",
+      "name": "Miami Beach Residential Parking Spaces 6732",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 14.6,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1469368086",
+      "source_to_matched_road_meters": 15.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.5,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12701791504765,
+            25.812964894143636
+          ],
+          [
+            -80.12706306335998,
+            25.81292426832778
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:3763-5542",
+      "name": "Miami Beach Residential Parking Spaces 6830",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 3.4,
+      "nearest_road_angle_delta_degrees": 9.5,
+      "matched_road_source_id": "osm:way:11130012",
+      "source_to_matched_road_meters": 20.1,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.4,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12866064337541,
+            25.796382129342675
+          ],
+          [
+            -80.12780177335063,
+            25.796091991657335
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:4129-4133",
+      "name": "Miami Beach Residential Parking Spaces 7420",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 12,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1001919261",
+      "source_to_matched_road_meters": 14.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.4,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1287828777048,
+            25.813735002588203
+          ],
+          [
+            -80.12898236876545,
+            25.813736795282853
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:6457-6460",
+      "name": "Miami Beach Residential Parking Spaces 12593",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 12.6,
+      "nearest_road_angle_delta_degrees": 1.3,
+      "matched_road_source_id": "osm:way:1120300206",
+      "source_to_matched_road_meters": 12.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1.1,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14076194004399,
+            25.77902627877655
+          ],
+          [
+            -80.14075216678249,
+            25.77869515607328
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:4008-4015",
+      "name": "Miami Beach Residential Parking Spaces 7184",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 14.1,
+      "nearest_road_angle_delta_degrees": 0.6,
+      "matched_road_source_id": "osm:way:1307211050",
+      "source_to_matched_road_meters": 14.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.7,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14085147479422,
+            25.782466778698076
+          ],
+          [
+            -80.14083715675342,
+            25.782023396064446
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:4928-5148",
+      "name": "Miami Beach Residential Parking Spaces 9198",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 13.1,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:129195125",
+      "source_to_matched_road_meters": 16.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1.4,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1410453683029,
+            25.781353021661154
+          ],
+          [
+            -80.14102949407976,
+            25.780861693003303
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:4293-4298",
+      "name": "Miami Beach Residential Parking Spaces 7689",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 13.8,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:319440746",
+      "source_to_matched_road_meters": 13.8,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.6,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13147284624112,
+            25.8148829861798
+          ],
+          [
+            -80.13134981767165,
+            25.815204917284767
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:6005-4537",
+      "name": "Miami Beach Residential Parking Spaces 10538",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 14.1,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:566214113",
+      "source_to_matched_road_meters": 14.1,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.5,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.12940434383603,
+            25.854979469566064
+          ],
+          [
+            -80.1292876432055,
+            25.85501894450718
           ]
         ]
       }
@@ -299,67 +1164,205 @@
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 22,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:566214113",
+      "nearest_road_distance_meters": 6.1,
+      "nearest_road_angle_delta_degrees": 7.8,
+      "matched_road_source_id": "osm:way:129195282",
+      "source_to_matched_road_meters": 22.3,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.4,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12918113990439,
-            25.854980557358708
+            -80.12916777779037,
+            25.85498136923873
           ],
           [
-            -80.12910826524477,
-            25.85500520780734
+            -80.12910244825454,
+            25.855014591380062
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:20",
-      "name": "Miami Beach Residential Parking Spaces 20",
+      "source_id": "parking-space-row:4675-4674",
+      "name": "Miami Beach Residential Parking Spaces 8253",
       "status": "needs_field_review",
       "reasons": [
-        "too_far_from_road"
+        "not_parallel_to_road"
       ],
-      "nearest_road_distance_meters": 20.7,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:1202434564",
+      "nearest_road_distance_meters": 7.7,
+      "nearest_road_angle_delta_degrees": 1.3,
+      "matched_road_source_id": "osm:way:566228299",
+      "source_to_matched_road_meters": 7.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.9,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14118244675446,
-            25.785474310690084
+            -80.12166608465265,
+            25.871985577541555
           ],
           [
-            -80.14114624870655,
-            25.785558610841964
+            -80.12180505037234,
+            25.871917142073297
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:81",
-      "name": "Miami Beach Residential Parking Spaces 81",
+      "source_id": "parking-space-row:4745-4744",
+      "name": "Miami Beach Residential Parking Spaces 9007",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 39.5,
+      "nearest_road_distance_meters": 5.3,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:565483663",
+      "matched_road_source_id": "osm:way:11146751",
+      "source_to_matched_road_meters": 6.5,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1.5,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1324247256612,
-            25.777338284849858
+            -80.13301926151615,
+            25.786735856310038
           ],
           [
-            -80.13252035797298,
-            25.777312537689
+            -80.13305942263827,
+            25.78666901655873
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:5710-5709",
+      "name": "Miami Beach Residential Parking Spaces 10173",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.3,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:11161932",
+      "source_to_matched_road_meters": 8.1,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1.6,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13961045385575,
+            25.853625952044172
+          ],
+          [
+            -80.13976709201972,
+            25.853621445191628
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:5732-5733",
+      "name": "Miami Beach Residential Parking Spaces 10195",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.3,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:11161932",
+      "source_to_matched_road_meters": 7.4,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 0.9,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13876708799732,
+            25.85376905108074
+          ],
+          [
+            -80.13892136859275,
+            25.853728682323904
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "parking-space-row:6488-6483",
+      "name": "Miami Beach Residential Parking Spaces 14996",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 19.8,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:802814387",
+      "source_to_matched_road_meters": 14.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": 1.9,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14124110230193,
+            25.852159445300636
+          ],
+          [
+            -80.14149276397474,
+            25.852149390001657
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:9024",
+      "name": "Miami Beach Residential Parking Spaces 9024",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 21.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:1376725470",
+      "source_to_matched_road_meters": 21.3,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.1333520060426,
+            25.779539526920296
+          ],
+          [
+            -80.13336327544464,
+            25.779487812118315
           ]
         ]
       }
@@ -369,69 +1372,88 @@
       "name": "Miami Beach Residential Parking Spaces 1098",
       "status": "needs_field_review",
       "reasons": [
-        "too_far_from_road"
+        "too_far_from_road",
+        "not_parallel_to_road"
       ],
-      "nearest_road_distance_meters": 20.4,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:595009641",
+      "nearest_road_distance_meters": 1.9,
+      "nearest_road_angle_delta_degrees": 5,
+      "matched_road_source_id": "osm:way:190675581",
+      "source_to_matched_road_meters": 20.7,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12058199503052,
-            25.854214230764114
+            -80.12049959533223,
+            25.85415649892433
           ],
           [
-            -80.12067986747518,
-            25.854232025754072
+            -80.12072726471573,
+            25.854257958609583
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:1326",
-      "name": "Miami Beach Residential Parking Spaces 1326",
+      "source_id": "miami-beach:arcgis:spaces:1261",
+      "name": "Miami Beach Residential Parking Spaces 1261",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 34,
+      "nearest_road_distance_meters": 18.7,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:960111664",
+      "matched_road_source_id": "osm:way:447041974",
+      "source_to_matched_road_meters": 18.8,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12301687859421,
-            25.81451108063787
+            -80.12270905014755,
+            25.81967857825249
           ],
           [
-            -80.12292498992828,
-            25.814546359322115
+            -80.12270935338907,
+            25.819723268470238
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:1506",
-      "name": "Miami Beach Residential Parking Spaces 1506",
+      "source_id": "miami-beach:arcgis:spaces:1403",
+      "name": "Miami Beach Residential Parking Spaces 1403",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 45.2,
+      "nearest_road_distance_meters": 18.7,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:945017533",
+      "matched_road_source_id": "osm:way:190557164",
+      "source_to_matched_road_meters": 23.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12286387534435,
-            25.81302138603215
+            -80.12443107710266,
+            25.80989962630294
           ],
           [
-            -80.12276957425777,
-            25.813050970686803
+            -80.1244369204461,
+            25.80982964671315
           ]
         ]
       }
@@ -443,43 +1465,25 @@
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 25.4,
+      "nearest_road_distance_meters": 19.2,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:190557164",
+      "source_to_matched_road_meters": 25.4,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12430756413659,
-            25.80918752758906
+            -80.12429912733104,
+            25.809180263224274
           ],
           [
-            -80.12428964706024,
-            25.809098532880267
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:1584",
-      "name": "Miami Beach Residential Parking Spaces 1584",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 32.8,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:565581120",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12540724587026,
-            25.80214084505799
-          ],
-          [
-            -80.12550699580606,
-            25.802138668695765
+            -80.1242985282709,
+            25.809105864004163
           ]
         ]
       }
@@ -491,9 +1495,15 @@
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 26.4,
+      "nearest_road_distance_meters": 26.6,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:903296393",
+      "source_to_matched_road_meters": 26.5,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -513,93 +1523,118 @@
       "name": "Miami Beach Residential Parking Spaces 1892",
       "status": "needs_field_review",
       "reasons": [
-        "too_far_from_road"
+        "too_far_from_road",
+        "not_parallel_to_road"
       ],
-      "nearest_road_distance_meters": 25.4,
+      "nearest_road_distance_meters": 27.5,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:566214135",
+      "source_to_matched_road_meters": 25.4,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12514100003591,
-            25.857977483049204
+            -80.12511275917313,
+            25.857976292670045
           ],
           [
-            -80.12507947888567,
-            25.857906239746622
+            -80.1251603491953,
+            25.857968422471245
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:2175",
-      "name": "Miami Beach Residential Parking Spaces 2175",
+      "source_id": "miami-beach:arcgis:spaces:1982",
+      "name": "Miami Beach Residential Parking Spaces 1982",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 22,
+      "nearest_road_distance_meters": 17.6,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:190675583",
+      "matched_road_source_id": "osm:way:11146722",
+      "source_to_matched_road_meters": 17.8,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1219621033384,
-            25.85831793337841
+            -80.1210065657224,
+            25.863366969342117
           ],
           [
-            -80.12186868760521,
-            25.858349829025155
+            -80.12105624021507,
+            25.86336224671376
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:2245",
-      "name": "Miami Beach Residential Parking Spaces 2245",
+      "source_id": "miami-beach:arcgis:spaces:2246",
+      "name": "Miami Beach Residential Parking Spaces 2246",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 12.5,
+      "nearest_road_distance_meters": 15.3,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:566224862",
+      "source_to_matched_road_meters": 15.8,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12170928100903,
-            25.86514983871817
+            -80.12173134851011,
+            25.865159211107965
           ],
           [
-            -80.12161046262455,
-            25.865162697013986
+            -80.12172144113296,
+            25.8651484071356
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:2568",
-      "name": "Miami Beach Residential Parking Spaces 2568",
+      "source_id": "miami-beach:arcgis:spaces:2404",
+      "name": "Miami Beach Residential Parking Spaces 2404",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 34.1,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:618178489",
+      "nearest_road_distance_meters": 3.9,
+      "nearest_road_angle_delta_degrees": 4.4,
+      "matched_road_source_id": "osm:way:11118573",
+      "source_to_matched_road_meters": 15,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12397872341992,
-            25.80780943471223
+            -80.12143960533015,
+            25.868979804148225
           ],
           [
-            -80.1240239595223,
-            25.807890069475864
+            -80.12153214643546,
+            25.868989798192473
           ]
         ]
       }
@@ -614,164 +1649,52 @@
       "nearest_road_distance_meters": 19.7,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:1381415213",
+      "source_to_matched_road_meters": 20,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12581924229656,
-            25.80648237811001
+            -80.12573350825713,
+            25.806453513344284
           ],
           [
-            -80.12572567679396,
-            25.80645094517013
+            -80.12581651697033,
+            25.806481714655273
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:2668",
-      "name": "Miami Beach Residential Parking Spaces 2668",
+      "source_id": "miami-beach:arcgis:spaces:4467",
+      "name": "Miami Beach Residential Parking Spaces 4467",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 26.1,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:206777826",
+      "nearest_road_distance_meters": 3,
+      "nearest_road_angle_delta_degrees": 2.1,
+      "matched_road_source_id": "osm:way:424832294",
+      "source_to_matched_road_meters": 6.4,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12529578725662,
-            25.805081500386258
+            -80.13199216850599,
+            25.773282054964195
           ],
           [
-            -80.12524075932623,
-            25.80500603590335
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:3276",
-      "name": "Miami Beach Residential Parking Spaces 3276",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 33.9,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:313195333",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12204924566082,
-            25.857093833808584
-          ],
-          [
-            -80.1220757572349,
-            25.857006617527727
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:4572",
-      "name": "Miami Beach Residential Parking Spaces 4572",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 48.9,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:319274849",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13545205630344,
-            25.768904692014814
-          ],
-          [
-            -80.13552589244925,
-            25.768965518934962
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:4752",
-      "name": "Miami Beach Residential Parking Spaces 4752",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 19.5,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:425089473",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13651673878151,
-            25.79024788072906
-          ],
-          [
-            -80.13647722358603,
-            25.790330947618504
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:4844",
-      "name": "Miami Beach Residential Parking Spaces 4844",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 35.9,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:425041203",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13315127975667,
-            25.790365677401258
-          ],
-          [
-            -80.1331483879442,
-            25.790275250420688
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:4855",
-      "name": "Miami Beach Residential Parking Spaces 4855",
-      "status": "suppressed",
-      "reasons": [
-        "intersects_parking_area_interior"
-      ],
-      "nearest_road_distance_meters": 4,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:565567675",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.13996203870423,
-            25.789755664163952
-          ],
-          [
-            -80.1400326796056,
-            25.78975402583472
-          ],
-          [
-            -80.1400565657461,
-            25.78975348665673
+            -80.13198017757792,
+            25.773241106161457
           ]
         ]
       }
@@ -781,21 +1704,57 @@
       "name": "Miami Beach Residential Parking Spaces 5208",
       "status": "needs_field_review",
       "reasons": [
-        "not_parallel_to_road"
+        "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 4,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:564844883",
+      "nearest_road_distance_meters": 2.3,
+      "nearest_road_angle_delta_degrees": 0.1,
+      "matched_road_source_id": "osm:way:122083067",
+      "source_to_matched_road_meters": 15.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14423953274536,
-            25.793417549520694
+            -80.14425283296198,
+            25.793519309234263
           ],
           [
-            -80.14415186699688,
-            25.793489147783834
+            -80.14426356305826,
+            25.793494558827447
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:5209",
+      "name": "Miami Beach Residential Parking Spaces 5209",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 15.5,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:564844883",
+      "source_to_matched_road_meters": 15.7,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14395768899428,
+            25.793485870324314
+          ],
+          [
+            -80.1439593511247,
+            25.79351884339801
           ]
         ]
       }
@@ -810,40 +1769,142 @@
       "nearest_road_distance_meters": 42.3,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:398360491",
+      "source_to_matched_road_meters": 42.3,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14370004667802,
-            25.79244809690696
+            -80.14370035194418,
+            25.79244803010851
           ],
           [
-            -80.14379703305674,
-            25.79242687431351
+            -80.14379672779059,
+            25.792426941111955
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:5254",
-      "name": "Miami Beach Residential Parking Spaces 5254",
+      "source_id": "miami-beach:arcgis:spaces:5244",
+      "name": "Miami Beach Residential Parking Spaces 5244",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 43.5,
+      "nearest_road_distance_meters": 13.8,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:198108633",
+      "matched_road_source_id": "osm:way:565567694",
+      "source_to_matched_road_meters": 14.4,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14199296998576,
-            25.793708102318185
+            -80.14253615764058,
+            25.793382654421347
           ],
           [
-            -80.1420189303404,
-            25.79362075336026
+            -80.14262893608483,
+            25.7933804260728
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:5268",
+      "name": "Miami Beach Residential Parking Spaces 5268",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 18.8,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:769233976",
+      "source_to_matched_road_meters": 19.2,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14253576748109,
+            25.79463868053968
+          ],
+          [
+            -80.14252640576602,
+            25.794638974563394
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:5816",
+      "name": "Miami Beach Residential Parking Spaces 5816",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 14.5,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:319280873",
+      "source_to_matched_road_meters": 14.7,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13574020436536,
+            25.767844421994226
+          ],
+          [
+            -80.13569713921727,
+            25.76784726309775
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:5863",
+      "name": "Miami Beach Residential Parking Spaces 5863",
+      "status": "needs_field_review",
+      "reasons": [
+        "on_road_centerline_or_too_close"
+      ],
+      "nearest_road_distance_meters": 0.1,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:424831371",
+      "source_to_matched_road_meters": 3.4,
+      "automatic_alignment_shift_meters": 3.3,
+      "lateral_position_source": "minimum_curb_offset_guard",
+      "lateral_adjustment_meters": 3.3,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13440632992344,
+            25.769832312005175
+          ],
+          [
+            -80.1345027155654,
+            25.769848647123826
           ]
         ]
       }
@@ -858,136 +1919,112 @@
       "nearest_road_distance_meters": 23.8,
       "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:565581119",
+      "source_to_matched_road_meters": 24.1,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1267528680669,
-            25.80400771246234
+            -80.12676823906537,
+            25.803965492839165
           ],
           [
-            -80.12678519984891,
-            25.80392212833345
+            -80.12676982885044,
+            25.80396434795662
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:6151",
-      "name": "Miami Beach Residential Parking Spaces 6151",
+      "source_id": "miami-beach:arcgis:spaces:6393",
+      "name": "Miami Beach Residential Parking Spaces 6393",
       "status": "needs_field_review",
       "reasons": [
         "on_road_centerline_or_too_close"
       ],
-      "nearest_road_distance_meters": 0.1,
-      "nearest_road_angle_delta_degrees": 0.6,
-      "matched_road_source_id": "osm:way:475940184",
+      "nearest_road_distance_meters": 0.7,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:11165548",
+      "source_to_matched_road_meters": 3.3,
+      "automatic_alignment_shift_meters": 3.9,
+      "lateral_position_source": "minimum_curb_offset_guard",
+      "lateral_adjustment_meters": 3.9,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13545034674098,
-            25.792300112584673
+            -80.13156580060041,
+            25.778028569047166
           ],
           [
-            -80.13535062414591,
-            25.792302095522736
+            -80.13166180360679,
+            25.77804578800227
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:6513",
-      "name": "Miami Beach Residential Parking Spaces 6513",
+      "source_id": "miami-beach:arcgis:spaces:6442",
+      "name": "Miami Beach Residential Parking Spaces 6442",
       "status": "needs_field_review",
       "reasons": [
-        "too_far_from_road"
+        "on_road_centerline_or_too_close"
       ],
-      "nearest_road_distance_meters": 34.9,
+      "nearest_road_distance_meters": 0,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:11144187",
+      "matched_road_source_id": "osm:way:1307231073",
+      "source_to_matched_road_meters": 3.5,
+      "automatic_alignment_shift_meters": 3.5,
+      "lateral_position_source": "minimum_curb_offset_guard",
+      "lateral_adjustment_meters": 3.5,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1297713370615,
-            25.787602170053546
+            -80.13131559717549,
+            25.780504232773865
           ],
           [
-            -80.12967712051683,
-            25.787572417460463
+            -80.13121961516133,
+            25.780486963163163
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:7217",
-      "name": "Miami Beach Residential Parking Spaces 7217",
+      "source_id": "miami-beach:arcgis:spaces:9490",
+      "name": "Miami Beach Residential Parking Spaces 9490",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 35.4,
+      "nearest_road_distance_meters": 44.4,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:565491782",
+      "matched_road_source_id": "osm:way:660377264",
+      "source_to_matched_road_meters": 44.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14105746417309,
-            25.789176227522763
+            -80.13152040716875,
+            25.78138942117464
           ],
           [
-            -80.14110787110862,
-            25.789254296800923
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:9053",
-      "name": "Miami Beach Residential Parking Spaces 9053",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 18.3,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:1240913639",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.14134286972093,
-            25.795408249187634
-          ],
-          [
-            -80.14133012485007,
-            25.79549797307857
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:9154",
-      "name": "Miami Beach Residential Parking Spaces 9154",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 31.8,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:618178491",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.12415467440367,
-            25.807972317751616
-          ],
-          [
-            -80.12405498445311,
-            25.80796839669277
+            -80.13161645033829,
+            25.781406124109033
           ]
         ]
       }
@@ -999,67 +2036,115 @@
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 30.8,
+      "nearest_road_distance_meters": 18.6,
+      "nearest_road_angle_delta_degrees": 1.1,
+      "matched_road_source_id": "osm:way:1499810709",
+      "source_to_matched_road_meters": 30.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14158284474334,
+            25.775600950109133
+          ],
+          [
+            -80.14158875540352,
+            25.775651270118615
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:9836",
+      "name": "Miami Beach Residential Parking Spaces 9836",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 13.3,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:1499810707",
+      "matched_road_source_id": "osm:way:1240913640",
+      "source_to_matched_road_meters": 13.8,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14153902097542,
-            25.775610414495443
+            -80.1414779863713,
+            25.79550802335819
           ],
           [
-            -80.14163257917144,
-            25.775641805732313
+            -80.14147101363764,
+            25.79550079935486
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10087",
-      "name": "Miami Beach Residential Parking Spaces 10087",
+      "source_id": "miami-beach:arcgis:spaces:10099",
+      "name": "Miami Beach Residential Parking Spaces 10099",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 20.3,
-      "nearest_road_angle_delta_degrees": 0.2,
-      "matched_road_source_id": "osm:way:424896111",
+      "nearest_road_distance_meters": 19.4,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:432543216",
+      "source_to_matched_road_meters": 19.4,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13394101003007,
-            25.78546002111801
+            -80.1307335576296,
+            25.794886319125514
           ],
           [
-            -80.13393821058287,
-            25.785369591750626
+            -80.13082605564756,
+            25.794883872855202
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10107",
-      "name": "Miami Beach Residential Parking Spaces 10107",
+      "source_id": "miami-beach:arcgis:spaces:10102",
+      "name": "Miami Beach Residential Parking Spaces 10102",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 21.3,
+      "nearest_road_distance_meters": 35.4,
       "nearest_road_angle_delta_degrees": 0.1,
-      "matched_road_source_id": "osm:way:308936829",
+      "matched_road_source_id": "osm:way:190675537",
+      "source_to_matched_road_meters": 35.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13559750916336,
-            25.789152398752833
+            -80.13078888027701,
+            25.79620625396429
           ],
           [
-            -80.1355947106986,
-            25.78906196935823
+            -80.13078982825134,
+            25.796203947698384
           ]
         ]
       }
@@ -1072,42 +2157,54 @@
         "too_far_from_road"
       ],
       "nearest_road_distance_meters": 19.8,
-      "nearest_road_angle_delta_degrees": 0.2,
+      "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:425038432",
+      "source_to_matched_road_meters": 19.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.13671657932323,
-            25.789011494672053
+            -80.13671422730683,
+            25.788932038223464
           ],
           [
-            -80.13671376271013,
-            25.7889210657408
+            -80.13671672209588,
+            25.789022502366212
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10136",
-      "name": "Miami Beach Residential Parking Spaces 10136",
+      "source_id": "miami-beach:arcgis:spaces:10139",
+      "name": "Miami Beach Residential Parking Spaces 10139",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 24.2,
+      "nearest_road_distance_meters": 19.8,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:566200619",
+      "matched_road_source_id": "osm:way:432826441",
+      "source_to_matched_road_meters": 19.8,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12707906797561,
-            25.85330840784258
+            -80.12337841089666,
+            25.85410086079914
           ],
           [
-            -80.12707465935516,
-            25.85321803112313
+            -80.12338218787234,
+            25.854190953854985
           ]
         ]
       }
@@ -1120,18 +2217,24 @@
         "too_far_from_road"
       ],
       "nearest_road_distance_meters": 36.1,
-      "nearest_road_angle_delta_degrees": 0.2,
+      "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:585439099",
+      "source_to_matched_road_meters": 36.5,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12810200232298,
-            25.863403241693987
+            -80.12809874248681,
+            25.863298006072228
           ],
           [
-            -80.12809930710867,
-            25.863312809679364
+            -80.12810179324148,
+            25.863396994866218
           ]
         ]
       }
@@ -1144,18 +2247,24 @@
         "too_far_from_road"
       ],
       "nearest_road_distance_meters": 20.6,
-      "nearest_road_angle_delta_degrees": 1.5,
+      "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:11143282",
+      "source_to_matched_road_meters": 20.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12482880868669,
-            25.859421843185906
+            -80.12482559505769,
+            25.859342454582134
           ],
           [
-            -80.12482624871146,
-            25.859331407946527
+            -80.12483072079141,
+            25.859432920715815
           ]
         ]
       }
@@ -1167,43 +2276,85 @@
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 41,
-      "nearest_road_angle_delta_degrees": 0.7,
+      "nearest_road_distance_meters": 40.4,
+      "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:1002881116",
+      "source_to_matched_road_meters": 40.4,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12288445003107,
-            25.85706158224605
+            -80.12288166273514,
+            25.856982393620005
           ],
           [
-            -80.12288029836317,
-            25.856971195527613
+            -80.1228835586526,
+            25.857073250890952
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10188",
-      "name": "Miami Beach Residential Parking Spaces 10188",
+      "source_id": "miami-beach:arcgis:spaces:10164",
+      "name": "Miami Beach Residential Parking Spaces 10164",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 30,
+      "nearest_road_distance_meters": 22.4,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:1002815870",
+      "matched_road_source_id": "osm:way:1381864334",
+      "source_to_matched_road_meters": 22.5,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14128414378612,
-            25.8508435851393
+            -80.1252490339369,
+            25.860447293587185
           ],
           [
-            -80.14128081563787,
-            25.85093399983233
+            -80.12525560972429,
+            25.860536518264908
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10189",
+      "name": "Miami Beach Residential Parking Spaces 10189",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 12.2,
+      "nearest_road_angle_delta_degrees": 0,
+      "matched_road_source_id": "osm:way:733613102",
+      "source_to_matched_road_meters": 12.1,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.14374705642604,
+            25.85141855609843
+          ],
+          [
+            -80.14373226809955,
+            25.85149618571034
           ]
         ]
       }
@@ -1215,91 +2366,55 @@
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 71.1,
-      "nearest_road_angle_delta_degrees": 3,
+      "nearest_road_distance_meters": 66.5,
+      "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:11136505",
+      "source_to_matched_road_meters": 66.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.14219599608529,
-            25.853626052943298
+            -80.14214368608627,
+            25.85355149394727
           ],
           [
-            -80.14213570941027,
-            25.85355394969363
+            -80.14218455967811,
+            25.853622495989484
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10204",
-      "name": "Miami Beach Residential Parking Spaces 10204",
+      "source_id": "miami-beach:arcgis:spaces:10473",
+      "name": "Miami Beach Residential Parking Spaces 10473",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 36.5,
+      "nearest_road_distance_meters": 19.6,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:566223525",
+      "matched_road_source_id": "osm:way:1424215919",
+      "source_to_matched_road_meters": 19.6,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.1274257852392,
-            25.86423670827774
+            -80.12694764158033,
+            25.8452233358232
           ],
           [
-            -80.12742329199484,
-            25.86414627150501
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:10363",
-      "name": "Miami Beach Residential Parking Spaces 10363",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 34.3,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:11158094",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.14373238276218,
-            25.792582341855532
-          ],
-          [
-            -80.14377832848331,
-            25.79266264338617
-          ]
-        ]
-      }
-    },
-    {
-      "source_id": "miami-beach:arcgis:spaces:10458",
-      "name": "Miami Beach Residential Parking Spaces 10458",
-      "status": "needs_field_review",
-      "reasons": [
-        "too_far_from_road"
-      ],
-      "nearest_road_distance_meters": 23.6,
-      "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:11152410",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -80.14440050981135,
-            25.790354111791125
-          ],
-          [
-            -80.14439763910958,
-            25.790263684257525
+            -80.12696484473639,
+            25.845311028640786
           ]
         ]
       }
@@ -1311,43 +2426,85 @@
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 21.7,
-      "nearest_road_angle_delta_degrees": 0.1,
+      "nearest_road_distance_meters": 17.1,
+      "nearest_road_angle_delta_degrees": 0,
       "matched_road_source_id": "osm:way:534853693",
+      "source_to_matched_road_meters": 17.5,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12441824913014,
-            25.857008962228267
+            -80.12436996203219,
+            25.85693635172323
           ],
           [
-            -80.12441614735447,
-            25.856918517291817
+            -80.12437173032652,
+            25.857006299483434
           ]
         ]
       }
     },
     {
-      "source_id": "miami-beach:arcgis:spaces:10708",
-      "name": "Miami Beach Residential Parking Spaces 10708",
+      "source_id": "miami-beach:arcgis:spaces:10475",
+      "name": "Miami Beach Residential Parking Spaces 10475",
       "status": "needs_field_review",
       "reasons": [
         "too_far_from_road"
       ],
-      "nearest_road_distance_meters": 41.9,
+      "nearest_road_distance_meters": 19.6,
       "nearest_road_angle_delta_degrees": 0,
-      "matched_road_source_id": "osm:way:441800757",
+      "matched_road_source_id": "osm:way:132683363",
+      "source_to_matched_road_meters": 20.7,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -80.12360918731892,
-            25.80921889719364
+            -80.12371243511598,
+            25.86077745541597
           ],
           [
-            -80.12370396664205,
-            25.809190604858387
+            -80.123804582739,
+            25.860773821659617
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "miami-beach:arcgis:spaces:10735",
+      "name": "Miami Beach Residential Parking Spaces 10735",
+      "status": "needs_field_review",
+      "reasons": [
+        "too_far_from_road"
+      ],
+      "nearest_road_distance_meters": 25.2,
+      "nearest_road_angle_delta_degrees": 0.1,
+      "matched_road_source_id": "osm:way:83038964",
+      "source_to_matched_road_meters": 25.9,
+      "automatic_alignment_shift_meters": 0,
+      "lateral_position_source": "official_parking_space_points",
+      "lateral_adjustment_meters": 0,
+      "official_point_fit_max_meters": null,
+      "geometry_accuracy_class": "needs_field_review",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.13070482402463,
+            25.79208876674611
+          ],
+          [
+            -80.13070562713384,
+            25.792088748205316
           ]
         ]
       }

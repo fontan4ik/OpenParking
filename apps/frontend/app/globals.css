@@ -3210,6 +3210,39 @@ body {
   }
 }
 
+.payment-zone-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  color: var(--text-primary);
+}
+
+.payment-zone-copy {
+  min-height: 30px;
+  padding: 5px 9px;
+  border: 1px solid rgba(37, 99, 235, 0.32);
+  border-radius: 8px;
+  background: rgba(37, 99, 235, 0.08);
+  color: #1d4ed8;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.payment-zone-copy:hover,
+.payment-zone-copy:focus-visible {
+  background: rgba(37, 99, 235, 0.14);
+  border-color: rgba(37, 99, 235, 0.55);
+}
+
+html[data-theme="dark"] .payment-zone-copy {
+  color: #bfdbfe;
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(96, 165, 250, 0.36);
+}
+
 /* ═══════════════════════════════════════════════════════════════
    OpenParking brand, landing, and theme system
    ═══════════════════════════════════════════════════════════════ */
@@ -11268,6 +11301,190 @@ html[data-theme="light"] .magic-bento__tile-cta {
   .pk-chip--live .pk-chip__dot { animation: none; }
 }
 
+/* Final brand lock: all product-facing semantic accents collapse into the
+   blue ramp. State meaning is preserved by labels, icons, borders, and dash
+   patterns, not by a rainbow of status colors. */
+:root,
+html[data-theme="light"] {
+  --landing-emerald: var(--accent-blue-soft);
+  --landing-cyan: var(--accent-blue);
+  --landing-amber: var(--text-secondary);
+  --landing-rose: var(--text-primary);
+  --dl-cluster-emerald-1: var(--accent-blue-soft);
+  --dl-cluster-emerald-2: var(--accent-blue);
+  --dl-cluster-amber-1: var(--text-secondary);
+  --dl-cluster-amber-2: var(--text-primary);
+  --dl-point-emerald: var(--accent-blue-soft);
+  --dl-point-amber: var(--text-secondary);
+  --gradient-primary: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-soft) 100%);
+  --gradient-warm: linear-gradient(135deg, var(--text-secondary) 0%, var(--text-primary) 100%);
+  --gradient-cool: linear-gradient(135deg, var(--accent-blue-soft) 0%, var(--accent-blue) 100%);
+}
+
+html[data-theme="dark"] {
+  --landing-emerald: var(--accent-blue-soft);
+  --landing-cyan: var(--accent-blue);
+  --landing-amber: var(--text-secondary);
+  --landing-rose: var(--text-primary);
+  --dl-cluster-emerald-1: var(--accent-blue-soft);
+  --dl-cluster-emerald-2: var(--accent-blue);
+  --dl-cluster-amber-1: var(--text-secondary);
+  --dl-cluster-amber-2: var(--text-primary);
+  --dl-point-emerald: var(--accent-blue-soft);
+  --dl-point-amber: var(--text-secondary);
+  --gradient-primary: linear-gradient(135deg, var(--accent-blue-soft) 0%, var(--accent-blue) 100%);
+  --gradient-warm: linear-gradient(135deg, var(--text-secondary) 0%, var(--text-primary) 100%);
+  --gradient-cool: linear-gradient(135deg, var(--accent-blue-soft) 0%, var(--accent-blue) 100%);
+}
+
+/* OpenParking monochrome-blue lock.
+   The product has one chromatic family: blue. All semantic states remain
+   distinguishable through copy, icons, borders, and dash patterns rather than
+   introducing green, amber, red, cyan, purple, or pink accents. */
+:root,
+html[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f7fa;
+  --bg-tertiary: #e9eef5;
+  --bg-card: rgba(255, 255, 255, 0.96);
+  --bg-card-hover: #eef4ff;
+  --bg-glass: rgba(255, 255, 255, 0.88);
+  --text-primary: #0b0d10;
+  --text-secondary: #405064;
+  --text-muted: #718096;
+  --text-accent: #155eef;
+  --accent-blue: #155eef;
+  --accent-blue-hover: #0d47c7;
+  --accent-blue-soft: #6f9ff5;
+  --accent-blue-glow: rgba(21, 94, 239, 0.16);
+  --accent-cyan: var(--accent-blue-soft);
+  --accent-emerald: var(--accent-blue-soft);
+  --accent-amber: var(--text-secondary);
+  --accent-red: var(--text-primary);
+  --accent-purple: var(--accent-blue-soft);
+  --accent-pink: var(--accent-blue-soft);
+  --border-subtle: rgba(11, 13, 16, 0.1);
+  --border-medium: rgba(11, 13, 16, 0.22);
+  --border-accent: rgba(21, 94, 239, 0.38);
+  --gradient-primary: linear-gradient(135deg, #155eef 0%, #6f9ff5 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(238, 244, 255, 0.88));
+  --gradient-sidebar: linear-gradient(165deg, #ffffff 0%, #f5f7fa 100%);
+  --shadow-card: 0 16px 34px -28px rgba(11, 13, 16, 0.42), 0 1px 0 rgba(255, 255, 255, 0.82) inset;
+  --shadow-glow-blue: 0 14px 30px -24px rgba(21, 94, 239, 0.42);
+  --shadow-glow-emerald: var(--shadow-glow-blue);
+  --pk-conflict: var(--text-primary);
+  --pk-priced: var(--accent-blue);
+  --pk-free: var(--accent-blue-soft);
+  --pk-unpriced: var(--text-muted);
+  --pk-unknown: var(--text-secondary);
+  --pk-stale: var(--text-primary);
+  --pk-default: var(--text-muted);
+}
+
+html[data-theme="dark"] {
+  --bg-primary: #0b0d10;
+  --bg-secondary: #14181e;
+  --bg-tertiary: #1b2533;
+  --bg-card: rgba(20, 24, 30, 0.96);
+  --bg-card-hover: #1b2533;
+  --bg-glass: rgba(11, 13, 16, 0.88);
+  --text-primary: #ffffff;
+  --text-secondary: #c5ceda;
+  --text-muted: #8e9bab;
+  --text-accent: #72a7ff;
+  --accent-blue: #72a7ff;
+  --accent-blue-hover: #a1c4ff;
+  --accent-blue-soft: #315f9f;
+  --accent-blue-glow: rgba(114, 167, 255, 0.22);
+  --accent-cyan: var(--accent-blue-soft);
+  --accent-emerald: var(--accent-blue-soft);
+  --accent-amber: var(--text-secondary);
+  --accent-red: var(--text-primary);
+  --accent-purple: var(--accent-blue-soft);
+  --accent-pink: var(--accent-blue-soft);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-medium: rgba(255, 255, 255, 0.22);
+  --border-accent: rgba(114, 167, 255, 0.44);
+  --gradient-primary: linear-gradient(135deg, #315f9f 0%, #72a7ff 100%);
+  --gradient-card: linear-gradient(150deg, rgba(27, 37, 51, 0.96), rgba(20, 24, 30, 0.96));
+  --gradient-sidebar: linear-gradient(165deg, #14181e 0%, #0b0d10 100%);
+  --shadow-card: 0 20px 44px -30px rgba(0, 0, 0, 0.82), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+  --shadow-glow-blue: 0 16px 34px -26px rgba(114, 167, 255, 0.5);
+  --shadow-glow-emerald: var(--shadow-glow-blue);
+  --pk-conflict: var(--text-primary);
+  --pk-priced: var(--accent-blue);
+  --pk-free: var(--accent-blue-soft);
+  --pk-unpriced: var(--text-muted);
+  --pk-unknown: var(--text-secondary);
+  --pk-stale: var(--text-primary);
+  --pk-default: var(--text-muted);
+}
+
+.sidebar::after {
+  background: linear-gradient(180deg, var(--accent-blue) 0%, transparent 72%);
+}
+
+.facility-card[data-type]::before,
+.badge-garage,
+.badge-surface,
+.badge-street,
+.badge-valet,
+.badge-unknown,
+.confidence-high,
+.confidence-medium,
+.confidence-low {
+  background: var(--accent-blue-soft);
+  color: var(--text-primary);
+}
+
+.facility-price.priced,
+.facility-price.free,
+.facility-price.review,
+.facility-price.stale,
+.stat-value.accent-blue,
+.stat-value.accent-emerald,
+.stat-value.accent-amber,
+.stat-value.accent-purple {
+  color: var(--accent-blue);
+}
+
+/* No status hue escapes the product palette. The semantic classes remain for
+   markup and translation, but all visible states use blue, black, white, or a
+   blue-derived neutral. */
+.quality-chip.confidence-high,
+.quality-chip.confidence-medium,
+.quality-chip.confidence-low,
+.quality-chip.price-status-priced,
+.quality-chip.price-status-free,
+.quality-chip.price-status-unknown,
+.quality-chip.price-status-variable,
+.quality-chip.price-status-review,
+.quality-chip.price-status-stale,
+.popup-price.price-priced,
+.popup-price.price-free,
+.popup-price.price-unknown,
+.popup-price.price-variable,
+.popup-price.price-review,
+.popup-price.price-stale,
+.landing-metric--blue .landing-metric__val,
+.landing-metric--emerald .landing-metric__val,
+.landing-metric--cyan .landing-metric__val,
+.landing-metric--amber .landing-metric__val {
+  color: var(--accent-blue);
+}
+
+.quality-chip.confidence-high,
+.quality-chip.confidence-medium,
+.quality-chip.confidence-low,
+.confidence-high,
+.confidence-medium,
+.confidence-low,
+.landing-source__badge {
+  background: color-mix(in srgb, var(--accent-blue-soft) 16%, transparent);
+  border-color: color-mix(in srgb, var(--accent-blue-soft) 34%, transparent);
+  color: var(--accent-blue);
+}
+
 /* ─── Layer toggle group (map overlay) ─── */
 .layer-toggles {
   display: inline-flex;
@@ -11323,7 +11540,8 @@ html[data-theme="light"] .magic-bento__tile-cta {
   display: none;
 }
 @media (max-width: 768px) {
-  .bottom-sheet { display: block; }
+  .bottom-sheet { display: none; }
+  .bottom-sheet.is-open { display: block; }
   .bottom-sheet__trigger { display: inline-flex; }
 }
 .bottom-sheet__handle {
