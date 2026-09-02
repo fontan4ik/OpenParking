@@ -20,6 +20,12 @@ coverage/
 .env.*
 !.env.example
 
+# OpenRouter and other local credential files
+.openrouter/
+openrouter.key
+openrouter.key.*
+*.openrouter-key
+
 # Logs
 logs/
 *.log
